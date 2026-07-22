@@ -1,0 +1,858 @@
+fileFormatVersion: 2
+guid: d808070f52211a04aa33b7333c65731b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5946675866325729319
+    second: RealPageTemplate_0
+  - first:
+      213: 4830105456622109531
+    second: RealPageTemplate_1
+  - first:
+      213: 5712853407692663689
+    second: RealPageTemplate_2
+  - first:
+      213: 7572814812634644270
+    second: RealPageTemplate_3
+  - first:
+      213: -6604476860261834301
+    second: RealPageTemplate_4
+  - first:
+      213: -3359683947362950395
+    second: RealPageTemplate_5
+  - first:
+      213: -5622035889375235572
+    second: RealPageTemplate_6
+  - first:
+      213: -1214932185758767124
+    second: RealPageTemplate_7
+  - first:
+      213: 6119974960925754419
+    second: RealPageTemplate_8
+  - first:
+      213: -1675665523634415870
+    second: RealPageTemplate_9
+  - first:
+      213: 7580440400357171732
+    second: RealPageTemplate_10
+  - first:
+      213: 8493868927067313123
+    second: RealPageTemplate_11
+  - first:
+      213: 2541819690542930701
+    second: RealPageTemplate_12
+  - first:
+      213: -995608534329956725
+    second: RealPageTemplate_13
+  - first:
+      213: -5724303742853782307
+    second: RealPageTemplate_14
+  - first:
+      213: -6301283021373186611
+    second: RealPageTemplate_15
+  - first:
+      213: -6449185060126138859
+    second: RealPageTemplate_16
+  - first:
+      213: -6968588444394676528
+    second: RealPageTemplate_17
+  - first:
+      213: 1737877084720255148
+    second: RealPageTemplate_18
+  - first:
+      213: -6183893989529028771
+    second: RealPageTemplate_19
+  - first:
+      213: 2723156617280455448
+    second: RealPageTemplate_20
+  - first:
+      213: 2930432431931567577
+    second: RealPageTemplate_21
+  - first:
+      213: 5767714575224714176
+    second: RealPageTemplate_22
+  - first:
+      213: -2536593095730190372
+    second: RealPageTemplate_23
+  - first:
+      213: -8492564506300109048
+    second: RealPageTemplate_24
+  - first:
+      213: 2481004544679443590
+    second: RealPageTemplate_25
+  - first:
+      213: -7666203357801542511
+    second: RealPageTemplate_26
+  - first:
+      213: -3155138179263905766
+    second: RealPageTemplate_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RealPageTemplate_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1536
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 720cbbe8136d68250800000000000000
+      internalID: 5946675866325729319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_1
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 1006
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5303a1625bf70340800000000000000
+      internalID: 4830105456622109531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_2
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 1015
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98ba66308e1284f40800000000000000
+      internalID: 5712853407692663689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_3
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 1013
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2f77e813fa081960800000000000000
+      internalID: 7572814812634644270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_4
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 1011
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c16ec0a94f2854a0800000000000000
+      internalID: -6604476860261834301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_5
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 1008
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50369df00410061d0800000000000000
+      internalID: -3359683947362950395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_6
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 999
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c02ba4b35248af1b0800000000000000
+      internalID: -5622035889375235572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_7
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 1007
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce7e8a13d91b32fe0800000000000000
+      internalID: -1214932185758767124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_8
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 998
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 334c34c4dc48ee450800000000000000
+      internalID: 6119974960925754419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_9
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 990
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 207d6659517deb8e0800000000000000
+      internalID: -1675665523634415870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_10
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 999
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4122f489162233960800000000000000
+      internalID: 7580440400357171732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_11
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 991
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e3539669c840e570800000000000000
+      internalID: 8493868927067313123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_12
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 879
+        width: 6
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0b97e99a8b564320800000000000000
+      internalID: 2541819690542930701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_13
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 791
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b866aef1053ee22f0800000000000000
+      internalID: -995608534329956725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_14
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 782
+        width: 7
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd4e2c413103f80b0800000000000000
+      internalID: -5724303742853782307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_15
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 727
+        width: 6
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcdd9d94a785d88a0800000000000000
+      internalID: -6301283021373186611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_16
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 711
+        width: 6
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51edc686b54ef76a0800000000000000
+      internalID: -6449185060126138859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_17
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 687
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0de96f12bb99a4f90800000000000000
+      internalID: -6968588444394676528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_18
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 664
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca0da0a300e2e1810800000000000000
+      internalID: 1737877084720255148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_19
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 615
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d57f2712e256e2aa0800000000000000
+      internalID: -6183893989529028771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_20
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 584
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81381c8f3889ac520800000000000000
+      internalID: 2723156617280455448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_21
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 567
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dda09f45ccfaa820800000000000000
+      internalID: 2930432431931567577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_22
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 496
+        width: 7
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c3bc16f8d90b0050800000000000000
+      internalID: 5767714575224714176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_23
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 463
+        width: 6
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd72b45d4063cccd0800000000000000
+      internalID: -2536593095730190372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_24
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 356
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80f24e9b399542a80800000000000000
+      internalID: -8492564506300109048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_25
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 208
+        width: 7
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68c7fbb0d7c4e6220800000000000000
+      internalID: 2481004544679443590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_26
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 315
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19c0552d9ac2c9590800000000000000
+      internalID: -7666203357801542511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealPageTemplate_27
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 70
+        width: 7
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a10c3b7ea82b634d0800000000000000
+      internalID: -3155138179263905766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      RealPageTemplate_0: 5946675866325729319
+      RealPageTemplate_1: 4830105456622109531
+      RealPageTemplate_10: 7580440400357171732
+      RealPageTemplate_11: 8493868927067313123
+      RealPageTemplate_12: 2541819690542930701
+      RealPageTemplate_13: -995608534329956725
+      RealPageTemplate_14: -5724303742853782307
+      RealPageTemplate_15: -6301283021373186611
+      RealPageTemplate_16: -6449185060126138859
+      RealPageTemplate_17: -6968588444394676528
+      RealPageTemplate_18: 1737877084720255148
+      RealPageTemplate_19: -6183893989529028771
+      RealPageTemplate_2: 5712853407692663689
+      RealPageTemplate_20: 2723156617280455448
+      RealPageTemplate_21: 2930432431931567577
+      RealPageTemplate_22: 5767714575224714176
+      RealPageTemplate_23: -2536593095730190372
+      RealPageTemplate_24: -8492564506300109048
+      RealPageTemplate_25: 2481004544679443590
+      RealPageTemplate_26: -7666203357801542511
+      RealPageTemplate_27: -3155138179263905766
+      RealPageTemplate_3: 7572814812634644270
+      RealPageTemplate_4: -6604476860261834301
+      RealPageTemplate_5: -3359683947362950395
+      RealPageTemplate_6: -5622035889375235572
+      RealPageTemplate_7: -1214932185758767124
+      RealPageTemplate_8: 6119974960925754419
+      RealPageTemplate_9: -1675665523634415870
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
