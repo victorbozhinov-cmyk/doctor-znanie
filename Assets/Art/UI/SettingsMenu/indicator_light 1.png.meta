@@ -1,73 +1,58 @@
 fileFormatVersion: 2
-guid: 7c49b9350f7d1cc4c9f5d93a783197d2
+guid: 4c43188f836d52a4384b657d39a884ab
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1438985483047080208
-    second: template 1_0
+      213: 1364556360504301938
+    second: indicator_light 1_0
   - first:
-      213: 3544354644584755334
-    second: template 1_1
+      213: 850768892500965428
+    second: indicator_light 1_1
   - first:
-      213: 1011338628617091077
-    second: template 1_2
+      213: 6500018042680150649
+    second: indicator_light 1_2
   - first:
-      213: -7705486790093803547
-    second: template 1_3
+      213: 1330648945701379837
+    second: indicator_light 1_3
   - first:
-      213: 8901336333289648725
-    second: template 1_4
+      213: -2504834632291705303
+    second: indicator_light 1_4
   - first:
-      213: 6330028331648634257
-    second: template 1_5
+      213: -5392611797728937837
+    second: indicator_light 1_5
   - first:
-      213: 5520841052776843684
-    second: template 1_6
+      213: 4104678804470929999
+    second: indicator_light 1_6
   - first:
-      213: -3965169327432524247
-    second: template 1_7
+      213: -2839288675385966311
+    second: indicator_light 1_7
   - first:
-      213: -873448906183707922
-    second: template 1_8
+      213: 5990652229846361151
+    second: indicator_light 1_8
   - first:
-      213: -1311210258403227152
-    second: template 1_9
+      213: 4429445054545784098
+    second: indicator_light 1_9
   - first:
-      213: -8363818362422763196
-    second: template 1_10
+      213: 4159282065672832823
+    second: indicator_light 1_10
   - first:
-      213: 848179037443079211
-    second: template 1_11
+      213: 8106750224566400418
+    second: indicator_light 1_11
   - first:
-      213: 7323470116079482911
-    second: template 1_12
+      213: -3907254429203165889
+    second: indicator_light 1_12
   - first:
-      213: -6558594073808363926
-    second: template 1_13
+      213: 1441859715778322194
+    second: indicator_light 1_13
   - first:
-      213: -3993965724989867658
-    second: template 1_14
+      213: -1849315999284395162
+    second: indicator_light 1_14
   - first:
-      213: -6037362461892142799
-    second: template 1_15
+      213: -8601721462597647763
+    second: indicator_light 1_15
   - first:
-      213: 5327339010184589363
-    second: template 1_16
-  - first:
-      213: 1695983848440099649
-    second: template 1_17
-  - first:
-      213: -962855864221963653
-    second: template 1_18
-  - first:
-      213: -3710949842140383068
-    second: template 1_19
-  - first:
-      213: -7733209025673349228
-    second: template 1_20
-  - first:
-      213: -1464390122047720687
-    second: template 1_21
+      213: -7769225929279652892
+    second: indicator_light 1_16
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -176,13 +161,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: template 1_0
+      name: indicator_light 1_0
       rect:
         serializedVersion: 2
-        x: 179
-        y: 407
-        width: 259
-        height: 262
+        x: 0
+        y: 0
+        width: 1024
+        height: 1062
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,63 +176,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0fee806c352b70ce0800000000000000
-      internalID: -1438985483047080208
+      spriteID: 279dbd7b7c0efe210800000000000000
+      internalID: 1364556360504301938
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_1
+      name: indicator_light 1_1
       rect:
         serializedVersion: 2
-        x: 590
-        y: 1008
-        width: 599
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 680fa7c35c3103130800000000000000
-      internalID: 3544354644584755334
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_2
-      rect:
-        serializedVersion: 2
-        x: 995
-        y: 962
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5083a5adf1ff80e00800000000000000
-      internalID: 1011338628617091077
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_3
-      rect:
-        serializedVersion: 2
-        x: 995
-        y: 952
-        width: 6
+        x: 228
+        y: 747
+        width: 7
         height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -257,20 +198,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ef6efef69c901590800000000000000
-      internalID: -7705486790093803547
+      spriteID: 438f877dcc98ecb00800000000000000
+      internalID: 850768892500965428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_4
+      name: indicator_light 1_2
       rect:
         serializedVersion: 2
-        x: 82
-        y: 622
-        width: 6
-        height: 6
+        x: 230
+        y: 944
+        width: 11
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +220,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 552f10cdb36e78b70800000000000000
-      internalID: 8901336333289648725
+      spriteID: 97a8493a8f3b43a50800000000000000
+      internalID: 6500018042680150649
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_5
+      name: indicator_light 1_3
       rect:
         serializedVersion: 2
-        x: 83
-        y: 486
-        width: 6
-        height: 7
+        x: 230
+        y: 851
+        width: 11
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -301,20 +242,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 19d431eca37c8d750800000000000000
-      internalID: 6330028331648634257
+      spriteID: dfe57418a2a677210800000000000000
+      internalID: 1330648945701379837
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_6
+      name: indicator_light 1_4
       rect:
         serializedVersion: 2
-        x: 82
-        y: 395
-        width: 7
-        height: 12
+        x: 238
+        y: 769
+        width: 10
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,20 +264,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4a94824dfa7fd9c40800000000000000
-      internalID: 5520841052776843684
+      spriteID: 92e18215c2a0d3dd0800000000000000
+      internalID: -2504834632291705303
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_7
+      name: indicator_light 1_5
       rect:
         serializedVersion: 2
-        x: 83
-        y: 406
-        width: 6
-        height: 6
+        x: 241
+        y: 867
+        width: 11
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -345,62 +286,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 92e1c1c4183e8f8c0800000000000000
-      internalID: -3965169327432524247
+      spriteID: 39839c824289925b0800000000000000
+      internalID: -5392611797728937837
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_8
+      name: indicator_light 1_6
       rect:
         serializedVersion: 2
-        x: 82
-        y: 390
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ee27779f8d2e0e3f0800000000000000
-      internalID: -873448906183707922
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_9
-      rect:
-        serializedVersion: 2
-        x: 1041
-        y: 360
-        width: 6
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0f907029735adcde0800000000000000
-      internalID: -1311210258403227152
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_10
-      rect:
-        serializedVersion: 2
-        x: 1088
-        y: 362
+        x: 244
+        y: 818
         width: 9
         height: 8
       alignment: 0
@@ -411,20 +308,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 441e6e5438fbdeb80800000000000000
-      internalID: -8363818362422763196
+      spriteID: f4a909900afb6f830800000000000000
+      internalID: 4104678804470929999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_11
+      name: indicator_light 1_7
       rect:
         serializedVersion: 2
-        x: 81
-        y: 350
-        width: 8
-        height: 8
+        x: 277
+        y: 569
+        width: 483
+        height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -433,106 +330,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b2c3ab8375655cb00800000000000000
-      internalID: 848179037443079211
+      spriteID: 91184d03ef1d898d0800000000000000
+      internalID: -2839288675385966311
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_12
+      name: indicator_light 1_8
       rect:
         serializedVersion: 2
-        x: 82
-        y: 326
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f183b18e44132a560800000000000000
-      internalID: 7323470116079482911
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_13
-      rect:
-        serializedVersion: 2
-        x: 994
-        y: 200
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a6e9ba450713bf4a0800000000000000
-      internalID: -6558594073808363926
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_14
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 142
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 679b4e485559298c0800000000000000
-      internalID: -3993965724989867658
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_15
-      rect:
-        serializedVersion: 2
-        x: 994
-        y: 104
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 13914a604daf63ca0800000000000000
-      internalID: -6037362461892142799
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_16
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 91
+        x: 252
+        y: 711
         width: 8
         height: 10
       alignment: 0
@@ -543,20 +352,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3303224ba928ee940800000000000000
-      internalID: 5327339010184589363
+      spriteID: f34e4e49672132350800000000000000
+      internalID: 5990652229846361151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_17
+      name: indicator_light 1_9
       rect:
         serializedVersion: 2
-        x: 82
-        y: 86
-        width: 7
-        height: 7
+        x: 255
+        y: 896
+        width: 10
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -565,18 +374,128 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 143721f0358598710800000000000000
-      internalID: 1695983848440099649
+      spriteID: 22def441fcc887d30800000000000000
+      internalID: 4429445054545784098
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_18
+      name: indicator_light 1_10
       rect:
         serializedVersion: 2
-        x: 83
-        y: 70
+        x: 516
+        y: 1118
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 737051d700db8b930800000000000000
+      internalID: 4159282065672832823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: indicator_light 1_11
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 520
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a5391ab066f08070800000000000000
+      internalID: 8106750224566400418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: indicator_light 1_12
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1120
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3d06445cc4a6c9c0800000000000000
+      internalID: -3907254429203165889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: indicator_light 1_13
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 711
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21f99eea5c3820410800000000000000
+      internalID: 1441859715778322194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: indicator_light 1_14
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 874
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 663053195e8e556e0800000000000000
+      internalID: -1849315999284395162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: indicator_light 1_15
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 891
         width: 6
         height: 6
       alignment: 0
@@ -587,19 +506,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b7ae52361bf33a2f0800000000000000
-      internalID: -962855864221963653
+      spriteID: d62830557eb80a880800000000000000
+      internalID: -8601721462597647763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: template 1_19
+      name: indicator_light 1_16
       rect:
         serializedVersion: 2
-        x: 1041
-        y: 39
-        width: 7
+        x: 793
+        y: 815
+        width: 10
         height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -609,52 +528,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4a83eefa7ce008cc0800000000000000
-      internalID: -3710949842140383068
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_20
-      rect:
-        serializedVersion: 2
-        x: 994
-        y: 24
-        width: 6
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 49735ea0d5f1ea490800000000000000
-      internalID: -7733209025673349228
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: template 1_21
-      rect:
-        serializedVersion: 2
-        x: 995
-        y: 10
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 11331c251f07dabe0800000000000000
-      internalID: -1464390122047720687
+      spriteID: 4eb38813e2a2e2490800000000000000
+      internalID: -7769225929279652892
       vertices: []
       indices: 
       edges: []
@@ -663,7 +538,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c8f5013b8d7a20b45af75a3b62e45d5d
+    spriteID: d7a7c6db4bfe1544ca74ded909ba6685
     internalID: 0
     vertices: []
     indices: 
@@ -673,28 +548,23 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      template 1_0: -1438985483047080208
-      template 1_1: 3544354644584755334
-      template 1_10: -8363818362422763196
-      template 1_11: 848179037443079211
-      template 1_12: 7323470116079482911
-      template 1_13: -6558594073808363926
-      template 1_14: -3993965724989867658
-      template 1_15: -6037362461892142799
-      template 1_16: 5327339010184589363
-      template 1_17: 1695983848440099649
-      template 1_18: -962855864221963653
-      template 1_19: -3710949842140383068
-      template 1_2: 1011338628617091077
-      template 1_20: -7733209025673349228
-      template 1_21: -1464390122047720687
-      template 1_3: -7705486790093803547
-      template 1_4: 8901336333289648725
-      template 1_5: 6330028331648634257
-      template 1_6: 5520841052776843684
-      template 1_7: -3965169327432524247
-      template 1_8: -873448906183707922
-      template 1_9: -1311210258403227152
+      indicator_light 1_0: 1364556360504301938
+      indicator_light 1_1: 850768892500965428
+      indicator_light 1_10: 4159282065672832823
+      indicator_light 1_11: 8106750224566400418
+      indicator_light 1_12: -3907254429203165889
+      indicator_light 1_13: 1441859715778322194
+      indicator_light 1_14: -1849315999284395162
+      indicator_light 1_15: -8601721462597647763
+      indicator_light 1_16: -7769225929279652892
+      indicator_light 1_2: 6500018042680150649
+      indicator_light 1_3: 1330648945701379837
+      indicator_light 1_4: -2504834632291705303
+      indicator_light 1_5: -5392611797728937837
+      indicator_light 1_6: 4104678804470929999
+      indicator_light 1_7: -2839288675385966311
+      indicator_light 1_8: 5990652229846361151
+      indicator_light 1_9: 4429445054545784098
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
