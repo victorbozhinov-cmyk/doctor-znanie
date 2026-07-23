@@ -18,23 +18,34 @@ public class MasterVolumeController : MonoBehaviour
         volumeSlider.maxValue = 1f;
         volumeSlider.value = savedVolume;
 
-        ApplyVolume(savedVolume);
-        volumeSlider.onValueChanged.AddListener(ApplyVolume);
+        volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
     }
 
-    private void ApplyVolume(float value)
+    private void Start()
     {
-        AudioListener.volume = value;
+        OnVolumeChanged(volumeSlider.value);
+    }
 
-        PlayerPrefs.SetFloat(VolumeKey, value);
-        PlayerPrefs.Save();
+    private void OnVolumeChanged(float value)
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetVolume(value);
+        }
+        else
+        {
+            AudioListener.volume = value;
+
+            PlayerPrefs.SetFloat(VolumeKey, value);
+            PlayerPrefs.Save();
+        }
     }
 
     private void OnDestroy()
     {
         if (volumeSlider != null)
         {
-            volumeSlider.onValueChanged.RemoveListener(ApplyVolume);
+            volumeSlider.onValueChanged.RemoveListener(OnVolumeChanged);
         }
     }
 }
