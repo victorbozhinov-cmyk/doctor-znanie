@@ -397,11 +397,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrganButtonEffect
   visualTarget: {fileID: 121351535}
-  hoverMultiplier: 1.06
+  hoverMultiplier: 1.3
   pressedMultiplier: 0.97
   scaleSpeed: 10
-  glowColor: {r: 1, g: 1, b: 1, a: 1}
-  glowMaxAlpha: 0.45
+  glowColor: {r: 0.4117647, g: 0.4117647, b: 0.4117647, a: 1}
+  glowMaxAlpha: 0.6
   glowSize: 2
   glowSpeed: 8
   pulseSpeed: 2
@@ -798,7 +798,7 @@ MonoBehaviour:
   scaleSpeed: 10
   glowColor: {r: 1, g: 1, b: 1, a: 1}
   glowMaxAlpha: 0.75
-  glowSize: 5
+  glowSize: 9
   glowSpeed: 8
   pulseSpeed: 3
   pulseAmount: 0.07
@@ -1402,10 +1402,10 @@ MonoBehaviour:
   scaleSpeed: 10
   glowColor: {r: 1, g: 1, b: 1, a: 1}
   glowMaxAlpha: 0.4
-  glowSize: 2
+  glowSize: 0.8
   glowSpeed: 8
   pulseSpeed: 2
-  pulseAmount: 0.07
+  pulseAmount: 0.03
 --- !u!114 &1710840010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,12 +1924,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrganButtonEffect
   visualTarget: {fileID: 1594049680}
-  hoverMultiplier: 1.1
+  hoverMultiplier: 1.2
   pressedMultiplier: 0.95
   scaleSpeed: 10
   glowColor: {r: 1, g: 1, b: 1, a: 1}
-  glowMaxAlpha: 0.75
-  glowSize: 5
+  glowMaxAlpha: 1
+  glowSize: 11
   glowSpeed: 8
   pulseSpeed: 4
   pulseAmount: 0.4
