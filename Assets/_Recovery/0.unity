@@ -1397,15 +1397,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrganButtonEffect
   visualTarget: {fileID: 1538842175}
-  hoverMultiplier: 1.05
-  pressedMultiplier: 0.97
+  hoverMultiplier: 1.1
+  pressedMultiplier: 2
   scaleSpeed: 10
   glowColor: {r: 1, g: 1, b: 1, a: 1}
   glowMaxAlpha: 0.4
-  glowSize: 2
+  glowSize: 1
   glowSpeed: 8
   pulseSpeed: 2
-  pulseAmount: 0.07
+  pulseAmount: 0.061
 --- !u!114 &1710840010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1932,7 +1932,7 @@ MonoBehaviour:
   glowSize: 5
   glowSpeed: 8
   pulseSpeed: 4
-  pulseAmount: 0.4
+  pulseAmount: 0.15
 --- !u!1 &2081379490
 GameObject:
   m_ObjectHideFlags: 0
