@@ -17,4 +17,9 @@ public class MainMenuNavigation : MonoBehaviour
     {
         SceneManager.LoadScene("GameInfo");
     }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
