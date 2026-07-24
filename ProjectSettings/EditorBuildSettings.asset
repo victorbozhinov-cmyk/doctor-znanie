@@ -20,6 +20,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameInfo.unity
     guid: 9bb01479d86d4394eaf165225ea67b21
+  - enabled: 1
+    path: Assets/Scenes/BrainLevel.unity
+    guid: c611e84e5ac837c47a5e1e27a06301c1
+  - enabled: 1
+    path: Assets/Scenes/LungsLevel.unity
+    guid: 0dff1447395a04c4c9f16fa090a473d9
+  - enabled: 1
+    path: Assets/Scenes/LiverLevel.unity
+    guid: f58b079d9f17baa479aa7e3601e88ffc
+  - enabled: 1
+    path: Assets/Scenes/StomachLevel.unity
+    guid: 9146a7c71efc7b54cb09a4e03fa0fea5
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
