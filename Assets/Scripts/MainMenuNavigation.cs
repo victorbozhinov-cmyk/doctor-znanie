@@ -9,7 +9,7 @@ public class MainMenuNavigation : MonoBehaviour
     {
         popupAnimation.PlayClose(() =>
         {
-            SceneManager.LoadScene("MainMenu");
+            SettingsNavigation.GoBack();
         });
     }
 
@@ -20,7 +20,7 @@ public class MainMenuNavigation : MonoBehaviour
 
     public void OpenSettings()
     {
-        SceneManager.LoadScene("SettingsMenu");
+        SettingsNavigation.OpenSettings();
     }
 
     public void OpenGameInfo()
