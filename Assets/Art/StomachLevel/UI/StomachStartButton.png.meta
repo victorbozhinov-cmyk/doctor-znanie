@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: e6d0d7dbe550380418b0f319e04e27be
+guid: f8622f52a13ad6d4ebee568d0aae9991
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5422586279872711584
-    second: BackArrow_0
+      213: 2534077811722009863
+    second: StomachStartButton_0
+  - first:
+      213: -3337958084795087120
+    second: StomachStartButton_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,14 +49,14 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -113,23 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackArrow_0
+      name: StomachStartButton_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 0
-        width: 1513
-        height: 1024
+        x: 97
+        y: 376
+        width: 1342
+        height: 341
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 064b740328a1fb4b0800000000000000
-      internalID: -5422586279872711584
+      spriteID: 70db3e8f75ada2320800000000000000
+      internalID: 2534077811722009863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StomachStartButton_1
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 368
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f645a0aec03da1d0800000000000000
+      internalID: -3337958084795087120
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 358cb7e98c608de438347fcb9e652002
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BackArrow_0: -5422586279872711584
+      StomachStartButton_0: 2534077811722009863
+      StomachStartButton_1: -3337958084795087120
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

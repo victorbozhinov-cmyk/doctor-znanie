@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 18d660eb9bc8b8d478ea95d6c9e415f9
+guid: bbd652cbe251b57498dfe9838763a2ca
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8290410992389135748
-    second: HeartLevelStartButton_0
+      213: -1748658659445402179
+    second: SettingsMiniButton_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HeartLevelStartButton_0
+      name: SettingsMiniButton_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 10
-        width: 1003
-        height: 218
+        x: 397
+        y: 149
+        width: 784
+        height: 763
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 48d19538fd47d0370800000000000000
-      internalID: 8290410992389135748
+      spriteID: db5985ac6348bb7e0800000000000000
+      internalID: -1748658659445402179
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 827c34e2f468bc34faf3747d1f45d488
+    spriteID: 886251bafbdf1064c883bc5935ee5b7c
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HeartLevelStartButton_0: 8290410992389135748
+      SettingsMiniButton_0: -1748658659445402179
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
