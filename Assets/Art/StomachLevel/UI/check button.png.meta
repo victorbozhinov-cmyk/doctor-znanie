@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 5096adc1b35d3824f94a20c8e9aefb15
+guid: 3090804bdefd0934b9307232fd72b90d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5180464973659872146
-    second: cards layout_0
+      213: 518041778579779733
+    second: check button_0
+  - first:
+      213: -8548648878084819078
+    second: check button_1
+  - first:
+      213: -6585778142769279054
+    second: check button_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cards layout_0
+      name: check button_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1536
-        height: 1024
+        x: 273
+        y: 406
+        width: 992
+        height: 251
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 29b995e3275b4e740800000000000000
-      internalID: 5180464973659872146
+      spriteID: 5903f0fb044703700800000000000000
+      internalID: 518041778579779733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: check button_1
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 658
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a77763853291d5980800000000000000
+      internalID: -8548648878084819078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: check button_2
+      rect:
+        serializedVersion: 2
+        x: 1087
+        y: 658
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bf84be0cad9a94a0800000000000000
+      internalID: -6585778142769279054
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0c53cc0714e0010498b538ac3216d931
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cards layout_0: 5180464973659872146
+      check button_0: 518041778579779733
+      check button_1: -8548648878084819078
+      check button_2: -6585778142769279054
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
