@@ -9,11 +9,15 @@ public class StomachPuzzleManager : MonoBehaviour
     [SerializeField] private DropZone[] dropZones;
     [SerializeField] private DraggableCard[] cards;
 
-    [Header("Attempts")]
+    [Header("Attempts UI")]
     [SerializeField] private TMP_Text attemptsText;
-    [SerializeField] private string attemptsPrefix = "Опити: ";
 
-    [Header("Feedback")]
+    [Tooltip("Heart1, Heart2 и Heart3")]
+    [SerializeField] private GameObject[] hearts;
+
+    [SerializeField] private string attemptsPrefix = "Опити ";
+
+    [Header("Feedback - Optional")]
     [SerializeField] private GameObject incompleteFeedback;
     [SerializeField] private GameObject wrongFeedback;
     [SerializeField] private GameObject successPanel;
@@ -24,9 +28,12 @@ public class StomachPuzzleManager : MonoBehaviour
     [Header("Puzzle Completed")]
     [SerializeField] private UnityEvent onPuzzleCompleted;
 
+    private int maximumAttempts;
     private int remainingAttempts;
+
     private bool isChecking;
     private bool puzzleFinished;
+
     private Coroutine feedbackCoroutine;
 
     private void Start()
@@ -98,10 +105,19 @@ public class StomachPuzzleManager : MonoBehaviour
     private void HandleWrongAnswer()
     {
         remainingAttempts--;
+
+        if (remainingAttempts < 0)
+        {
+            remainingAttempts = 0;
+        }
+
         UpdateAttemptsUI();
 
         Debug.Log(
-            "Грешен ред. Оставащи опити: " + remainingAttempts
+            "Грешен ред. Оставащи опити: " +
+            remainingAttempts +
+            "/" +
+            maximumAttempts
         );
 
         if (remainingAttempts <= 0)
@@ -163,6 +179,7 @@ public class StomachPuzzleManager : MonoBehaviour
     private void CompletePuzzle()
     {
         puzzleFinished = true;
+
         LockCards();
         HideAllFeedback();
 
@@ -179,6 +196,8 @@ public class StomachPuzzleManager : MonoBehaviour
     private void ShowGameOver()
     {
         puzzleFinished = true;
+        isChecking = false;
+
         LockCards();
         HideAllFeedback();
 
@@ -267,21 +286,23 @@ public class StomachPuzzleManager : MonoBehaviour
         switch (difficulty)
         {
             case 0: // Лесно
-                remainingAttempts = 5;
+                maximumAttempts = 3;
                 break;
 
             case 1: // Средно
-                remainingAttempts = 3;
+                maximumAttempts = 2;
                 break;
 
             case 2: // Трудно
-                remainingAttempts = 2;
+                maximumAttempts = 1;
                 break;
 
             default:
-                remainingAttempts = 3;
+                maximumAttempts = 2;
                 break;
         }
+
+        remainingAttempts = maximumAttempts;
     }
 
     private void UpdateAttemptsUI()
@@ -289,7 +310,23 @@ public class StomachPuzzleManager : MonoBehaviour
         if (attemptsText != null)
         {
             attemptsText.text =
-                attemptsPrefix + remainingAttempts;
+                attemptsPrefix +
+                remainingAttempts +
+                "/" +
+                maximumAttempts;
+        }
+
+        if (hearts == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (hearts[i] != null)
+            {
+                hearts[i].SetActive(i < remainingAttempts);
+            }
         }
     }
 
