@@ -9,15 +9,19 @@ public class StomachPuzzleManager : MonoBehaviour
     [SerializeField] private DropZone[] dropZones;
     [SerializeField] private DraggableCard[] cards;
 
+    [Header("Level Panels")]
+    [SerializeField] private GameObject puzzlePanel;
+    [SerializeField] private GameObject minigamePanel;
+
     [Header("Attempts UI")]
     [SerializeField] private TMP_Text attemptsText;
 
     [Tooltip("Heart1, Heart2 и Heart3")]
     [SerializeField] private GameObject[] hearts;
 
-    [SerializeField] private string attemptsPrefix = "Опити ";
+    [SerializeField] private string attemptsPrefix = "Опити: ";
 
-    [Header("Feedback - Optional")]
+    [Header("Feedback")]
     [SerializeField] private GameObject incompleteFeedback;
     [SerializeField] private GameObject wrongFeedback;
     [SerializeField] private GameObject successPanel;
@@ -179,6 +183,7 @@ public class StomachPuzzleManager : MonoBehaviour
     private void CompletePuzzle()
     {
         puzzleFinished = true;
+        isChecking = false;
 
         LockCards();
         HideAllFeedback();
@@ -187,10 +192,53 @@ public class StomachPuzzleManager : MonoBehaviour
         {
             successPanel.SetActive(true);
         }
+        else
+        {
+            Debug.LogWarning(
+                "Success Panel не е свързан в Inspector."
+            );
+        }
 
-        Debug.Log("Пъзелът е подреден правилно!");
+        Debug.Log("Пъзелът е преминат успешно!");
 
         onPuzzleCompleted?.Invoke();
+    }
+
+    public void ContinueToMinigame()
+    {
+        if (!puzzleFinished)
+        {
+            return;
+        }
+
+        if (successPanel != null)
+        {
+            successPanel.SetActive(false);
+        }
+
+        if (puzzlePanel != null)
+        {
+            puzzlePanel.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "Puzzle Panel не е свързан в Inspector."
+            );
+        }
+
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "Minigame Panel не е свързан в Inspector."
+            );
+        }
+
+        Debug.Log("Преминаване към минииграта.");
     }
 
     private void ShowGameOver()
