@@ -236,7 +236,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         {
             dropZone.ShowCorrectFeedback();
 
-            SnapTemporarilyToDropZone(dropZone);
+            SnapToDropZone(
+                dropZone,
+                true
+            );
 
             StartFeedback(
                 correctColor,
@@ -248,6 +251,11 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
 
         dropZone.ShowWrongFeedback();
+
+        SnapToDropZone(
+            dropZone,
+            false
+        );
 
         if (puzzleLives != null)
         {
@@ -267,13 +275,17 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         );
     }
 
-    private void SnapTemporarilyToDropZone(
-        HeartPuzzleDropZone dropZone)
+    private void SnapToDropZone(
+        HeartPuzzleDropZone dropZone,
+        bool lockLabel)
     {
         RectTransform dropRect =
             dropZone.GetComponent<RectTransform>();
 
-        rectTransform.SetParent(dropRect, false);
+        rectTransform.SetParent(
+            dropRect,
+            false
+        );
 
         rectTransform.anchorMin =
             new Vector2(0.5f, 0.5f);
@@ -290,9 +302,12 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         rectTransform.localScale =
             originalScale;
 
+        rectTransform.localRotation =
+            Quaternion.identity;
+
         targetScale = originalScale;
 
-        isLocked = true;
+        isLocked = lockLabel;
         canvasGroup.blocksRaycasts = false;
     }
 
@@ -357,11 +372,23 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             false
         );
 
+        rectTransform.anchorMin =
+            new Vector2(0.5f, 0.5f);
+
+        rectTransform.anchorMax =
+            new Vector2(0.5f, 0.5f);
+
+        rectTransform.pivot =
+            new Vector2(0.5f, 0.5f);
+
         rectTransform.anchoredPosition =
             originalPosition;
 
         rectTransform.localScale =
             originalScale;
+
+        rectTransform.localRotation =
+            Quaternion.identity;
 
         targetScale = originalScale;
 
