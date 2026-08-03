@@ -3,6 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class HeartLevelNavigation : MonoBehaviour
 {
+    [Header("Exit Confirmation")]
+    [SerializeField] private GameObject exitConfirmationOverlay;
+
+    [Header("Info Panel")]
+    [SerializeField] private GameObject infoOverlay;
+
     public void BackToBodyMap()
     {
         SceneManager.LoadScene("BodyMap");
@@ -10,6 +16,51 @@ public class HeartLevelNavigation : MonoBehaviour
 
     public void OpenSettings()
     {
-        SettingsNavigation.OpenSettings();
+    SettingsNavigation.OpenSettings();
+    }
+
+    // =========================
+    // Exit Panel
+    // =========================
+
+    public void OpenExitConfirmation()
+    {
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(true);
+        }
+    }
+
+    public void CloseExitConfirmation()
+    {
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+    }
+
+    public void ExitLevel()
+    {
+        SceneManager.LoadScene("BodyMap");
+    }
+
+    // =========================
+    // Info Panel
+    // =========================
+
+    public void OpenInfoPanel()
+    {
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(true);
+        }
+    }
+
+    public void CloseInfoPanel()
+    {
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
     }
 }

@@ -12,40 +12,51 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     IEndDragHandler
 {
     [Header("Label Type")]
-    [SerializeField] private HeartPartType partType =
+    [SerializeField]
+    private HeartPartType partType =
         HeartPartType.RightAtrium;
 
+    [Header("Puzzle References")]
+    [SerializeField]
+    private HeartPuzzleManager puzzleManager;
+
     [Header("Hover")]
-    [SerializeField] private float hoverMultiplier = 1.06f;
-    [SerializeField] private float scaleSpeed = 10f;
+    [SerializeField]
+    private float hoverMultiplier = 1.06f;
+
+    [SerializeField]
+    private float scaleSpeed = 10f;
 
     [Header("Hover Glow")]
-    [SerializeField] private Color hoverGlowColor = Color.white;
+    [SerializeField]
+    private Color hoverGlowColor = Color.white;
 
     [SerializeField, Range(0f, 1f)]
     private float hoverGlowAlpha = 0.5f;
 
     [Header("Placement Feedback")]
-    [SerializeField] private Color correctColor =
+    [SerializeField]
+    private Color correctColor =
         new Color(0.15f, 1f, 0.3f, 1f);
 
-    [SerializeField] private Color wrongColor =
+    [SerializeField]
+    private Color wrongColor =
         new Color(1f, 0.08f, 0.08f, 1f);
 
-    [SerializeField] private float feedbackDuration = 0.5f;
+    [SerializeField]
+    private float feedbackDuration = 0.5f;
 
-    [SerializeField] private Vector2 feedbackOutlineDistance =
+    [SerializeField]
+    private Vector2 feedbackOutlineDistance =
         new Vector2(8f, -8f);
 
     [Header("Glow Shape")]
-    [SerializeField] private float glowSize = 3f;
+    [SerializeField]
+    private float glowSize = 3f;
 
     private RectTransform rectTransform;
     private Canvas canvas;
     private CanvasGroup canvasGroup;
-
-    private HeartPuzzleManager puzzleManager;
-    private HeartPuzzleLives puzzleLives;
 
     private Outline feedbackOutline;
 
@@ -66,38 +77,80 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
 
     public HeartPartType PartType => partType;
 
-    public void SetPartType(HeartPartType newPartType)
+    public void SetPartType(
+        HeartPartType newPartType)
     {
         partType = newPartType;
     }
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
-        canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform =
+            GetComponent<RectTransform>();
+
+        canvas =
+            GetComponentInParent<Canvas>();
+
+        canvasGroup =
+            GetComponent<CanvasGroup>();
 
         if (canvasGroup == null)
         {
-            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+            canvasGroup =
+                gameObject.AddComponent<CanvasGroup>();
         }
 
-        puzzleManager =
-            FindFirstObjectByType<HeartPuzzleManager>();
+        /*
+         * Използваме зададения от Inspector
+         * Puzzle Manager.
+         *
+         * Ако полето е празно, опитваме
+         * автоматично да го намерим.
+         */
+        if (puzzleManager == null)
+        {
+            puzzleManager =
+                FindFirstObjectByType<
+                    HeartPuzzleManager
+                >();
+        }
 
-        puzzleLives =
-            FindFirstObjectByType<HeartPuzzleLives>();
+        if (puzzleManager == null)
+        {
+            Debug.LogError(
+                "HeartPuzzleManager не е свързан " +
+                "към HeartPuzzleDraggableLabel.",
+                this
+            );
+        }
 
-        originalParent = rectTransform.parent;
-        originalPosition = rectTransform.anchoredPosition;
+        if (canvas == null)
+        {
+            Debug.LogError(
+                "Не е намерен Canvas за draggable етикета.",
+                this
+            );
+        }
 
-        originalScale = rectTransform.localScale;
-        targetScale = originalScale;
+        originalParent =
+            rectTransform.parent;
+
+        originalPosition =
+            rectTransform.anchoredPosition;
+
+        originalScale =
+            rectTransform.localScale;
+
+        targetScale =
+            originalScale;
 
         CreateHoverGlow();
         CreateFeedbackOutline();
 
-        SetHoverGlow(hoverGlowColor, 0f);
+        SetHoverGlow(
+            hoverGlowColor,
+            0f
+        );
     }
 
     private void CreateHoverGlow()
@@ -117,9 +170,12 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
 
         foreach (Vector2 direction in directions)
         {
-            Shadow shadow = gameObject.AddComponent<Shadow>();
+            Shadow shadow =
+                gameObject.AddComponent<Shadow>();
 
-            shadow.effectDistance = direction * glowSize;
+            shadow.effectDistance =
+                direction * glowSize;
+
             shadow.useGraphicAlpha = true;
 
             glowShadows.Add(shadow);
@@ -128,28 +184,42 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
 
     private void CreateFeedbackOutline()
     {
-        feedbackOutline = GetComponent<Outline>();
+        feedbackOutline =
+            GetComponent<Outline>();
 
         if (feedbackOutline == null)
         {
-            feedbackOutline = gameObject.AddComponent<Outline>();
+            feedbackOutline =
+                gameObject.AddComponent<Outline>();
         }
 
-        feedbackOutline.effectDistance = feedbackOutlineDistance;
-        feedbackOutline.useGraphicAlpha = false;
-        feedbackOutline.enabled = false;
+        feedbackOutline.effectDistance =
+            feedbackOutlineDistance;
+
+        feedbackOutline.useGraphicAlpha =
+            false;
+
+        feedbackOutline.enabled =
+            false;
     }
 
     private void Update()
     {
-        rectTransform.localScale = Vector3.Lerp(
-            rectTransform.localScale,
-            targetScale,
-            scaleSpeed * Time.deltaTime
-        );
+        if (rectTransform == null)
+        {
+            return;
+        }
+
+        rectTransform.localScale =
+            Vector3.Lerp(
+                rectTransform.localScale,
+                targetScale,
+                scaleSpeed * Time.deltaTime
+            );
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(
+        PointerEventData eventData)
     {
         if (isLocked || isDragging)
         {
@@ -157,7 +227,9 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
 
         isPointerOver = true;
-        targetScale = originalScale * hoverMultiplier;
+
+        targetScale =
+            originalScale * hoverMultiplier;
 
         SetHoverGlow(
             hoverGlowColor,
@@ -165,7 +237,8 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         );
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(
+        PointerEventData eventData)
     {
         if (isLocked || isDragging)
         {
@@ -173,65 +246,114 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
 
         isPointerOver = false;
-        targetScale = originalScale;
 
-        SetHoverGlow(hoverGlowColor, 0f);
+        targetScale =
+            originalScale;
+
+        SetHoverGlow(
+            hoverGlowColor,
+            0f
+        );
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDrag(
+        PointerEventData eventData)
     {
         if (isLocked)
         {
+            return;
+        }
+
+        if (canvas == null)
+        {
+            Debug.LogError(
+                "Drag не може да започне, " +
+                "защото Canvas липсва.",
+                this
+            );
+
             return;
         }
 
         isDragging = true;
         isPointerOver = false;
 
-        targetScale = originalScale;
-        SetHoverGlow(hoverGlowColor, 0f);
+        targetScale =
+            originalScale;
 
-        canvasGroup.blocksRaycasts = false;
+        SetHoverGlow(
+            hoverGlowColor,
+            0f
+        );
+
+        /*
+         * Позволява на raycast-а да достигне
+         * drop зоната под етикета.
+         */
+        canvasGroup.blocksRaycasts =
+            false;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public void OnDrag(
+        PointerEventData eventData)
     {
-        if (isLocked)
+        if (isLocked || !isDragging)
+        {
+            return;
+        }
+
+        if (canvas == null)
         {
             return;
         }
 
         rectTransform.anchoredPosition +=
-            eventData.delta / canvas.scaleFactor;
+            eventData.delta /
+            canvas.scaleFactor;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag(
+        PointerEventData eventData)
     {
-        if (isLocked)
+        if (isLocked || !isDragging)
         {
             return;
         }
 
         isDragging = false;
-        canvasGroup.blocksRaycasts = true;
+
+        canvasGroup.blocksRaycasts =
+            true;
 
         GameObject objectUnderPointer =
             eventData.pointerCurrentRaycast.gameObject;
 
-        HeartPuzzleDropZone dropZone = null;
+        HeartPuzzleDropZone dropZone =
+            null;
 
         if (objectUnderPointer != null)
         {
-            dropZone = objectUnderPointer
-                .GetComponentInParent<HeartPuzzleDropZone>();
+            dropZone =
+                objectUnderPointer
+                    .GetComponentInParent<
+                        HeartPuzzleDropZone
+                    >();
         }
 
+        /*
+         * Ако не е пуснат върху drop зона,
+         * просто се връща в началото.
+         * Не губи живот.
+         */
         if (dropZone == null)
         {
             ReturnToStart();
             return;
         }
 
+        /*
+         * Правилно поставяне.
+         */
         if (dropZone.Accepts(partType))
         {
             dropZone.ShowCorrectFeedback();
@@ -250,6 +372,9 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             return;
         }
 
+        /*
+         * Грешно поставяне.
+         */
         dropZone.ShowWrongFeedback();
 
         SnapToDropZone(
@@ -257,14 +382,21 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             false
         );
 
-        if (puzzleLives != null)
+        /*
+         * Животът вече се отнема чрез
+         * HeartPuzzleManager.
+         */
+        if (puzzleManager != null)
         {
-            puzzleLives.LoseLife();
+            puzzleManager
+                .HandleWrongPlacement();
         }
         else
         {
             Debug.LogError(
-                "HeartPuzzleLives не е намерен."
+                "HeartPuzzleManager не е свързан. " +
+                "Животът не може да бъде отнет.",
+                this
             );
         }
 
@@ -279,8 +411,27 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         HeartPuzzleDropZone dropZone,
         bool lockLabel)
     {
+        if (dropZone == null)
+        {
+            ReturnToStart();
+            return;
+        }
+
         RectTransform dropRect =
-            dropZone.GetComponent<RectTransform>();
+            dropZone.GetComponent<
+                RectTransform
+            >();
+
+        if (dropRect == null)
+        {
+            Debug.LogError(
+                "Drop зоната няма RectTransform.",
+                dropZone
+            );
+
+            ReturnToStart();
+            return;
+        }
 
         rectTransform.SetParent(
             dropRect,
@@ -305,10 +456,18 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         rectTransform.localRotation =
             Quaternion.identity;
 
-        targetScale = originalScale;
+        targetScale =
+            originalScale;
 
-        isLocked = lockLabel;
-        canvasGroup.blocksRaycasts = false;
+        isLocked =
+            lockLabel;
+
+        /*
+         * Докато е поставен върху зоната,
+         * не трябва да блокира raycast-а.
+         */
+        canvasGroup.blocksRaycasts =
+            false;
     }
 
     private void StartFeedback(
@@ -318,16 +477,19 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     {
         if (feedbackCoroutine != null)
         {
-            StopCoroutine(feedbackCoroutine);
+            StopCoroutine(
+                feedbackCoroutine
+            );
         }
 
-        feedbackCoroutine = StartCoroutine(
-            FeedbackRoutine(
-                color,
-                returnAfter,
-                correctZone
-            )
-        );
+        feedbackCoroutine =
+            StartCoroutine(
+                FeedbackRoutine(
+                    color,
+                    returnAfter,
+                    correctZone
+                )
+            );
     }
 
     private IEnumerator FeedbackRoutine(
@@ -335,38 +497,66 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         bool returnAfter,
         HeartPuzzleDropZone correctZone)
     {
-        feedbackOutline.effectColor = color;
-        feedbackOutline.enabled = true;
+        if (feedbackOutline != null)
+        {
+            feedbackOutline.effectColor =
+                color;
+
+            feedbackOutline.enabled =
+                true;
+        }
 
         yield return new WaitForSeconds(
             feedbackDuration
         );
 
-        feedbackOutline.enabled = false;
-        feedbackCoroutine = null;
+        if (feedbackOutline != null)
+        {
+            feedbackOutline.enabled =
+                false;
+        }
 
+        feedbackCoroutine =
+            null;
+
+        /*
+         * При грешка връщаме етикета.
+         */
         if (returnAfter)
         {
             ReturnToStart();
             yield break;
         }
 
+        /*
+         * При правилно поставяне уведомяваме
+         * Puzzle Manager да създаде копието
+         * и да покаже следващия етикет.
+         */
         if (puzzleManager != null)
         {
-            puzzleManager.HandleCorrectPlacement(
-                correctZone
-            );
+            puzzleManager
+                .HandleCorrectPlacement(
+                    correctZone
+                );
         }
         else
         {
             Debug.LogError(
-                "HeartPuzzleManager не е намерен."
+                "HeartPuzzleManager не е свързан.",
+                this
             );
         }
     }
 
     private void ReturnToStart()
     {
+        if (rectTransform == null ||
+            originalParent == null)
+        {
+            return;
+        }
+
         rectTransform.SetParent(
             originalParent,
             false
@@ -390,20 +580,26 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         rectTransform.localRotation =
             Quaternion.identity;
 
-        targetScale = originalScale;
+        targetScale =
+            originalScale;
 
         isLocked = false;
         isDragging = false;
         isPointerOver = false;
 
-        canvasGroup.blocksRaycasts = true;
+        canvasGroup.blocksRaycasts =
+            true;
 
-        SetHoverGlow(hoverGlowColor, 0f);
+        SetHoverGlow(
+            hoverGlowColor,
+            0f
+        );
     }
 
     public void ResetForNextLabel()
     {
         ReturnToStart();
+
         gameObject.SetActive(true);
     }
 
@@ -418,10 +614,14 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
                 continue;
             }
 
-            Color finalColor = color;
-            finalColor.a = alpha;
+            Color finalColor =
+                color;
 
-            shadow.effectColor = finalColor;
+            finalColor.a =
+                alpha;
+
+            shadow.effectColor =
+                finalColor;
         }
     }
 
@@ -429,20 +629,29 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     {
         if (feedbackCoroutine != null)
         {
-            StopCoroutine(feedbackCoroutine);
-            feedbackCoroutine = null;
+            StopCoroutine(
+                feedbackCoroutine
+            );
+
+            feedbackCoroutine =
+                null;
         }
 
         if (feedbackOutline != null)
         {
-            feedbackOutline.enabled = false;
+            feedbackOutline.enabled =
+                false;
         }
 
         if (rectTransform != null)
         {
-            rectTransform.localScale = originalScale;
+            rectTransform.localScale =
+                originalScale;
         }
 
-        SetHoverGlow(Color.white, 0f);
+        SetHoverGlow(
+            Color.white,
+            0f
+        );
     }
 }

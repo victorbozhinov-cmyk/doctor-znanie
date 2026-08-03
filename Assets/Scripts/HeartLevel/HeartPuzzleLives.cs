@@ -6,13 +6,29 @@ public class HeartPuzzleLives : MonoBehaviour
     [SerializeField] private GameObject[] lifeHearts =
         new GameObject[3];
 
+    [Header("Game Over")]
+    [SerializeField] private GameObject gameOverOverlay;
+
     private int currentLives;
 
     public int CurrentLives => currentLives;
+    public bool IsGameOver => currentLives <= 0;
+
+    private void Awake()
+    {
+        HideGameOver();
+    }
 
     private void Start()
     {
+        ResetLives();
+    }
+
+    public void ResetLives()
+    {
         LoadLivesFromDifficulty();
+        HideGameOver();
+        UpdateLivesUI();
     }
 
     private void LoadLivesFromDifficulty()
@@ -26,7 +42,7 @@ public class HeartPuzzleLives : MonoBehaviour
                 currentLives = 3;
                 break;
 
-            case 1: // Средно
+            case 1: // Нормално
                 currentLives = 2;
                 break;
 
@@ -38,13 +54,11 @@ public class HeartPuzzleLives : MonoBehaviour
                 currentLives = 2;
                 break;
         }
-
-        UpdateLivesUI();
     }
 
     public void LoseLife()
     {
-        if (currentLives <= 0)
+        if (IsGameOver)
         {
             return;
         }
@@ -53,9 +67,40 @@ public class HeartPuzzleLives : MonoBehaviour
 
         UpdateLivesUI();
 
-        if (currentLives <= 0)
+        Debug.Log(
+            $"Загубен живот. Остават: {currentLives}"
+        );
+
+        if (IsGameOver)
         {
-            Debug.Log("Няма останали животи!");
+            ShowGameOver();
+        }
+    }
+
+    private void ShowGameOver()
+    {
+        Debug.Log("Няма останали животи!");
+
+        if (gameOverOverlay == null)
+        {
+            Debug.LogError(
+                "GameOverOverlay не е свързан в HeartPuzzleLives!"
+            );
+
+            return;
+        }
+
+        gameOverOverlay.SetActive(true);
+
+        // Поставя прозореца над всички останали UI елементи.
+        gameOverOverlay.transform.SetAsLastSibling();
+    }
+
+    private void HideGameOver()
+    {
+        if (gameOverOverlay != null)
+        {
+            gameOverOverlay.SetActive(false);
         }
     }
 
@@ -71,7 +116,6 @@ public class HeartPuzzleLives : MonoBehaviour
             lifeHearts[i].SetActive(i < currentLives);
         }
 
-        // Принуждаваме Layout Group да се обнови веднага.
         Canvas.ForceUpdateCanvases();
     }
 }
