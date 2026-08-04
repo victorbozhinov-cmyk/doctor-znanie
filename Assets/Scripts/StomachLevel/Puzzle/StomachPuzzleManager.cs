@@ -27,6 +27,7 @@ public class StomachPuzzleManager : MonoBehaviour
     [SerializeField] private GameObject successPanel;
     [SerializeField] private GameObject gameOverPanel;
 
+    [Tooltip("Колко време стои краткият feedback преди да се затвори.")]
     [SerializeField] private float feedbackDuration = 1f;
 
     [Header("Puzzle Completed")]
@@ -43,7 +44,7 @@ public class StomachPuzzleManager : MonoBehaviour
     private void Start()
     {
         LoadAttemptsFromDifficulty();
-        HideAllFeedback();
+        HideAllFeedbackImmediately();
         UpdateAttemptsUI();
     }
 
@@ -139,17 +140,16 @@ public class StomachPuzzleManager : MonoBehaviour
         isChecking = true;
         LockCards();
 
-        if (wrongFeedback != null)
-        {
-            wrongFeedback.SetActive(true);
-        }
+        OpenAnimatedPanel(
+            wrongFeedback,
+            "Wrong Feedback"
+        );
 
-        yield return new WaitForSecondsRealtime(feedbackDuration);
+        yield return new WaitForSecondsRealtime(
+            feedbackDuration
+        );
 
-        if (wrongFeedback != null)
-        {
-            wrongFeedback.SetActive(false);
-        }
+        yield return CloseAnimatedPanel(wrongFeedback);
 
         ReturnAllCardsHome();
         UnlockCards();
@@ -164,17 +164,18 @@ public class StomachPuzzleManager : MonoBehaviour
 
         Debug.Log("Първо постави всички карти.");
 
-        if (incompleteFeedback != null)
-        {
-            incompleteFeedback.SetActive(true);
-        }
+        OpenAnimatedPanel(
+            incompleteFeedback,
+            "Incomplete Feedback"
+        );
 
-        yield return new WaitForSecondsRealtime(feedbackDuration);
+        yield return new WaitForSecondsRealtime(
+            feedbackDuration
+        );
 
-        if (incompleteFeedback != null)
-        {
-            incompleteFeedback.SetActive(false);
-        }
+        yield return CloseAnimatedPanel(
+            incompleteFeedback
+        );
 
         isChecking = false;
         feedbackCoroutine = null;
@@ -186,18 +187,12 @@ public class StomachPuzzleManager : MonoBehaviour
         isChecking = false;
 
         LockCards();
-        HideAllFeedback();
+        HideAllFeedbackImmediately();
 
-        if (successPanel != null)
-        {
-            successPanel.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "Success Panel не е свързан в Inspector."
-            );
-        }
+        OpenAnimatedPanel(
+            successPanel,
+            "Success Panel"
+        );
 
         Debug.Log("Пъзелът е преминат успешно!");
 
@@ -206,15 +201,20 @@ public class StomachPuzzleManager : MonoBehaviour
 
     public void ContinueToMinigame()
     {
-        if (!puzzleFinished)
+        if (!puzzleFinished || isChecking)
         {
             return;
         }
 
-        if (successPanel != null)
-        {
-            successPanel.SetActive(false);
-        }
+        feedbackCoroutine =
+            StartCoroutine(ContinueToMinigameSequence());
+    }
+
+    private IEnumerator ContinueToMinigameSequence()
+    {
+        isChecking = true;
+
+        yield return CloseAnimatedPanel(successPanel);
 
         if (puzzlePanel != null)
         {
@@ -238,6 +238,9 @@ public class StomachPuzzleManager : MonoBehaviour
             );
         }
 
+        isChecking = false;
+        feedbackCoroutine = null;
+
         Debug.Log("Преминаване към минииграта.");
     }
 
@@ -247,33 +250,50 @@ public class StomachPuzzleManager : MonoBehaviour
         isChecking = false;
 
         LockCards();
-        HideAllFeedback();
+        HideAllFeedbackImmediately();
 
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
+        OpenAnimatedPanel(
+            gameOverPanel,
+            "Game Over Panel"
+        );
 
         Debug.Log("Няма останали опити. Game Over!");
     }
 
     public void RestartPuzzle()
     {
+        if (isChecking)
+        {
+            return;
+        }
+
         if (feedbackCoroutine != null)
         {
             StopCoroutine(feedbackCoroutine);
             feedbackCoroutine = null;
         }
 
-        puzzleFinished = false;
-        isChecking = false;
+        feedbackCoroutine =
+            StartCoroutine(RestartPuzzleSequence());
+    }
 
-        HideAllFeedback();
+    private IEnumerator RestartPuzzleSequence()
+    {
+        isChecking = true;
+
+        yield return CloseAnimatedPanel(gameOverPanel);
+
+        puzzleFinished = false;
+
+        HideAllFeedbackImmediately();
         ReturnAllCardsHome();
         UnlockCards();
 
         LoadAttemptsFromDifficulty();
         UpdateAttemptsUI();
+
+        isChecking = false;
+        feedbackCoroutine = null;
 
         Debug.Log("Пъзелът е рестартиран.");
     }
@@ -373,31 +393,117 @@ public class StomachPuzzleManager : MonoBehaviour
         {
             if (hearts[i] != null)
             {
-                hearts[i].SetActive(i < remainingAttempts);
+                hearts[i].SetActive(
+                    i < remainingAttempts
+                );
             }
         }
     }
 
-    private void HideAllFeedback()
+    // ==========================================
+    // PANEL ANIMATIONS
+    // ==========================================
+
+    private void OpenAnimatedPanel(
+        GameObject panel,
+        string panelName
+    )
     {
-        if (incompleteFeedback != null)
+        if (panel == null)
         {
-            incompleteFeedback.SetActive(false);
+            Debug.LogWarning(
+                panelName +
+                " не е свързан в Inspector."
+            );
+
+            return;
         }
 
-        if (wrongFeedback != null)
+        bool wasAlreadyActive = panel.activeSelf;
+
+        panel.SetActive(true);
+
+        /*
+         * Когато родителят се активира,
+         * UIPopupAnimation.OnEnable() автоматично
+         * стартира отварящата анимация.
+         */
+        if (wasAlreadyActive)
         {
-            wrongFeedback.SetActive(false);
+            UIPopupAnimation animation =
+                FindPopupAnimation(panel);
+
+            animation?.PlayOpen();
+        }
+    }
+
+    private IEnumerator CloseAnimatedPanel(
+        GameObject panel
+    )
+    {
+        if (panel == null || !panel.activeSelf)
+        {
+            yield break;
         }
 
-        if (successPanel != null)
+        UIPopupAnimation animation =
+            FindPopupAnimation(panel);
+
+        if (
+            animation == null ||
+            !animation.isActiveAndEnabled
+        )
         {
-            successPanel.SetActive(false);
+            panel.SetActive(false);
+            yield break;
         }
 
-        if (gameOverPanel != null)
+        bool animationFinished = false;
+
+        animation.PlayClose(
+            () =>
+            {
+                if (panel != null)
+                {
+                    panel.SetActive(false);
+                }
+
+                animationFinished = true;
+            }
+        );
+
+        while (!animationFinished)
         {
-            gameOverPanel.SetActive(false);
+            yield return null;
+        }
+    }
+
+    private UIPopupAnimation FindPopupAnimation(
+        GameObject panel
+    )
+    {
+        if (panel == null)
+        {
+            return null;
+        }
+
+        return panel.GetComponentInChildren
+            <UIPopupAnimation>(true);
+    }
+
+    private void HideAllFeedbackImmediately()
+    {
+        HideImmediately(incompleteFeedback);
+        HideImmediately(wrongFeedback);
+        HideImmediately(successPanel);
+        HideImmediately(gameOverPanel);
+    }
+
+    private void HideImmediately(GameObject panel)
+    {
+        if (panel != null)
+        {
+            panel.SetActive(false);
         }
     }
 }
