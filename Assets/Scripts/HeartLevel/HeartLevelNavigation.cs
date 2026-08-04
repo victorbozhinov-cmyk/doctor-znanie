@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class HeartLevelNavigation : MonoBehaviour
 {
+    private const string LockDifficultyKey =
+        "LockDifficultyInSettings";
+
     [Header("Exit Confirmation")]
     [SerializeField] private GameObject exitConfirmationOverlay;
 
@@ -16,7 +19,12 @@ public class HeartLevelNavigation : MonoBehaviour
 
     public void OpenSettings()
     {
-    SettingsNavigation.OpenSettings();
+        // Казваме на Settings менюто, че е отворено
+        // от вече започнато ниво.
+        PlayerPrefs.SetInt(LockDifficultyKey, 1);
+        PlayerPrefs.Save();
+
+        SettingsNavigation.OpenSettings();
     }
 
     // =========================

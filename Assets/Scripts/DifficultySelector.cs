@@ -4,17 +4,41 @@ using UnityEngine.UI;
 
 public class DifficultySelector : MonoBehaviour
 {
+    private const string DifficultyKey = "Difficulty";
+
+    private const string LockDifficultyKey =
+        "LockDifficultyInSettings";
+
     [Header("UI Elements")]
     [SerializeField] private TMP_Text difficultyText;
     [SerializeField] private Image[] indicators = new Image[3];
 
+    [Header("Difficulty Background")]
+    [SerializeField] private Image selectorBackground;
+    [SerializeField] private Sprite normalBackground;
+    [SerializeField] private Sprite lockedBackground;
+
+    [Header("Difficulty Arrows")]
+    [SerializeField] private GameObject previousArrow;
+    [SerializeField] private GameObject nextArrow;
+
     [Header("Indicator Sprites")]
     [SerializeField] private Sprite inactiveIndicator;
     [SerializeField] private Sprite activeIndicator;
-    [SerializeField] private Vector2 inactiveSize = new Vector2(36f, 35f);
-    [SerializeField] private Vector2 activeSize = new Vector2(80f, 80f);
-    [SerializeField] private float inactivePositionY = -185.3f;
-    [SerializeField] private float activePositionY = -205.9f;
+
+    [SerializeField]
+    private Vector2 inactiveSize =
+        new Vector2(36f, 35f);
+
+    [SerializeField]
+    private Vector2 activeSize =
+        new Vector2(80f, 80f);
+
+    [SerializeField]
+    private float inactivePositionY = -185.3f;
+
+    [SerializeField]
+    private float activePositionY = -205.9f;
 
     private readonly string[] difficultyNames =
     {
@@ -23,27 +47,60 @@ public class DifficultySelector : MonoBehaviour
         "ТРУДНО"
     };
 
-    private const string DifficultyKey = "Difficulty";
-
     // 0 = лесно, 1 = средно, 2 = трудно
     private int currentDifficulty;
 
+    private bool difficultyLocked;
+
     private void Start()
     {
-        // Ако няма запазена настройка, играта започва на СРЕДНО.
-        currentDifficulty = PlayerPrefs.GetInt(DifficultyKey, 1);
-        currentDifficulty = Mathf.Clamp(currentDifficulty, 0, 2);
+        LoadDifficulty();
+        LoadLockState();
 
         UpdateUI();
+        UpdateDifficultyLockUI();
+
+        // Флагът важи само за текущото
+        // отваряне на SettingsMenu.
+        PlayerPrefs.DeleteKey(LockDifficultyKey);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadDifficulty()
+    {
+        currentDifficulty =
+            PlayerPrefs.GetInt(DifficultyKey, 1);
+
+        currentDifficulty =
+            Mathf.Clamp(currentDifficulty, 0, 2);
+    }
+
+    private void LoadLockState()
+    {
+        difficultyLocked =
+            PlayerPrefs.GetInt(
+                LockDifficultyKey,
+                0
+            ) == 1;
+
+        Debug.Log(
+            $"Difficulty locked: {difficultyLocked}"
+        );
     }
 
     public void PreviousDifficulty()
     {
+        if (difficultyLocked)
+        {
+            return;
+        }
+
         currentDifficulty--;
 
         if (currentDifficulty < 0)
         {
-            currentDifficulty = difficultyNames.Length - 1;
+            currentDifficulty =
+                difficultyNames.Length - 1;
         }
 
         SaveAndUpdate();
@@ -51,9 +108,15 @@ public class DifficultySelector : MonoBehaviour
 
     public void NextDifficulty()
     {
+        if (difficultyLocked)
+        {
+            return;
+        }
+
         currentDifficulty++;
 
-        if (currentDifficulty >= difficultyNames.Length)
+        if (currentDifficulty >=
+            difficultyNames.Length)
         {
             currentDifficulty = 0;
         }
@@ -63,40 +126,103 @@ public class DifficultySelector : MonoBehaviour
 
     private void SaveAndUpdate()
     {
-        PlayerPrefs.SetInt(DifficultyKey, currentDifficulty);
+        PlayerPrefs.SetInt(
+            DifficultyKey,
+            currentDifficulty
+        );
+
         PlayerPrefs.Save();
 
         UpdateUI();
     }
 
+    private void UpdateDifficultyLockUI()
+    {
+        // Скриваме истинските бутони.
+        if (previousArrow != null)
+        {
+            previousArrow.SetActive(
+                !difficultyLocked
+            );
+        }
+
+        if (nextArrow != null)
+        {
+            nextArrow.SetActive(
+                !difficultyLocked
+            );
+        }
+
+        // Сменяме общото изображение на контейнера.
+        if (selectorBackground != null)
+        {
+            selectorBackground.sprite =
+                difficultyLocked
+                    ? lockedBackground
+                    : normalBackground;
+        }
+        else
+        {
+            Debug.LogError(
+                "Selector Background не е свързан."
+            );
+        }
+    }
+
     private void UpdateUI()
     {
-        difficultyText.text = difficultyNames[currentDifficulty];
-
-        for (int i = 0; i < indicators.Length; i++)
+        if (difficultyText != null)
         {
-            bool isActive = i == currentDifficulty;
+            difficultyText.text =
+                difficultyNames[currentDifficulty];
+        }
 
-            indicators[i].sprite = isActive
-                ? activeIndicator
-                : inactiveIndicator;
+        for (int i = 0;
+             i < indicators.Length;
+             i++)
+        {
+            if (indicators[i] == null)
+            {
+                continue;
+            }
 
-            indicators[i].rectTransform.sizeDelta = isActive
-                ? activeSize
-                : inactiveSize;
+            bool isActive =
+                i == currentDifficulty;
 
-            Vector2 position = indicators[i].rectTransform.anchoredPosition;
+            indicators[i].sprite =
+                isActive
+                    ? activeIndicator
+                    : inactiveIndicator;
 
-            position.y = isActive
-                ? activePositionY
-                : inactivePositionY;
+            indicators[i]
+                .rectTransform
+                .sizeDelta =
+                isActive
+                    ? activeSize
+                    : inactiveSize;
 
-            indicators[i].rectTransform.anchoredPosition = position;
+            Vector2 position =
+                indicators[i]
+                    .rectTransform
+                    .anchoredPosition;
+
+            position.y =
+                isActive
+                    ? activePositionY
+                    : inactivePositionY;
+
+            indicators[i]
+                .rectTransform
+                .anchoredPosition =
+                position;
         }
     }
 
     public static int GetSavedDifficulty()
     {
-        return PlayerPrefs.GetInt(DifficultyKey, 1);
+        return PlayerPrefs.GetInt(
+            DifficultyKey,
+            1
+        );
     }
 }
