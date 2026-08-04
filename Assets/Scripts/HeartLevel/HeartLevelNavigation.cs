@@ -8,9 +8,11 @@ public class HeartLevelNavigation : MonoBehaviour
 
     [Header("Exit Confirmation")]
     [SerializeField] private GameObject exitConfirmationOverlay;
+    [SerializeField] private UIPopupAnimation exitConfirmationAnimation;
 
     [Header("Info Panel")]
     [SerializeField] private GameObject infoOverlay;
+    [SerializeField] private UIPopupAnimation infoPanelAnimation;
 
     public void BackToBodyMap()
     {
@@ -19,8 +21,6 @@ public class HeartLevelNavigation : MonoBehaviour
 
     public void OpenSettings()
     {
-        // Казваме на Settings менюто, че е отворено
-        // от вече започнато ниво.
         PlayerPrefs.SetInt(LockDifficultyKey, 1);
         PlayerPrefs.Save();
 
@@ -33,15 +33,32 @@ public class HeartLevelNavigation : MonoBehaviour
 
     public void OpenExitConfirmation()
     {
-        if (exitConfirmationOverlay != null)
+        if (exitConfirmationOverlay == null)
         {
-            exitConfirmationOverlay.SetActive(true);
+            Debug.LogError(
+                "Exit Confirmation Overlay не е свързан."
+            );
+
+            return;
         }
+
+        exitConfirmationOverlay.SetActive(true);
     }
 
     public void CloseExitConfirmation()
     {
-        if (exitConfirmationOverlay != null)
+        if (exitConfirmationOverlay == null)
+        {
+            return;
+        }
+
+        if (exitConfirmationAnimation != null)
+        {
+            exitConfirmationAnimation.PlayClose(
+                () => exitConfirmationOverlay.SetActive(false)
+            );
+        }
+        else
         {
             exitConfirmationOverlay.SetActive(false);
         }
@@ -58,15 +75,32 @@ public class HeartLevelNavigation : MonoBehaviour
 
     public void OpenInfoPanel()
     {
-        if (infoOverlay != null)
+        if (infoOverlay == null)
         {
-            infoOverlay.SetActive(true);
+            Debug.LogError(
+                "Info Overlay не е свързан."
+            );
+
+            return;
         }
+
+        infoOverlay.SetActive(true);
     }
 
     public void CloseInfoPanel()
     {
-        if (infoOverlay != null)
+        if (infoOverlay == null)
+        {
+            return;
+        }
+
+        if (infoPanelAnimation != null)
+        {
+            infoPanelAnimation.PlayClose(
+                () => infoOverlay.SetActive(false)
+            );
+        }
+        else
         {
             infoOverlay.SetActive(false);
         }
