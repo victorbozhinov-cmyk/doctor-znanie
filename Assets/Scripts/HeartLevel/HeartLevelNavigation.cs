@@ -3,9 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class HeartLevelNavigation : MonoBehaviour
 {
-    private const string LockDifficultyKey =
-        "LockDifficultyInSettings";
-
     [Header("Exit Confirmation")]
     [SerializeField] private GameObject exitConfirmationOverlay;
     [SerializeField] private UIPopupAnimation exitConfirmationAnimation;
@@ -17,14 +14,6 @@ public class HeartLevelNavigation : MonoBehaviour
     public void BackToBodyMap()
     {
         SceneManager.LoadScene("BodyMap");
-    }
-
-    public void OpenSettings()
-    {
-        PlayerPrefs.SetInt(LockDifficultyKey, 1);
-        PlayerPrefs.Save();
-
-        SettingsNavigation.OpenSettings();
     }
 
     // =========================
@@ -55,7 +44,8 @@ public class HeartLevelNavigation : MonoBehaviour
         if (exitConfirmationAnimation != null)
         {
             exitConfirmationAnimation.PlayClose(
-                () => exitConfirmationOverlay.SetActive(false)
+                () =>
+                    exitConfirmationOverlay.SetActive(false)
             );
         }
         else

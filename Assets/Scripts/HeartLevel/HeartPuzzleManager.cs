@@ -19,6 +19,9 @@ public class HeartPuzzleManager : MonoBehaviour
     [SerializeField]
     private HeartPuzzleDraggableLabel currentLabel;
 
+    [SerializeField]
+    private UILabelChangeAnimation labelChangeAnimation;
+
     [Header("Label Data")]
     [SerializeField]
     private List<LabelData> labels =
@@ -39,7 +42,9 @@ public class HeartPuzzleManager : MonoBehaviour
         new List<GameObject>();
 
     private int correctlyPlacedCount;
+
     private bool puzzleStopped;
+    private bool isChangingLabel;
 
     private void Start()
     {
@@ -49,6 +54,7 @@ public class HeartPuzzleManager : MonoBehaviour
     public void StartPuzzle()
     {
         puzzleStopped = false;
+        isChangingLabel = false;
         correctlyPlacedCount = 0;
 
         HideSuccessOverlay();
@@ -60,6 +66,7 @@ public class HeartPuzzleManager : MonoBehaviour
         if (currentLabel != null)
         {
             currentLabel.gameObject.SetActive(true);
+            currentLabel.enabled = true;
         }
 
         ShowNextRandomLabel();
@@ -77,7 +84,7 @@ public class HeartPuzzleManager : MonoBehaviour
 
     private void ShowNextRandomLabel()
     {
-        if (puzzleStopped)
+        if (puzzleStopped || isChangingLabel)
         {
             return;
         }
@@ -98,33 +105,64 @@ public class HeartPuzzleManager : MonoBehaviour
             return;
         }
 
-        int randomIndex =
-            UnityEngine.Random.Range(
-                0,
-                remainingLabels.Count
-            );
+        int randomIndex = UnityEngine.Random.Range(
+            0,
+            remainingLabels.Count
+        );
 
         LabelData selectedLabel =
             remainingLabels[randomIndex];
 
         remainingLabels.RemoveAt(randomIndex);
 
-        currentLabelImage.sprite =
-            selectedLabel.labelSprite;
+        isChangingLabel = true;
 
-        currentLabelImage.preserveAspect = true;
+        // Връщаме етикета в началната му позиция,
+        // преди да покажем следващото изображение.
+        currentLabel.ResetForNextLabel();
 
         currentLabel.SetPartType(
             selectedLabel.partType
         );
 
-        currentLabel.ResetForNextLabel();
+        // Не може да се влачи по време на анимацията.
+        currentLabel.enabled = false;
+
+        if (labelChangeAnimation != null)
+        {
+            labelChangeAnimation.ChangeSprite(
+                currentLabelImage,
+                selectedLabel.labelSprite,
+                FinishLabelChange
+            );
+        }
+        else
+        {
+            currentLabelImage.sprite =
+                selectedLabel.labelSprite;
+
+            currentLabelImage.preserveAspect = true;
+
+            FinishLabelChange();
+        }
+    }
+
+    private void FinishLabelChange()
+    {
+        if (puzzleStopped || currentLabel == null)
+        {
+            isChangingLabel = false;
+            return;
+        }
+
+        currentLabel.enabled = true;
+        isChangingLabel = false;
     }
 
     public void HandleCorrectPlacement(
         HeartPuzzleDropZone correctZone)
     {
-        if (puzzleStopped)
+        if (puzzleStopped || isChangingLabel)
         {
             return;
         }
@@ -151,7 +189,7 @@ public class HeartPuzzleManager : MonoBehaviour
 
     public void HandleWrongPlacement()
     {
-        if (puzzleStopped)
+        if (puzzleStopped || isChangingLabel)
         {
             return;
         }
@@ -173,6 +211,7 @@ public class HeartPuzzleManager : MonoBehaviour
 
             if (currentLabel != null)
             {
+                currentLabel.enabled = false;
                 currentLabel.gameObject.SetActive(false);
             }
         }
@@ -261,9 +300,11 @@ public class HeartPuzzleManager : MonoBehaviour
     private void CompletePuzzle()
     {
         puzzleStopped = true;
+        isChangingLabel = false;
 
         if (currentLabel != null)
         {
+            currentLabel.enabled = false;
             currentLabel.gameObject.SetActive(false);
         }
 
@@ -280,9 +321,6 @@ public class HeartPuzzleManager : MonoBehaviour
         }
 
         puzzleSuccessOverlay.SetActive(true);
-
-        // Поставя победния панел най-отгоре
-        // в рамките на PuzzlePanel.
         puzzleSuccessOverlay.transform.SetAsLastSibling();
     }
 

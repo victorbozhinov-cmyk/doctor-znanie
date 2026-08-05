@@ -10,6 +10,7 @@ public class HeartPuzzleLives : MonoBehaviour
     [SerializeField] private GameObject gameOverOverlay;
 
     private int currentLives;
+    private bool isLosingLife;
 
     public int CurrentLives => currentLives;
     public bool IsGameOver => currentLives <= 0;
@@ -26,8 +27,11 @@ public class HeartPuzzleLives : MonoBehaviour
 
     public void ResetLives()
     {
+        isLosingLife = false;
+
         LoadLivesFromDifficulty();
         HideGameOver();
+        ResetHeartAnimations();
         UpdateLivesUI();
     }
 
@@ -58,18 +62,52 @@ public class HeartPuzzleLives : MonoBehaviour
 
     public void LoseLife()
     {
-        if (IsGameOver)
+        if (IsGameOver || isLosingLife)
         {
             return;
         }
 
-        currentLives--;
+        int lostHeartIndex = currentLives - 1;
 
-        UpdateLivesUI();
+        currentLives--;
+        isLosingLife = true;
 
         Debug.Log(
             $"Загубен живот. Остават: {currentLives}"
         );
+
+        if (lostHeartIndex < 0 ||
+            lostHeartIndex >= lifeHearts.Length ||
+            lifeHearts[lostHeartIndex] == null)
+        {
+            FinishLoseLife();
+            return;
+        }
+
+        GameObject lostHeart =
+            lifeHearts[lostHeartIndex];
+
+        UILifeHeartAnimation heartAnimation =
+            lostHeart.GetComponent<UILifeHeartAnimation>();
+
+        if (heartAnimation != null)
+        {
+            heartAnimation.PlayLoseAnimation(
+                FinishLoseLife
+            );
+        }
+        else
+        {
+            lostHeart.SetActive(false);
+            FinishLoseLife();
+        }
+    }
+
+    private void FinishLoseLife()
+    {
+        isLosingLife = false;
+
+        Canvas.ForceUpdateCanvases();
 
         if (IsGameOver)
         {
@@ -91,8 +129,6 @@ public class HeartPuzzleLives : MonoBehaviour
         }
 
         gameOverOverlay.SetActive(true);
-
-        // Поставя прозореца над всички останали UI елементи.
         gameOverOverlay.transform.SetAsLastSibling();
     }
 
@@ -101,6 +137,26 @@ public class HeartPuzzleLives : MonoBehaviour
         if (gameOverOverlay != null)
         {
             gameOverOverlay.SetActive(false);
+        }
+    }
+
+    private void ResetHeartAnimations()
+    {
+        for (int i = 0; i < lifeHearts.Length; i++)
+        {
+            if (lifeHearts[i] == null)
+            {
+                continue;
+            }
+
+            UILifeHeartAnimation animation =
+                lifeHearts[i]
+                    .GetComponent<UILifeHeartAnimation>();
+
+            if (animation != null)
+            {
+                animation.ResetHeart();
+            }
         }
     }
 
@@ -113,7 +169,9 @@ public class HeartPuzzleLives : MonoBehaviour
                 continue;
             }
 
-            lifeHearts[i].SetActive(i < currentLives);
+            lifeHearts[i].SetActive(
+                i < currentLives
+            );
         }
 
         Canvas.ForceUpdateCanvases();
