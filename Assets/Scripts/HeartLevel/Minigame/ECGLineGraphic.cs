@@ -1,84 +1,135 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ECGLineGraphic : Graphic
 {
     [SerializeField] private float lineThickness = 4f;
-    [SerializeField] private float animationSpeed = 0.5f;
+    [SerializeField] private float bpm = 80f;
+    [SerializeField] private float scrollSpeed = 120f;
+    [SerializeField] private float sampleSpacing = 2f;
 
-    private float progress = 0f;
+    private readonly List<Vector2> points = new();
+
+    private float sampleTimer;
+    private float currentTime;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        Rect rect = rectTransform.rect;
+
+        for (float x = rect.xMin; x <= rect.xMax; x += sampleSpacing)
+        {
+            points.Add(new Vector2(x, 0f));
+        }
+    }
 
     private void Update()
     {
-    progress += Time.deltaTime * animationSpeed;
+        currentTime += Time.deltaTime;
 
-    if (progress > 1f)
-        progress = 0f;
+        float sampleInterval = sampleSpacing / scrollSpeed;
+        sampleTimer += Time.deltaTime;
 
-    SetVerticesDirty();
+        if (sampleTimer >= sampleInterval)
+        {
+            sampleTimer = 0f;
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                points[i] += Vector2.left * sampleSpacing;
+            }
+
+            Rect rect = rectTransform.rect;
+
+            while (points.Count > 0 && points[0].x < rect.xMin)
+            {
+                points.RemoveAt(0);
+            }
+
+            float y = GetECGY(currentTime);
+
+            points.Add(new Vector2(rect.xMax, y));
+
+            SetVerticesDirty();
+        }
+    }
+
+    private float GetECGY(float time)
+    {
+        float beatInterval = 60f / bpm;
+        float phase = Mathf.Repeat(time, beatInterval) / beatInterval;
+
+        // P wave - малка плавна вълна
+        if (phase < 0.12f)
+        {
+            return Mathf.Sin((phase / 0.12f) * Mathf.PI) * 8f;
+        }
+
+        // Кратка права линия
+        if (phase < 0.18f)
+        {
+            return 0f;
+        }
+
+        // Q - лек спад надолу
+        if (phase < 0.22f)
+        {
+            float t = Mathf.InverseLerp(0.18f, 0.22f, phase);
+            return Mathf.Lerp(0f, -12f, t);
+        }
+
+        // R - голям основен пик нагоре
+        if (phase < 0.28f)
+        {
+            float t = Mathf.InverseLerp(0.22f, 0.28f, phase);
+            return Mathf.Lerp(-12f, 85f, t);
+        }
+
+        // S - рязък спад след големия пик
+        if (phase < 0.34f)
+        {
+            float t = Mathf.InverseLerp(0.28f, 0.34f, phase);
+            return Mathf.Lerp(85f, -22f, t);
+        }
+
+        // Връщане към средната линия
+        if (phase < 0.40f)
+        {
+            float t = Mathf.InverseLerp(0.34f, 0.40f, phase);
+            return Mathf.Lerp(-22f, 0f, t);
+        }
+
+        // T wave - по-мека вълна
+        if (phase < 0.58f)
+        {
+            float t = Mathf.InverseLerp(0.40f, 0.58f, phase);
+            return Mathf.Sin(t * Mathf.PI) * 12f;
+        }
+
+        // Права линия до следващия удар
+        return 0f;
     }
 
     protected override void OnPopulateMesh(VertexHelper vh)
     {
         vh.Clear();
 
-        Rect rect = rectTransform.rect;
+        if (points.Count < 2)
+            return;
 
-        Vector2[] points =
+        for (int i = 0; i < points.Count - 1; i++)
         {
-            new Vector2(rect.xMin, 0),
-
-            new Vector2(rect.xMin + rect.width * 0.10f, 0),
-            new Vector2(rect.xMin + rect.width * 0.14f, 8),
-            new Vector2(rect.xMin + rect.width * 0.17f, -4),
-            new Vector2(rect.xMin + rect.width * 0.20f, 0),
-
-            new Vector2(rect.xMin + rect.width * 0.24f, 0),
-            new Vector2(rect.xMin + rect.width * 0.27f, 18),
-            new Vector2(rect.xMin + rect.width * 0.29f, -28),
-            new Vector2(rect.xMin + rect.width * 0.31f, 65),
-            new Vector2(rect.xMin + rect.width * 0.34f, -18),
-            new Vector2(rect.xMin + rect.width * 0.37f, 0),
-
-            new Vector2(rect.xMin + rect.width * 0.50f, 0),
-
-            new Vector2(rect.xMin + rect.width * 0.54f, 8),
-            new Vector2(rect.xMin + rect.width * 0.57f, -4),
-            new Vector2(rect.xMin + rect.width * 0.60f, 0),
-
-            new Vector2(rect.xMin + rect.width * 0.70f, 0),
-            new Vector2(rect.xMin + rect.width * 0.73f, 18),
-            new Vector2(rect.xMin + rect.width * 0.75f, -28),
-            new Vector2(rect.xMin + rect.width * 0.77f, 65),
-            new Vector2(rect.xMin + rect.width * 0.80f, -18),
-            new Vector2(rect.xMin + rect.width * 0.83f, 0),
-
-            new Vector2(rect.xMax, 0)
-        };
-
-        float maxX = Mathf.Lerp(rect.xMin, rect.xMax, progress);
-
-        for (int i = 0; i < points.Length - 1; i++)
-        {
-            if (points[i].x > maxX)
-                break;
-
-            Vector2 start = points[i];
-            Vector2 end = points[i + 1];
-
-            if (end.x > maxX)
-            {
-                float t = Mathf.InverseLerp(start.x, end.x, maxX);
-                end = Vector2.Lerp(start, end, t);
-            }
-
-            AddLine(vh, start, end);
+            AddLine(vh, points[i], points[i + 1]);
         }
     }
 
     private void AddLine(VertexHelper vh, Vector2 start, Vector2 end)
     {
         Vector2 direction = (end - start).normalized;
+
         Vector2 normal =
             new Vector2(-direction.y, direction.x) *
             lineThickness * 0.5f;
