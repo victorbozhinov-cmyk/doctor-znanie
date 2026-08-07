@@ -20,6 +20,16 @@ public class LevelSettingsOverlay : MonoBehaviour
         }
     }
 
+    /*
+     * Изпълнява се винаги, когато LevelSettingsWindow
+     * стане активен, включително когато е отворен
+     * чрез LevelPopupController.
+     */
+    private void OnEnable()
+    {
+        LockDifficulty();
+    }
+
     public void OpenSettings()
     {
         if (settingsOverlay == null)
@@ -32,17 +42,7 @@ public class LevelSettingsOverlay : MonoBehaviour
         }
 
         settingsOverlay.SetActive(true);
-
-        if (difficultySelector != null)
-        {
-            difficultySelector.SetLocked(true);
-        }
-        else
-        {
-            Debug.LogError(
-                "Difficulty Selector не е свързан."
-            );
-        }
+        LockDifficulty();
     }
 
     public void CloseSettings()
@@ -62,5 +62,19 @@ public class LevelSettingsOverlay : MonoBehaviour
         {
             settingsOverlay.SetActive(false);
         }
+    }
+
+    private void LockDifficulty()
+    {
+        if (difficultySelector == null)
+        {
+            Debug.LogError(
+                "Difficulty Selector не е свързан."
+            );
+
+            return;
+        }
+
+        difficultySelector.SetLocked(true);
     }
 }
