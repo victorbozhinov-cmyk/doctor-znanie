@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: e0df16956519c8d4c8b7b3fd229fd849
+guid: d53552e9072feae489b43792b65475df
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9039073838958132692
-    second: LiverStartButton_0
+      213: -8737743225177929217
+    second: LiverStarButton2_0
+  - first:
+      213: 5252710661382533484
+    second: LiverStarButton2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LiverStartButton_0
+      name: LiverStarButton2_0
       rect:
         serializedVersion: 2
         x: 11
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c22cf5a0c32ce8280800000000000000
-      internalID: -9039073838958132692
+      spriteID: ff981bcc4dc4db680800000000000000
+      internalID: -8737743225177929217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LiverStarButton2_1
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 343
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c61fc97348065e840800000000000000
+      internalID: 5252710661382533484
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      LiverStartButton_0: -9039073838958132692
+      LiverStarButton2_0: -8737743225177929217
+      LiverStarButton2_1: 5252710661382533484
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
