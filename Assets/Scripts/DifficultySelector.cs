@@ -6,9 +6,6 @@ public class DifficultySelector : MonoBehaviour
 {
     private const string DifficultyKey = "Difficulty";
 
-    private const string LockDifficultyKey =
-        "LockDifficultyInSettings";
-
     [Header("UI Elements")]
     [SerializeField] private TMP_Text difficultyText;
     [SerializeField] private Image[] indicators = new Image[3];
@@ -55,15 +52,9 @@ public class DifficultySelector : MonoBehaviour
     private void Start()
     {
         LoadDifficulty();
-        LoadLockState();
 
         UpdateUI();
         UpdateDifficultyLockUI();
-
-        // Флагът важи само за текущото
-        // отваряне на SettingsMenu.
-        PlayerPrefs.DeleteKey(LockDifficultyKey);
-        PlayerPrefs.Save();
     }
 
     private void LoadDifficulty()
@@ -75,17 +66,11 @@ public class DifficultySelector : MonoBehaviour
             Mathf.Clamp(currentDifficulty, 0, 2);
     }
 
-    private void LoadLockState()
+    public void SetLocked(bool locked)
     {
-        difficultyLocked =
-            PlayerPrefs.GetInt(
-                LockDifficultyKey,
-                0
-            ) == 1;
+        difficultyLocked = locked;
 
-        Debug.Log(
-            $"Difficulty locked: {difficultyLocked}"
-        );
+        UpdateDifficultyLockUI();
     }
 
     public void PreviousDifficulty()
@@ -138,7 +123,6 @@ public class DifficultySelector : MonoBehaviour
 
     private void UpdateDifficultyLockUI()
     {
-        // Скриваме истинските бутони.
         if (previousArrow != null)
         {
             previousArrow.SetActive(
@@ -153,19 +137,18 @@ public class DifficultySelector : MonoBehaviour
             );
         }
 
-        // Сменяме общото изображение на контейнера.
         if (selectorBackground != null)
         {
-            selectorBackground.sprite =
+            Sprite selectedBackground =
                 difficultyLocked
                     ? lockedBackground
                     : normalBackground;
-        }
-        else
-        {
-            Debug.LogError(
-                "Selector Background не е свързан."
-            );
+
+            if (selectedBackground != null)
+            {
+                selectorBackground.sprite =
+                    selectedBackground;
+            }
         }
     }
 

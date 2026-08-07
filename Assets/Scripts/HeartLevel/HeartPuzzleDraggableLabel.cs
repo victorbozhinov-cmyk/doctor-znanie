@@ -54,6 +54,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     [SerializeField]
     private float glowSize = 3f;
 
+    [Header("Return Animation")]
+    [SerializeField]
+    private UIDragReturnAnimation returnAnimation;
+
     private RectTransform rectTransform;
     private Canvas canvas;
     private CanvasGroup canvasGroup;
@@ -66,9 +70,9 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     private Vector3 originalScale;
     private Vector3 targetScale;
 
-    private bool isPointerOver;
     private bool isDragging;
     private bool isLocked;
+    private bool isReturning;
 
     private Coroutine feedbackCoroutine;
 
@@ -100,13 +104,12 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
                 gameObject.AddComponent<CanvasGroup>();
         }
 
-        /*
-         * Използваме зададения от Inspector
-         * Puzzle Manager.
-         *
-         * Ако полето е празно, опитваме
-         * автоматично да го намерим.
-         */
+        if (returnAnimation == null)
+        {
+            returnAnimation =
+                GetComponent<UIDragReturnAnimation>();
+        }
+
         if (puzzleManager == null)
         {
             puzzleManager =
@@ -205,7 +208,8 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
 
     private void Update()
     {
-        if (rectTransform == null)
+        if (rectTransform == null ||
+            isReturning)
         {
             return;
         }
@@ -221,12 +225,12 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     public void OnPointerEnter(
         PointerEventData eventData)
     {
-        if (isLocked || isDragging)
+        if (isLocked ||
+            isDragging ||
+            isReturning)
         {
             return;
         }
-
-        isPointerOver = true;
 
         targetScale =
             originalScale * hoverMultiplier;
@@ -240,12 +244,12 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     public void OnPointerExit(
         PointerEventData eventData)
     {
-        if (isLocked || isDragging)
+        if (isLocked ||
+            isDragging ||
+            isReturning)
         {
             return;
         }
-
-        isPointerOver = false;
 
         targetScale =
             originalScale;
@@ -259,7 +263,7 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     public void OnBeginDrag(
         PointerEventData eventData)
     {
-        if (isLocked)
+        if (isLocked || isReturning)
         {
             return;
         }
@@ -276,7 +280,6 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
 
         isDragging = true;
-        isPointerOver = false;
 
         targetScale =
             originalScale;
@@ -286,10 +289,6 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             0f
         );
 
-        /*
-         * Позволява на raycast-а да достигне
-         * drop зоната под етикета.
-         */
         canvasGroup.blocksRaycasts =
             false;
     }
@@ -297,7 +296,9 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     public void OnDrag(
         PointerEventData eventData)
     {
-        if (isLocked || !isDragging)
+        if (isLocked ||
+            isReturning ||
+            !isDragging)
         {
             return;
         }
@@ -315,7 +316,9 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     public void OnEndDrag(
         PointerEventData eventData)
     {
-        if (isLocked || !isDragging)
+        if (isLocked ||
+            isReturning ||
+            !isDragging)
         {
             return;
         }
@@ -340,20 +343,15 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
                     >();
         }
 
-        /*
-         * Ако не е пуснат върху drop зона,
-         * просто се връща в началото.
-         * Не губи живот.
-         */
+        // Пуснат извън зона:
+        // връща се плавно, без да губи живот.
         if (dropZone == null)
         {
-            ReturnToStart();
+            ReturnToStartAnimated();
             return;
         }
 
-        /*
-         * Правилно поставяне.
-         */
+        // Правилна зона.
         if (dropZone.Accepts(partType))
         {
             dropZone.ShowCorrectFeedback();
@@ -372,20 +370,16 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             return;
         }
 
-        /*
-         * Грешно поставяне.
-         */
+        // Грешна зона.
         dropZone.ShowWrongFeedback();
 
+        // Заключваме етикета, докато траят
+        // feedback-ът и връщащата анимация.
         SnapToDropZone(
             dropZone,
-            false
+            true
         );
 
-        /*
-         * Животът вече се отнема чрез
-         * HeartPuzzleManager.
-         */
         if (puzzleManager != null)
         {
             puzzleManager
@@ -462,10 +456,6 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         isLocked =
             lockLabel;
 
-        /*
-         * Докато е поставен върху зоната,
-         * не трябва да блокира raycast-а.
-         */
         canvasGroup.blocksRaycasts =
             false;
     }
@@ -519,20 +509,12 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         feedbackCoroutine =
             null;
 
-        /*
-         * При грешка връщаме етикета.
-         */
         if (returnAfter)
         {
-            ReturnToStart();
+            ReturnToStartAnimated();
             yield break;
         }
 
-        /*
-         * При правилно поставяне уведомяваме
-         * Puzzle Manager да създаде копието
-         * и да покаже следващия етикет.
-         */
         if (puzzleManager != null)
         {
             puzzleManager
@@ -549,10 +531,46 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
     }
 
-    private void ReturnToStart()
+    private void ReturnToStartAnimated()
     {
         if (rectTransform == null ||
             originalParent == null)
+        {
+            return;
+        }
+
+        isReturning = true;
+        isLocked = true;
+        isDragging = false;
+
+        targetScale =
+            originalScale;
+
+        canvasGroup.blocksRaycasts =
+            false;
+
+        SetHoverGlow(
+            hoverGlowColor,
+            0f
+        );
+
+        if (returnAnimation == null)
+        {
+            ReturnToStart();
+            return;
+        }
+
+        returnAnimation.PlayReturn(
+            originalParent,
+            originalPosition,
+            originalScale,
+            FinishAnimatedReturn
+        );
+    }
+
+    private void FinishAnimatedReturn()
+    {
+        if (rectTransform == null)
         {
             return;
         }
@@ -583,9 +601,61 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         targetScale =
             originalScale;
 
+        isReturning = false;
         isLocked = false;
         isDragging = false;
-        isPointerOver = false;
+
+        canvasGroup.blocksRaycasts =
+            true;
+
+        SetHoverGlow(
+            hoverGlowColor,
+            0f
+        );
+    }
+
+    private void ReturnToStart()
+    {
+        if (rectTransform == null ||
+            originalParent == null)
+        {
+            return;
+        }
+
+        if (returnAnimation != null)
+        {
+            returnAnimation.CancelAnimation();
+        }
+
+        rectTransform.SetParent(
+            originalParent,
+            false
+        );
+
+        rectTransform.anchorMin =
+            new Vector2(0.5f, 0.5f);
+
+        rectTransform.anchorMax =
+            new Vector2(0.5f, 0.5f);
+
+        rectTransform.pivot =
+            new Vector2(0.5f, 0.5f);
+
+        rectTransform.anchoredPosition =
+            originalPosition;
+
+        rectTransform.localScale =
+            originalScale;
+
+        rectTransform.localRotation =
+            Quaternion.identity;
+
+        targetScale =
+            originalScale;
+
+        isLocked = false;
+        isDragging = false;
+        isReturning = false;
 
         canvasGroup.blocksRaycasts =
             true;
@@ -637,6 +707,11 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
                 null;
         }
 
+        if (returnAnimation != null)
+        {
+            returnAnimation.CancelAnimation();
+        }
+
         if (feedbackOutline != null)
         {
             feedbackOutline.enabled =
@@ -648,6 +723,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             rectTransform.localScale =
                 originalScale;
         }
+
+        isDragging = false;
+        isLocked = false;
+        isReturning = false;
 
         SetHoverGlow(
             Color.white,
