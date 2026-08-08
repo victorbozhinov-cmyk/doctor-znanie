@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class HeartMinigameManager : MonoBehaviour
 {
@@ -29,6 +30,18 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private GameObject heartHigh;
     [SerializeField] private GameObject heartDead;
 
+    [Header("Warning Panels")]
+    [SerializeField] private GameObject highPulseWarningPanel;
+    [SerializeField] private GameObject lowPulseWarningPanel;
+
+    [SerializeField] private Image highWarningFill;
+    [SerializeField] private Image lowWarningFill;
+
+    [Header("Danger Countdown By Difficulty")]
+    [SerializeField] private float easyDangerDuration = 4f;
+    [SerializeField] private float mediumDangerDuration = 3f;
+    [SerializeField] private float hardDangerDuration = 2f;
+
     [Header("Keyboard Button Animation")]
     [SerializeField] private RectTransform decreaseButtonHitbox;
     [SerializeField] private RectTransform increaseButtonHitbox;
@@ -41,22 +54,81 @@ public class HeartMinigameManager : MonoBehaviour
 
     private PulseState currentPulseState;
 
+    private float dangerDuration;
+    private float dangerTimer;
+    private bool dangerCountdownActive;
+
     private void Start()
     {
+        SetDangerDurationFromDifficulty();
+
+        if (highPulseWarningPanel != null)
+            highPulseWarningPanel.SetActive(false);
+
+        if (lowPulseWarningPanel != null)
+            lowPulseWarningPanel.SetActive(false);
+
+        if (highWarningFill != null)
+            highWarningFill.fillAmount = 0f;
+
+        if (lowWarningFill != null)
+            lowWarningFill.fillAmount = 0f;
+
         UpdatePulseUI();
         UpdatePulseState();
     }
 
     private void Update()
     {
+        HandleKeyboardInput();
+        UpdateDangerCountdown();
+    }
+
+    private void SetDangerDurationFromDifficulty()
+    {
+        // 0 = Easy
+        // 1 = Medium
+        // 2 = Hard
+
+        int difficulty = PlayerPrefs.GetInt("Difficulty", 1);
+
+        switch (difficulty)
+        {
+            case 0:
+                dangerDuration = easyDangerDuration;
+                break;
+
+            case 2:
+                dangerDuration = hardDangerDuration;
+                break;
+
+            default:
+                dangerDuration = mediumDangerDuration;
+                break;
+        }
+
+        Debug.Log(
+            "Difficulty: " +
+            difficulty +
+            " | Danger countdown: " +
+            dangerDuration +
+            " sec."
+        );
+    }
+
+    private void HandleKeyboardInput()
+    {
         if (Keyboard.current == null)
             return;
 
-        // Намаляване
+        // ↓ или S = намалява пулса
         if (Keyboard.current.downArrowKey.wasPressedThisFrame ||
             Keyboard.current.sKey.wasPressedThisFrame)
         {
             DecreasePulse();
+
+            // Същият звук като при click с мишката
+            UISoundManager.Instance?.PlayClick();
 
             if (decreaseButtonHitbox != null)
             {
@@ -69,11 +141,14 @@ public class HeartMinigameManager : MonoBehaviour
             }
         }
 
-        // Увеличаване
+        // ↑ или W = увеличава пулса
         if (Keyboard.current.upArrowKey.wasPressedThisFrame ||
             Keyboard.current.wKey.wasPressedThisFrame)
         {
             IncreasePulse();
+
+            // Същият звук като при click с мишката
+            UISoundManager.Instance?.PlayClick();
 
             if (increaseButtonHitbox != null)
             {
@@ -87,10 +162,100 @@ public class HeartMinigameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayKeyboardPressAnimation(RectTransform button)
+    private void UpdateDangerCountdown()
+    {
+        bool isDanger =
+            currentPulseState == PulseState.DangerLow ||
+            currentPulseState == PulseState.DangerHigh;
+
+        if (!isDanger)
+        {
+            ResetDangerCountdown();
+            return;
+        }
+
+        if (!dangerCountdownActive)
+        {
+            dangerCountdownActive = true;
+            dangerTimer = 0f;
+        }
+
+        dangerTimer += Time.deltaTime;
+
+        float progress = Mathf.Clamp01(
+            dangerTimer / dangerDuration
+        );
+
+        // LOW WARNING: 40 - 69 BPM
+        if (currentPulseState == PulseState.DangerLow)
+        {
+            if (lowPulseWarningPanel != null)
+                lowPulseWarningPanel.SetActive(true);
+
+            if (highPulseWarningPanel != null)
+                highPulseWarningPanel.SetActive(false);
+
+            if (lowWarningFill != null)
+                lowWarningFill.fillAmount = progress;
+
+            if (highWarningFill != null)
+                highWarningFill.fillAmount = 0f;
+        }
+
+        // HIGH WARNING: 101 - 130 BPM
+        else if (currentPulseState == PulseState.DangerHigh)
+        {
+            if (highPulseWarningPanel != null)
+                highPulseWarningPanel.SetActive(true);
+
+            if (lowPulseWarningPanel != null)
+                lowPulseWarningPanel.SetActive(false);
+
+            if (highWarningFill != null)
+                highWarningFill.fillAmount = progress;
+
+            if (lowWarningFill != null)
+                lowWarningFill.fillAmount = 0f;
+        }
+
+        // Засега тук само тестваме.
+        // Следващата стъпка ще е LoseLife().
+        if (progress >= 1f)
+        {
+            Debug.Log(
+                "Warning bar completed - player should lose a life."
+            );
+
+            ResetDangerCountdown();
+        }
+    }
+
+    private void ResetDangerCountdown()
+    {
+        dangerCountdownActive = false;
+        dangerTimer = 0f;
+
+        if (highPulseWarningPanel != null)
+            highPulseWarningPanel.SetActive(false);
+
+        if (lowPulseWarningPanel != null)
+            lowPulseWarningPanel.SetActive(false);
+
+        if (highWarningFill != null)
+            highWarningFill.fillAmount = 0f;
+
+        if (lowWarningFill != null)
+            lowWarningFill.fillAmount = 0f;
+    }
+
+    private IEnumerator PlayKeyboardPressAnimation(
+        RectTransform button
+    )
     {
         Vector3 originalScale = Vector3.one;
-        Vector3 pressedScale = originalScale * keyboardPressedScale;
+
+        Vector3 pressedScale =
+            originalScale * keyboardPressedScale;
 
         float timer = 0f;
 
@@ -148,25 +313,25 @@ public class HeartMinigameManager : MonoBehaviour
             currentPulseState = PulseState.Normal;
         }
 
-        // DANGER LOW: 50 - 69
-        else if (currentBPM >= 50 && currentBPM < 70)
+        // DANGER LOW: 40 - 69
+        else if (currentBPM >= 40 && currentBPM < 70)
         {
             currentPulseState = PulseState.DangerLow;
         }
 
-        // DANGER HIGH: 101 - 120
-        else if (currentBPM > 100 && currentBPM <= 120)
+        // DANGER HIGH: 101 - 130
+        else if (currentBPM > 100 && currentBPM <= 130)
         {
             currentPulseState = PulseState.DangerHigh;
         }
 
-        // CRITICAL LOW: под 50
-        else if (currentBPM < 50)
+        // CRITICAL LOW: под 40
+        else if (currentBPM < 40)
         {
             currentPulseState = PulseState.CriticalLow;
         }
 
-        // CRITICAL HIGH: над 120
+        // CRITICAL HIGH: над 130
         else
         {
             currentPulseState = PulseState.CriticalHigh;
