@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HeartMinigameManager : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class HeartMinigameManager : MonoBehaviour
     [Header("Pulse")]
     [SerializeField] private int currentBPM = 80;
 
+    [Header("Panels")]
+    [SerializeField] private GameObject minigamePanel;
+
     [Header("UI")]
     [SerializeField] private TMP_Text pulseValueText;
 
@@ -30,6 +34,12 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private GameObject heartHigh;
     [SerializeField] private GameObject heartDead;
 
+    [Header("Lives")]
+    [SerializeField] private HeartMinigameLives heartLives;
+
+    [Header("Game Over")]
+    [SerializeField] private GameObject gameOverOverlay;
+
     [Header("Warning Panels")]
     [SerializeField] private GameObject highPulseWarningPanel;
     [SerializeField] private GameObject lowPulseWarningPanel;
@@ -41,6 +51,15 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private float easyDangerDuration = 4f;
     [SerializeField] private float mediumDangerDuration = 3f;
     [SerializeField] private float hardDangerDuration = 2f;
+
+    [Header("Drift By Difficulty")]
+    [SerializeField] private int easyDriftAmount = 7;
+    [SerializeField] private int mediumDriftAmount = 10;
+    [SerializeField] private int hardDriftAmount = 15;
+
+    [SerializeField] private float easyDriftInterval = 4f;
+    [SerializeField] private float mediumDriftInterval = 3f;
+    [SerializeField] private float hardDriftInterval = 2f;
 
     [Header("Keyboard Button Animation")]
     [SerializeField] private RectTransform decreaseButtonHitbox;
@@ -58,9 +77,25 @@ public class HeartMinigameManager : MonoBehaviour
     private float dangerTimer;
     private bool dangerCountdownActive;
 
+    private int driftAmount;
+    private float driftInterval;
+    private float driftTimer;
+
+    // Пази ни от загуба на няколко живота веднага,
+    // докато стоим в critical зоната.
+    private bool criticalImmediateLossUsed;
+
+    // Спира gameplay логиката след Game Over.
+    private bool isGameOver;
+
     private void Start()
     {
-        SetDangerDurationFromDifficulty();
+        isGameOver = false;
+
+        if (gameOverOverlay != null)
+            gameOverOverlay.SetActive(false);
+
+        SetDifficultyValues();
 
         if (highPulseWarningPanel != null)
             highPulseWarningPanel.SetActive(false);
@@ -74,17 +109,32 @@ public class HeartMinigameManager : MonoBehaviour
         if (lowWarningFill != null)
             lowWarningFill.fillAmount = 0f;
 
+        driftTimer = 0f;
+
         UpdatePulseUI();
         UpdatePulseState();
     }
 
     private void Update()
     {
+        if (isGameOver)
+            return;
+
+        // Gameplay логиката работи само
+        // когато реално сме в MinigamePanel.
+        if (minigamePanel == null ||
+            !minigamePanel.activeInHierarchy)
+        {
+            driftTimer = 0f;
+            return;
+        }
+
         HandleKeyboardInput();
         UpdateDangerCountdown();
+        UpdatePulseDrift();
     }
 
-    private void SetDangerDurationFromDifficulty()
+    private void SetDifficultyValues()
     {
         // 0 = Easy
         // 1 = Medium
@@ -96,14 +146,23 @@ public class HeartMinigameManager : MonoBehaviour
         {
             case 0:
                 dangerDuration = easyDangerDuration;
+
+                driftAmount = easyDriftAmount;
+                driftInterval = easyDriftInterval;
                 break;
 
             case 2:
                 dangerDuration = hardDangerDuration;
+
+                driftAmount = hardDriftAmount;
+                driftInterval = hardDriftInterval;
                 break;
 
             default:
                 dangerDuration = mediumDangerDuration;
+
+                driftAmount = mediumDriftAmount;
+                driftInterval = mediumDriftInterval;
                 break;
         }
 
@@ -112,7 +171,41 @@ public class HeartMinigameManager : MonoBehaviour
             difficulty +
             " | Danger countdown: " +
             dangerDuration +
+            " sec." +
+            " | Drift: " +
+            driftAmount +
+            " BPM every " +
+            driftInterval +
             " sec."
+        );
+    }
+
+    private void UpdatePulseDrift()
+    {
+        driftTimer += Time.deltaTime;
+
+        if (driftTimer < driftInterval)
+            return;
+
+        driftTimer = 0f;
+
+        // 50/50 шанс за нагоре или надолу.
+        int direction =
+            Random.value < 0.5f
+                ? -1
+                : 1;
+
+        currentBPM += driftAmount * direction;
+
+        UpdatePulseUI();
+        UpdatePulseState();
+
+        Debug.Log(
+            "Pulse drift: " +
+            (direction > 0 ? "+" : "-") +
+            driftAmount +
+            " BPM | Current BPM: " +
+            currentBPM
         );
     }
 
@@ -127,7 +220,6 @@ public class HeartMinigameManager : MonoBehaviour
         {
             DecreasePulse();
 
-            // Същият звук като при click с мишката
             UISoundManager.Instance?.PlayClick();
 
             if (decreaseButtonHitbox != null)
@@ -147,7 +239,6 @@ public class HeartMinigameManager : MonoBehaviour
         {
             IncreasePulse();
 
-            // Същият звук като при click с мишката
             UISoundManager.Instance?.PlayClick();
 
             if (increaseButtonHitbox != null)
@@ -164,11 +255,19 @@ public class HeartMinigameManager : MonoBehaviour
 
     private void UpdateDangerCountdown()
     {
-        bool isDanger =
+        bool needsCountdown =
             currentPulseState == PulseState.DangerLow ||
-            currentPulseState == PulseState.DangerHigh;
+            currentPulseState == PulseState.DangerHigh ||
+            (
+                currentPulseState == PulseState.CriticalLow &&
+                criticalImmediateLossUsed
+            ) ||
+            (
+                currentPulseState == PulseState.CriticalHigh &&
+                criticalImmediateLossUsed
+            );
 
-        if (!isDanger)
+        if (!needsCountdown)
         {
             ResetDangerCountdown();
             return;
@@ -186,8 +285,16 @@ public class HeartMinigameManager : MonoBehaviour
             dangerTimer / dangerDuration
         );
 
-        // LOW WARNING: 40 - 69 BPM
-        if (currentPulseState == PulseState.DangerLow)
+        bool isLow =
+            currentPulseState == PulseState.DangerLow ||
+            currentPulseState == PulseState.CriticalLow;
+
+        bool isHigh =
+            currentPulseState == PulseState.DangerHigh ||
+            currentPulseState == PulseState.CriticalHigh;
+
+        // LOW WARNING
+        if (isLow)
         {
             if (lowPulseWarningPanel != null)
                 lowPulseWarningPanel.SetActive(true);
@@ -202,8 +309,8 @@ public class HeartMinigameManager : MonoBehaviour
                 highWarningFill.fillAmount = 0f;
         }
 
-        // HIGH WARNING: 101 - 130 BPM
-        else if (currentPulseState == PulseState.DangerHigh)
+        // HIGH WARNING
+        if (isHigh)
         {
             if (highPulseWarningPanel != null)
                 highPulseWarningPanel.SetActive(true);
@@ -218,16 +325,69 @@ public class HeartMinigameManager : MonoBehaviour
                 lowWarningFill.fillAmount = 0f;
         }
 
-        // Засега тук само тестваме.
-        // Следващата стъпка ще е LoseLife().
         if (progress >= 1f)
         {
-            Debug.Log(
-                "Warning bar completed - player should lose a life."
-            );
+            LoseLife();
 
             ResetDangerCountdown();
         }
+    }
+
+    private void LoseLife()
+    {
+        if (heartLives == null)
+        {
+            Debug.LogWarning(
+                "HeartMinigameLives reference is missing!"
+            );
+
+            return;
+        }
+
+        if (!heartLives.HasLives || isGameOver)
+            return;
+
+        heartLives.LoseLife(
+            () =>
+            {
+                if (!heartLives.HasLives)
+                {
+                    TriggerGameOver();
+                }
+            }
+        );
+
+        Debug.Log(
+            "Life lost. Remaining: " +
+            heartLives.CurrentLives
+        );
+    }
+
+    private void TriggerGameOver()
+    {
+        if (isGameOver)
+            return;
+
+        isGameOver = true;
+
+        ResetDangerCountdown();
+
+        if (heartNormal != null)
+            heartNormal.SetActive(false);
+
+        if (heartLow != null)
+            heartLow.SetActive(false);
+
+        if (heartHigh != null)
+            heartHigh.SetActive(false);
+
+        if (heartDead != null)
+            heartDead.SetActive(true);
+
+        if (gameOverOverlay != null)
+            gameOverOverlay.SetActive(true);
+
+        Debug.Log("GAME OVER!");
     }
 
     private void ResetDangerCountdown()
@@ -259,7 +419,6 @@ public class HeartMinigameManager : MonoBehaviour
 
         float timer = 0f;
 
-        // Свиване
         while (timer < keyboardPressDuration)
         {
             timer += Time.unscaledDeltaTime;
@@ -275,7 +434,6 @@ public class HeartMinigameManager : MonoBehaviour
 
         timer = 0f;
 
-        // Връщане
         while (timer < keyboardPressDuration)
         {
             timer += Time.unscaledDeltaTime;
@@ -296,7 +454,8 @@ public class HeartMinigameManager : MonoBehaviour
     {
         if (pulseValueText != null)
         {
-            pulseValueText.text = currentBPM.ToString();
+            pulseValueText.text =
+                currentBPM.ToString();
         }
 
         if (ecgLine != null)
@@ -307,41 +466,86 @@ public class HeartMinigameManager : MonoBehaviour
 
     private void UpdatePulseState()
     {
+        PulseState previousState =
+            currentPulseState;
+
         // NORMAL: 70 - 100
-        if (currentBPM >= 70 && currentBPM <= 100)
+        if (currentBPM >= 70 &&
+            currentBPM <= 100)
         {
-            currentPulseState = PulseState.Normal;
+            currentPulseState =
+                PulseState.Normal;
         }
 
         // DANGER LOW: 40 - 69
-        else if (currentBPM >= 40 && currentBPM < 70)
+        else if (currentBPM >= 40 &&
+                 currentBPM < 70)
         {
-            currentPulseState = PulseState.DangerLow;
+            currentPulseState =
+                PulseState.DangerLow;
         }
 
         // DANGER HIGH: 101 - 130
-        else if (currentBPM > 100 && currentBPM <= 130)
+        else if (currentBPM > 100 &&
+                 currentBPM <= 130)
         {
-            currentPulseState = PulseState.DangerHigh;
+            currentPulseState =
+                PulseState.DangerHigh;
         }
 
         // CRITICAL LOW: под 40
         else if (currentBPM < 40)
         {
-            currentPulseState = PulseState.CriticalLow;
+            currentPulseState =
+                PulseState.CriticalLow;
         }
 
         // CRITICAL HIGH: над 130
         else
         {
-            currentPulseState = PulseState.CriticalHigh;
+            currentPulseState =
+                PulseState.CriticalHigh;
         }
+
+        HandleCriticalState(previousState);
 
         UpdateHeartVisual();
     }
 
+    private void HandleCriticalState(
+        PulseState previousState
+    )
+    {
+        bool isCritical =
+            currentPulseState == PulseState.CriticalLow ||
+            currentPulseState == PulseState.CriticalHigh;
+
+        bool wasCritical =
+            previousState == PulseState.CriticalLow ||
+            previousState == PulseState.CriticalHigh;
+
+        if (!isCritical)
+        {
+            criticalImmediateLossUsed = false;
+            return;
+        }
+
+        if (!wasCritical &&
+            !criticalImmediateLossUsed)
+        {
+            criticalImmediateLossUsed = true;
+
+            ResetDangerCountdown();
+
+            LoseLife();
+        }
+    }
+
     private void UpdateHeartVisual()
     {
+        if (isGameOver)
+            return;
+
         if (heartNormal != null)
             heartNormal.SetActive(false);
 
@@ -364,7 +568,6 @@ public class HeartMinigameManager : MonoBehaviour
                 break;
 
             case PulseState.DangerLow:
-            case PulseState.CriticalLow:
 
                 if (heartLow != null)
                     heartLow.SetActive(true);
@@ -372,10 +575,17 @@ public class HeartMinigameManager : MonoBehaviour
                 break;
 
             case PulseState.DangerHigh:
-            case PulseState.CriticalHigh:
 
                 if (heartHigh != null)
                     heartHigh.SetActive(true);
+
+                break;
+
+            case PulseState.CriticalLow:
+            case PulseState.CriticalHigh:
+
+                if (heartDead != null)
+                    heartDead.SetActive(true);
 
                 break;
         }
@@ -383,6 +593,9 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void DecreasePulse()
     {
+        if (isGameOver)
+            return;
+
         currentBPM -= 5;
 
         UpdatePulseUI();
@@ -391,9 +604,19 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void IncreasePulse()
     {
+        if (isGameOver)
+            return;
+
         currentBPM += 5;
 
         UpdatePulseUI();
         UpdatePulseState();
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
     }
 }
