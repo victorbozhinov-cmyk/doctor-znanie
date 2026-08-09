@@ -1,0 +1,676 @@
+fileFormatVersion: 2
+guid: 9381376b14913304297cf0b00ac71bdd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4455189002498342868
+    second: sleepyCard_0
+  - first:
+      213: -9088849930740358821
+    second: sleepyCard_1
+  - first:
+      213: -6282033239794067102
+    second: sleepyCard_2
+  - first:
+      213: 2563009852285797434
+    second: sleepyCard_3
+  - first:
+      213: -2680934377105149437
+    second: sleepyCard_4
+  - first:
+      213: 7470052866967626304
+    second: sleepyCard_5
+  - first:
+      213: -5310592874719334615
+    second: sleepyCard_6
+  - first:
+      213: -5133284191104579375
+    second: sleepyCard_7
+  - first:
+      213: 7388193488096114600
+    second: sleepyCard_8
+  - first:
+      213: 3629488237956696630
+    second: sleepyCard_9
+  - first:
+      213: -7472267944842601755
+    second: sleepyCard_10
+  - first:
+      213: 5261506798680910106
+    second: sleepyCard_11
+  - first:
+      213: 8830473828818716822
+    second: sleepyCard_12
+  - first:
+      213: 6402884257041154142
+    second: sleepyCard_13
+  - first:
+      213: 2446846088616902323
+    second: sleepyCard_14
+  - first:
+      213: -5169712125068158227
+    second: sleepyCard_15
+  - first:
+      213: -6020140682081937497
+    second: sleepyCard_16
+  - first:
+      213: -2104481864743931573
+    second: sleepyCard_17
+  - first:
+      213: 4451495092143701424
+    second: sleepyCard_18
+  - first:
+      213: -359678731382064385
+    second: sleepyCard_19
+  - first:
+      213: 7926715901867630091
+    second: sleepyCard_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sleepyCard_0
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 1528
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dff32d0bc204dd30800000000000000
+      internalID: 4455189002498342868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_1
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 1531
+        width: 15
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b51236d842bedd180800000000000000
+      internalID: -9088849930740358821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_2
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 1493
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 269d0e25d0cb1d8a0800000000000000
+      internalID: -6282033239794067102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_3
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 1487
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a34425991e3a19320800000000000000
+      internalID: 2563009852285797434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_4
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 1438
+        width: 14
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 302b38263686bcad0800000000000000
+      internalID: -2680934377105149437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_5
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 1479
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0426ef42185faa760800000000000000
+      internalID: 7470052866967626304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_6
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 1457
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92f22abcaebfc46b0800000000000000
+      internalID: -5310592874719334615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_7
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 1463
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d8451ab939e2c8b0800000000000000
+      internalID: -5133284191104579375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_8
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 1468
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a7b2d545d2288660800000000000000
+      internalID: 7388193488096114600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 57
+        width: 1024
+        height: 1379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63a0ed392588e5230800000000000000
+      internalID: 3629488237956696630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_10
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 1425
+        width: 412
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ea5e19d4eb2d4890800000000000000
+      internalID: -7472267944842601755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_11
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 1431
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a19ada68e80a40940800000000000000
+      internalID: 5261506798680910106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_12
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 103
+        width: 21
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6988f1559252c8a70800000000000000
+      internalID: 8830473828818716822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_13
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 97
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5001eece4d9bd850800000000000000
+      internalID: 6402884257041154142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_14
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 68
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be701cbd81f4f120800000000000000
+      internalID: 2446846088616902323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_15
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 77
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dea584a663e7148b0800000000000000
+      internalID: -5169712125068158227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_16
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 66
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a7d0aa12f9247ca0800000000000000
+      internalID: -6020140682081937497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_17
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 64
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b41bfafd4e06bc2e0800000000000000
+      internalID: -2104481864743931573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_18
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 63
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bdbe968333e6cd30800000000000000
+      internalID: 4451495092143701424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_19
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 63
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffa75b6791a220bf0800000000000000
+      internalID: -359678731382064385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sleepyCard_20
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 47
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0e924e7d1a510e60800000000000000
+      internalID: 7926715901867630091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      sleepyCard_0: 4455189002498342868
+      sleepyCard_1: -9088849930740358821
+      sleepyCard_10: -7472267944842601755
+      sleepyCard_11: 5261506798680910106
+      sleepyCard_12: 8830473828818716822
+      sleepyCard_13: 6402884257041154142
+      sleepyCard_14: 2446846088616902323
+      sleepyCard_15: -5169712125068158227
+      sleepyCard_16: -6020140682081937497
+      sleepyCard_17: -2104481864743931573
+      sleepyCard_18: 4451495092143701424
+      sleepyCard_19: -359678731382064385
+      sleepyCard_2: -6282033239794067102
+      sleepyCard_20: 7926715901867630091
+      sleepyCard_3: 2563009852285797434
+      sleepyCard_4: -2680934377105149437
+      sleepyCard_5: 7470052866967626304
+      sleepyCard_6: -5310592874719334615
+      sleepyCard_7: -5133284191104579375
+      sleepyCard_8: 7388193488096114600
+      sleepyCard_9: 3629488237956696630
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
