@@ -35,8 +35,12 @@ public class LiverDropSlot : MonoBehaviour, IDropHandler
         {
             occupied = true;
 
-            // Поставя картата и стартира зеления ефект.
             card.PlaceCorrectly(transform);
+
+            if (puzzleManager != null)
+            {
+                puzzleManager.RegisterCorrectCard();
+            }
         }
 
         // ГРЕШНА КАТЕГОРИЯ
