@@ -84,6 +84,10 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private float mediumEventInterval = 5f;
     [SerializeField] private float hardEventInterval = 4f;
 
+    [Header("Drift / Event Protection")]
+    [Tooltip("Минимално време между drift и event.")]
+    [SerializeField] private float minimumDriftEventGap = 1f;
+
     // =====================================================
     // KEYBOARD
     // =====================================================
@@ -114,6 +118,9 @@ public class HeartMinigameManager : MonoBehaviour
 
     private float eventInterval;
     private float eventTimer;
+
+    private float lastDriftTime = -999f;
+    private float lastEventTime = -999f;
 
     // -1 = още няма предишно събитие.
     private int lastEventIndex = -1;
@@ -152,7 +159,9 @@ public class HeartMinigameManager : MonoBehaviour
         driftTimer = 0f;
         eventTimer = 0f;
 
-        // В началото няма показана event карта.
+        lastDriftTime = -999f;
+        lastEventTime = -999f;
+
         HideAllEventCards();
 
         UpdatePulseUI();
@@ -168,8 +177,6 @@ public class HeartMinigameManager : MonoBehaviour
         if (isGameOver)
             return;
 
-        // Gameplay логиката работи само
-        // когато MinigamePanel е активен.
         if (minigamePanel == null ||
             !minigamePanel.activeInHierarchy)
         {
@@ -183,9 +190,12 @@ public class HeartMinigameManager : MonoBehaviour
 
         UpdateDangerCountdown();
 
-        UpdatePulseDrift();
-
+        // EVENT е първо нарочно.
+        // Ако event и drift са готови едновременно,
+        // event получава приоритет.
         UpdateEvents();
+
+        UpdatePulseDrift();
     }
 
     // =====================================================
@@ -205,9 +215,7 @@ public class HeartMinigameManager : MonoBehaviour
 
         switch (difficulty)
         {
-            // EASY
             case 0:
-
                 dangerDuration =
                     easyDangerDuration;
 
@@ -222,9 +230,7 @@ public class HeartMinigameManager : MonoBehaviour
 
                 break;
 
-            // HARD
             case 2:
-
                 dangerDuration =
                     hardDangerDuration;
 
@@ -239,9 +245,7 @@ public class HeartMinigameManager : MonoBehaviour
 
                 break;
 
-            // MEDIUM
             default:
-
                 dangerDuration =
                     mediumDangerDuration;
 
@@ -285,6 +289,15 @@ public class HeartMinigameManager : MonoBehaviour
         if (eventTimer < eventInterval)
             return;
 
+        // Ако drift е станал преди по-малко
+        // от minimumDriftEventGap секунди,
+        // изчакваме още малко.
+        if (Time.time - lastDriftTime <
+            minimumDriftEventGap)
+        {
+            return;
+        }
+
         eventTimer = 0f;
 
         TriggerRandomEvent();
@@ -294,25 +307,31 @@ public class HeartMinigameManager : MonoBehaviour
     {
         int eventIndex;
 
-        // Избираме случайно събитие,
-        // но не позволяваме същото два пъти поред.
         do
         {
-            eventIndex = Random.Range(0, 10);
+            eventIndex =
+                Random.Range(0, 10);
         }
         while (eventIndex == lastEventIndex);
 
         lastEventIndex = eventIndex;
 
+        // Запомняме момента на event-а.
+        lastEventTime = Time.time;
+
+        // Много важно:
+        // drift започва да брои отначало.
+        // Така няма да дойде веднага след event.
+        driftTimer = 0f;
+
         switch (eventIndex)
         {
             // =============================================
-            // УВЕЛИЧАВАНЕ НА ПУЛСА
+            // УВЕЛИЧАВАНЕ
             // =============================================
 
             // Силен гняв +40
             case 0:
-
                 ShowEventCard(angerCard);
 
                 ApplyEventBPM(
@@ -324,7 +343,6 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Кофеин +25
             case 1:
-
                 ShowEventCard(caffeineCard);
 
                 ApplyEventBPM(
@@ -336,7 +354,6 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Уплах +30
             case 2:
-
                 ShowEventCard(fearCard);
 
                 ApplyEventBPM(
@@ -348,7 +365,6 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Физическо натоварване +35
             case 3:
-
                 ShowEventCard(
                     physicalStressCard
                 );
@@ -362,7 +378,6 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Стрес +25
             case 4:
-
                 ShowEventCard(stressCard);
 
                 ApplyEventBPM(
@@ -373,12 +388,11 @@ public class HeartMinigameManager : MonoBehaviour
                 break;
 
             // =============================================
-            // НАМАЛЯВАНЕ НА ПУЛСА
+            // НАМАЛЯВАНЕ
             // =============================================
 
             // Силно охлаждане -30
             case 5:
-
                 ShowEventCard(freezingCard);
 
                 ApplyEventBPM(
@@ -390,7 +404,6 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Болест -30
             case 6:
-
                 ShowEventCard(illnessCard);
 
                 ApplyEventBPM(
@@ -402,7 +415,6 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Продължителен покой -25
             case 7:
-
                 ShowEventCard(lazyCard);
 
                 ApplyEventBPM(
@@ -414,7 +426,6 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Медитация -15
             case 8:
-
                 ShowEventCard(
                     meditationCard
                 );
@@ -428,7 +439,6 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Сънливост -20
             case 9:
-
                 ShowEventCard(sleepyCard);
 
                 ApplyEventBPM(
@@ -444,10 +454,8 @@ public class HeartMinigameManager : MonoBehaviour
         GameObject card
     )
     {
-        // Първо скриваме старата карта.
         HideAllEventCards();
 
-        // После показваме само новата.
         if (card != null)
         {
             card.SetActive(true);
@@ -525,9 +533,19 @@ public class HeartMinigameManager : MonoBehaviour
         if (driftTimer < driftInterval)
             return;
 
+        // Допълнителна защита.
+        // Ако event е бил съвсем скоро,
+        // drift изчаква.
+        if (Time.time - lastEventTime <
+            minimumDriftEventGap)
+        {
+            return;
+        }
+
         driftTimer = 0f;
 
-        // 50/50 шанс нагоре или надолу.
+        lastDriftTime = Time.time;
+
         int direction =
             Random.value < 0.5f
                 ? -1
@@ -691,7 +709,6 @@ public class HeartMinigameManager : MonoBehaviour
             currentPulseState ==
                 PulseState.CriticalHigh;
 
-        // LOW WARNING
         if (isLow)
         {
             if (lowPulseWarningPanel != null)
@@ -719,7 +736,6 @@ public class HeartMinigameManager : MonoBehaviour
             }
         }
 
-        // HIGH WARNING
         if (isHigh)
         {
             if (highPulseWarningPanel != null)
