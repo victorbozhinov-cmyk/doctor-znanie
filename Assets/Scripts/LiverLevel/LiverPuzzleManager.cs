@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class LiverPuzzleManager : MonoBehaviour
 {
     [Header("Lives")]
@@ -77,5 +77,14 @@ public class LiverPuzzleManager : MonoBehaviour
     public int GetCurrentLives()
     {
         return currentLives;
+    }
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ExitToBodyMap()
+    {
+        SceneManager.LoadScene("BodyMap");
     }
 }
