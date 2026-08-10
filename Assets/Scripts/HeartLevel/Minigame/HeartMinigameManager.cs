@@ -16,17 +16,60 @@ public class HeartMinigameManager : MonoBehaviour
         CriticalHigh
     }
 
+    // =====================================================
+    // PULSE
+    // =====================================================
+
     [Header("Pulse")]
     [SerializeField] private int currentBPM = 80;
+
+    // =====================================================
+    // PANELS
+    // =====================================================
 
     [Header("Panels")]
     [SerializeField] private GameObject minigamePanel;
 
+    // =====================================================
+    // PAUSE
+    // =====================================================
+
+    [Header("Pause")]
+    [SerializeField] private GameObject pauseOverlay;
+
+    private bool isPaused;
+
+    // =====================================================
+    // UI
+    // =====================================================
+
     [Header("UI")]
     [SerializeField] private TMP_Text pulseValueText;
 
+    // =====================================================
+    // GAME TIMER
+    // =====================================================
+
+    [Header("Game Timer")]
+    [SerializeField] private TMP_Text timerText;
+
+    [SerializeField] private float easyGameDuration = 50f;
+    [SerializeField] private float mediumGameDuration = 60f;
+    [SerializeField] private float hardGameDuration = 70f;
+
+    [Header("Minigame Success")]
+    [SerializeField] private GameObject minigameSuccessOverlay;
+
+    // =====================================================
+    // ECG
+    // =====================================================
+
     [Header("ECG")]
     [SerializeField] private ECGLineGraphic ecgLine;
+
+    // =====================================================
+    // HEART STATES
+    // =====================================================
 
     [Header("Heart States")]
     [SerializeField] private GameObject heartNormal;
@@ -34,11 +77,23 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private GameObject heartHigh;
     [SerializeField] private GameObject heartDead;
 
+    // =====================================================
+    // LIVES
+    // =====================================================
+
     [Header("Lives")]
     [SerializeField] private HeartMinigameLives heartLives;
 
+    // =====================================================
+    // GAME OVER
+    // =====================================================
+
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverOverlay;
+
+    // =====================================================
+    // WARNING PANELS
+    // =====================================================
 
     [Header("Warning Panels")]
     [SerializeField] private GameObject highPulseWarningPanel;
@@ -47,10 +102,18 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private Image highWarningFill;
     [SerializeField] private Image lowWarningFill;
 
+    // =====================================================
+    // DANGER COUNTDOWN
+    // =====================================================
+
     [Header("Danger Countdown By Difficulty")]
     [SerializeField] private float easyDangerDuration = 4f;
     [SerializeField] private float mediumDangerDuration = 3f;
     [SerializeField] private float hardDangerDuration = 2f;
+
+    // =====================================================
+    // DRIFT
+    // =====================================================
 
     [Header("Drift By Difficulty")]
     [SerializeField] private int easyDriftAmount = 7;
@@ -108,28 +171,36 @@ public class HeartMinigameManager : MonoBehaviour
 
     private PulseState currentPulseState;
 
+    // Danger
     private float dangerDuration;
     private float dangerTimer;
     private bool dangerCountdownActive;
 
+    // Drift
     private int driftAmount;
     private float driftInterval;
     private float driftTimer;
 
+    // Events
     private float eventInterval;
     private float eventTimer;
 
     private float lastDriftTime = -999f;
     private float lastEventTime = -999f;
 
-    // -1 = още няма предишно събитие.
     private int lastEventIndex = -1;
 
-    // Пази от многократна моментална загуба
-    // на живот в critical зона.
+    // Main game timer
+    private float gameDuration;
+    private float remainingTime;
+
+    // Пази от многократна моментална
+    // загуба на живот в critical зона.
     private bool criticalImmediateLossUsed;
 
+    // End states
     private bool isGameOver;
+    private bool isMinigameWon;
 
     // =====================================================
     // START
@@ -138,11 +209,24 @@ public class HeartMinigameManager : MonoBehaviour
     private void Start()
     {
         isGameOver = false;
+        isMinigameWon = false;
+        isPaused = false;
+
+        if (pauseOverlay != null)
+            pauseOverlay.SetActive(false);
 
         if (gameOverOverlay != null)
             gameOverOverlay.SetActive(false);
 
+        if (minigameSuccessOverlay != null)
+            minigameSuccessOverlay.SetActive(false);
+
         SetDifficultyValues();
+
+        // Задаваме началното време според трудността.
+        remainingTime = gameDuration;
+
+        UpdateTimerUI();
 
         if (highPulseWarningPanel != null)
             highPulseWarningPanel.SetActive(false);
@@ -174,9 +258,18 @@ public class HeartMinigameManager : MonoBehaviour
 
     private void Update()
     {
-        if (isGameOver)
+        // След загуба или победа
+        // gameplay логиката приключва.
+        if (isGameOver || isMinigameWon)
             return;
 
+        // Докато играта е на Pause,
+        // цялата gameplay логика е спряна.
+        if (isPaused)
+            return;
+
+        // Всичко започва само когато
+        // MinigamePanel реално е активен.
         if (minigamePanel == null ||
             !minigamePanel.activeInHierarchy)
         {
@@ -189,6 +282,21 @@ public class HeartMinigameManager : MonoBehaviour
         HandleKeyboardInput();
 
         UpdateDangerCountdown();
+
+        // Ако последният живот е бил изгубен,
+        // не позволяваме таймерът да даде победа,
+        // докато анимацията на сърцето приключва.
+        if (heartLives != null &&
+            !heartLives.HasLives)
+        {
+            return;
+        }
+
+        // Главният countdown.
+        UpdateGameTimer();
+
+        if (isMinigameWon)
+            return;
 
         // EVENT е първо нарочно.
         // Ако event и drift са готови едновременно,
@@ -215,7 +323,9 @@ public class HeartMinigameManager : MonoBehaviour
 
         switch (difficulty)
         {
+            // EASY
             case 0:
+
                 dangerDuration =
                     easyDangerDuration;
 
@@ -228,9 +338,14 @@ public class HeartMinigameManager : MonoBehaviour
                 eventInterval =
                     easyEventInterval;
 
+                gameDuration =
+                    easyGameDuration;
+
                 break;
 
+            // HARD
             case 2:
+
                 dangerDuration =
                     hardDangerDuration;
 
@@ -243,9 +358,14 @@ public class HeartMinigameManager : MonoBehaviour
                 eventInterval =
                     hardEventInterval;
 
+                gameDuration =
+                    hardGameDuration;
+
                 break;
 
+            // MEDIUM
             default:
+
                 dangerDuration =
                     mediumDangerDuration;
 
@@ -258,12 +378,18 @@ public class HeartMinigameManager : MonoBehaviour
                 eventInterval =
                     mediumEventInterval;
 
+                gameDuration =
+                    mediumGameDuration;
+
                 break;
         }
 
         Debug.Log(
             "Difficulty: " +
             difficulty +
+            " | Game duration: " +
+            gameDuration +
+            " sec." +
             " | Danger countdown: " +
             dangerDuration +
             " sec." +
@@ -279,6 +405,76 @@ public class HeartMinigameManager : MonoBehaviour
     }
 
     // =====================================================
+    // MAIN GAME TIMER
+    // =====================================================
+
+    private void UpdateGameTimer()
+    {
+        if (remainingTime <= 0f)
+            return;
+
+        remainingTime -= Time.deltaTime;
+
+        if (remainingTime <= 0f)
+        {
+            remainingTime = 0f;
+
+            UpdateTimerUI();
+
+            TriggerMinigameSuccess();
+
+            return;
+        }
+
+        UpdateTimerUI();
+    }
+
+    private void UpdateTimerUI()
+    {
+        if (timerText == null)
+            return;
+
+        int totalSeconds =
+            Mathf.CeilToInt(remainingTime);
+
+        int minutes =
+            totalSeconds / 60;
+
+        int seconds =
+            totalSeconds % 60;
+
+        timerText.text =
+            minutes.ToString("00") +
+            ":" +
+            seconds.ToString("00");
+    }
+
+    private void TriggerMinigameSuccess()
+    {
+        if (isGameOver || isMinigameWon)
+            return;
+
+        isMinigameWon = true;
+
+        remainingTime = 0f;
+
+        UpdateTimerUI();
+
+        ResetDangerCountdown();
+
+        HideAllEventCards();
+
+        if (minigameSuccessOverlay != null)
+        {
+            minigameSuccessOverlay.SetActive(true);
+        }
+
+        Debug.Log(
+            "MINIGAME SUCCESS! Timer reached 00:00."
+        );
+    }
+
+    // =====================================================
     // EVENT SYSTEM
     // =====================================================
 
@@ -289,9 +485,6 @@ public class HeartMinigameManager : MonoBehaviour
         if (eventTimer < eventInterval)
             return;
 
-        // Ако drift е станал преди по-малко
-        // от minimumDriftEventGap секунди,
-        // изчакваме още малко.
         if (Time.time - lastDriftTime <
             minimumDriftEventGap)
         {
@@ -316,12 +509,9 @@ public class HeartMinigameManager : MonoBehaviour
 
         lastEventIndex = eventIndex;
 
-        // Запомняме момента на event-а.
         lastEventTime = Time.time;
 
-        // Много важно:
-        // drift започва да брои отначало.
-        // Така няма да дойде веднага след event.
+        // Drift започва отначало след event.
         driftTimer = 0f;
 
         switch (eventIndex)
@@ -332,6 +522,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Силен гняв +40
             case 0:
+
                 ShowEventCard(angerCard);
 
                 ApplyEventBPM(
@@ -343,6 +534,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Кофеин +25
             case 1:
+
                 ShowEventCard(caffeineCard);
 
                 ApplyEventBPM(
@@ -354,6 +546,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Уплах +30
             case 2:
+
                 ShowEventCard(fearCard);
 
                 ApplyEventBPM(
@@ -365,6 +558,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Физическо натоварване +35
             case 3:
+
                 ShowEventCard(
                     physicalStressCard
                 );
@@ -378,6 +572,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Стрес +25
             case 4:
+
                 ShowEventCard(stressCard);
 
                 ApplyEventBPM(
@@ -393,6 +588,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Силно охлаждане -30
             case 5:
+
                 ShowEventCard(freezingCard);
 
                 ApplyEventBPM(
@@ -404,6 +600,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Болест -30
             case 6:
+
                 ShowEventCard(illnessCard);
 
                 ApplyEventBPM(
@@ -415,6 +612,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Продължителен покой -25
             case 7:
+
                 ShowEventCard(lazyCard);
 
                 ApplyEventBPM(
@@ -426,6 +624,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Медитация -15
             case 8:
+
                 ShowEventCard(
                     meditationCard
                 );
@@ -439,6 +638,7 @@ public class HeartMinigameManager : MonoBehaviour
 
             // Сънливост -20
             case 9:
+
                 ShowEventCard(sleepyCard);
 
                 ApplyEventBPM(
@@ -500,6 +700,13 @@ public class HeartMinigameManager : MonoBehaviour
         string eventName
     )
     {
+        if (isGameOver ||
+            isMinigameWon ||
+            isPaused)
+        {
+            return;
+        }
+
         currentBPM += bpmChange;
 
         UpdatePulseUI();
@@ -533,9 +740,6 @@ public class HeartMinigameManager : MonoBehaviour
         if (driftTimer < driftInterval)
             return;
 
-        // Допълнителна защита.
-        // Ако event е бил съвсем скоро,
-        // drift изчаква.
         if (Time.time - lastEventTime <
             minimumDriftEventGap)
         {
@@ -575,7 +779,7 @@ public class HeartMinigameManager : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-        // ↓ или S
+        // ↓ или S = намалява
         if (
             Keyboard.current
                 .downArrowKey
@@ -610,7 +814,7 @@ public class HeartMinigameManager : MonoBehaviour
             }
         }
 
-        // ↑ или W
+        // ↑ или W = увеличава
         if (
             Keyboard.current
                 .upArrowKey
@@ -709,6 +913,7 @@ public class HeartMinigameManager : MonoBehaviour
             currentPulseState ==
                 PulseState.CriticalHigh;
 
+        // LOW
         if (isLow)
         {
             if (lowPulseWarningPanel != null)
@@ -736,6 +941,7 @@ public class HeartMinigameManager : MonoBehaviour
             }
         }
 
+        // HIGH
         if (isHigh)
         {
             if (highPulseWarningPanel != null)
@@ -816,7 +1022,9 @@ public class HeartMinigameManager : MonoBehaviour
         }
 
         if (!heartLives.HasLives ||
-            isGameOver)
+            isGameOver ||
+            isMinigameWon ||
+            isPaused)
         {
             return;
         }
@@ -824,6 +1032,9 @@ public class HeartMinigameManager : MonoBehaviour
         heartLives.LoseLife(
             () =>
             {
+                if (isMinigameWon)
+                    return;
+
                 if (!heartLives.HasLives)
                 {
                     TriggerGameOver();
@@ -843,7 +1054,7 @@ public class HeartMinigameManager : MonoBehaviour
 
     private void TriggerGameOver()
     {
-        if (isGameOver)
+        if (isGameOver || isMinigameWon)
             return;
 
         isGameOver = true;
@@ -1057,7 +1268,7 @@ public class HeartMinigameManager : MonoBehaviour
 
     private void UpdateHeartVisual()
     {
-        if (isGameOver)
+        if (isGameOver || isMinigameWon)
             return;
 
         if (heartNormal != null)
@@ -1078,8 +1289,7 @@ public class HeartMinigameManager : MonoBehaviour
 
                 if (heartNormal != null)
                 {
-                    heartNormal
-                        .SetActive(true);
+                    heartNormal.SetActive(true);
                 }
 
                 break;
@@ -1088,8 +1298,7 @@ public class HeartMinigameManager : MonoBehaviour
 
                 if (heartLow != null)
                 {
-                    heartLow
-                        .SetActive(true);
+                    heartLow.SetActive(true);
                 }
 
                 break;
@@ -1098,8 +1307,7 @@ public class HeartMinigameManager : MonoBehaviour
 
                 if (heartHigh != null)
                 {
-                    heartHigh
-                        .SetActive(true);
+                    heartHigh.SetActive(true);
                 }
 
                 break;
@@ -1109,8 +1317,7 @@ public class HeartMinigameManager : MonoBehaviour
 
                 if (heartDead != null)
                 {
-                    heartDead
-                        .SetActive(true);
+                    heartDead.SetActive(true);
                 }
 
                 break;
@@ -1123,8 +1330,12 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void DecreasePulse()
     {
-        if (isGameOver)
+        if (isGameOver ||
+            isMinigameWon ||
+            isPaused)
+        {
             return;
+        }
 
         currentBPM -= 5;
 
@@ -1135,8 +1346,12 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void IncreasePulse()
     {
-        if (isGameOver)
+        if (isGameOver ||
+            isMinigameWon ||
+            isPaused)
+        {
             return;
+        }
 
         currentBPM += 5;
 
@@ -1144,6 +1359,47 @@ public class HeartMinigameManager : MonoBehaviour
 
         UpdatePulseState();
     }
+
+    // =====================================================
+    // PAUSE
+    // =====================================================
+
+    public void OpenPauseMenu()
+    {
+        if (isGameOver || isMinigameWon)
+            return;
+
+        if (isPaused)
+            return;
+
+        isPaused = true;
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(true);
+        }
+
+        Debug.Log("MINIGAME PAUSED");
+    }
+
+    public void ResumeGame()
+    {
+        if (!isPaused)
+            return;
+
+        isPaused = false;
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(false);
+        }
+
+        Debug.Log("MINIGAME RESUMED");
+    }
+
+    // =====================================================
+    // RETRY
+    // =====================================================
 
     public void RetryLevel()
     {
