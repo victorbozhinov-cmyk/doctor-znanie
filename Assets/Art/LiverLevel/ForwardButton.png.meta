@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: 3293662d60b07cf4aade966df8860836
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2985459506888519767
+    second: ForwardButton_0
+  - first:
+      213: 4937525068758436326
+    second: ForwardButton_1
+  - first:
+      213: 66785330358317738
+    second: ForwardButton_2
+  - first:
+      213: 137806305768230267
+    second: ForwardButton_3
+  - first:
+      213: 5887188748639687621
+    second: ForwardButton_4
+  - first:
+      213: 9030756748423975849
+    second: ForwardButton_5
+  - first:
+      213: 8028451739310364591
+    second: ForwardButton_6
+  - first:
+      213: -3289378233670581649
+    second: ForwardButton_7
+  - first:
+      213: 3156505332902036801
+    second: ForwardButton_8
+  - first:
+      213: 5918546589525463466
+    second: ForwardButton_9
+  - first:
+      213: 6775630071454208507
+    second: ForwardButton_10
+  - first:
+      213: -6386243626732569519
+    second: ForwardButton_11
+  - first:
+      213: 2258752374262975288
+    second: ForwardButton_12
+  - first:
+      213: 1040002337918366305
+    second: ForwardButton_13
+  - first:
+      213: 6223445245977925637
+    second: ForwardButton_14
+  - first:
+      213: 8057348972067594429
+    second: ForwardButton_15
+  - first:
+      213: -2585514994962862225
+    second: ForwardButton_16
+  - first:
+      213: -3096243289393228291
+    second: ForwardButton_17
+  - first:
+      213: -5908819434793767463
+    second: ForwardButton_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ForwardButton_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 39
+        width: 1524
+        height: 954
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75037679a9b7e6920800000000000000
+      internalID: 2985459506888519767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_1
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 879
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e9cee0d3ec958440800000000000000
+      internalID: 4937525068758436326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_2
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 879
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2f63477e44de000800000000000000
+      internalID: 66785330358317738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_3
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 890
+        width: 21
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7dcf1fda1699e100800000000000000
+      internalID: 137806305768230267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_4
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 869
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c35858a9fe73b150800000000000000
+      internalID: 5887188748639687621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_5
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 857
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a3d5ca6a61b35d70800000000000000
+      internalID: 9030756748423975849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_6
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 875
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa716f1025aca6f60800000000000000
+      internalID: 8028451739310364591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_7
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 855
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f62c922ace7c952d0800000000000000
+      internalID: -3289378233670581649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_8
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 847
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 145804b50e82ecb20800000000000000
+      internalID: 3156505332902036801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_9
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 847
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa1d34fe3c6e22250800000000000000
+      internalID: 5918546589525463466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_10
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 849
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf19b72b6afd70e50800000000000000
+      internalID: 6775630071454208507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_11
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 847
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15cb08bd1418f57a0800000000000000
+      internalID: -6386243626732569519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_12
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 845
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83bc3872153b85f10800000000000000
+      internalID: 2258752374262975288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_13
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 847
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 162333dbd94de6e00800000000000000
+      internalID: 1040002337918366305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_14
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 837
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5089b9d5a7e1e5650800000000000000
+      internalID: 6223445245977925637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_15
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 847
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db0a27f433471df60800000000000000
+      internalID: 8057348972067594429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_16
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 159
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6feacb8fc76e1cd0800000000000000
+      internalID: -2585514994962862225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_17
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 151
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df59785022fe705d0800000000000000
+      internalID: -3096243289393228291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForwardButton_18
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 161
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dd6133c708affda0800000000000000
+      internalID: -5908819434793767463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ForwardButton_0: 2985459506888519767
+      ForwardButton_1: 4937525068758436326
+      ForwardButton_10: 6775630071454208507
+      ForwardButton_11: -6386243626732569519
+      ForwardButton_12: 2258752374262975288
+      ForwardButton_13: 1040002337918366305
+      ForwardButton_14: 6223445245977925637
+      ForwardButton_15: 8057348972067594429
+      ForwardButton_16: -2585514994962862225
+      ForwardButton_17: -3096243289393228291
+      ForwardButton_18: -5908819434793767463
+      ForwardButton_2: 66785330358317738
+      ForwardButton_3: 137806305768230267
+      ForwardButton_4: 5887188748639687621
+      ForwardButton_5: 9030756748423975849
+      ForwardButton_6: 8028451739310364591
+      ForwardButton_7: -3289378233670581649
+      ForwardButton_8: 3156505332902036801
+      ForwardButton_9: 5918546589525463466
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
