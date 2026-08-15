@@ -1,0 +1,1846 @@
+fileFormatVersion: 2
+guid: cd584cfb7fa694b4ebbf9d4b43816dff
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2587217025821097062
+    second: hintButtonInactive_0
+  - first:
+      213: -8105949172762272689
+    second: hintButtonInactive_1
+  - first:
+      213: 6201667844643322515
+    second: hintButtonInactive_2
+  - first:
+      213: -6417843447562553406
+    second: hintButtonInactive_3
+  - first:
+      213: 5241771693532606587
+    second: hintButtonInactive_4
+  - first:
+      213: 2457316677398851097
+    second: hintButtonInactive_5
+  - first:
+      213: -7390946107857191876
+    second: hintButtonInactive_6
+  - first:
+      213: 3537274864775176329
+    second: hintButtonInactive_7
+  - first:
+      213: 963003368129212021
+    second: hintButtonInactive_8
+  - first:
+      213: 3496589320766799467
+    second: hintButtonInactive_9
+  - first:
+      213: -4437942722503649944
+    second: hintButtonInactive_10
+  - first:
+      213: -8438239347958210953
+    second: hintButtonInactive_11
+  - first:
+      213: 1643325444853259247
+    second: hintButtonInactive_12
+  - first:
+      213: -119995072225655513
+    second: hintButtonInactive_13
+  - first:
+      213: -4074935203866600019
+    second: hintButtonInactive_14
+  - first:
+      213: 7536557809282418914
+    second: hintButtonInactive_15
+  - first:
+      213: -5444728818295785832
+    second: hintButtonInactive_16
+  - first:
+      213: 1568414532891752350
+    second: hintButtonInactive_17
+  - first:
+      213: 9038754665391849237
+    second: hintButtonInactive_18
+  - first:
+      213: -262981148350251611
+    second: hintButtonInactive_19
+  - first:
+      213: 8614918864734157809
+    second: hintButtonInactive_20
+  - first:
+      213: 5086947127827916015
+    second: hintButtonInactive_21
+  - first:
+      213: 4393688464929822736
+    second: hintButtonInactive_22
+  - first:
+      213: -4874049722815474326
+    second: hintButtonInactive_23
+  - first:
+      213: -7161544784958002895
+    second: hintButtonInactive_24
+  - first:
+      213: 7772656002448896557
+    second: hintButtonInactive_25
+  - first:
+      213: -6629360622200025502
+    second: hintButtonInactive_26
+  - first:
+      213: 2422515331041470452
+    second: hintButtonInactive_27
+  - first:
+      213: 7522217236112811373
+    second: hintButtonInactive_28
+  - first:
+      213: -3331920437804089746
+    second: hintButtonInactive_29
+  - first:
+      213: -1571118085432578005
+    second: hintButtonInactive_30
+  - first:
+      213: -7058925944146105764
+    second: hintButtonInactive_31
+  - first:
+      213: 6336585245983166773
+    second: hintButtonInactive_32
+  - first:
+      213: -3724043186607171038
+    second: hintButtonInactive_33
+  - first:
+      213: -8359026651349587943
+    second: hintButtonInactive_34
+  - first:
+      213: -1911088750337514953
+    second: hintButtonInactive_35
+  - first:
+      213: 7042189482315064555
+    second: hintButtonInactive_36
+  - first:
+      213: 7507248456073781483
+    second: hintButtonInactive_37
+  - first:
+      213: -7538874809203926913
+    second: hintButtonInactive_38
+  - first:
+      213: 3973483031589064438
+    second: hintButtonInactive_39
+  - first:
+      213: -8995988712626487536
+    second: hintButtonInactive_40
+  - first:
+      213: 1361116060163616330
+    second: hintButtonInactive_41
+  - first:
+      213: 3318824088125562515
+    second: hintButtonInactive_42
+  - first:
+      213: -6228035783013861000
+    second: hintButtonInactive_43
+  - first:
+      213: 170635174002467367
+    second: hintButtonInactive_44
+  - first:
+      213: 7189947409365036598
+    second: hintButtonInactive_45
+  - first:
+      213: 2447394565498737865
+    second: hintButtonInactive_46
+  - first:
+      213: -3781546891298537194
+    second: hintButtonInactive_47
+  - first:
+      213: -959916568293989104
+    second: hintButtonInactive_48
+  - first:
+      213: 794314600276614757
+    second: hintButtonInactive_49
+  - first:
+      213: 7867161646255784699
+    second: hintButtonInactive_50
+  - first:
+      213: 3129876242907447661
+    second: hintButtonInactive_51
+  - first:
+      213: -2887653509660371019
+    second: hintButtonInactive_52
+  - first:
+      213: -8614610918803073372
+    second: hintButtonInactive_53
+  - first:
+      213: -2787613484855686097
+    second: hintButtonInactive_54
+  - first:
+      213: 4367175146288341603
+    second: hintButtonInactive_55
+  - first:
+      213: 839590527464148215
+    second: hintButtonInactive_56
+  - first:
+      213: 8287539414359750243
+    second: hintButtonInactive_57
+  - first:
+      213: -2507531806532829937
+    second: hintButtonInactive_58
+  - first:
+      213: 18079915863890611
+    second: hintButtonInactive_59
+  - first:
+      213: 6950759258619660547
+    second: hintButtonInactive_60
+  - first:
+      213: 2716337184513940249
+    second: hintButtonInactive_61
+  - first:
+      213: 154749694323461343
+    second: hintButtonInactive_62
+  - first:
+      213: 7085532923130141609
+    second: hintButtonInactive_63
+  - first:
+      213: 6729881718707500990
+    second: hintButtonInactive_64
+  - first:
+      213: -4249165964567026183
+    second: hintButtonInactive_65
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hintButtonInactive_0
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 72
+        width: 1582
+        height: 801
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a93471b92db581cd0800000000000000
+      internalID: -2587217025821097062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_1
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 841
+        width: 30
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4c122eac22e18f80800000000000000
+      internalID: -8105949172762272689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_2
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 800
+        width: 101
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39a7deefb00c01650800000000000000
+      internalID: 6201667844643322515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_3
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 848
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c737fb336d3fe6a0800000000000000
+      internalID: -6417843447562553406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_4
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 844
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7075ba45938eb840800000000000000
+      internalID: 5241771693532606587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_5
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 830
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91e6009af742a1220800000000000000
+      internalID: 2457316677398851097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_6
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 851
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3cbd1f7ca51e6990800000000000000
+      internalID: -7390946107857191876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_7
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 827
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 980a7db8fbce61130800000000000000
+      internalID: 3537274864775176329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_8
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 826
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57ea8da06764d5d00800000000000000
+      internalID: 963003368129212021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_9
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 826
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6ebab52671668030800000000000000
+      internalID: 3496589320766799467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_10
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 812
+        width: 23
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 865d3ab6b924962c0800000000000000
+      internalID: -4437942722503649944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_11
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 786
+        width: 100
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77e1a3f450a55ea80800000000000000
+      internalID: -8438239347958210953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_12
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 824
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: febd6de09c34ec610800000000000000
+      internalID: 1643325444853259247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_13
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 826
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72541391e11b55ef0800000000000000
+      internalID: -119995072225655513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_14
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 794
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dad1cc2a50ce277c0800000000000000
+      internalID: -4074935203866600019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_15
+      rect:
+        serializedVersion: 2
+        x: 1294
+        y: 828
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e8897ba56b379860800000000000000
+      internalID: 7536557809282418914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_16
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 831
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 896b527bcff6074b0800000000000000
+      internalID: -5444728818295785832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_17
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 826
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e97b29535b024c510800000000000000
+      internalID: 1568414532891752350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_18
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 796
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51ff5929a7b107d70800000000000000
+      internalID: 9038754665391849237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_19
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 800
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ad75f5f904b95cf0800000000000000
+      internalID: -262981148350251611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_20
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 774
+        width: 23
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb7a4d40175e8770800000000000000
+      internalID: 8614918864734157809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_21
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 786
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe460610677789640800000000000000
+      internalID: 5086947127827916015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_22
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 782
+        width: 7
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0189fdd416489fc30800000000000000
+      internalID: 4393688464929822736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_23
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 792
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a651ef5d995eb5cb0800000000000000
+      internalID: -4874049722815474326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_24
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 796
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 139e68926f41d9c90800000000000000
+      internalID: -7161544784958002895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_25
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 796
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d223643f3750edb60800000000000000
+      internalID: 7772656002448896557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_26
+      rect:
+        serializedVersion: 2
+        x: 1082
+        y: 788
+        width: 40
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26e0ec153a7cff3a0800000000000000
+      internalID: -6629360622200025502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_27
+      rect:
+        serializedVersion: 2
+        x: 1149
+        y: 796
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f72aa9cbd08e9120800000000000000
+      internalID: 2422515331041470452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_28
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 790
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6523d9c8b8446860800000000000000
+      internalID: 7522217236112811373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_29
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 773
+        width: 35
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6eb2dcd304a2c1d0800000000000000
+      internalID: -3331920437804089746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_30
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 768
+        width: 98
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b207999ec64423ae0800000000000000
+      internalID: -1571118085432578005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_31
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 783
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5ae16be048a90e90800000000000000
+      internalID: -7058925944146105764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_32
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 788
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 531dec365b210f750800000000000000
+      internalID: 6336585245983166773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_33
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 778
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22ad01ed37a815cc0800000000000000
+      internalID: -3724043186607171038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_34
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 784
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 918e8427c85cefb80800000000000000
+      internalID: -8359026651349587943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_35
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 761
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73223ed28e27a75e0800000000000000
+      internalID: -1911088750337514953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_36
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 774
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be4a166e502eab160800000000000000
+      internalID: 7042189482315064555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_37
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 770
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be0a0e812ba1f2860800000000000000
+      internalID: 7507248456073781483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_38
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 772
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f78524fbd49806790800000000000000
+      internalID: -7538874809203926913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_39
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 771
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fe88eac3c5a42730800000000000000
+      internalID: 3973483031589064438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_40
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 770
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01f797cbde3d72380800000000000000
+      internalID: -8995988712626487536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_41
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 756
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4ea12068d7a3e210800000000000000
+      internalID: 1361116060163616330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_42
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 200
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39edbbc9ce4de0e20800000000000000
+      internalID: 3318824088125562515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_43
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 210
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8797901f3729199a0800000000000000
+      internalID: -6228035783013861000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_44
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 210
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 722aa9469c73e5200800000000000000
+      internalID: 170635174002467367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_45
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 209
+        width: 36
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e61f82313d7c360800000000000000
+      internalID: 7189947409365036598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_46
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 212
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c416c5f364e6f120800000000000000
+      internalID: 2447394565498737865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_47
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 206
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6110baa432f358bc0800000000000000
+      internalID: -3781546891298537194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_48
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 209
+        width: 42
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01523dc87f0bda2f0800000000000000
+      internalID: -959916568293989104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_49
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 214
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56ed465abe8f50b00800000000000000
+      internalID: 794314600276614757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_50
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 209
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf247a3d5d5cd2d60800000000000000
+      internalID: 7867161646255784699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_51
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 202
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d61ce613cdd8f6b20800000000000000
+      internalID: 3129876242907447661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_52
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 194
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b79842be6efce7d0800000000000000
+      internalID: -2887653509660371019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_53
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 198
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a69a82f201c27880800000000000000
+      internalID: -8614610918803073372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_54
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 202
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2c86101e486059d0800000000000000
+      internalID: -2787613484855686097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_55
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 184
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3626e6248a25b9c30800000000000000
+      internalID: 4367175146288341603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_56
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 188
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fc884ae223d6ab00800000000000000
+      internalID: 839590527464148215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_57
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 147
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36636f62031430370800000000000000
+      internalID: 8287539414359750243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_58
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 153
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0dfd908b15733dd0800000000000000
+      internalID: -2507531806532829937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_59
+      rect:
+        serializedVersion: 2
+        x: 1328
+        y: 137
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bad2a2769b304000800000000000000
+      internalID: 18079915863890611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_60
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 121
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 309484118be067060800000000000000
+      internalID: 6950759258619660547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_61
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 121
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b532d074e52b520800000000000000
+      internalID: 2716337184513940249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_62
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 116
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdc004fe608c52200800000000000000
+      internalID: 154749694323461343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_63
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 113
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9abd18f17aed45260800000000000000
+      internalID: 7085532923130141609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_64
+      rect:
+        serializedVersion: 2
+        x: 1147
+        y: 112
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb7b4f744c7556d50800000000000000
+      internalID: 6729881718707500990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hintButtonInactive_65
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 54
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f56d4a711ee705c0800000000000000
+      internalID: -4249165964567026183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      hintButtonInactive_0: -2587217025821097062
+      hintButtonInactive_1: -8105949172762272689
+      hintButtonInactive_10: -4437942722503649944
+      hintButtonInactive_11: -8438239347958210953
+      hintButtonInactive_12: 1643325444853259247
+      hintButtonInactive_13: -119995072225655513
+      hintButtonInactive_14: -4074935203866600019
+      hintButtonInactive_15: 7536557809282418914
+      hintButtonInactive_16: -5444728818295785832
+      hintButtonInactive_17: 1568414532891752350
+      hintButtonInactive_18: 9038754665391849237
+      hintButtonInactive_19: -262981148350251611
+      hintButtonInactive_2: 6201667844643322515
+      hintButtonInactive_20: 8614918864734157809
+      hintButtonInactive_21: 5086947127827916015
+      hintButtonInactive_22: 4393688464929822736
+      hintButtonInactive_23: -4874049722815474326
+      hintButtonInactive_24: -7161544784958002895
+      hintButtonInactive_25: 7772656002448896557
+      hintButtonInactive_26: -6629360622200025502
+      hintButtonInactive_27: 2422515331041470452
+      hintButtonInactive_28: 7522217236112811373
+      hintButtonInactive_29: -3331920437804089746
+      hintButtonInactive_3: -6417843447562553406
+      hintButtonInactive_30: -1571118085432578005
+      hintButtonInactive_31: -7058925944146105764
+      hintButtonInactive_32: 6336585245983166773
+      hintButtonInactive_33: -3724043186607171038
+      hintButtonInactive_34: -8359026651349587943
+      hintButtonInactive_35: -1911088750337514953
+      hintButtonInactive_36: 7042189482315064555
+      hintButtonInactive_37: 7507248456073781483
+      hintButtonInactive_38: -7538874809203926913
+      hintButtonInactive_39: 3973483031589064438
+      hintButtonInactive_4: 5241771693532606587
+      hintButtonInactive_40: -8995988712626487536
+      hintButtonInactive_41: 1361116060163616330
+      hintButtonInactive_42: 3318824088125562515
+      hintButtonInactive_43: -6228035783013861000
+      hintButtonInactive_44: 170635174002467367
+      hintButtonInactive_45: 7189947409365036598
+      hintButtonInactive_46: 2447394565498737865
+      hintButtonInactive_47: -3781546891298537194
+      hintButtonInactive_48: -959916568293989104
+      hintButtonInactive_49: 794314600276614757
+      hintButtonInactive_5: 2457316677398851097
+      hintButtonInactive_50: 7867161646255784699
+      hintButtonInactive_51: 3129876242907447661
+      hintButtonInactive_52: -2887653509660371019
+      hintButtonInactive_53: -8614610918803073372
+      hintButtonInactive_54: -2787613484855686097
+      hintButtonInactive_55: 4367175146288341603
+      hintButtonInactive_56: 839590527464148215
+      hintButtonInactive_57: 8287539414359750243
+      hintButtonInactive_58: -2507531806532829937
+      hintButtonInactive_59: 18079915863890611
+      hintButtonInactive_6: -7390946107857191876
+      hintButtonInactive_60: 6950759258619660547
+      hintButtonInactive_61: 2716337184513940249
+      hintButtonInactive_62: 154749694323461343
+      hintButtonInactive_63: 7085532923130141609
+      hintButtonInactive_64: 6729881718707500990
+      hintButtonInactive_65: -4249165964567026183
+      hintButtonInactive_7: 3537274864775176329
+      hintButtonInactive_8: 963003368129212021
+      hintButtonInactive_9: 3496589320766799467
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
