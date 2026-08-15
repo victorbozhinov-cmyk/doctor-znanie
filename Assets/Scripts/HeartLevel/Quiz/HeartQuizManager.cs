@@ -10,7 +10,26 @@ public class HeartQuizManager : MonoBehaviour
     [SerializeField] private List<HeartQuizQuestion> questions =
         new List<HeartQuizQuestion>();
 
-    [Header("UI")]
+    // Това е реалният набор въпроси,
+    // избран за конкретното изиграване.
+    private List<HeartQuizQuestion> selectedQuestions =
+        new List<HeartQuizQuestion>();
+
+    // =========================
+    // QUESTION TYPE PANELS
+    // =========================
+
+    [Header("Question Type Panels")]
+    [SerializeField] private GameObject multipleQuestionUI;
+    [SerializeField] private GameObject questionImageUI;
+    [SerializeField] private GameObject imageAnswerUI;
+    [SerializeField] private GameObject writtenAnswerUI;
+
+    // =========================
+    // MULTIPLE CHOICE UI
+    // =========================
+
+    [Header("Multiple Choice UI")]
     [SerializeField] private TMP_Text questionText;
 
     [SerializeField] private TMP_Text answerAText;
@@ -18,15 +37,40 @@ public class HeartQuizManager : MonoBehaviour
     [SerializeField] private TMP_Text answerVText;
     [SerializeField] private TMP_Text answerGText;
 
-    [Header("Answer Buttons")]
     [SerializeField] private Button answerAButton;
     [SerializeField] private Button answerBButton;
     [SerializeField] private Button answerVButton;
     [SerializeField] private Button answerGButton;
 
+    // =========================
+    // QUESTION IMAGE UI
+    // =========================
+
+    [Header("Question Image UI")]
+    [SerializeField] private TMP_Text questionImageText;
+    [SerializeField] private Image questionImage;
+
+    [SerializeField] private TMP_Text questionImageAnswerAText;
+    [SerializeField] private TMP_Text questionImageAnswerBText;
+    [SerializeField] private TMP_Text questionImageAnswerVText;
+    [SerializeField] private TMP_Text questionImageAnswerGText;
+
+    [SerializeField] private Button questionImageAnswerAButton;
+    [SerializeField] private Button questionImageAnswerBButton;
+    [SerializeField] private Button questionImageAnswerVButton;
+    [SerializeField] private Button questionImageAnswerGButton;
+
+    // =========================
+    // LIVES
+    // =========================
+
     [Header("Lives")]
     [Tooltip("Подреди ги: LifeHeart1, LifeHeart2, LifeHeart3")]
     [SerializeField] private UILifeHeartAnimation[] lifeHearts;
+
+    // =========================
+    // HINT
+    // =========================
 
     [Header("Hint System")]
     [SerializeField] private GameObject hintOverlay;
@@ -38,6 +82,10 @@ public class HeartQuizManager : MonoBehaviour
     [SerializeField] private Sprite activeHintSprite;
     [SerializeField] private Sprite disabledHintSprite;
     [SerializeField] private UIButtonHoverEffect hintHoverEffect;
+
+    // =========================
+    // PANELS
+    // =========================
 
     [Header("Info")]
     [SerializeField] private GameObject infoOverlay;
@@ -57,6 +105,10 @@ public class HeartQuizManager : MonoBehaviour
     [Header("Success")]
     [SerializeField] private GameObject quizSuccessOverlay;
     [SerializeField] private GameObject quizSuccessPanel;
+
+    // =========================
+    // FLOW
+    // =========================
 
     [Header("Question Flow")]
     [SerializeField] private float nextQuestionDelay = 0.8f;
@@ -78,7 +130,7 @@ public class HeartQuizManager : MonoBehaviour
     private bool isInfoOpen = false;
     private bool isSettingsOpen = false;
 
-    // Оригинални настройки на Hint бутона.
+    // Hint button original values
     private Vector3 originalHintButtonScale;
 
     private Vector2 originalHintImageSize;
@@ -87,63 +139,10 @@ public class HeartQuizManager : MonoBehaviour
 
     private void Start()
     {
-        if (hintButton != null)
-        {
-            originalHintButtonScale =
-                hintButton.transform.localScale;
-        }
+        SaveHintButtonOriginalValues();
 
-        if (hintButtonImage != null)
-        {
-            RectTransform hintRect =
-                hintButtonImage.rectTransform;
+        HideOverlays();
 
-            originalHintImageSize =
-                hintRect.sizeDelta;
-
-            originalHintImagePosition =
-                hintRect.anchoredPosition;
-
-            originalHintImageScale =
-                hintRect.localScale;
-        }
-
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
-
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
-
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
-
-        if (gameOverOverlay != null)
-        {
-            gameOverOverlay.SetActive(false);
-        }
-
-        if (quizSuccessOverlay != null)
-        {
-            quizSuccessOverlay.SetActive(false);
-        }
-
-        if (quizSuccessPanel != null)
-        {
-            quizSuccessPanel.SetActive(false);
-        }
-
-        if (hintOverlay != null)
-        {
-            hintOverlay.SetActive(false);
-        }
-
-        // Заключваме трудността за целия куиз.
         if (difficultySelector != null)
         {
             difficultySelector.SetLocked(true);
@@ -157,100 +156,444 @@ public class HeartQuizManager : MonoBehaviour
 
         SetupLives();
         SetupHints();
+
+        BuildQuizForDifficulty();
+
+        currentQuestionIndex = 0;
+
         ShowQuestion();
     }
 
-    private void SetupLives()
+    // =========================
+    // QUIZ GENERATION
+    // =========================
+
+    private void BuildQuizForDifficulty()
     {
+        selectedQuestions.Clear();
+        usedHintQuestions.Clear();
+
+        List<HeartQuizQuestion> multiple =
+            GetQuestionsOfType(
+                HeartQuizQuestionType.MultipleChoice
+            );
+
+        List<HeartQuizQuestion> questionImages =
+            GetQuestionsOfType(
+                HeartQuizQuestionType.QuestionImage
+            );
+
+        List<HeartQuizQuestion> imageAnswers =
+            GetQuestionsOfType(
+                HeartQuizQuestionType.ImageAnswers
+            );
+
+        List<HeartQuizQuestion> written =
+            GetQuestionsOfType(
+                HeartQuizQuestionType.Written
+            );
+
+        Shuffle(multiple);
+        Shuffle(questionImages);
+        Shuffle(imageAnswers);
+        Shuffle(written);
+
         int difficulty =
             PlayerPrefs.GetInt("Difficulty", 1);
 
         switch (difficulty)
         {
+            // =========================
+            // EASY = 6
+            // 3 Multiple
+            // 1 Written
+            // 1 Question Image
+            // 1 Image Answers
+            // =========================
             case 0:
-                currentLives = 3;
+
+                AddQuestions(
+                    multiple,
+                    3
+                );
+
+                AddQuestions(
+                    written,
+                    1
+                );
+
+                AddQuestions(
+                    questionImages,
+                    1
+                );
+
+                AddQuestions(
+                    imageAnswers,
+                    1
+                );
+
                 break;
 
+            // =========================
+            // HARD = 10
+            // 6 Multiple
+            // 2 Written
+            // 1 Question Image
+            // 1 Image Answers
+            // =========================
             case 2:
-                currentLives = 1;
+
+                AddQuestions(
+                    multiple,
+                    6
+                );
+
+                AddQuestions(
+                    written,
+                    2
+                );
+
+                AddQuestions(
+                    questionImages,
+                    1
+                );
+
+                AddQuestions(
+                    imageAnswers,
+                    1
+                );
+
                 break;
 
+            // =========================
+            // MEDIUM = 8
+            // 5 Multiple
+            // 1 Written
+            // 2 Image-based
+            //
+            // Последните два се избират
+            // случайно от двата image типа.
+            // =========================
             default:
-                currentLives = 2;
+
+                AddQuestions(
+                    multiple,
+                    5
+                );
+
+                AddQuestions(
+                    written,
+                    1
+                );
+
+                AddRandomImageQuestions(
+                    questionImages,
+                    imageAnswers,
+                    2
+                );
+
                 break;
         }
 
-        for (int i = 0; i < lifeHearts.Length; i++)
+        // Разбъркваме крайния quiz,
+        // за да не идват типовете винаги
+        // в еднакъв ред.
+        Shuffle(selectedQuestions);
+
+        Debug.Log(
+            "Избрани въпроси за този куиз: " +
+            selectedQuestions.Count
+        );
+    }
+
+    private List<HeartQuizQuestion> GetQuestionsOfType(
+        HeartQuizQuestionType type)
+    {
+        List<HeartQuizQuestion> result =
+            new List<HeartQuizQuestion>();
+
+        foreach (HeartQuizQuestion question in questions)
         {
-            if (lifeHearts[i] != null)
+            if (question != null &&
+                question.questionType == type)
             {
-                lifeHearts[i].gameObject.SetActive(
-                    i < currentLives
-                );
+                result.Add(question);
             }
         }
+
+        return result;
     }
 
-    private void SetupHints()
+    private void AddQuestions(
+        List<HeartQuizQuestion> source,
+        int amount)
     {
-        int difficulty =
-            PlayerPrefs.GetInt("Difficulty", 1);
+        int count =
+            Mathf.Min(
+                amount,
+                source.Count
+            );
 
-        switch (difficulty)
+        for (int i = 0; i < count; i++)
         {
-            case 0:
-                remainingHints = 3;
-                break;
-
-            case 2:
-                remainingHints = 1;
-                break;
-
-            default:
-                remainingHints = 2;
-                break;
+            selectedQuestions.Add(
+                source[i]
+            );
         }
 
-        UpdateHintButton();
+        if (count < amount)
+        {
+            Debug.LogWarning(
+                "Няма достатъчно въпроси от дадения тип. " +
+                "Искани: " +
+                amount +
+                ", налични: " +
+                source.Count
+            );
+        }
     }
+
+    private void AddRandomImageQuestions(
+        List<HeartQuizQuestion> questionImages,
+        List<HeartQuizQuestion> imageAnswers,
+        int amount)
+    {
+        List<HeartQuizQuestion> combined =
+            new List<HeartQuizQuestion>();
+
+        combined.AddRange(questionImages);
+        combined.AddRange(imageAnswers);
+
+        Shuffle(combined);
+
+        int count =
+            Mathf.Min(
+                amount,
+                combined.Count
+            );
+
+        for (int i = 0; i < count; i++)
+        {
+            selectedQuestions.Add(
+                combined[i]
+            );
+        }
+
+        if (count < amount)
+        {
+            Debug.LogWarning(
+                "Няма достатъчно image въпроси."
+            );
+        }
+    }
+
+    private void Shuffle<T>(
+        List<T> list)
+    {
+        for (int i = list.Count - 1;
+             i > 0;
+             i--)
+        {
+            int randomIndex =
+                Random.Range(
+                    0,
+                    i + 1
+                );
+
+            T temp =
+                list[i];
+
+            list[i] =
+                list[randomIndex];
+
+            list[randomIndex] =
+                temp;
+        }
+    }
+
+    // =========================
+    // SHOW QUESTION
+    // =========================
 
     private void ShowQuestion()
     {
-        if (questions.Count == 0)
+        if (selectedQuestions.Count == 0)
         {
             Debug.LogWarning(
-                "Няма добавени въпроси в Heart Quiz!"
+                "Няма избрани въпроси за Heart Quiz!"
             );
 
             return;
         }
 
         if (currentQuestionIndex < 0 ||
-            currentQuestionIndex >= questions.Count)
+            currentQuestionIndex >=
+            selectedQuestions.Count)
         {
             return;
         }
 
         HeartQuizQuestion currentQuestion =
-            questions[currentQuestionIndex];
+            selectedQuestions[
+                currentQuestionIndex
+            ];
 
-        questionText.text =
-            currentQuestion.question;
+        HideAllQuestionPanels();
 
-        answerAText.text =
-            currentQuestion.answerA;
+        switch (currentQuestion.questionType)
+        {
+            case HeartQuizQuestionType.MultipleChoice:
 
-        answerBText.text =
-            currentQuestion.answerB;
+                ShowMultipleChoiceQuestion(
+                    currentQuestion
+                );
 
-        answerVText.text =
-            currentQuestion.answerV;
+                break;
 
-        answerGText.text =
-            currentQuestion.answerG;
+            case HeartQuizQuestionType.QuestionImage:
+
+                ShowQuestionImageQuestion(
+                    currentQuestion
+                );
+
+                break;
+
+            case HeartQuizQuestionType.ImageAnswers:
+
+                ShowImageAnswersQuestion(
+                    currentQuestion
+                );
+
+                break;
+
+            case HeartQuizQuestionType.Written:
+
+                ShowWrittenQuestion(
+                    currentQuestion
+                );
+
+                break;
+        }
 
         UpdateHintButton();
     }
+
+    private void HideAllQuestionPanels()
+    {
+        if (multipleQuestionUI != null)
+            multipleQuestionUI.SetActive(false);
+
+        if (questionImageUI != null)
+            questionImageUI.SetActive(false);
+
+        if (imageAnswerUI != null)
+            imageAnswerUI.SetActive(false);
+
+        if (writtenAnswerUI != null)
+            writtenAnswerUI.SetActive(false);
+    }
+
+    private void ShowMultipleChoiceQuestion(
+        HeartQuizQuestion question)
+    {
+        if (multipleQuestionUI != null)
+        {
+            multipleQuestionUI.SetActive(true);
+        }
+
+        if (questionText != null)
+            questionText.text = question.question;
+
+        if (answerAText != null)
+            answerAText.text = question.answerA;
+
+        if (answerBText != null)
+            answerBText.text = question.answerB;
+
+        if (answerVText != null)
+            answerVText.text = question.answerV;
+
+        if (answerGText != null)
+            answerGText.text = question.answerG;
+    }
+
+    private void ShowQuestionImageQuestion(
+        HeartQuizQuestion question)
+    {
+        if (questionImageUI != null)
+        {
+            questionImageUI.SetActive(true);
+        }
+
+        if (questionImageText != null)
+        {
+            questionImageText.text =
+                question.question;
+        }
+
+        if (questionImage != null)
+        {
+            questionImage.sprite =
+                question.questionImage;
+
+            questionImage.enabled =
+                question.questionImage != null;
+        }
+
+        if (questionImageAnswerAText != null)
+        {
+            questionImageAnswerAText.text =
+                question.answerA;
+        }
+
+        if (questionImageAnswerBText != null)
+        {
+            questionImageAnswerBText.text =
+                question.answerB;
+        }
+
+        if (questionImageAnswerVText != null)
+        {
+            questionImageAnswerVText.text =
+                question.answerV;
+        }
+
+        if (questionImageAnswerGText != null)
+        {
+            questionImageAnswerGText.text =
+                question.answerG;
+        }
+    }
+
+    private void ShowImageAnswersQuestion(
+        HeartQuizQuestion question)
+    {
+        if (imageAnswerUI != null)
+        {
+            imageAnswerUI.SetActive(true);
+        }
+
+        // Реалните Image references
+        // ще ги добавим, когато изградим
+        // ImageAnswersUI.
+    }
+
+    private void ShowWrittenQuestion(
+        HeartQuizQuestion question)
+    {
+        if (writtenAnswerUI != null)
+        {
+            writtenAnswerUI.SetActive(true);
+        }
+
+        // TMP_InputField + Проверка
+        // ще добавим, когато изградим
+        // WrittenAnswerUI.
+    }
+
+    // =========================
+    // ANSWERS
+    // =========================
 
     public void SelectAnswer(
         int selectedIndex,
@@ -267,8 +610,17 @@ public class HeartQuizManager : MonoBehaviour
             return;
         }
 
+        if (currentQuestionIndex < 0 ||
+            currentQuestionIndex >=
+            selectedQuestions.Count)
+        {
+            return;
+        }
+
         HeartQuizQuestion currentQuestion =
-            questions[currentQuestionIndex];
+            selectedQuestions[
+                currentQuestionIndex
+            ];
 
         if (selectedIndex ==
             currentQuestion.correctAnswerIndex)
@@ -324,6 +676,70 @@ public class HeartQuizManager : MonoBehaviour
         }
     }
 
+    private IEnumerator GoToNextQuestionAfterDelay()
+    {
+        yield return new WaitForSeconds(
+            nextQuestionDelay
+        );
+
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex >=
+            selectedQuestions.Count)
+        {
+            QuizCompleted();
+            yield break;
+        }
+
+        ShowQuestion();
+
+        SetAnswerButtonsInteractable(true);
+
+        isChangingQuestion = false;
+    }
+
+    // =========================
+    // LIVES
+    // =========================
+
+    private void SetupLives()
+    {
+        int difficulty =
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
+
+        switch (difficulty)
+        {
+            case 0:
+                currentLives = 3;
+                break;
+
+            case 2:
+                currentLives = 1;
+                break;
+
+            default:
+                currentLives = 2;
+                break;
+        }
+
+        for (int i = 0;
+             i < lifeHearts.Length;
+             i++)
+        {
+            if (lifeHearts[i] != null)
+            {
+                lifeHearts[i]
+                    .gameObject
+                    .SetActive(
+                        i < currentLives
+                    );
+            }
+        }
+    }
+
     private void LoseLife()
     {
         if (currentLives <= 0)
@@ -362,37 +778,44 @@ public class HeartQuizManager : MonoBehaviour
         if (!isGameOver &&
             !isQuizCompleted)
         {
-            SetAnswerButtonsInteractable(true);
+            SetAnswerButtonsInteractable(
+                true
+            );
 
-            isProcessingWrongAnswer = false;
+            isProcessingWrongAnswer =
+                false;
         }
     }
 
-    private IEnumerator GoToNextQuestionAfterDelay()
+    // =========================
+    // HINT
+    // =========================
+
+    private void SetupHints()
     {
-        yield return new WaitForSeconds(
-            nextQuestionDelay
-        );
+        int difficulty =
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
-        currentQuestionIndex++;
-
-        if (currentQuestionIndex >=
-            questions.Count)
+        switch (difficulty)
         {
-            QuizCompleted();
-            yield break;
+            case 0:
+                remainingHints = 3;
+                break;
+
+            case 2:
+                remainingHints = 1;
+                break;
+
+            default:
+                remainingHints = 2;
+                break;
         }
 
-        ShowQuestion();
-
-        SetAnswerButtonsInteractable(true);
-
-        isChangingQuestion = false;
+        UpdateHintButton();
     }
-
-    // =========================
-    // HINT SYSTEM
-    // =========================
 
     public void OpenHint()
     {
@@ -408,7 +831,8 @@ public class HeartQuizManager : MonoBehaviour
         }
 
         if (currentQuestionIndex < 0 ||
-            currentQuestionIndex >= questions.Count)
+            currentQuestionIndex >=
+            selectedQuestions.Count)
         {
             return;
         }
@@ -429,7 +853,9 @@ public class HeartQuizManager : MonoBehaviour
         }
 
         HeartQuizQuestion currentQuestion =
-            questions[currentQuestionIndex];
+            selectedQuestions[
+                currentQuestionIndex
+            ];
 
         if (hintText != null)
         {
@@ -563,12 +989,6 @@ public class HeartQuizManager : MonoBehaviour
             isInfoOpen = true;
             infoOverlay.SetActive(true);
         }
-        else
-        {
-            Debug.LogWarning(
-                "InfoOverlay не е зададен в HeartQuizManager!"
-            );
-        }
     }
 
     public void CloseInfoPanel()
@@ -599,21 +1019,15 @@ public class HeartQuizManager : MonoBehaviour
         if (settingsOverlay != null)
         {
             isSettingsOpen = true;
+
             settingsOverlay.SetActive(true);
 
-            // Допълнително подсигуряване:
-            // ако Settings е бил inactive при Start,
-            // заключваме трудността и при самото отваряне.
             if (difficultySelector != null)
             {
-                difficultySelector.SetLocked(true);
+                difficultySelector.SetLocked(
+                    true
+                );
             }
-        }
-        else
-        {
-            Debug.LogWarning(
-                "SettingsOverlay не е зададен в HeartQuizManager!"
-            );
         }
     }
 
@@ -644,12 +1058,8 @@ public class HeartQuizManager : MonoBehaviour
 
         if (exitConfirmationOverlay != null)
         {
-            exitConfirmationOverlay.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "ExitConfirmationOverlay не е зададен в HeartQuizManager!"
+            exitConfirmationOverlay.SetActive(
+                true
             );
         }
     }
@@ -658,9 +1068,15 @@ public class HeartQuizManager : MonoBehaviour
     {
         if (exitConfirmationOverlay != null)
         {
-            exitConfirmationOverlay.SetActive(false);
+            exitConfirmationOverlay.SetActive(
+                false
+            );
         }
     }
+
+    // =========================
+    // GAME END
+    // =========================
 
     private void QuizCompleted()
     {
@@ -670,54 +1086,32 @@ public class HeartQuizManager : MonoBehaviour
 
         isQuizCompleted = true;
         isChangingQuestion = false;
-        isHintOpen = false;
-        isInfoOpen = false;
-        isSettingsOpen = false;
 
-        SetAnswerButtonsInteractable(false);
+        SetAnswerButtonsInteractable(
+            false
+        );
+
         UpdateHintButton();
 
+        HideAllQuestionPanels();
+
         if (hintOverlay != null)
-        {
             hintOverlay.SetActive(false);
-        }
 
         if (infoOverlay != null)
-        {
             infoOverlay.SetActive(false);
-        }
 
         if (settingsOverlay != null)
-        {
             settingsOverlay.SetActive(false);
-        }
 
         if (exitConfirmationOverlay != null)
-        {
             exitConfirmationOverlay.SetActive(false);
-        }
 
         if (quizSuccessOverlay != null)
-        {
             quizSuccessOverlay.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "QuizSuccessOverlay не е зададен в HeartQuizManager!"
-            );
-        }
 
         if (quizSuccessPanel != null)
-        {
             quizSuccessPanel.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "QuizSuccessPanel не е зададен в HeartQuizManager!"
-            );
-        }
     }
 
     private void GameOver()
@@ -728,48 +1122,28 @@ public class HeartQuizManager : MonoBehaviour
 
         isGameOver = true;
         isProcessingWrongAnswer = false;
-        isHintOpen = false;
-        isInfoOpen = false;
-        isSettingsOpen = false;
 
-        SetAnswerButtonsInteractable(false);
+        SetAnswerButtonsInteractable(
+            false
+        );
+
         UpdateHintButton();
 
         if (hintOverlay != null)
-        {
             hintOverlay.SetActive(false);
-        }
-
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
-
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
-
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
 
         if (gameOverOverlay != null)
-        {
             gameOverOverlay.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "GameOverOverlay не е зададен в HeartQuizManager!"
-            );
-        }
     }
+
+    // =========================
+    // BUTTON STATE
+    // =========================
 
     private void SetAnswerButtonsInteractable(
         bool value)
     {
+        // Multiple Choice
         if (answerAButton != null)
             answerAButton.interactable = value;
 
@@ -781,5 +1155,70 @@ public class HeartQuizManager : MonoBehaviour
 
         if (answerGButton != null)
             answerGButton.interactable = value;
+
+        // Question Image answers
+        if (questionImageAnswerAButton != null)
+            questionImageAnswerAButton.interactable = value;
+
+        if (questionImageAnswerBButton != null)
+            questionImageAnswerBButton.interactable = value;
+
+        if (questionImageAnswerVButton != null)
+            questionImageAnswerVButton.interactable = value;
+
+        if (questionImageAnswerGButton != null)
+            questionImageAnswerGButton.interactable = value;
+    }
+
+    // =========================
+    // INITIAL SETUP
+    // =========================
+
+    private void SaveHintButtonOriginalValues()
+    {
+        if (hintButton != null)
+        {
+            originalHintButtonScale =
+                hintButton.transform.localScale;
+        }
+
+        if (hintButtonImage != null)
+        {
+            RectTransform hintRect =
+                hintButtonImage.rectTransform;
+
+            originalHintImageSize =
+                hintRect.sizeDelta;
+
+            originalHintImagePosition =
+                hintRect.anchoredPosition;
+
+            originalHintImageScale =
+                hintRect.localScale;
+        }
+    }
+
+    private void HideOverlays()
+    {
+        if (infoOverlay != null)
+            infoOverlay.SetActive(false);
+
+        if (settingsOverlay != null)
+            settingsOverlay.SetActive(false);
+
+        if (exitConfirmationOverlay != null)
+            exitConfirmationOverlay.SetActive(false);
+
+        if (gameOverOverlay != null)
+            gameOverOverlay.SetActive(false);
+
+        if (quizSuccessOverlay != null)
+            quizSuccessOverlay.SetActive(false);
+
+        if (quizSuccessPanel != null)
+            quizSuccessPanel.SetActive(false);
+
+        if (hintOverlay != null)
+            hintOverlay.SetActive(false);
     }
 }
