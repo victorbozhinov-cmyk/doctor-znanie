@@ -10,8 +10,6 @@ public class HeartQuizManager : MonoBehaviour
     [SerializeField] private List<HeartQuizQuestion> questions =
         new List<HeartQuizQuestion>();
 
-    // Това е реалният набор въпроси,
-    // избран за конкретното изиграване.
     private List<HeartQuizQuestion> selectedQuestions =
         new List<HeartQuizQuestion>();
 
@@ -59,6 +57,23 @@ public class HeartQuizManager : MonoBehaviour
     [SerializeField] private Button questionImageAnswerBButton;
     [SerializeField] private Button questionImageAnswerVButton;
     [SerializeField] private Button questionImageAnswerGButton;
+
+    // =========================
+    // IMAGE ANSWERS UI
+    // =========================
+
+    [Header("Image Answers UI")]
+    [SerializeField] private TMP_Text imageAnswersQuestionText;
+
+    [SerializeField] private Image imageAnswerAImage;
+    [SerializeField] private Image imageAnswerBImage;
+    [SerializeField] private Image imageAnswerVImage;
+    [SerializeField] private Image imageAnswerGImage;
+
+    [SerializeField] private Button imageAnswerAButton;
+    [SerializeField] private Button imageAnswerBButton;
+    [SerializeField] private Button imageAnswerVButton;
+    [SerializeField] private Button imageAnswerGButton;
 
     // =========================
     // LIVES
@@ -130,7 +145,6 @@ public class HeartQuizManager : MonoBehaviour
     private bool isInfoOpen = false;
     private bool isSettingsOpen = false;
 
-    // Hint button original values
     private Vector3 originalHintButtonScale;
 
     private Vector2 originalHintImageSize;
@@ -205,99 +219,53 @@ public class HeartQuizManager : MonoBehaviour
         {
             // =========================
             // EASY = 6
-            // 3 Multiple
-            // 1 Written
+            // 3 Multiple Choice
             // 1 Question Image
             // 1 Image Answers
+            // 1 Written
             // =========================
             case 0:
 
-                AddQuestions(
-                    multiple,
-                    3
-                );
-
-                AddQuestions(
-                    written,
-                    1
-                );
-
-                AddQuestions(
-                    questionImages,
-                    1
-                );
-
-                AddQuestions(
-                    imageAnswers,
-                    1
-                );
+                AddQuestions(multiple, 3);
+                AddQuestions(questionImages, 1);
+                AddQuestions(imageAnswers, 1);
+                AddQuestions(written, 1);
 
                 break;
 
             // =========================
             // HARD = 10
-            // 6 Multiple
+            // 4 Multiple Choice
+            // 2 Question Image
+            // 2 Image Answers
             // 2 Written
-            // 1 Question Image
-            // 1 Image Answers
             // =========================
             case 2:
 
-                AddQuestions(
-                    multiple,
-                    6
-                );
-
-                AddQuestions(
-                    written,
-                    2
-                );
-
-                AddQuestions(
-                    questionImages,
-                    1
-                );
-
-                AddQuestions(
-                    imageAnswers,
-                    1
-                );
+                AddQuestions(multiple, 4);
+                AddQuestions(questionImages, 2);
+                AddQuestions(imageAnswers, 2);
+                AddQuestions(written, 2);
 
                 break;
 
             // =========================
             // MEDIUM = 8
-            // 5 Multiple
+            // 3 Multiple Choice
+            // 2 Question Image
+            // 2 Image Answers
             // 1 Written
-            // 2 Image-based
-            //
-            // Последните два се избират
-            // случайно от двата image типа.
             // =========================
             default:
 
-                AddQuestions(
-                    multiple,
-                    5
-                );
-
-                AddQuestions(
-                    written,
-                    1
-                );
-
-                AddRandomImageQuestions(
-                    questionImages,
-                    imageAnswers,
-                    2
-                );
+                AddQuestions(multiple, 3);
+                AddQuestions(questionImages, 2);
+                AddQuestions(imageAnswers, 2);
+                AddQuestions(written, 1);
 
                 break;
         }
 
-        // Разбъркваме крайния quiz,
-        // за да не идват типовете винаги
-        // в еднакъв ред.
         Shuffle(selectedQuestions);
 
         Debug.Log(
@@ -353,40 +321,6 @@ public class HeartQuizManager : MonoBehaviour
         }
     }
 
-    private void AddRandomImageQuestions(
-        List<HeartQuizQuestion> questionImages,
-        List<HeartQuizQuestion> imageAnswers,
-        int amount)
-    {
-        List<HeartQuizQuestion> combined =
-            new List<HeartQuizQuestion>();
-
-        combined.AddRange(questionImages);
-        combined.AddRange(imageAnswers);
-
-        Shuffle(combined);
-
-        int count =
-            Mathf.Min(
-                amount,
-                combined.Count
-            );
-
-        for (int i = 0; i < count; i++)
-        {
-            selectedQuestions.Add(
-                combined[i]
-            );
-        }
-
-        if (count < amount)
-        {
-            Debug.LogWarning(
-                "Няма достатъчно image въпроси."
-            );
-        }
-    }
-
     private void Shuffle<T>(
         List<T> list)
     {
@@ -400,8 +334,7 @@ public class HeartQuizManager : MonoBehaviour
                     i + 1
                 );
 
-            T temp =
-                list[i];
+            T temp = list[i];
 
             list[i] =
                 list[randomIndex];
@@ -565,6 +498,10 @@ public class HeartQuizManager : MonoBehaviour
         }
     }
 
+    // =========================
+    // IMAGE ANSWERS
+    // =========================
+
     private void ShowImageAnswersQuestion(
         HeartQuizQuestion question)
     {
@@ -573,10 +510,52 @@ public class HeartQuizManager : MonoBehaviour
             imageAnswerUI.SetActive(true);
         }
 
-        // Реалните Image references
-        // ще ги добавим, когато изградим
-        // ImageAnswersUI.
+        if (imageAnswersQuestionText != null)
+        {
+            imageAnswersQuestionText.text =
+                question.question;
+        }
+
+        SetAnswerImage(
+            imageAnswerAImage,
+            question.answerAImage
+        );
+
+        SetAnswerImage(
+            imageAnswerBImage,
+            question.answerBImage
+        );
+
+        SetAnswerImage(
+            imageAnswerVImage,
+            question.answerVImage
+        );
+
+        SetAnswerImage(
+            imageAnswerGImage,
+            question.answerGImage
+        );
     }
+
+    private void SetAnswerImage(
+        Image targetImage,
+        Sprite sprite)
+    {
+        if (targetImage == null)
+            return;
+
+        targetImage.sprite =
+            sprite;
+
+        targetImage.enabled =
+            sprite != null;
+
+        targetImage.preserveAspect = true;
+    }
+
+    // =========================
+    // WRITTEN
+    // =========================
 
     private void ShowWrittenQuestion(
         HeartQuizQuestion question)
@@ -586,9 +565,7 @@ public class HeartQuizManager : MonoBehaviour
             writtenAnswerUI.SetActive(true);
         }
 
-        // TMP_InputField + Проверка
-        // ще добавим, когато изградим
-        // WrittenAnswerUI.
+        // Ще го направим в следващата стъпка.
     }
 
     // =========================
@@ -1087,9 +1064,7 @@ public class HeartQuizManager : MonoBehaviour
         isQuizCompleted = true;
         isChangingQuestion = false;
 
-        SetAnswerButtonsInteractable(
-            false
-        );
+        SetAnswerButtonsInteractable(false);
 
         UpdateHintButton();
 
@@ -1123,9 +1098,7 @@ public class HeartQuizManager : MonoBehaviour
         isGameOver = true;
         isProcessingWrongAnswer = false;
 
-        SetAnswerButtonsInteractable(
-            false
-        );
+        SetAnswerButtonsInteractable(false);
 
         UpdateHintButton();
 
@@ -1156,7 +1129,7 @@ public class HeartQuizManager : MonoBehaviour
         if (answerGButton != null)
             answerGButton.interactable = value;
 
-        // Question Image answers
+        // Question Image
         if (questionImageAnswerAButton != null)
             questionImageAnswerAButton.interactable = value;
 
@@ -1168,6 +1141,19 @@ public class HeartQuizManager : MonoBehaviour
 
         if (questionImageAnswerGButton != null)
             questionImageAnswerGButton.interactable = value;
+
+        // Image Answers
+        if (imageAnswerAButton != null)
+            imageAnswerAButton.interactable = value;
+
+        if (imageAnswerBButton != null)
+            imageAnswerBButton.interactable = value;
+
+        if (imageAnswerVButton != null)
+            imageAnswerVButton.interactable = value;
+
+        if (imageAnswerGButton != null)
+            imageAnswerGButton.interactable = value;
     }
 
     // =========================
