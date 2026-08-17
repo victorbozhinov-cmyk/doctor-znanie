@@ -23,6 +23,12 @@ public class HeartQuizManager : MonoBehaviour
     [SerializeField] private GameObject imageAnswerUI;
     [SerializeField] private GameObject writtenAnswerUI;
 
+    [Header("Question Panel Pulse")]
+    [SerializeField] private QuizQuestionPulse multipleQuestionPulse;
+    [SerializeField] private QuizQuestionPulse questionImagePulse;
+    [SerializeField] private QuizQuestionPulse imageAnswerPulse;
+    [SerializeField] private QuizQuestionPulse writtenAnswerPulse;
+
     // =========================
     // MULTIPLE CHOICE UI
     // =========================
@@ -76,6 +82,26 @@ public class HeartQuizManager : MonoBehaviour
     [SerializeField] private Button imageAnswerGButton;
 
     // =========================
+    // WRITTEN ANSWER UI
+    // =========================
+
+    [Header("Written Answer UI")]
+    [SerializeField] private TMP_Text writtenQuestionText;
+    [SerializeField] private TMP_InputField writtenInputField;
+    [SerializeField] private Button writtenCheckButton;
+    [SerializeField] private QuizAnswerFeedback writtenCheckFeedback;
+
+    // =========================
+    // QUIZ STATUS
+    // =========================
+
+    [Header("Quiz Status")]
+    [SerializeField] private TMP_Text questionCounterText;
+    [SerializeField] private TMP_Text hintCounterText;
+    [SerializeField] private UICounterPulse questionCounterPulse;
+    [SerializeField] private UICounterPulse hintCounterPulse;
+
+    // =========================
     // LIVES
     // =========================
 
@@ -97,6 +123,7 @@ public class HeartQuizManager : MonoBehaviour
     [SerializeField] private Sprite activeHintSprite;
     [SerializeField] private Sprite disabledHintSprite;
     [SerializeField] private UIButtonHoverEffect hintHoverEffect;
+    [SerializeField] private HintButtonIdlePulse hintButtonIdlePulse;
 
     // =========================
     // PANELS
@@ -132,6 +159,10 @@ public class HeartQuizManager : MonoBehaviour
     private int currentQuestionIndex = 0;
     private int currentLives;
     private int remainingHints;
+    private int maxHints;
+
+    private int lastShownQuestion = -1;
+    private int lastShownHintCount = -1;
 
     private HashSet<int> usedHintQuestions =
         new HashSet<int>();
@@ -155,6 +186,13 @@ public class HeartQuizManager : MonoBehaviour
     {
         SaveHintButtonOriginalValues();
 
+        if (writtenInputField != null)
+        {
+            writtenInputField.onSubmit.AddListener(
+                OnWrittenInputSubmit
+            );
+        }
+
         HideOverlays();
 
         if (difficultySelector != null)
@@ -176,6 +214,51 @@ public class HeartQuizManager : MonoBehaviour
         currentQuestionIndex = 0;
 
         ShowQuestion();
+    }
+
+    private void OnDestroy()
+    {
+        if (writtenInputField != null)
+        {
+            writtenInputField.onSubmit.RemoveListener(
+                OnWrittenInputSubmit
+            );
+        }
+    }
+
+    private void OnWrittenInputSubmit(
+        string submittedText)
+    {
+        if (isChangingQuestion ||
+            isProcessingWrongAnswer ||
+            isGameOver ||
+            isQuizCompleted ||
+            isHintOpen ||
+            isInfoOpen ||
+            isSettingsOpen)
+        {
+            return;
+        }
+
+        if (currentQuestionIndex < 0 ||
+            currentQuestionIndex >=
+            selectedQuestions.Count)
+        {
+            return;
+        }
+
+        HeartQuizQuestion currentQuestion =
+            selectedQuestions[
+                currentQuestionIndex
+            ];
+
+        if (currentQuestion.questionType !=
+            HeartQuizQuestionType.Written)
+        {
+            return;
+        }
+
+        CheckWrittenAnswer();
     }
 
     // =========================
@@ -217,52 +300,25 @@ public class HeartQuizManager : MonoBehaviour
 
         switch (difficulty)
         {
-            // =========================
-            // EASY = 6
-            // 3 Multiple Choice
-            // 1 Question Image
-            // 1 Image Answers
-            // 1 Written
-            // =========================
             case 0:
-
                 AddQuestions(multiple, 3);
                 AddQuestions(questionImages, 1);
                 AddQuestions(imageAnswers, 1);
                 AddQuestions(written, 1);
-
                 break;
 
-            // =========================
-            // HARD = 10
-            // 4 Multiple Choice
-            // 2 Question Image
-            // 2 Image Answers
-            // 2 Written
-            // =========================
             case 2:
-
                 AddQuestions(multiple, 4);
                 AddQuestions(questionImages, 2);
                 AddQuestions(imageAnswers, 2);
                 AddQuestions(written, 2);
-
                 break;
 
-            // =========================
-            // MEDIUM = 8
-            // 3 Multiple Choice
-            // 2 Question Image
-            // 2 Image Answers
-            // 1 Written
-            // =========================
             default:
-
                 AddQuestions(multiple, 3);
                 AddQuestions(questionImages, 2);
                 AddQuestions(imageAnswers, 2);
                 AddQuestions(written, 1);
-
                 break;
         }
 
@@ -376,39 +432,33 @@ public class HeartQuizManager : MonoBehaviour
         switch (currentQuestion.questionType)
         {
             case HeartQuizQuestionType.MultipleChoice:
-
                 ShowMultipleChoiceQuestion(
                     currentQuestion
                 );
-
                 break;
 
             case HeartQuizQuestionType.QuestionImage:
-
                 ShowQuestionImageQuestion(
                     currentQuestion
                 );
-
                 break;
 
             case HeartQuizQuestionType.ImageAnswers:
-
                 ShowImageAnswersQuestion(
                     currentQuestion
                 );
-
                 break;
 
             case HeartQuizQuestionType.Written:
-
                 ShowWrittenQuestion(
                     currentQuestion
                 );
-
                 break;
         }
 
+        UpdateQuestionCounter();
         UpdateHintButton();
+        UpdateHintCounter();
     }
 
     private void HideAllQuestionPanels()
@@ -430,9 +480,10 @@ public class HeartQuizManager : MonoBehaviour
         HeartQuizQuestion question)
     {
         if (multipleQuestionUI != null)
-        {
             multipleQuestionUI.SetActive(true);
-        }
+
+        if (multipleQuestionPulse != null)
+            multipleQuestionPulse.Play();
 
         if (questionText != null)
             questionText.text = question.question;
@@ -454,15 +505,14 @@ public class HeartQuizManager : MonoBehaviour
         HeartQuizQuestion question)
     {
         if (questionImageUI != null)
-        {
             questionImageUI.SetActive(true);
-        }
+
+        if (questionImagePulse != null)
+            questionImagePulse.Play();
 
         if (questionImageText != null)
-        {
             questionImageText.text =
                 question.question;
-        }
 
         if (questionImage != null)
         {
@@ -474,28 +524,20 @@ public class HeartQuizManager : MonoBehaviour
         }
 
         if (questionImageAnswerAText != null)
-        {
             questionImageAnswerAText.text =
                 question.answerA;
-        }
 
         if (questionImageAnswerBText != null)
-        {
             questionImageAnswerBText.text =
                 question.answerB;
-        }
 
         if (questionImageAnswerVText != null)
-        {
             questionImageAnswerVText.text =
                 question.answerV;
-        }
 
         if (questionImageAnswerGText != null)
-        {
             questionImageAnswerGText.text =
                 question.answerG;
-        }
     }
 
     // =========================
@@ -506,15 +548,14 @@ public class HeartQuizManager : MonoBehaviour
         HeartQuizQuestion question)
     {
         if (imageAnswerUI != null)
-        {
             imageAnswerUI.SetActive(true);
-        }
+
+        if (imageAnswerPulse != null)
+            imageAnswerPulse.Play();
 
         if (imageAnswersQuestionText != null)
-        {
             imageAnswersQuestionText.text =
                 question.question;
-        }
 
         SetAnswerImage(
             imageAnswerAImage,
@@ -565,7 +606,174 @@ public class HeartQuizManager : MonoBehaviour
             writtenAnswerUI.SetActive(true);
         }
 
-        // Ще го направим в следващата стъпка.
+        if (writtenAnswerPulse != null)
+        {
+            writtenAnswerPulse.Play();
+        }
+
+        if (writtenQuestionText != null)
+        {
+            writtenQuestionText.text =
+                question.question;
+        }
+
+        if (writtenInputField != null)
+        {
+            writtenInputField.text = "";
+            writtenInputField.interactable = true;
+        }
+
+        if (writtenCheckButton != null)
+        {
+            writtenCheckButton.interactable = true;
+        }
+    }
+
+    public void CheckWrittenAnswer()
+    {
+        if (isChangingQuestion ||
+            isProcessingWrongAnswer ||
+            isGameOver ||
+            isQuizCompleted ||
+            isHintOpen ||
+            isInfoOpen ||
+            isSettingsOpen)
+        {
+            return;
+        }
+
+        if (writtenInputField == null)
+        {
+            Debug.LogWarning(
+                "WrittenInputField не е зададен!"
+            );
+
+            return;
+        }
+
+        if (currentQuestionIndex < 0 ||
+            currentQuestionIndex >=
+            selectedQuestions.Count)
+        {
+            return;
+        }
+
+        HeartQuizQuestion currentQuestion =
+            selectedQuestions[
+                currentQuestionIndex
+            ];
+
+        if (currentQuestion.questionType !=
+            HeartQuizQuestionType.Written)
+        {
+            return;
+        }
+
+        string playerAnswer =
+            NormalizeWrittenAnswer(
+                writtenInputField.text
+            );
+
+        string correctAnswer =
+            NormalizeWrittenAnswer(
+                currentQuestion.correctWrittenAnswer
+            );
+
+        if (string.IsNullOrEmpty(playerAnswer))
+        {
+            Debug.Log(
+                "Играчът не е въвел отговор."
+            );
+
+            return;
+        }
+
+        if (playerAnswer == correctAnswer)
+        {
+            HandleWrittenCorrectAnswer();
+        }
+        else
+        {
+            HandleWrittenWrongAnswer();
+        }
+    }
+
+    private string NormalizeWrittenAnswer(
+        string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return "";
+        }
+
+        return value
+            .Trim()
+            .ToLowerInvariant();
+    }
+
+    private void HandleWrittenCorrectAnswer()
+    {
+        Debug.Log(
+            "Верен писмен отговор!"
+        );
+
+        isChangingQuestion = true;
+
+        SetAnswerButtonsInteractable(false);
+
+        if (writtenInputField != null)
+        {
+            writtenInputField.interactable = false;
+        }
+
+        if (writtenCheckButton != null)
+        {
+            writtenCheckButton.interactable = false;
+        }
+
+        if (writtenCheckFeedback != null)
+        {
+            writtenCheckFeedback.PlayCorrect();
+        }
+
+        StartCoroutine(
+            GoToNextQuestionAfterDelay()
+        );
+    }
+
+    private void HandleWrittenWrongAnswer()
+    {
+        Debug.Log(
+            "Грешен писмен отговор!"
+        );
+
+        isProcessingWrongAnswer = true;
+
+        SetAnswerButtonsInteractable(false);
+
+        if (writtenInputField != null)
+        {
+            writtenInputField.interactable = false;
+        }
+
+        if (writtenCheckButton != null)
+        {
+            writtenCheckButton.interactable = false;
+        }
+
+        if (writtenCheckFeedback != null)
+        {
+            writtenCheckFeedback.PlayWrong();
+        }
+
+        LoseLife();
+
+        if (!isGameOver)
+        {
+            StartCoroutine(
+                UnlockAfterWrongAnswer()
+            );
+        }
     }
 
     // =========================
@@ -759,6 +967,18 @@ public class HeartQuizManager : MonoBehaviour
                 true
             );
 
+            if (writtenInputField != null)
+            {
+                writtenInputField.interactable =
+                    true;
+            }
+
+            if (writtenCheckButton != null)
+            {
+                writtenCheckButton.interactable =
+                    true;
+            }
+
             isProcessingWrongAnswer =
                 false;
         }
@@ -779,19 +999,22 @@ public class HeartQuizManager : MonoBehaviour
         switch (difficulty)
         {
             case 0:
-                remainingHints = 3;
+                maxHints = 3;
                 break;
 
             case 2:
-                remainingHints = 1;
+                maxHints = 1;
                 break;
 
             default:
-                remainingHints = 2;
+                maxHints = 2;
                 break;
         }
 
+        remainingHints = maxHints;
+
         UpdateHintButton();
+        UpdateHintCounter();
     }
 
     public void OpenHint()
@@ -852,6 +1075,8 @@ public class HeartQuizManager : MonoBehaviour
                 "Използван хинт. Остават: " +
                 remainingHints
             );
+
+            UpdateHintCounter();
         }
 
         isHintOpen = true;
@@ -907,6 +1132,19 @@ public class HeartQuizManager : MonoBehaviour
                 buttonEnabled;
         }
 
+        if (hintButtonIdlePulse != null)
+        {
+            bool shouldIdlePulse =
+                buttonEnabled &&
+                remainingHints > 0 &&
+                !isHintOpen;
+
+            hintButtonIdlePulse
+                .SetIdleAnimationEnabled(
+                    shouldIdlePulse
+                );
+        }
+
         if (!buttonEnabled)
         {
             hintButton.transform.localScale =
@@ -944,6 +1182,72 @@ public class HeartQuizManager : MonoBehaviour
             hintRect.localScale =
                 originalHintImageScale;
         }
+    }
+
+    // =========================
+    // QUIZ STATUS
+    // =========================
+
+    private void UpdateQuestionCounter()
+    {
+        if (questionCounterText == null)
+            return;
+
+        if (selectedQuestions.Count <= 0)
+        {
+            questionCounterText.text = "0/0";
+            lastShownQuestion = 0;
+            return;
+        }
+
+        int shownQuestion =
+            Mathf.Clamp(
+                currentQuestionIndex + 1,
+                1,
+                selectedQuestions.Count
+            );
+
+        bool valueChanged =
+            lastShownQuestion >= 0 &&
+            shownQuestion != lastShownQuestion;
+
+        questionCounterText.text =
+            shownQuestion +
+            "/" +
+            selectedQuestions.Count;
+
+        if (valueChanged &&
+            questionCounterPulse != null)
+        {
+            questionCounterPulse.Play();
+        }
+
+        lastShownQuestion =
+            shownQuestion;
+    }
+
+    private void UpdateHintCounter()
+    {
+        if (hintCounterText == null)
+            return;
+
+        bool valueChanged =
+            lastShownHintCount >= 0 &&
+            remainingHints != lastShownHintCount;
+
+        hintCounterText.text =
+            remainingHints +
+            "/" +
+            maxHints;
+
+        if (valueChanged &&
+            hintCounterPulse != null)
+        {
+            hintCounterPulse.Play();
+        }
+
+        lastShownHintCount =
+            remainingHints;
     }
 
     // =========================
@@ -1067,6 +1371,7 @@ public class HeartQuizManager : MonoBehaviour
         SetAnswerButtonsInteractable(false);
 
         UpdateHintButton();
+        UpdateHintCounter();
 
         HideAllQuestionPanels();
 
@@ -1100,7 +1405,14 @@ public class HeartQuizManager : MonoBehaviour
 
         SetAnswerButtonsInteractable(false);
 
+        if (writtenInputField != null)
+            writtenInputField.interactable = false;
+
+        if (writtenCheckButton != null)
+            writtenCheckButton.interactable = false;
+
         UpdateHintButton();
+        UpdateHintCounter();
 
         if (hintOverlay != null)
             hintOverlay.SetActive(false);
@@ -1116,7 +1428,6 @@ public class HeartQuizManager : MonoBehaviour
     private void SetAnswerButtonsInteractable(
         bool value)
     {
-        // Multiple Choice
         if (answerAButton != null)
             answerAButton.interactable = value;
 
@@ -1129,7 +1440,6 @@ public class HeartQuizManager : MonoBehaviour
         if (answerGButton != null)
             answerGButton.interactable = value;
 
-        // Question Image
         if (questionImageAnswerAButton != null)
             questionImageAnswerAButton.interactable = value;
 
@@ -1142,7 +1452,6 @@ public class HeartQuizManager : MonoBehaviour
         if (questionImageAnswerGButton != null)
             questionImageAnswerGButton.interactable = value;
 
-        // Image Answers
         if (imageAnswerAButton != null)
             imageAnswerAButton.interactable = value;
 
