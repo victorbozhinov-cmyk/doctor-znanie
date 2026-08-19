@@ -3882,7 +3882,7 @@ GameObject:
   - component: {fileID: 371944908}
   - component: {fileID: 371944911}
   - component: {fileID: 371944910}
-  - component: {fileID: 371944909}
+  - component: {fileID: 371944912}
   m_Layer: 5
   m_Name: PonsSlot
   m_TagString: Untagged
@@ -3909,23 +3909,6 @@ RectTransform:
   m_AnchoredPosition: {x: -398, y: 166}
   m_SizeDelta: {x: 297.4749, y: 187.8761}
   m_Pivot: {x: 0.49999988, y: 0.4999998}
---- !u!114 &371944909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 371944907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad42bf8586becdb499fe8dc4bd8f8aff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartPuzzleDropZone
-  acceptedPart: 3
-  correctColor: {r: 0, g: 1, b: 0, a: 1}
-  wrongColor: {r: 1, g: 0, b: 0, a: 1}
-  feedbackDuration: 0.4
-  outlineDistance: {x: 4, y: -4}
 --- !u!114 &371944910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3964,6 +3947,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371944907}
   m_CullTransparentMesh: 1
+--- !u!114 &371944912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371944907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0da8a18a1ddda4ea7c8ddb03f39e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainPuzzleDropZone
+  acceptedPart: 4
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.4
+  outlineDistance: {x: 4, y: -4}
 --- !u!1 &372131682
 GameObject:
   m_ObjectHideFlags: 0
@@ -4237,12 +4237,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383711702}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1456654116}
+  m_Father: {fileID: 960161021}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8561,7 +8561,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744243105}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8570,8 +8570,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -436.99}
-  m_SizeDelta: {x: 443.1279, y: 199.2438}
+  m_AnchoredPosition: {x: 75.18837, y: -8}
+  m_SizeDelta: {x: 716.7285, y: 602.3852}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &744243107
 MonoBehaviour:
@@ -8593,7 +8593,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b0efffa53d984ef49b50e7f9e7a99a61, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ca7c8845420648548aa667568918786a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10863,7 +10863,7 @@ GameObject:
   - component: {fileID: 855232439}
   - component: {fileID: 855232442}
   - component: {fileID: 855232441}
-  - component: {fileID: 855232440}
+  - component: {fileID: 855232443}
   m_Layer: 5
   m_Name: CerebellumSlot
   m_TagString: Untagged
@@ -10890,23 +10890,6 @@ RectTransform:
   m_AnchoredPosition: {x: 437, y: 78}
   m_SizeDelta: {x: 300, y: 109.5946}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &855232440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855232438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad42bf8586becdb499fe8dc4bd8f8aff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartPuzzleDropZone
-  acceptedPart: 3
-  correctColor: {r: 0, g: 1, b: 0, a: 1}
-  wrongColor: {r: 1, g: 0, b: 0, a: 1}
-  feedbackDuration: 0.4
-  outlineDistance: {x: 4, y: -4}
 --- !u!114 &855232441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10945,6 +10928,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855232438}
   m_CullTransparentMesh: 1
+--- !u!114 &855232443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855232438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0da8a18a1ddda4ea7c8ddb03f39e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainPuzzleDropZone
+  acceptedPart: 3
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.4
+  outlineDistance: {x: 4, y: -4}
 --- !u!1 &855449599
 GameObject:
   m_ObjectHideFlags: 0
@@ -11521,7 +11521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &917731950
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11540,9 +11540,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 209, y: -383}
+  m_SizeDelta: {x: 390.3584, y: 260.6168}
+  m_Pivot: {x: 0.50000006, y: 0.49999997}
 --- !u!1 &930355002
 GameObject:
   m_ObjectHideFlags: 0
@@ -11738,7 +11738,7 @@ GameObject:
   - component: {fileID: 934815293}
   - component: {fileID: 934815296}
   - component: {fileID: 934815295}
-  - component: {fileID: 934815294}
+  - component: {fileID: 934815297}
   m_Layer: 5
   m_Name: DiencephalonSlot
   m_TagString: Untagged
@@ -11765,23 +11765,6 @@ RectTransform:
   m_AnchoredPosition: {x: 468, y: 195}
   m_SizeDelta: {x: 297.475, y: 119.6991}
   m_Pivot: {x: 0.5, y: 0.49999997}
---- !u!114 &934815294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934815292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad42bf8586becdb499fe8dc4bd8f8aff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartPuzzleDropZone
-  acceptedPart: 1
-  correctColor: {r: 0, g: 1, b: 0, a: 1}
-  wrongColor: {r: 1, g: 0, b: 0, a: 1}
-  feedbackDuration: 0.4
-  outlineDistance: {x: 4, y: -4}
 --- !u!114 &934815295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11820,6 +11803,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934815292}
   m_CullTransparentMesh: 1
+--- !u!114 &934815297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934815292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0da8a18a1ddda4ea7c8ddb03f39e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainPuzzleDropZone
+  acceptedPart: 1
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.4
+  outlineDistance: {x: 4, y: -4}
 --- !u!1 &937689319
 GameObject:
   m_ObjectHideFlags: 0
@@ -12096,6 +12096,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 383711703}
   - {fileID: 445027554}
   m_Father: {fileID: 1456654116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13214,7 +13215,7 @@ GameObject:
   - component: {fileID: 1092792836}
   - component: {fileID: 1092792839}
   - component: {fileID: 1092792838}
-  - component: {fileID: 1092792837}
+  - component: {fileID: 1092792840}
   m_Layer: 5
   m_Name: MidbrainSlot
   m_TagString: Untagged
@@ -13241,23 +13242,6 @@ RectTransform:
   m_AnchoredPosition: {x: 493, y: 258}
   m_SizeDelta: {x: 289.8997, y: 114.8997}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1092792837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092792835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad42bf8586becdb499fe8dc4bd8f8aff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartPuzzleDropZone
-  acceptedPart: 2
-  correctColor: {r: 0, g: 1, b: 0, a: 1}
-  wrongColor: {r: 1, g: 0, b: 0, a: 1}
-  feedbackDuration: 0.4
-  outlineDistance: {x: 4, y: -4}
 --- !u!114 &1092792838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13296,6 +13280,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092792835}
   m_CullTransparentMesh: 1
+--- !u!114 &1092792840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092792835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0da8a18a1ddda4ea7c8ddb03f39e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainPuzzleDropZone
+  acceptedPart: 2
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.4
+  outlineDistance: {x: 4, y: -4}
 --- !u!1 &1095159614
 GameObject:
   m_ObjectHideFlags: 0
@@ -15177,6 +15178,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &1267523924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1267523925}
+  - component: {fileID: 1267523927}
+  - component: {fileID: 1267523926}
+  m_Layer: 5
+  m_Name: ForebrainText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1267523925
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267523924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1343394907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 3.9124, y: -2.6083}
+  m_SizeDelta: {x: 214.3098, y: 74.2299}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1267523926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267523924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 168e86c35067a5f40ae1aa2f462f8f5a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1267523927
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267523924}
+  m_CullTransparentMesh: 1
 --- !u!1 &1272779717
 GameObject:
   m_ObjectHideFlags: 0
@@ -15786,7 +15862,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297482742}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16488,17 +16564,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343394902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1267523925}
   m_Father: {fileID: 917731950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -460}
-  m_SizeDelta: {x: 348.2676, y: 213.26}
+  m_AnchoredPosition: {x: 75.91797, y: -24.4589}
+  m_SizeDelta: {x: 365.1361, y: 190.1925}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1343394908
 MonoBehaviour:
@@ -16544,7 +16621,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d56fc6f6b88f7c44eab7cfe44d851ce4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 87b5dd7bde0c4f74e92ca7d764f84ad0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17163,7 +17240,7 @@ GameObject:
   - component: {fileID: 1421800498}
   - component: {fileID: 1421800501}
   - component: {fileID: 1421800500}
-  - component: {fileID: 1421800499}
+  - component: {fileID: 1421800502}
   m_Layer: 5
   m_Name: ForebrainSlot
   m_TagString: Untagged
@@ -17190,23 +17267,6 @@ RectTransform:
   m_AnchoredPosition: {x: -512, y: 186}
   m_SizeDelta: {x: 300, y: 114.6489}
   m_Pivot: {x: 0.49999994, y: 0.5}
---- !u!114 &1421800499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421800497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad42bf8586becdb499fe8dc4bd8f8aff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartPuzzleDropZone
-  acceptedPart: 0
-  correctColor: {r: 0, g: 1, b: 0, a: 1}
-  wrongColor: {r: 1, g: 0, b: 0, a: 1}
-  feedbackDuration: 0.4
-  outlineDistance: {x: 4, y: -4}
 --- !u!114 &1421800500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17245,6 +17305,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421800497}
   m_CullTransparentMesh: 1
+--- !u!114 &1421800502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421800497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0da8a18a1ddda4ea7c8ddb03f39e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainPuzzleDropZone
+  acceptedPart: 0
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.4
+  outlineDistance: {x: 4, y: -4}
 --- !u!1 &1440868760
 GameObject:
   m_ObjectHideFlags: 0
@@ -17382,7 +17459,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 383711703}
   - {fileID: 960161021}
   - {fileID: 1681073091}
   - {fileID: 1297482743}
@@ -21138,9 +21214,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 380532344}
-  - {fileID: 1456654116}
   - {fileID: 503722565}
   - {fileID: 933353666}
+  - {fileID: 1456654116}
   - {fileID: 917731950}
   - {fileID: 295609765}
   - {fileID: 737731902}
@@ -22002,7 +22078,7 @@ GameObject:
   - component: {fileID: 1896332774}
   - component: {fileID: 1896332777}
   - component: {fileID: 1896332776}
-  - component: {fileID: 1896332775}
+  - component: {fileID: 1896332778}
   m_Layer: 5
   m_Name: MedullaSlot
   m_TagString: Untagged
@@ -22026,26 +22102,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -224, y: 19}
+  m_AnchoredPosition: {x: -208, y: 15.319}
   m_SizeDelta: {x: 294.9499, y: 102.0235}
-  m_Pivot: {x: 0.5, y: 0.49999997}
---- !u!114 &1896332775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896332773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad42bf8586becdb499fe8dc4bd8f8aff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartPuzzleDropZone
-  acceptedPart: 3
-  correctColor: {r: 0, g: 1, b: 0, a: 1}
-  wrongColor: {r: 1, g: 0, b: 0, a: 1}
-  feedbackDuration: 0.4
-  outlineDistance: {x: 4, y: -4}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1896332776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22084,6 +22143,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896332773}
   m_CullTransparentMesh: 1
+--- !u!114 &1896332778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896332773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0da8a18a1ddda4ea7c8ddb03f39e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainPuzzleDropZone
+  acceptedPart: 5
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  feedbackDuration: 0.4
+  outlineDistance: {x: 4, y: -4}
 --- !u!1 &1898221354
 GameObject:
   m_ObjectHideFlags: 0
