@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bb6f23e7f36bebb4991bfe167d9bbbc9
+guid: 7c464db890a274b478ea20221c60efea
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 213522919573432587
-    second: 5604f4cf-dc95-426f-9f35-6ee1d912843f_0
+      213: 6103165852065043755
+    second: heavy food card_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 5604f4cf-dc95-426f-9f35-6ee1d912843f_0
+      name: heavy food card_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 263
-        width: 2159
-        height: 207
+        y: 16
+        width: 1086
+        height: 1411
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b09249cc6f596f200800000000000000
-      internalID: 213522919573432587
+      spriteID: b2591a9a10dc2b450800000000000000
+      internalID: 6103165852065043755
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f3cb278110191534cbc5a542b8f0db99
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      5604f4cf-dc95-426f-9f35-6ee1d912843f_0: 213522919573432587
+      heavy food card_0: 6103165852065043755
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
