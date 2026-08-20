@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: cba2cb32f0775994992346f5195e37f5
+guid: c0c87b7cd2095e44aa8926b7995e9269
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -148975602561564553
-    second: yellow fill 1_0
-  - first:
-      213: -5516958439375762486
-    second: yellow fill 1_1
+      213: 5567534688263373843
+    second: image_2026-08-20_193523131_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,45 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: yellow fill 1_0
+      name: image_2026-08-20_193523131_0
       rect:
         serializedVersion: 2
-        x: 39
-        y: 267
-        width: 684
-        height: 215
+        x: 0
+        y: 2
+        width: 1086
+        height: 1446
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7704e119a7bbeedf0800000000000000
-      internalID: -148975602561564553
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: yellow fill 1_1
-      rect:
-        serializedVersion: 2
-        x: 1110
-        y: 24
-        width: 178
-        height: 172
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: acb0a6c8783df63b0800000000000000
-      internalID: -5516958439375762486
+      spriteID: 3148a980d4bd34d40800000000000000
+      internalID: 5567534688263373843
       vertices: []
       indices: 
       edges: []
@@ -163,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a1cd73531ba0e7c4580acdde0c9384eb
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      yellow fill 1_0: -148975602561564553
-      yellow fill 1_1: -5516958439375762486
+      image_2026-08-20_193523131_0: 5567534688263373843
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

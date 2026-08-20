@@ -1,0 +1,417 @@
+using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class GastricJuiceTimingGame : MonoBehaviour
+{
+    public enum JuiceZone
+    {
+        None,
+        Yellow,
+        OrangeLow,
+        Green,
+        OrangeHigh,
+        Red
+    }
+
+    [Header("Movement References")]
+    [SerializeField] private RectTransform indicatorTrack;
+    [SerializeField] private RectTransform indicator;
+
+    [Header("Juice Zones")]
+    [SerializeField] private RectTransform yellowZone;
+    [SerializeField] private RectTransform orangeLowZone;
+    [SerializeField] private RectTransform greenZone;
+    [SerializeField] private RectTransform orangeHighZone;
+    [SerializeField] private RectTransform redZone;
+
+    [Header("Panels")]
+    [SerializeField] private CanvasGroup juiceMiniGameCanvasGroup;
+    [SerializeField] private GameObject feedbackPanel;
+
+    [Header("Feedback")]
+    [SerializeField] private GameObject failBackground;
+    [SerializeField] private GameObject successBackground;
+    [SerializeField] private TMP_Text feedbackText;
+    [SerializeField] private float feedbackDuration = 1.5f;
+
+    [Header("Task Timer")]
+    [SerializeField] private StomachTaskTimer taskTimer;
+    [SerializeField] private float juiceTaskDuration = 5f;
+
+    [Header("Total Timer")]
+    [SerializeField] private StomachMinigameTimer totalTimer;
+
+    [Header("Stomach State Cards")]
+    [SerializeField] private StomachStateCardController stateCardController;
+
+    [Header("Time Penalties")]
+    [SerializeField] private float yellowPenalty = 5f;
+    [SerializeField] private float orangeLowPenalty = 3f;
+    [SerializeField] private float orangeHighPenalty = 3f;
+    [SerializeField] private float redPenalty = 5f;
+    [SerializeField] private float timeoutPenalty = 5f;
+
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 300f;
+
+    private float direction = 1f;
+    private bool isRunning;
+
+    private void Start()
+    {
+        if (feedbackPanel != null)
+            feedbackPanel.SetActive(false);
+
+        ShowJuicePanel();
+
+        StartTiming();
+    }
+
+    private void OnEnable()
+    {
+        if (taskTimer != null)
+            taskTimer.TimerExpired += OnTaskTimerExpired;
+    }
+
+    private void OnDisable()
+    {
+        if (taskTimer != null)
+            taskTimer.TimerExpired -= OnTaskTimerExpired;
+    }
+
+    private void Update()
+    {
+        if (!isRunning)
+            return;
+
+        MoveIndicator();
+
+        if (Keyboard.current != null &&
+            Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            StopIndicator();
+        }
+    }
+
+    private void MoveIndicator()
+    {
+        if (indicatorTrack == null || indicator == null)
+            return;
+
+        float halfTrackWidth =
+            indicatorTrack.rect.width * 0.5f;
+
+        float halfIndicatorWidth =
+            indicator.rect.width * 0.5f;
+
+        float leftLimit =
+            -halfTrackWidth + halfIndicatorWidth;
+
+        float rightLimit =
+            halfTrackWidth - halfIndicatorWidth;
+
+        Vector2 pos = indicator.anchoredPosition;
+
+        pos.x += direction *
+                 moveSpeed *
+                 Time.deltaTime;
+
+        if (pos.x >= rightLimit)
+        {
+            pos.x = rightLimit;
+            direction = -1f;
+        }
+        else if (pos.x <= leftLimit)
+        {
+            pos.x = leftLimit;
+            direction = 1f;
+        }
+
+        indicator.anchoredPosition = pos;
+    }
+
+    private void StopIndicator()
+    {
+        if (!isRunning)
+            return;
+
+        isRunning = false;
+
+        if (taskTimer != null)
+            taskTimer.StopTimer();
+
+        JuiceZone result = GetCurrentZone();
+
+        switch (result)
+        {
+            case JuiceZone.Yellow:
+                StartCoroutine(
+                    ShowFailFeedback(
+                        "Твърде малко стомашни сокове!",
+                        yellowPenalty
+                    )
+                );
+                break;
+
+            case JuiceZone.OrangeLow:
+                StartCoroutine(
+                    ShowFailFeedback(
+                        "Недостатъчно стомашни сокове!",
+                        orangeLowPenalty
+                    )
+                );
+                break;
+
+            case JuiceZone.Green:
+                ShowSuccessFeedback(
+                    "Точното количество стомашни сокове!"
+                );
+                break;
+
+            case JuiceZone.OrangeHigh:
+                StartCoroutine(
+                    ShowFailFeedback(
+                        "Повече от необходимото количество!",
+                        orangeHighPenalty
+                    )
+                );
+                break;
+
+            case JuiceZone.Red:
+                StartCoroutine(
+                    ShowFailFeedback(
+                        "Твърде много стомашни сокове!",
+                        redPenalty
+                    )
+                );
+                break;
+
+            default:
+                StartTiming();
+                break;
+        }
+    }
+
+    private void OnTaskTimerExpired()
+    {
+        if (!isRunning)
+            return;
+
+        isRunning = false;
+
+        StartCoroutine(
+            ShowFailFeedback(
+                "Времето за задачата изтече!",
+                timeoutPenalty
+            )
+        );
+    }
+
+    private IEnumerator ShowFailFeedback(
+        string message,
+        float penalty
+    )
+    {
+        HideJuicePanel();
+
+        // Показваме временно картата
+        // "Стомахът е раздразнен."
+        if (stateCardController != null)
+            stateCardController.ShowIrritated();
+
+        if (totalTimer != null)
+        {
+            totalTimer.PauseTimer();
+            totalTimer.ApplyPenalty(penalty);
+        }
+
+        if (failBackground != null)
+            failBackground.SetActive(true);
+
+        if (successBackground != null)
+            successBackground.SetActive(false);
+
+        if (feedbackText != null)
+            feedbackText.text = message;
+
+        if (feedbackPanel != null)
+            feedbackPanel.SetActive(true);
+
+        yield return new WaitForSeconds(
+            feedbackDuration
+        );
+
+        if (feedbackPanel != null)
+            feedbackPanel.SetActive(false);
+
+        ShowJuicePanel();
+
+        if (totalTimer != null)
+            totalTimer.ResumeTimer();
+
+        StartTiming();
+    }
+
+    private void ShowSuccessFeedback(
+        string message
+    )
+    {
+        HideJuicePanel();
+
+        if (taskTimer != null)
+            taskTimer.StopTimer();
+
+        if (totalTimer != null)
+            totalTimer.PauseTimer();
+
+        // Успешно количество сокове:
+        // това вече е новото постоянно
+        // състояние на стомаха.
+        if (stateCardController != null)
+            stateCardController.ShowJuicesMixed();
+
+        if (failBackground != null)
+            failBackground.SetActive(false);
+
+        if (successBackground != null)
+            successBackground.SetActive(true);
+
+        if (feedbackText != null)
+            feedbackText.text = message;
+
+        if (feedbackPanel != null)
+            feedbackPanel.SetActive(true);
+
+        // Засега оставяме success feedback-а.
+        // Следващата фаза ще бъде перисталтиката.
+    }
+
+    private void HideJuicePanel()
+    {
+        if (juiceMiniGameCanvasGroup == null)
+            return;
+
+        juiceMiniGameCanvasGroup.alpha = 0f;
+        juiceMiniGameCanvasGroup.interactable = false;
+        juiceMiniGameCanvasGroup.blocksRaycasts = false;
+    }
+
+    private void ShowJuicePanel()
+    {
+        if (juiceMiniGameCanvasGroup == null)
+            return;
+
+        juiceMiniGameCanvasGroup.alpha = 1f;
+        juiceMiniGameCanvasGroup.interactable = true;
+        juiceMiniGameCanvasGroup.blocksRaycasts = true;
+    }
+
+    private JuiceZone GetCurrentZone()
+    {
+        if (indicator == null)
+            return JuiceZone.None;
+
+        float indicatorX =
+            indicator.position.x;
+
+        if (IsInsideZone(
+            indicatorX,
+            greenZone))
+        {
+            return JuiceZone.Green;
+        }
+
+        if (IsInsideZone(
+            indicatorX,
+            yellowZone))
+        {
+            return JuiceZone.Yellow;
+        }
+
+        if (IsInsideZone(
+            indicatorX,
+            orangeLowZone))
+        {
+            return JuiceZone.OrangeLow;
+        }
+
+        if (IsInsideZone(
+            indicatorX,
+            orangeHighZone))
+        {
+            return JuiceZone.OrangeHigh;
+        }
+
+        if (IsInsideZone(
+            indicatorX,
+            redZone))
+        {
+            return JuiceZone.Red;
+        }
+
+        return JuiceZone.None;
+    }
+
+    private bool IsInsideZone(
+        float indicatorX,
+        RectTransform zone
+    )
+    {
+        if (zone == null)
+            return false;
+
+        Vector3[] corners =
+            new Vector3[4];
+
+        zone.GetWorldCorners(corners);
+
+        float left = corners[0].x;
+        float right = corners[2].x;
+
+        return
+            indicatorX >= left &&
+            indicatorX <= right;
+    }
+
+    public void StartTiming()
+    {
+        SetIndicatorToLeft();
+
+        if (taskTimer != null)
+        {
+            taskTimer.StartTimer(
+                juiceTaskDuration
+            );
+        }
+
+        isRunning = true;
+    }
+
+    private void SetIndicatorToLeft()
+    {
+        if (indicatorTrack == null ||
+            indicator == null)
+        {
+            return;
+        }
+
+        float halfTrackWidth =
+            indicatorTrack.rect.width * 0.5f;
+
+        float halfIndicatorWidth =
+            indicator.rect.width * 0.5f;
+
+        Vector2 pos =
+            indicator.anchoredPosition;
+
+        pos.x =
+            -halfTrackWidth +
+            halfIndicatorWidth;
+
+        indicator.anchoredPosition = pos;
+
+        direction = 1f;
+    }
+}
