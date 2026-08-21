@@ -1614,6 +1614,81 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &365409665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 365409666}
+  - component: {fileID: 365409668}
+  - component: {fileID: 365409667}
+  m_Layer: 5
+  m_Name: TImerPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &365409666
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365409665}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 831696685}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &365409667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365409665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &365409668
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365409665}
+  m_CullTransparentMesh: 1
 --- !u!224 &367580415 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5585683000747400661, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
@@ -2476,8 +2551,9 @@ MonoBehaviour:
   neutralSprite: {fileID: 1742957768461823809, guid: 44b1830d7b01d4e428a5908d7a6adcad, type: 3}
   healthySprite: {fileID: -5134949640173945135, guid: 2da7aca4fac6fff4abdef78a894d46f6, type: 3}
   veryHealthySprite: {fileID: -2783330070481701798, guid: 552bcc18c8acc1a44aa8852302aae54b, type: 3}
-  usePlayerPrefsDifficulty: 0
+  usePlayerPrefsDifficulty: 1
   testDifficulty: 0
+  gameOverPanel: {fileID: 954398130}
 --- !u!114 &560874766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2580,6 +2656,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlyingItemSpawner
   flyingItemsRoot: {fileID: 1474821181}
   flyingItemPrefab: {fileID: 8040126013498453672, guid: de8707b37e0d26240935430a0c34d9da, type: 3}
+  doctorCharacter: {fileID: 2028000884}
+  liverCharacter: {fileID: 560874764}
+  liverHealthController: {fileID: 560874765}
+  liverBoundaryGap: 20
+  helpfulIcons:
+  - {fileID: 21300000, guid: 7946065229ce6fe4d815fdd133a95abc, type: 3}
+  - {fileID: 21300000, guid: ebff0335953d7b946a4d5c1360b5d954, type: 3}
+  - {fileID: 21300000, guid: 0b2c006fb7176c3418e0269068a0839f, type: 3}
+  - {fileID: 21300000, guid: 5fb283794f0949e439a5255b9eaf436b, type: 3}
+  - {fileID: 21300000, guid: b6d8072eaf21b6b42ae2efcd5df2c35f, type: 3}
+  - {fileID: 21300000, guid: b817f5dc5ad3259489f95cdbf9530242, type: 3}
+  - {fileID: 21300000, guid: 3337c087537a96f4b8a955ba1db9a697, type: 3}
+  - {fileID: 21300000, guid: 2919657c7ab343048af676ac47b6bc31, type: 3}
+  - {fileID: 21300000, guid: e4076fd91a26e674dad8d52f73005d5a, type: 3}
+  - {fileID: 21300000, guid: 08fed1db0c124934683f587fdd37abdc, type: 3}
+  harmfulIcons:
+  - {fileID: 21300000, guid: d8de6e881c3ca844f8a131b8b5cc326a, type: 3}
+  - {fileID: 21300000, guid: 11a500311078d5d46b012bb08612e89b, type: 3}
+  - {fileID: 21300000, guid: 350dfeea8f80f164aba029144abc3193, type: 3}
+  - {fileID: 21300000, guid: 8f814841d9542244891624311b200cb7, type: 3}
+  - {fileID: 21300000, guid: 35ecd2ea24f470d4e9c538c24610fd04, type: 3}
+  - {fileID: 21300000, guid: df59a90b9bddb9546a2aceed703f473a, type: 3}
+  - {fileID: 21300000, guid: e47ac496f102b2c4b93aeefa090ee05a, type: 3}
+  - {fileID: 21300000, guid: 286c9a6dc4574514d95479f2a8aace39, type: 3}
+  - {fileID: 21300000, guid: 679c67a895214a849a7a88af2ec031da, type: 3}
+  - {fileID: 21300000, guid: f47778e48203b0b4a80d84ace01c22d6, type: 3}
+  helpfulChance: 0.5
   easySpawnInterval: 3
   mediumSpawnInterval: 2.2
   hardSpawnInterval: 1.5
@@ -3046,6 +3149,81 @@ MonoBehaviour:
   nextPanel: {fileID: 501132291}
   bodyMapSceneName: BodyMap
   settingsSceneName: SettingsMenu
+--- !u!1 &718238870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 718238871}
+  - component: {fileID: 718238873}
+  - component: {fileID: 718238872}
+  m_Layer: 5
+  m_Name: LiverBoundaryLine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &718238871
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718238870}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1474821181}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -406, y: -125.00594}
+  m_SizeDelta: {x: 521.2544, y: 829.9881}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &718238872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718238870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -7573436520275293856, guid: 7c89a7880f66c7340868d062839af2c6, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &718238873
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718238870}
+  m_CullTransparentMesh: 1
 --- !u!1 &751242188
 GameObject:
   m_ObjectHideFlags: 0
@@ -3238,6 +3416,7 @@ RectTransform:
   - {fileID: 560874764}
   - {fileID: 2028000884}
   - {fileID: 1474821181}
+  - {fileID: 365409666}
   m_Father: {fileID: 103324662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4985,6 +5164,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 577896600}
+  - {fileID: 718238871}
   m_Father: {fileID: 831696685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

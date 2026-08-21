@@ -3,9 +3,19 @@ using UnityEngine;
 
 public class FlyingItemSpawner : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Main References")]
     [SerializeField] private RectTransform flyingItemsRoot;
     [SerializeField] private GameObject flyingItemPrefab;
+
+    [Header("Doctor Reference")]
+    [SerializeField] private RectTransform doctorCharacter;
+
+    [Header("Liver References")]
+    [SerializeField] private RectTransform liverCharacter;
+    [SerializeField] private LiverHealthController liverHealthController;
+
+    [Tooltip("Разстояние вдясно от черния дроб, където балончето се пука.")]
+    [SerializeField] private float liverBoundaryGap = 20f;
 
     [Header("Helpful Item Icons")]
     [SerializeField] private Sprite[] helpfulIcons;
@@ -42,7 +52,9 @@ public class FlyingItemSpawner : MonoBehaviour
         SetSpawnIntervalFromDifficulty();
 
         if (spawnCoroutine == null)
+        {
             spawnCoroutine = StartCoroutine(SpawnLoop());
+        }
     }
 
     private void OnDisable()
@@ -53,6 +65,10 @@ public class FlyingItemSpawner : MonoBehaviour
             spawnCoroutine = null;
         }
     }
+
+    // =========================================================
+    // DIFFICULTY
+    // =========================================================
 
     private void SetSpawnIntervalFromDifficulty()
     {
@@ -77,10 +93,11 @@ public class FlyingItemSpawner : MonoBehaviour
             return;
         }
 
-        // Ако Difficulty се пази като int:
+        // Ако Difficulty е записана като int:
         // 0 = Easy
         // 1 = Medium
         // 2 = Hard
+
         int difficultyInt =
             PlayerPrefs.GetInt("Difficulty", 1);
 
@@ -100,8 +117,13 @@ public class FlyingItemSpawner : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // SPAWN LOOP
+    // =========================================================
+
     private IEnumerator SpawnLoop()
     {
+        // Кратка пауза преди първото балонче.
         yield return new WaitForSeconds(1f);
 
         while (true)
@@ -112,6 +134,10 @@ public class FlyingItemSpawner : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // SPAWN
+    // =========================================================
+
     private void SpawnFlyingItem()
     {
         if (flyingItemsRoot == null)
@@ -119,6 +145,7 @@ public class FlyingItemSpawner : MonoBehaviour
             Debug.LogWarning(
                 "FlyingItemSpawner: FlyingItemsRoot не е зададен!"
             );
+
             return;
         }
 
@@ -127,6 +154,34 @@ public class FlyingItemSpawner : MonoBehaviour
             Debug.LogWarning(
                 "FlyingItemSpawner: FlyingItem Prefab не е зададен!"
             );
+
+            return;
+        }
+
+        if (doctorCharacter == null)
+        {
+            Debug.LogWarning(
+                "FlyingItemSpawner: Doctor Character не е зададен!"
+            );
+
+            return;
+        }
+
+        if (liverCharacter == null)
+        {
+            Debug.LogWarning(
+                "FlyingItemSpawner: Liver Character не е зададен!"
+            );
+
+            return;
+        }
+
+        if (liverHealthController == null)
+        {
+            Debug.LogWarning(
+                "FlyingItemSpawner: Liver Health Controller не е зададен!"
+            );
+
             return;
         }
 
@@ -152,25 +207,50 @@ public class FlyingItemSpawner : MonoBehaviour
         if (flyingItem == null)
         {
             Debug.LogWarning(
-                "FlyingItemSpawner: Prefab-ът няма FlyingItem скрипт!"
+                "FlyingItemSpawner: Prefab-ът няма FlyingItem script!"
             );
 
             Destroy(newItem);
             return;
         }
 
-        // ----------------------------
-        // Позициониране
-        // ----------------------------
+        SetupItemTransform(itemRect);
 
-        itemRect.anchorMin = new Vector2(0.5f, 0.5f);
-        itemRect.anchorMax = new Vector2(0.5f, 0.5f);
-        itemRect.pivot = new Vector2(0.5f, 0.5f);
+        SetupItemPosition(itemRect);
 
-        itemRect.localScale = Vector3.one;
-        itemRect.localRotation = Quaternion.identity;
+        SetupRandomItem(flyingItem);
+    }
 
-        Rect area = flyingItemsRoot.rect;
+    // =========================================================
+    // TRANSFORM
+    // =========================================================
+
+    private void SetupItemTransform(RectTransform itemRect)
+    {
+        itemRect.anchorMin =
+            new Vector2(0.5f, 0.5f);
+
+        itemRect.anchorMax =
+            new Vector2(0.5f, 0.5f);
+
+        itemRect.pivot =
+            new Vector2(0.5f, 0.5f);
+
+        itemRect.localScale =
+            Vector3.one;
+
+        itemRect.localRotation =
+            Quaternion.identity;
+    }
+
+    // =========================================================
+    // POSITION
+    // =========================================================
+
+    private void SetupItemPosition(RectTransform itemRect)
+    {
+        Rect area =
+            flyingItemsRoot.rect;
 
         float halfItemWidth =
             itemRect.rect.width * 0.5f;
@@ -178,16 +258,19 @@ public class FlyingItemSpawner : MonoBehaviour
         float halfItemHeight =
             itemRect.rect.height * 0.5f;
 
+        // Винаги се появява от най-дясната страна.
         float spawnX =
             area.xMax +
             halfItemWidth +
             outsideOffset;
 
+        // Долна граница.
         float minY =
             area.yMin +
             halfItemHeight +
             bottomPadding;
 
+        // Горна граница.
         float maxY =
             area.yMax -
             halfItemHeight -
@@ -196,7 +279,7 @@ public class FlyingItemSpawner : MonoBehaviour
         if (maxY < minY)
         {
             Debug.LogWarning(
-                "FlyingItemSpawner: Spawn зоната по Y е невалидна!"
+                "FlyingItemSpawner: Невалидна Y spawn зона!"
             );
 
             maxY = minY;
@@ -207,13 +290,11 @@ public class FlyingItemSpawner : MonoBehaviour
 
         itemRect.anchoredPosition =
             new Vector2(spawnX, randomY);
-
-        // ----------------------------
-        // Полезно или вредно
-        // ----------------------------
-
-        SetupRandomItem(flyingItem);
     }
+
+    // =========================================================
+    // RANDOM ITEM
+    // =========================================================
 
     private void SetupRandomItem(FlyingItem flyingItem)
     {
@@ -228,7 +309,7 @@ public class FlyingItemSpawner : MonoBehaviour
         if (!hasHelpful && !hasHarmful)
         {
             Debug.LogWarning(
-                "FlyingItemSpawner: Няма зададени картинки за предметите!"
+                "FlyingItemSpawner: Няма зададени Item иконки!"
             );
 
             return;
@@ -236,8 +317,6 @@ public class FlyingItemSpawner : MonoBehaviour
 
         bool shouldBeHelpful;
 
-        // Ако имаме само единия вид,
-        // използваме него.
         if (!hasHarmful)
         {
             shouldBeHelpful = true;
@@ -252,29 +331,67 @@ public class FlyingItemSpawner : MonoBehaviour
                 Random.value < helpfulChance;
         }
 
+        float liverBoundaryX =
+            CalculateLiverBoundaryX();
+
         if (shouldBeHelpful)
         {
             Sprite randomIcon =
                 helpfulIcons[
-                    Random.Range(0, helpfulIcons.Length)
+                    Random.Range(
+                        0,
+                        helpfulIcons.Length
+                    )
                 ];
 
             flyingItem.Setup(
                 randomIcon,
-                FlyingItem.ItemType.Helpful
+                FlyingItem.ItemType.Helpful,
+                liverHealthController,
+                liverBoundaryX,
+                doctorCharacter
             );
         }
         else
         {
             Sprite randomIcon =
                 harmfulIcons[
-                    Random.Range(0, harmfulIcons.Length)
+                    Random.Range(
+                        0,
+                        harmfulIcons.Length
+                    )
                 ];
 
             flyingItem.Setup(
                 randomIcon,
-                FlyingItem.ItemType.Harmful
+                FlyingItem.ItemType.Harmful,
+                liverHealthController,
+                liverBoundaryX,
+                doctorCharacter
             );
         }
+    }
+
+    // =========================================================
+    // LIVER BOUNDARY
+    // =========================================================
+
+    private float CalculateLiverBoundaryX()
+    {
+        Vector3[] corners =
+            new Vector3[4];
+
+        liverCharacter.GetWorldCorners(corners);
+
+        // Средата на десния край на черния дроб.
+        Vector3 rightWorldPoint =
+            (corners[2] + corners[3]) * 0.5f;
+
+        Vector3 localPoint =
+            flyingItemsRoot.InverseTransformPoint(
+                rightWorldPoint
+            );
+
+        return localPoint.x + liverBoundaryGap;
     }
 }

@@ -13,7 +13,7 @@ public class LiverHealthController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Image liverImage;
 
-    [Header("Sprites")]
+    [Header("Liver Sprites")]
     [SerializeField] private Sprite verySickSprite;
     [SerializeField] private Sprite sickSprite;
     [SerializeField] private Sprite neutralSprite;
@@ -24,19 +24,21 @@ public class LiverHealthController : MonoBehaviour
     [SerializeField] private bool usePlayerPrefsDifficulty = true;
     [SerializeField] private DifficultyMode testDifficulty = DifficultyMode.Medium;
 
+    [Header("Game Over")]
+    [SerializeField] private GameObject gameOverPanel;
+
     private DifficultyMode currentDifficulty;
 
-    // Масив с всички 5 възможни състояния
     private Sprite[] allStates;
-
-    // Тук пазим кои от тях са активни за текущата трудност
     private int[] activeStateIndices;
 
-    // Това е текущата позиция в activeStateIndices
     private int currentStateStep;
+
+    private bool gameOverTriggered = false;
 
     public int CurrentStateStep => currentStateStep;
     public DifficultyMode CurrentDifficulty => currentDifficulty;
+    public bool IsGameOver => gameOverTriggered;
 
     private void Awake()
     {
@@ -47,15 +49,29 @@ public class LiverHealthController : MonoBehaviour
     private void Start()
     {
         SetupAllStates();
+
         DetermineDifficulty();
+
         BuildStatePathForDifficulty();
+
         SetStartState();
+
         RefreshVisual();
+
+        gameOverTriggered = false;
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
+
+    // =========================================================
+    // SETUP
+    // =========================================================
 
     private void SetupAllStates()
     {
         allStates = new Sprite[5];
+
         allStates[0] = verySickSprite;
         allStates[1] = sickSprite;
         allStates[2] = neutralSprite;
@@ -71,40 +87,45 @@ public class LiverHealthController : MonoBehaviour
             return;
         }
 
-        // Опит 1: ако трудността е записана като string
-        string difficultyString = PlayerPrefs.GetString("Difficulty", "").ToLower();
+        string difficultyString =
+            PlayerPrefs.GetString("Difficulty", "").ToLower();
 
         if (difficultyString == "easy")
         {
             currentDifficulty = DifficultyMode.Easy;
             return;
         }
-        else if (difficultyString == "medium")
+
+        if (difficultyString == "medium")
         {
             currentDifficulty = DifficultyMode.Medium;
             return;
         }
-        else if (difficultyString == "hard")
+
+        if (difficultyString == "hard")
         {
             currentDifficulty = DifficultyMode.Hard;
             return;
         }
 
-        // Опит 2: ако трудността е записана като int
-        // Приемаме:
+        // Ако Difficulty се пази като int:
         // 0 = Easy
         // 1 = Medium
         // 2 = Hard
-        int difficultyInt = PlayerPrefs.GetInt("Difficulty", 1);
+
+        int difficultyInt =
+            PlayerPrefs.GetInt("Difficulty", 1);
 
         switch (difficultyInt)
         {
             case 0:
                 currentDifficulty = DifficultyMode.Easy;
                 break;
+
             case 2:
                 currentDifficulty = DifficultyMode.Hard;
                 break;
+
             default:
                 currentDifficulty = DifficultyMode.Medium;
                 break;
@@ -116,31 +137,51 @@ public class LiverHealthController : MonoBehaviour
         switch (currentDifficulty)
         {
             case DifficultyMode.Easy:
+
                 // 5 състояния:
-                // VerySick -> Sick -> Neutral -> Healthy -> VeryHealthy
-                activeStateIndices = new int[] { 0, 1, 2, 3, 4 };
+                //
+                // VerySick
+                // Sick
+                // Neutral
+                // Healthy
+                // VeryHealthy
+
+                activeStateIndices =
+                    new int[] { 0, 1, 2, 3, 4 };
+
                 break;
+
 
             case DifficultyMode.Medium:
-                // 4 състояния:
-                // VerySick -> Sick -> Neutral -> VeryHealthy
-                // (прескачаме Healthy)
-                activeStateIndices = new int[] { 0, 1, 2, 4 };
+
+                // 4 състояния
+
+                activeStateIndices =
+                    new int[] { 0, 1, 2, 4 };
+
                 break;
 
+
             case DifficultyMode.Hard:
+
                 // 3 състояния:
-                // VerySick -> Neutral -> VeryHealthy
-                // (прескачаме Sick и Healthy)
-                activeStateIndices = new int[] { 0, 2, 4 };
+                //
+                // VerySick
+                // Neutral
+                // VeryHealthy
+
+                activeStateIndices =
+                    new int[] { 0, 2, 4 };
+
                 break;
         }
     }
 
     private void SetStartState()
     {
-        // ВИНАГИ започва от Neutral
-        // намираме коя позиция в activeStateIndices сочи към allStates[2]
+        // ВИНАГИ започваме от Neutral.
+        // Neutral е allStates[2].
+
         for (int i = 0; i < activeStateIndices.Length; i++)
         {
             if (activeStateIndices[i] == 2)
@@ -150,40 +191,105 @@ public class LiverHealthController : MonoBehaviour
             }
         }
 
-        // за всеки случай fallback
         currentStateStep = 0;
     }
 
+    // =========================================================
+    // VISUAL
+    // =========================================================
+
     private void RefreshVisual()
     {
-        if (liverImage == null || allStates == null || activeStateIndices == null)
-            return;
-
-        int spriteIndex = activeStateIndices[currentStateStep];
-
-        if (spriteIndex >= 0 && spriteIndex < allStates.Length)
+        if (liverImage == null ||
+            allStates == null ||
+            activeStateIndices == null)
         {
-            liverImage.sprite = allStates[spriteIndex];
+            return;
+        }
+
+        int spriteIndex =
+            activeStateIndices[currentStateStep];
+
+        if (spriteIndex >= 0 &&
+            spriteIndex < allStates.Length)
+        {
+            liverImage.sprite =
+                allStates[spriteIndex];
         }
     }
+
+    // =========================================================
+    // HEALTH +
+    // =========================================================
 
     public void IncreaseHealth()
     {
-        if (currentStateStep < activeStateIndices.Length - 1)
+        if (gameOverTriggered)
+            return;
+
+        if (currentStateStep <
+            activeStateIndices.Length - 1)
         {
             currentStateStep++;
+
             RefreshVisual();
         }
     }
 
+    // =========================================================
+    // HEALTH -
+    // =========================================================
+
     public void DecreaseHealth()
     {
-        if (currentStateStep > 0)
+        if (gameOverTriggered)
+            return;
+
+        /*
+         * Ако вече сме на най-ниското състояние,
+         * НЕ слизаме повече.
+         *
+         * Това означава:
+         *
+         * VerySick + още едно вредно =
+         * GAME OVER.
+         */
+
+        if (currentStateStep == 0)
         {
-            currentStateStep--;
-            RefreshVisual();
+            TriggerGameOver();
+            return;
+        }
+
+        currentStateStep--;
+
+        RefreshVisual();
+    }
+
+    // =========================================================
+    // GAME OVER
+    // =========================================================
+
+    private void TriggerGameOver()
+    {
+        if (gameOverTriggered)
+            return;
+
+        gameOverTriggered = true;
+
+        Debug.Log(
+            "GAME OVER - Черният дроб не може да понесе повече вредни вещества!"
+        );
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
         }
     }
+
+    // =========================================================
+    // STATE CHECKS
+    // =========================================================
 
     public bool IsAtMinimumHealth()
     {
@@ -192,14 +298,29 @@ public class LiverHealthController : MonoBehaviour
 
     public bool IsAtMaximumHealth()
     {
-        return currentStateStep == activeStateIndices.Length - 1;
+        return currentStateStep ==
+               activeStateIndices.Length - 1;
     }
+
+    // =========================================================
+    // RESET
+    // =========================================================
 
     public void ResetToStartState()
     {
+        gameOverTriggered = false;
+
         SetStartState();
+
         RefreshVisual();
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
+
+    // =========================================================
+    // TESTS
+    // =========================================================
 
     [ContextMenu("TEST Increase Health")]
     private void TestIncreaseHealth()

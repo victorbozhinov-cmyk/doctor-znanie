@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -241,7 +241,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingItem
   itemType: 0
+  bubbleImage: {fileID: 861465863650087599}
   itemIcon: {fileID: 8697090167883519051}
   easySpeed: 140
   mediumSpeed: 180
   hardSpeed: 230
+  doctorHitboxShrink: 15
+  bubbleHitboxShrink: 5
+  harmfulSquashDuration: 0.06
+  harmfulBurstDuration: 0.16
+  harmfulSquashScale: 0.78
+  harmfulBurstScale: 1.7
+  harmfulRotation: 35
+  helpfulMistakeDuration: 0.32
+  helpfulShakeAmount: 18
+  helpfulWobbleRotation: 12
+  helpfulPulseAmount: 0.08
+  liverPopDuration: 0.12
+  liverPopScale: 1.35
+  harmfulPopSfx: {fileID: 8300000, guid: 2a6fa453183d29748bd187e6061f8e6a, type: 3}
+  helpfulMistakeSfx: {fileID: 8300000, guid: fe4b357e09d2c9f4d8b79bd4d48ba43e, type: 3}
+  sfxVolume: 0.8
