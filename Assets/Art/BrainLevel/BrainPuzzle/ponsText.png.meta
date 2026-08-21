@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 168e86c35067a5f40ae1aa2f462f8f5a
+guid: 6cef777b59d56ea47a2863afbcbd06d7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8984147877770372478
-    second: forebrainText_0
+      213: -854032277403090992
+    second: ponsText_0
   - first:
-      213: -3303689438113167412
-    second: forebrainText_1
+      213: 152627589005122332
+    second: ponsText_1
+  - first:
+      213: -3459065471827674933
+    second: ponsText_2
+  - first:
+      213: -6221686333422495467
+    second: ponsText_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: forebrainText_0
+      name: ponsText_0
       rect:
         serializedVersion: 2
-        x: 831
-        y: 945
-        width: 38
-        height: 61
+        x: 0
+        y: 41
+        width: 1453
+        height: 831
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28adaefea15e15380800000000000000
-      internalID: -8984147877770372478
+      spriteID: 0dfbba62b2ed524f0800000000000000
+      internalID: -854032277403090992
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: forebrainText_1
+      name: ponsText_1
       rect:
         serializedVersion: 2
-        x: 55
-        y: 39
-        width: 1400
-        height: 899
+        x: 560
+        y: 856
+        width: 155
+        height: 69
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +159,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cc70e01b5ffe622d0800000000000000
-      internalID: -3303689438113167412
+      spriteID: c1b1399cbfd3e1200800000000000000
+      internalID: 152627589005122332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsText_2
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 863
+        width: 115
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc874e0c74eeeffc0800000000000000
+      internalID: -3459065471827674933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsText_3
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 309
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51913706e3128a9a0800000000000000
+      internalID: -6221686333422495467
       vertices: []
       indices: 
       edges: []
@@ -173,8 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      forebrainText_0: -8984147877770372478
-      forebrainText_1: -3303689438113167412
+      ponsText_0: -854032277403090992
+      ponsText_1: 152627589005122332
+      ponsText_2: -3459065471827674933
+      ponsText_3: -6221686333422495467
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 168e86c35067a5f40ae1aa2f462f8f5a
+guid: 5548794a33d4bd9429651f656335e132
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8984147877770372478
-    second: forebrainText_0
+      213: 2280915123780617791
+    second: diencephalonSolved_0
   - first:
-      213: -3303689438113167412
-    second: forebrainText_1
+      213: 5261403710237989166
+    second: diencephalonSolved_1
+  - first:
+      213: 1881183417587987381
+    second: diencephalonSolved_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: forebrainText_0
+      name: diencephalonSolved_0
       rect:
         serializedVersion: 2
-        x: 831
-        y: 945
-        width: 38
-        height: 61
+        x: 0
+        y: 0
+        width: 2172
+        height: 684
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 28adaefea15e15380800000000000000
-      internalID: -8984147877770372478
+      spriteID: f3682c3683077af10800000000000000
+      internalID: 2280915123780617791
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: forebrainText_1
+      name: diencephalonSolved_1
       rect:
         serializedVersion: 2
-        x: 55
-        y: 39
-        width: 1400
-        height: 899
+        x: 1440
+        y: 616
+        width: 19
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +156,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cc70e01b5ffe622d0800000000000000
-      internalID: -3303689438113167412
+      spriteID: e2958a06cc2440940800000000000000
+      internalID: 5261403710237989166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diencephalonSolved_2
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 23
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b3ffa2f95e4b1a10800000000000000
+      internalID: 1881183417587987381
       vertices: []
       indices: 
       edges: []
@@ -173,8 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      forebrainText_0: -8984147877770372478
-      forebrainText_1: -3303689438113167412
+      diencephalonSolved_0: 2280915123780617791
+      diencephalonSolved_1: 5261403710237989166
+      diencephalonSolved_2: 1881183417587987381
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

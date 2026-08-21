@@ -1,0 +1,832 @@
+fileFormatVersion: 2
+guid: 136870fce7fe9814dba17a126e558325
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6152709623529770718
+    second: ponsSolved_0
+  - first:
+      213: 8170556129916499114
+    second: ponsSolved_1
+  - first:
+      213: 2876802506055838138
+    second: ponsSolved_2
+  - first:
+      213: 4557889832510052337
+    second: ponsSolved_3
+  - first:
+      213: 8298998275069570921
+    second: ponsSolved_4
+  - first:
+      213: -8461392187473535133
+    second: ponsSolved_5
+  - first:
+      213: -7192178192261480150
+    second: ponsSolved_6
+  - first:
+      213: -8504193459538712843
+    second: ponsSolved_7
+  - first:
+      213: 3670158828390647421
+    second: ponsSolved_8
+  - first:
+      213: 8432166817493653702
+    second: ponsSolved_9
+  - first:
+      213: 2893530741449374504
+    second: ponsSolved_10
+  - first:
+      213: 608250394088605747
+    second: ponsSolved_11
+  - first:
+      213: 6024189620325710270
+    second: ponsSolved_12
+  - first:
+      213: 2642663536835068544
+    second: ponsSolved_13
+  - first:
+      213: 5492959285069510412
+    second: ponsSolved_14
+  - first:
+      213: 4834521818087794456
+    second: ponsSolved_15
+  - first:
+      213: 1074818177630501368
+    second: ponsSolved_16
+  - first:
+      213: 9101051998826161278
+    second: ponsSolved_17
+  - first:
+      213: 8552700854161305127
+    second: ponsSolved_18
+  - first:
+      213: 3427856411297344951
+    second: ponsSolved_19
+  - first:
+      213: 8464578586521969375
+    second: ponsSolved_20
+  - first:
+      213: 6819421255017423561
+    second: ponsSolved_21
+  - first:
+      213: -7182947243821033261
+    second: ponsSolved_22
+  - first:
+      213: -2819530835016080454
+    second: ponsSolved_23
+  - first:
+      213: -6501256051640012288
+    second: ponsSolved_24
+  - first:
+      213: -7125314363619159967
+    second: ponsSolved_25
+  - first:
+      213: -8618970547775014263
+    second: ponsSolved_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ponsSolved_0
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 675
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2217163223f2d9aa0800000000000000
+      internalID: -6152709623529770718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_1
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 659
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa4301db285a36170800000000000000
+      internalID: 8170556129916499114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_2
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 640
+        width: 31
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab9696623a47ce720800000000000000
+      internalID: 2876802506055838138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_3
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 665
+        width: 22
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f7502867a0e04f30800000000000000
+      internalID: 4557889832510052337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_4
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 657
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96fe91116f6fb2370800000000000000
+      internalID: 8298998275069570921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_5
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 651
+        width: 41
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36fdf58c2a8139a80800000000000000
+      internalID: -8461392187473535133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_6
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 659
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2181f83a00403c90800000000000000
+      internalID: -7192178192261480150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_7
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 645
+        width: 39
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f6aefe0b190bf980800000000000000
+      internalID: -8504193459538712843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_8
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 661
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d760d7352060fe230800000000000000
+      internalID: 3670158828390647421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_9
+      rect:
+        serializedVersion: 2
+        x: 1237
+        y: 661
+        width: 150
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c89b838b03150570800000000000000
+      internalID: 8432166817493653702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_10
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 637
+        width: 112
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82b33c6f0e2e72820800000000000000
+      internalID: 2893530741449374504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_11
+      rect:
+        serializedVersion: 2
+        x: 1882
+        y: 661
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3388422c280f07800800000000000000
+      internalID: 608250394088605747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 31
+        width: 2172
+        height: 643
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb9fb1bca883a9350800000000000000
+      internalID: 6024189620325710270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_13
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 665
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0828eed3c70aca420800000000000000
+      internalID: 2642663536835068544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_14
+      rect:
+        serializedVersion: 2
+        x: 1894
+        y: 663
+        width: 22
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c077048ed59ea3c40800000000000000
+      internalID: 5492959285069510412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_15
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 645
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 817aff9aafba71340800000000000000
+      internalID: 4834521818087794456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_16
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 642
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f97ccb10758aee00800000000000000
+      internalID: 1074818177630501368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_17
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 640
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e746460d29e6d4e70800000000000000
+      internalID: 9101051998826161278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_18
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 643
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72ee67adc1c41b670800000000000000
+      internalID: 8552700854161305127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_19
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 651
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bd6c689e31329f20800000000000000
+      internalID: 3427856411297344951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_20
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 636
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd2250f8069387570800000000000000
+      internalID: 8464578586521969375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_21
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 627
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c2ef07208373ae50800000000000000
+      internalID: 6819421255017423561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_22
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 635
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d81da3e98b015c90800000000000000
+      internalID: -7182947243821033261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_23
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 618
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab32b91e4a30fd8d0800000000000000
+      internalID: -2819530835016080454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_24
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 611
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0027320f016e6c5a0800000000000000
+      internalID: -6501256051640012288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_25
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 89
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 160dd7b765ccd1d90800000000000000
+      internalID: -7125314363619159967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ponsSolved_26
+      rect:
+        serializedVersion: 2
+        x: 1912
+        y: 49
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98af05ab3f3436880800000000000000
+      internalID: -8618970547775014263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ponsSolved_0: -6152709623529770718
+      ponsSolved_1: 8170556129916499114
+      ponsSolved_10: 2893530741449374504
+      ponsSolved_11: 608250394088605747
+      ponsSolved_12: 6024189620325710270
+      ponsSolved_13: 2642663536835068544
+      ponsSolved_14: 5492959285069510412
+      ponsSolved_15: 4834521818087794456
+      ponsSolved_16: 1074818177630501368
+      ponsSolved_17: 9101051998826161278
+      ponsSolved_18: 8552700854161305127
+      ponsSolved_19: 3427856411297344951
+      ponsSolved_2: 2876802506055838138
+      ponsSolved_20: 8464578586521969375
+      ponsSolved_21: 6819421255017423561
+      ponsSolved_22: -7182947243821033261
+      ponsSolved_23: -2819530835016080454
+      ponsSolved_24: -6501256051640012288
+      ponsSolved_25: -7125314363619159967
+      ponsSolved_26: -8618970547775014263
+      ponsSolved_3: 4557889832510052337
+      ponsSolved_4: 8298998275069570921
+      ponsSolved_5: -8461392187473535133
+      ponsSolved_6: -7192178192261480150
+      ponsSolved_7: -8504193459538712843
+      ponsSolved_8: 3670158828390647421
+      ponsSolved_9: 8432166817493653702
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

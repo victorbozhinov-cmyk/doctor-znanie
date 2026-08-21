@@ -1,0 +1,1014 @@
+fileFormatVersion: 2
+guid: 63e4974f7cab018419e525f9cc64bee9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 435456218810345403
+    second: forebrainSolved_0
+  - first:
+      213: 6397146702309048822
+    second: forebrainSolved_1
+  - first:
+      213: 1065604179485564357
+    second: forebrainSolved_2
+  - first:
+      213: -4785979509416916248
+    second: forebrainSolved_3
+  - first:
+      213: 6971447770744647720
+    second: forebrainSolved_4
+  - first:
+      213: 7215798702981437115
+    second: forebrainSolved_5
+  - first:
+      213: -2535267184728735958
+    second: forebrainSolved_6
+  - first:
+      213: 3461986818903371784
+    second: forebrainSolved_7
+  - first:
+      213: -4746824972429905454
+    second: forebrainSolved_8
+  - first:
+      213: -7489058861847379565
+    second: forebrainSolved_9
+  - first:
+      213: -8885717303575199051
+    second: forebrainSolved_10
+  - first:
+      213: -294116047199983056
+    second: forebrainSolved_11
+  - first:
+      213: 6507876215787018662
+    second: forebrainSolved_12
+  - first:
+      213: 8210032348694833021
+    second: forebrainSolved_13
+  - first:
+      213: 4931998299389251141
+    second: forebrainSolved_14
+  - first:
+      213: -1264146120838878324
+    second: forebrainSolved_15
+  - first:
+      213: 497471741003602990
+    second: forebrainSolved_16
+  - first:
+      213: 7861517626174380229
+    second: forebrainSolved_17
+  - first:
+      213: 765336374177969998
+    second: forebrainSolved_18
+  - first:
+      213: 6403877486657610827
+    second: forebrainSolved_19
+  - first:
+      213: 4621937422713394493
+    second: forebrainSolved_20
+  - first:
+      213: 6704548657366112067
+    second: forebrainSolved_21
+  - first:
+      213: 2179761064756048641
+    second: forebrainSolved_22
+  - first:
+      213: -1650792005261245149
+    second: forebrainSolved_23
+  - first:
+      213: 7484204314791373748
+    second: forebrainSolved_24
+  - first:
+      213: -2587812684362823457
+    second: forebrainSolved_25
+  - first:
+      213: -4865897825174290132
+    second: forebrainSolved_26
+  - first:
+      213: 727967197412444842
+    second: forebrainSolved_27
+  - first:
+      213: -4637473621221006932
+    second: forebrainSolved_28
+  - first:
+      213: 6228971351203772234
+    second: forebrainSolved_29
+  - first:
+      213: -2737071317450291608
+    second: forebrainSolved_30
+  - first:
+      213: 2558601479222309270
+    second: forebrainSolved_31
+  - first:
+      213: -872512795611440373
+    second: forebrainSolved_32
+  - first:
+      213: 5224487875581078225
+    second: forebrainSolved_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: forebrainSolved_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 47
+        width: 2107
+        height: 647
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb7ec65bf1d0b0600800000000000000
+      internalID: 435456218810345403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_1
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 669
+        width: 65
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f1413f380b37c850800000000000000
+      internalID: 6397146702309048822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_2
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 683
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cd986dfa59c9ce00800000000000000
+      internalID: 1065604179485564357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_3
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 670
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ea08ee4ef8c49db0800000000000000
+      internalID: -4785979509416916248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_4
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 679
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8207c69afce8fb060800000000000000
+      internalID: 6971447770744647720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_5
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 689
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb6deed70baa32460800000000000000
+      internalID: 7215798702981437115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_6
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 671
+        width: 33
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2ff98b8debe0dcd0800000000000000
+      internalID: -2535267184728735958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_7
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 675
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 800f1dd5ba27b0030800000000000000
+      internalID: 3461986818903371784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_8
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 680
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d1bc5b56d3ef1eb0800000000000000
+      internalID: -4746824972429905454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_9
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 673
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3918895d4a4811890800000000000000
+      internalID: -7489058861847379565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_10
+      rect:
+        serializedVersion: 2
+        x: 903
+        y: 677
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b2cbd1e0379fa480800000000000000
+      internalID: -8885717303575199051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_11
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 677
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03a27eb63071bebf0800000000000000
+      internalID: -294116047199983056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_12
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 674
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9d23420fe905a50800000000000000
+      internalID: 6507876215787018662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_13
+      rect:
+        serializedVersion: 2
+        x: 1459
+        y: 675
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d77eb6a2ce4efe170800000000000000
+      internalID: 8210032348694833021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_14
+      rect:
+        serializedVersion: 2
+        x: 1507
+        y: 679
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54e4deb825af17440800000000000000
+      internalID: 4931998299389251141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_15
+      rect:
+        serializedVersion: 2
+        x: 1540
+        y: 671
+        width: 58
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8be5330dc9d47ee0800000000000000
+      internalID: -1264146120838878324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_16
+      rect:
+        serializedVersion: 2
+        x: 1635
+        y: 671
+        width: 28
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2c9058a9ef57e600800000000000000
+      internalID: 497471741003602990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_17
+      rect:
+        serializedVersion: 2
+        x: 1814
+        y: 677
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c8989ff0a8b91d60800000000000000
+      internalID: 7861517626174380229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_18
+      rect:
+        serializedVersion: 2
+        x: 1860
+        y: 670
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e47309c90650f9a00800000000000000
+      internalID: 765336374177969998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_19
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 673
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b44295915a42fd850800000000000000
+      internalID: 6403877486657610827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_20
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 679
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d359aee099b642040800000000000000
+      internalID: 4621937422713394493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_21
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 671
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34711ad4b775b0d50800000000000000
+      internalID: 6704548657366112067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_22
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 671
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 103f208b321104e10800000000000000
+      internalID: 2179761064756048641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_23
+      rect:
+        serializedVersion: 2
+        x: 1623
+        y: 673
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3254950ea653719e0800000000000000
+      internalID: -1650792005261245149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_24
+      rect:
+        serializedVersion: 2
+        x: 1659
+        y: 675
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bbe599db2c3dd760800000000000000
+      internalID: 7484204314791373748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_25
+      rect:
+        serializedVersion: 2
+        x: 1780
+        y: 657
+        width: 11
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd8cd4b031e361cd0800000000000000
+      internalID: -2587812684362823457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_26
+      rect:
+        serializedVersion: 2
+        x: 1846
+        y: 674
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c21042965bbd87cb0800000000000000
+      internalID: -4865897825174290132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_27
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 647
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaac7e12f424a1a00800000000000000
+      internalID: 727967197412444842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_28
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 658
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca1a0e7df4264afb0800000000000000
+      internalID: -4637473621221006932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_29
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 102
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a47f5900170c17650800000000000000
+      internalID: 6228971351203772234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_30
+      rect:
+        serializedVersion: 2
+        x: 1507
+        y: 70
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 866077e6328f30ad0800000000000000
+      internalID: -2737071317450291608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_31
+      rect:
+        serializedVersion: 2
+        x: 1822
+        y: 49
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 691b5d24d7af18320800000000000000
+      internalID: 2558601479222309270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_32
+      rect:
+        serializedVersion: 2
+        x: 1828
+        y: 54
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0bd8933c3634e3f0800000000000000
+      internalID: -872512795611440373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forebrainSolved_33
+      rect:
+        serializedVersion: 2
+        x: 1835
+        y: 53
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1da6855da0c118840800000000000000
+      internalID: 5224487875581078225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      forebrainSolved_0: 435456218810345403
+      forebrainSolved_1: 6397146702309048822
+      forebrainSolved_10: -8885717303575199051
+      forebrainSolved_11: -294116047199983056
+      forebrainSolved_12: 6507876215787018662
+      forebrainSolved_13: 8210032348694833021
+      forebrainSolved_14: 4931998299389251141
+      forebrainSolved_15: -1264146120838878324
+      forebrainSolved_16: 497471741003602990
+      forebrainSolved_17: 7861517626174380229
+      forebrainSolved_18: 765336374177969998
+      forebrainSolved_19: 6403877486657610827
+      forebrainSolved_2: 1065604179485564357
+      forebrainSolved_20: 4621937422713394493
+      forebrainSolved_21: 6704548657366112067
+      forebrainSolved_22: 2179761064756048641
+      forebrainSolved_23: -1650792005261245149
+      forebrainSolved_24: 7484204314791373748
+      forebrainSolved_25: -2587812684362823457
+      forebrainSolved_26: -4865897825174290132
+      forebrainSolved_27: 727967197412444842
+      forebrainSolved_28: -4637473621221006932
+      forebrainSolved_29: 6228971351203772234
+      forebrainSolved_3: -4785979509416916248
+      forebrainSolved_30: -2737071317450291608
+      forebrainSolved_31: 2558601479222309270
+      forebrainSolved_32: -872512795611440373
+      forebrainSolved_33: 5224487875581078225
+      forebrainSolved_4: 6971447770744647720
+      forebrainSolved_5: 7215798702981437115
+      forebrainSolved_6: -2535267184728735958
+      forebrainSolved_7: 3461986818903371784
+      forebrainSolved_8: -4746824972429905454
+      forebrainSolved_9: -7489058861847379565
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
