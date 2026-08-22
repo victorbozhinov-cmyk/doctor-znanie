@@ -15,20 +15,41 @@ public class BrainPuzzleManager : MonoBehaviour
     [SerializeField] private GameObject ponsText;
     [SerializeField] private GameObject medullaText;
 
+    [Header("Drop Zones")]
+    [SerializeField] private BrainPuzzleDropZone forebrainDropZone;
+    [SerializeField] private BrainPuzzleDropZone diencephalonDropZone;
+    [SerializeField] private BrainPuzzleDropZone midbrainDropZone;
+    [SerializeField] private BrainPuzzleDropZone cerebellumDropZone;
+    [SerializeField] private BrainPuzzleDropZone ponsDropZone;
+    [SerializeField] private BrainPuzzleDropZone medullaDropZone;
+
+    [Header("Lives")]
+    [SerializeField] private GameObject lifeHeart1;
+    [SerializeField] private GameObject lifeHeart2;
+    [SerializeField] private GameObject lifeHeart3;
+
+    [Header("Puzzle UI")]
+    [SerializeField] private GameObject infoOverlay;
+
     [Header("Order")]
     [SerializeField] private bool shuffleOrder = true;
 
     [Header("Events")]
     [SerializeField] private UnityEvent onWrongPlacement;
     [SerializeField] private UnityEvent onPuzzleCompleted;
+    [SerializeField] private UnityEvent onGameOver;
 
     private readonly List<BrainPartType> labelOrder =
         new List<BrainPartType>();
 
     private int currentIndex;
+    private int currentLives;
+
     private bool puzzleCompleted;
+    private bool gameOver;
 
     public bool IsPuzzleCompleted => puzzleCompleted;
+    public bool IsGameOver => gameOver;
 
     public BrainPartType CurrentPart
     {
@@ -53,19 +74,195 @@ public class BrainPuzzleManager : MonoBehaviour
         StartPuzzle();
     }
 
+    // Стартира реално пъзела.
     public void StartPuzzle()
     {
         puzzleCompleted = false;
+        gameOver = false;
+
         currentIndex = 0;
 
+        CloseInfo();
+
+        ResetDropZones();
+        SetupLives();
         CreateLabelOrder();
+
+        ResetCurrentLabel();
+
+        ShowCurrentLabel();
+    }
+
+    // Подготвя пъзела за нов опит,
+    // но НЕ стартира новия рунд.
+    public void PreparePuzzle()
+    {
+        puzzleCompleted = false;
+        gameOver = false;
+
+        currentIndex = 0;
+
+        CloseInfo();
+
+        ResetDropZones();
+        SetupLives();
+
+        labelOrder.Clear();
+
+        HideAllLabelImages();
+        ResetCurrentLabel();
 
         if (currentLabel != null)
         {
             currentLabel.SetActive(true);
         }
+    }
 
-        ShowCurrentLabel();
+    // Използва се от бутона "Опитай пак".
+    // След това Navigation връща играча на StartPanel.
+    public void ResetPuzzle()
+    {
+        PreparePuzzle();
+    }
+
+    // -------------------------
+    // INFO PANEL
+    // -------------------------
+
+    public void OpenInfo()
+    {
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(true);
+        }
+    }
+
+    public void CloseInfo()
+    {
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+    }
+
+    private void ResetCurrentLabel()
+    {
+        if (currentLabel == null)
+        {
+            return;
+        }
+
+        CanvasGroup canvasGroup =
+            currentLabel.GetComponent<CanvasGroup>();
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
+
+        RectTransform rectTransform =
+            currentLabel.GetComponent<RectTransform>();
+
+        if (rectTransform != null)
+        {
+            rectTransform.localScale = Vector3.one;
+            rectTransform.localRotation = Quaternion.identity;
+        }
+    }
+
+    private void ResetDropZones()
+    {
+        ResetDropZone(forebrainDropZone);
+        ResetDropZone(diencephalonDropZone);
+        ResetDropZone(midbrainDropZone);
+        ResetDropZone(cerebellumDropZone);
+        ResetDropZone(ponsDropZone);
+        ResetDropZone(medullaDropZone);
+    }
+
+    private void ResetDropZone(
+        BrainPuzzleDropZone dropZone)
+    {
+        if (dropZone != null)
+        {
+            dropZone.ResetZone();
+        }
+    }
+
+    private void SetupLives()
+    {
+        string difficulty =
+            PlayerPrefs.GetString(
+                "Difficulty",
+                "Medium"
+            );
+
+        switch (difficulty)
+        {
+            case "Easy":
+                currentLives = 3;
+                break;
+
+            case "Hard":
+                currentLives = 1;
+                break;
+
+            case "Medium":
+            default:
+                currentLives = 2;
+                break;
+        }
+
+        SetHeartActive(
+            lifeHeart1,
+            currentLives >= 1
+        );
+
+        SetHeartActive(
+            lifeHeart2,
+            currentLives >= 2
+        );
+
+        SetHeartActive(
+            lifeHeart3,
+            currentLives >= 3
+        );
+    }
+
+    private void SetHeartActive(
+        GameObject heart,
+        bool active)
+    {
+        if (heart == null)
+        {
+            return;
+        }
+
+        heart.SetActive(active);
+
+        if (!active)
+        {
+            return;
+        }
+
+        CanvasGroup canvasGroup =
+            heart.GetComponent<CanvasGroup>();
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1f;
+        }
+
+        RectTransform rect =
+            heart.GetComponent<RectTransform>();
+
+        if (rect != null)
+        {
+            rect.localScale = Vector3.one;
+            rect.localRotation = Quaternion.identity;
+        }
     }
 
     private void CreateLabelOrder()
@@ -90,7 +287,10 @@ public class BrainPuzzleManager : MonoBehaviour
         for (int i = 0; i < labelOrder.Count; i++)
         {
             int randomIndex =
-                Random.Range(i, labelOrder.Count);
+                Random.Range(
+                    i,
+                    labelOrder.Count
+                );
 
             BrainPartType temporary =
                 labelOrder[i];
@@ -108,9 +308,15 @@ public class BrainPuzzleManager : MonoBehaviour
         HideAllLabelImages();
 
         if (puzzleCompleted ||
+            gameOver ||
             currentIndex >= labelOrder.Count)
         {
             return;
+        }
+
+        if (currentLabel != null)
+        {
+            currentLabel.SetActive(true);
         }
 
         GameObject labelImage =
@@ -181,7 +387,8 @@ public class BrainPuzzleManager : MonoBehaviour
     public void HandleCorrectPlacement(
         BrainPuzzleDropZone dropZone)
     {
-        if (puzzleCompleted)
+        if (puzzleCompleted ||
+            gameOver)
         {
             return;
         }
@@ -220,24 +427,101 @@ public class BrainPuzzleManager : MonoBehaviour
 
     public void HandleWrongPlacement()
     {
-        if (puzzleCompleted)
+        if (puzzleCompleted ||
+            gameOver)
         {
             return;
         }
 
-        Debug.Log(
-            "Грешно поставяне на: " +
-            CurrentPart
-        );
+        LoseLife();
 
         onWrongPlacement?.Invoke();
+    }
+
+    private void LoseLife()
+    {
+        if (currentLives <= 0)
+        {
+            return;
+        }
+
+        GameObject heartToLose =
+            GetHeartForLife(currentLives);
+
+        currentLives--;
+
+        if (heartToLose != null)
+        {
+            UILifeHeartAnimation heartAnimation =
+                heartToLose.GetComponent<
+                    UILifeHeartAnimation
+                >();
+
+            if (heartAnimation != null)
+            {
+                heartAnimation.PlayLoseAnimation();
+            }
+            else
+            {
+                heartToLose.SetActive(false);
+            }
+        }
+
+        if (currentLives <= 0)
+        {
+            TriggerGameOver();
+        }
+    }
+
+    private GameObject GetHeartForLife(
+        int lifeNumber)
+    {
+        switch (lifeNumber)
+        {
+            case 3:
+                return lifeHeart3;
+
+            case 2:
+                return lifeHeart2;
+
+            case 1:
+                return lifeHeart1;
+
+            default:
+                return null;
+        }
+    }
+
+    private void TriggerGameOver()
+    {
+        gameOver = true;
+
+        CloseInfo();
+        HideAllLabelImages();
+
+        if (currentLabel != null)
+        {
+            currentLabel.SetActive(false);
+        }
+
+        Debug.Log(
+            "Brain Puzzle - Game Over!"
+        );
+
+        onGameOver?.Invoke();
     }
 
     private void CompletePuzzle()
     {
         puzzleCompleted = true;
 
+        CloseInfo();
         HideAllLabelImages();
+
+        if (currentLabel != null)
+        {
+            currentLabel.SetActive(false);
+        }
 
         Debug.Log(
             "Brain Puzzle е завършен успешно!"
@@ -252,10 +536,5 @@ public class BrainPuzzleManager : MonoBehaviour
         {
             currentLabel.SetActive(false);
         }
-    }
-
-    public void RestartPuzzle()
-    {
-        StartPuzzle();
     }
 }
