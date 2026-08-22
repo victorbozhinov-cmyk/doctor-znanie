@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: ffcdc817e49336d44a8ba5ad40056af7
+guid: 3ba04231cc6d1fc4892aa068100de8aa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7021974285975990923
-    second: b8096539-6107-4e58-aa85-d45554a875f9_0
+      213: -4997259534173352989
+    second: checkpoint 3_0
+  - first:
+      213: 4253285039246426552
+    second: checkpoint 3_1
+  - first:
+      213: 4648746467645871767
+    second: checkpoint 3_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: b8096539-6107-4e58-aa85-d45554a875f9_0
+      name: checkpoint 3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1254
-        height: 1254
+        x: 64
+        y: 39
+        width: 1147
+        height: 1113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 57d4976479fec8e90800000000000000
-      internalID: -7021974285975990923
+      spriteID: 3ebc9272eea26aab0800000000000000
+      internalID: -4997259534173352989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: checkpoint 3_1
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 166
+        width: 620
+        height: 627
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b144c45534b60b30800000000000000
+      internalID: 4253285039246426552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: checkpoint 3_2
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 706
+        width: 121
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79652ee384aa38040800000000000000
+      internalID: 4648746467645871767
       vertices: []
       indices: 
       edges: []
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      b8096539-6107-4e58-aa85-d45554a875f9_0: -7021974285975990923
+      checkpoint 3_0: -4997259534173352989
+      checkpoint 3_1: 4253285039246426552
+      checkpoint 3_2: 4648746467645871767
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

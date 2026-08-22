@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 8ec7629642f6c0d4492f799920b6e715
+guid: 8e83a2c2bb40b7e448ccb312325270d0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8317364237576031437
-    second: "\u0444\u0444\u0444_0"
+      213: 1938329166405313482
+    second: marker_0
+  - first:
+      213: 1146363979526003962
+    second: marker_1
+  - first:
+      213: -6431445911726711825
+    second: marker_2
+  - first:
+      213: 5706279882916106758
+    second: marker_3
+  - first:
+      213: 3640050722296724719
+    second: marker_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +125,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u0444\u0444\u0444_0"
+      name: marker_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 57
-        width: 1103
-        height: 1310
+        x: 129
+        y: 142
+        width: 1005
+        height: 987
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dccc140f4b63d6370800000000000000
-      internalID: 8317364237576031437
+      spriteID: ac32e5d6b1456ea10800000000000000
+      internalID: 1938329166405313482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: marker_1
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 958
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc53f637f3b8ef00800000000000000
+      internalID: 1146363979526003962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: marker_2
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 833
+        width: 9
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feb146fb40aeeb6a0800000000000000
+      internalID: -6431445911726711825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: marker_3
+      rect:
+        serializedVersion: 2
+        x: 1132
+        y: 388
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6021c220257c03f40800000000000000
+      internalID: 5706279882916106758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: marker_4
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 371
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fec76ea98de048230800000000000000
+      internalID: 3640050722296724719
       vertices: []
       indices: 
       edges: []
@@ -138,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e08f06a970ce9b34bb9d9fdad8caeb1c
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u0444\u0444\u0444_0": 8317364237576031437
+      marker_0: 1938329166405313482
+      marker_1: 1146363979526003962
+      marker_2: -6431445911726711825
+      marker_3: 5706279882916106758
+      marker_4: 3640050722296724719
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

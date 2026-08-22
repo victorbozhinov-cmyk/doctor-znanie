@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,19 +26,75 @@ public class StomachFoodStageController : MonoBehaviour
     [SerializeField] private GameObject himusHard;
 
     [Header("Wave Settings")]
-    [SerializeField] private int wavesPerStage = 2;
+    [SerializeField] private int easyWavesPerStage = 2;
+    [SerializeField] private int mediumWavesPerStage = 2;
+    [SerializeField] private int hardWavesPerStage = 3;
+
+    [Header("Food Transition")]
+    [SerializeField]
+    private StomachFoodTransitionAnimator foodTransitionAnimator;
 
     [Header("Testing")]
-    [SerializeField] private bool enableTestKey = true;
+    [SerializeField] private bool enableTestKey = false;
 
     private GameObject[] activeStages;
 
     private int currentStageIndex;
     private int successfulWavesInCurrentStage;
+    private int wavesPerStage;
+    private int difficulty;
 
-    public int CurrentStageIndex => currentStageIndex;
-    public int SuccessfulWavesInCurrentStage => successfulWavesInCurrentStage;
-    public bool IsDigestionComplete { get; private set; }
+    private bool isTransitioning;
+
+    // =========================================================
+    // EVENTS
+    // =========================================================
+
+    public event Action<int, int> SuccessfulWaveRegistered;
+    public event Action<int, int> WaveProgressReset;
+    public event Action<int> FoodStageAdvanced;
+    public event Action DigestionCompleted;
+
+    // =========================================================
+    // PUBLIC INFO
+    // =========================================================
+
+    public int CurrentStageIndex =>
+        currentStageIndex;
+
+    public int SuccessfulWavesInCurrentStage =>
+        successfulWavesInCurrentStage;
+
+    public int WavesPerStage =>
+        wavesPerStage;
+
+    public int TotalStageCount =>
+        activeStages != null
+            ? activeStages.Length
+            : 0;
+
+    public int Difficulty =>
+        difficulty;
+
+    public bool IsHardDifficulty =>
+        difficulty == 2;
+
+    public bool IsTransitioning =>
+        isTransitioning;
+
+    public bool IsDigestionComplete
+    {
+        get;
+        private set;
+    }
+
+    public bool IsWaveSetComplete =>
+        successfulWavesInCurrentStage >=
+        wavesPerStage;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Start()
     {
@@ -54,13 +111,23 @@ public class StomachFoodStageController : MonoBehaviour
         {
             RegisterSuccessfulWave();
         }
+
+        if (Keyboard.current != null &&
+            Keyboard.current.mKey.wasPressedThisFrame)
+        {
+            AdvanceAfterCompletedWaveSet();
+        }
     }
+
+    // =========================================================
+    // SETUP
+    // =========================================================
 
     private void SetupForDifficulty()
     {
         HideAllFoodImages();
 
-        int difficulty = PlayerPrefs.GetInt(
+        difficulty = PlayerPrefs.GetInt(
             "Difficulty",
             1
         );
@@ -76,7 +143,9 @@ public class StomachFoodStageController : MonoBehaviour
                     himusLight
                 };
 
-                Debug.Log("Food stages: EASY");
+                wavesPerStage =
+                    easyWavesPerStage;
+
                 break;
 
             case 2:
@@ -90,7 +159,9 @@ public class StomachFoodStageController : MonoBehaviour
                     himusHard
                 };
 
-                Debug.Log("Food stages: HARD");
+                wavesPerStage =
+                    hardWavesPerStage;
+
                 break;
 
             default:
@@ -103,59 +174,175 @@ public class StomachFoodStageController : MonoBehaviour
                     himusMedium
                 };
 
-                Debug.Log("Food stages: MEDIUM");
+                wavesPerStage =
+                    mediumWavesPerStage;
+
                 break;
         }
 
         currentStageIndex = 0;
         successfulWavesInCurrentStage = 0;
+
+        isTransitioning = false;
         IsDigestionComplete = false;
 
-        ShowCurrentStage();
+        ShowCurrentStageImmediate();
     }
+
+    // =========================================================
+    // SUCCESSFUL WAVE
+    // =========================================================
 
     public void RegisterSuccessfulWave()
     {
-        if (IsDigestionComplete)
+        if (IsDigestionComplete ||
+            isTransitioning)
+        {
+            return;
+        }
+
+        if (IsWaveSetComplete)
             return;
 
         successfulWavesInCurrentStage++;
 
-        Debug.Log(
-            $"Successful wave: {successfulWavesInCurrentStage}/{wavesPerStage}"
+        SuccessfulWaveRegistered?.Invoke(
+            successfulWavesInCurrentStage,
+            wavesPerStage
         );
-
-        if (successfulWavesInCurrentStage >= wavesPerStage)
-        {
-            AdvanceFoodStage();
-        }
     }
 
-    private void AdvanceFoodStage()
+    // =========================================================
+    // RESET WAVE PROGRESS
+    // =========================================================
+
+    public void ResetCurrentWaveProgress()
     {
+        if (IsDigestionComplete ||
+            isTransitioning)
+        {
+            return;
+        }
+
         successfulWavesInCurrentStage = 0;
 
-        if (currentStageIndex >= activeStages.Length - 1)
+        WaveProgressReset?.Invoke(
+            successfulWavesInCurrentStage,
+            wavesPerStage
+        );
+    }
+
+    // =========================================================
+    // ADVANCE REQUEST
+    // =========================================================
+
+    public void AdvanceAfterCompletedWaveSet()
+    {
+        if (IsDigestionComplete ||
+            isTransitioning)
+        {
+            return;
+        }
+
+        if (!IsWaveSetComplete)
+            return;
+
+        BeginFoodStageTransition();
+    }
+
+    // =========================================================
+    // FOOD TRANSITION
+    // =========================================================
+
+    private void BeginFoodStageTransition()
+    {
+        if (activeStages == null ||
+            activeStages.Length == 0)
+        {
+            return;
+        }
+
+        int nextStageIndex =
+            currentStageIndex + 1;
+
+        if (nextStageIndex >=
+            activeStages.Length)
         {
             CompleteDigestion();
             return;
         }
 
-        currentStageIndex++;
+        GameObject currentFood =
+            activeStages[currentStageIndex];
 
-        ShowCurrentStage();
+        GameObject nextFood =
+            activeStages[nextStageIndex];
 
-        Debug.Log(
-            $"Food advanced to stage {currentStageIndex}"
+        isTransitioning = true;
+
+        // Ако animator-ът липсва,
+        // запазваме функционалността
+        // с моментална смяна.
+        if (foodTransitionAnimator == null)
+        {
+            if (currentFood != null)
+            {
+                currentFood.SetActive(false);
+            }
+
+            if (nextFood != null)
+            {
+                nextFood.SetActive(true);
+            }
+
+            FinishFoodStageTransition(
+                nextStageIndex
+            );
+
+            return;
+        }
+
+        foodTransitionAnimator.PlayTransition(
+            currentFood,
+            nextFood,
+            () =>
+            {
+                FinishFoodStageTransition(
+                    nextStageIndex
+                );
+            }
+        );
+    }
+
+    private void FinishFoodStageTransition(
+        int newStageIndex)
+    {
+        currentStageIndex =
+            newStageIndex;
+
+        successfulWavesInCurrentStage = 0;
+
+        isTransitioning = false;
+
+        // ВАЖНО:
+        // Този event вече се изпраща ЧАК
+        // след края на food анимацията.
+        FoodStageAdvanced?.Invoke(
+            currentStageIndex
         );
 
-        if (currentStageIndex >= activeStages.Length - 1)
+        if (currentStageIndex >=
+            activeStages.Length - 1)
         {
             CompleteDigestion();
         }
     }
 
-    private void ShowCurrentStage()
+    // =========================================================
+    // INITIAL FOOD
+    // =========================================================
+
+    private void ShowCurrentStageImmediate()
     {
         if (activeStages == null ||
             activeStages.Length == 0)
@@ -174,14 +361,23 @@ public class StomachFoodStageController : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // COMPLETE
+    // =========================================================
+
     private void CompleteDigestion()
     {
+        if (IsDigestionComplete)
+            return;
+
         IsDigestionComplete = true;
 
-        Debug.Log(
-            "Храната е напълно обработена - химус!"
-        );
+        DigestionCompleted?.Invoke();
     }
+
+    // =========================================================
+    // HELPERS
+    // =========================================================
 
     private void HideAllFoodImages()
     {
@@ -213,6 +409,10 @@ public class StomachFoodStageController : MonoBehaviour
             target.SetActive(active);
         }
     }
+
+    // =========================================================
+    // RESTART
+    // =========================================================
 
     public void RestartFoodStages()
     {
