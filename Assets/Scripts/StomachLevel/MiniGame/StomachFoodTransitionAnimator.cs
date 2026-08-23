@@ -22,7 +22,7 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
     private Coroutine transitionCoroutine;
 
     // =========================================================
-    // PUBLIC
+    // NORMAL FOOD TRANSITION
     // =========================================================
 
     public void PlayTransition(
@@ -38,7 +38,9 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
 
         if (transitionCoroutine != null)
         {
-            StopCoroutine(transitionCoroutine);
+            StopCoroutine(
+                transitionCoroutine
+            );
         }
 
         transitionCoroutine =
@@ -52,7 +54,37 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
     }
 
     // =========================================================
-    // MAIN TRANSITION
+    // FINAL FOOD EXIT
+    // =========================================================
+
+    public void PlayExitOnly(
+        GameObject currentFood,
+        Action onComplete = null)
+    {
+        if (currentFood == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        if (transitionCoroutine != null)
+        {
+            StopCoroutine(
+                transitionCoroutine
+            );
+        }
+
+        transitionCoroutine =
+            StartCoroutine(
+                ExitOnlyRoutine(
+                    currentFood,
+                    onComplete
+                )
+            );
+    }
+
+    // =========================================================
+    // NORMAL TRANSITION ROUTINE
     // =========================================================
 
     private IEnumerator TransitionRoutine(
@@ -61,83 +93,21 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
         Action onComplete)
     {
         // ---------------------------------------------
-        // CURRENT FOOD
+        // CURRENT FOOD OUT
         // ---------------------------------------------
 
         if (currentFood != null &&
             currentFood.activeInHierarchy)
         {
-            RectTransform currentRect =
-                currentFood.transform as RectTransform;
-
-            CanvasGroup currentCanvas =
-                GetOrCreateCanvasGroup(currentFood);
-
-            if (currentRect != null)
-            {
-                Vector2 originalPosition =
-                    currentRect.anchoredPosition;
-
-                Vector3 originalScale =
-                    currentRect.localScale;
-
-                float originalAlpha =
-                    currentCanvas.alpha;
-
-                // 1. Кратко разклащане
-                for (int i = 0; i < shakeCount; i++)
-                {
-                    yield return MoveTo(
-                        currentRect,
-                        originalPosition +
-                        Vector2.left * shakeDistance,
-                        shakeStepDuration
-                    );
-
-                    yield return MoveTo(
-                        currentRect,
-                        originalPosition +
-                        Vector2.right * shakeDistance,
-                        shakeStepDuration
-                    );
-                }
-
-                yield return MoveTo(
-                    currentRect,
-                    originalPosition,
-                    shakeStepDuration
-                );
-
-                // 2. Надолу + Fade Out
-                Vector2 exitPosition =
-                    originalPosition +
-                    Vector2.down * exitMoveDown;
-
-                yield return MoveAndFade(
-                    currentRect,
-                    currentCanvas,
-                    exitPosition,
-                    0f,
-                    exitDuration
-                );
-
-                // Връщаме оригиналните стойности,
-                // преди да го изключим.
-                currentRect.anchoredPosition =
-                    originalPosition;
-
-                currentRect.localScale =
-                    originalScale;
-
-                currentCanvas.alpha =
-                    originalAlpha;
-            }
+            yield return AnimateFoodOut(
+                currentFood
+            );
 
             currentFood.SetActive(false);
         }
 
         // ---------------------------------------------
-        // NEXT FOOD
+        // NEXT FOOD IN
         // ---------------------------------------------
 
         nextFood.SetActive(true);
@@ -146,7 +116,9 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
             nextFood.transform as RectTransform;
 
         CanvasGroup nextCanvas =
-            GetOrCreateCanvasGroup(nextFood);
+            GetOrCreateCanvasGroup(
+                nextFood
+            );
 
         if (nextRect != null)
         {
@@ -162,23 +134,23 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
                 normalScale *
                 incomingStartScale;
 
-            // 3. Fade In + Pop
+            // Fade In + Pop
             yield return ScaleAndFade(
                 nextRect,
                 nextCanvas,
-                normalScale * incomingPopScale,
+                normalScale *
+                incomingPopScale,
                 1f,
                 fadeInDuration
             );
 
-            // 4. Settle обратно към нормалния размер
+            // Settle
             yield return ScaleTo(
                 nextRect,
                 normalScale,
                 settleDuration
             );
 
-            // Гарантираме точния финален state.
             nextRect.anchoredPosition =
                 normalPosition;
 
@@ -194,7 +166,128 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
     }
 
     // =========================================================
-    // HELPERS
+    // FINAL EXIT ROUTINE
+    // =========================================================
+
+    private IEnumerator ExitOnlyRoutine(
+        GameObject currentFood,
+        Action onComplete)
+    {
+        if (currentFood.activeInHierarchy)
+        {
+            // Използваме абсолютно същата
+            // outgoing анимация като при
+            // нормалните смени на храната.
+            yield return AnimateFoodOut(
+                currentFood
+            );
+
+            currentFood.SetActive(false);
+        }
+
+        transitionCoroutine = null;
+
+        // Много важно:
+        // callback-ът идва ЧАК след като
+        // shake + move down + fade са приключили.
+        onComplete?.Invoke();
+    }
+
+    // =========================================================
+    // SHARED OUTGOING FOOD ANIMATION
+    // =========================================================
+
+    private IEnumerator AnimateFoodOut(
+        GameObject food)
+    {
+        RectTransform foodRect =
+            food.transform as RectTransform;
+
+        CanvasGroup foodCanvas =
+            GetOrCreateCanvasGroup(
+                food
+            );
+
+        if (foodRect == null)
+            yield break;
+
+        Vector2 originalPosition =
+            foodRect.anchoredPosition;
+
+        Vector3 originalScale =
+            foodRect.localScale;
+
+        float originalAlpha =
+            foodCanvas.alpha;
+
+        // ---------------------------------------------
+        // 1. SHAKE
+        // ---------------------------------------------
+
+        for (int i = 0;
+             i < shakeCount;
+             i++)
+        {
+            yield return MoveTo(
+                foodRect,
+                originalPosition +
+                Vector2.left *
+                shakeDistance,
+                shakeStepDuration
+            );
+
+            yield return MoveTo(
+                foodRect,
+                originalPosition +
+                Vector2.right *
+                shakeDistance,
+                shakeStepDuration
+            );
+        }
+
+        yield return MoveTo(
+            foodRect,
+            originalPosition,
+            shakeStepDuration
+        );
+
+        // ---------------------------------------------
+        // 2. MOVE DOWN + FADE OUT
+        // ---------------------------------------------
+
+        Vector2 exitPosition =
+            originalPosition +
+            Vector2.down *
+            exitMoveDown;
+
+        yield return MoveAndFade(
+            foodRect,
+            foodCanvas,
+            exitPosition,
+            0f,
+            exitDuration
+        );
+
+        // ---------------------------------------------
+        // RESET VALUES
+        // ---------------------------------------------
+        //
+        // Връщаме ги преди SetActive(false),
+        // така че при евентуален restart
+        // изображението да е нормално.
+
+        foodRect.anchoredPosition =
+            originalPosition;
+
+        foodRect.localScale =
+            originalScale;
+
+        foodCanvas.alpha =
+            originalAlpha;
+    }
+
+    // =========================================================
+    // CANVAS GROUP
     // =========================================================
 
     private CanvasGroup GetOrCreateCanvasGroup(
@@ -212,6 +305,10 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
         return canvasGroup;
     }
 
+    // =========================================================
+    // MOVE
+    // =========================================================
+
     private IEnumerator MoveTo(
         RectTransform target,
         Vector2 endPosition,
@@ -224,7 +321,8 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed +=
+                Time.deltaTime;
 
             float t =
                 Mathf.Clamp01(
@@ -246,6 +344,10 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
         target.anchoredPosition =
             endPosition;
     }
+
+    // =========================================================
+    // MOVE + FADE
+    // =========================================================
 
     private IEnumerator MoveAndFade(
         RectTransform target,
@@ -264,7 +366,8 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed +=
+                Time.deltaTime;
 
             float t =
                 Mathf.Clamp01(
@@ -297,6 +400,10 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
             endAlpha;
     }
 
+    // =========================================================
+    // SCALE + FADE
+    // =========================================================
+
     private IEnumerator ScaleAndFade(
         RectTransform target,
         CanvasGroup canvasGroup,
@@ -314,7 +421,8 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed +=
+                Time.deltaTime;
 
             float t =
                 Mathf.Clamp01(
@@ -347,6 +455,10 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
             endAlpha;
     }
 
+    // =========================================================
+    // SCALE
+    // =========================================================
+
     private IEnumerator ScaleTo(
         RectTransform target,
         Vector3 endScale,
@@ -359,7 +471,8 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed +=
+                Time.deltaTime;
 
             float t =
                 Mathf.Clamp01(
@@ -382,8 +495,15 @@ public class StomachFoodTransitionAnimator : MonoBehaviour
             endScale;
     }
 
-    private float SmoothStep(float t)
+    // =========================================================
+    // SMOOTH
+    // =========================================================
+
+    private float SmoothStep(
+        float t)
     {
-        return t * t * (3f - 2f * t);
+        return
+            t * t *
+            (3f - 2f * t);
     }
 }

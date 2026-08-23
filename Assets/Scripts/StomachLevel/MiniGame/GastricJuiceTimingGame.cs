@@ -44,7 +44,6 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
     [Header("Task Timer")]
     [SerializeField] private StomachTaskTimer taskTimer;
-    [SerializeField] private float juiceTaskDuration = 5f;
 
     [Header("Total Timer")]
     [SerializeField] private StomachMinigameTimer totalTimer;
@@ -55,6 +54,25 @@ public class GastricJuiceTimingGame : MonoBehaviour
     [Header("Juice Drop Effect")]
     [SerializeField] private StomachJuiceDropEffect juiceDropEffect;
 
+    // =========================================================
+    // DIFFICULTY SETTINGS
+    // =========================================================
+
+    [Header("Difficulty - Green Zone Size")]
+    [SerializeField] private float easyGreenZoneMultiplier = 1.35f;
+    [SerializeField] private float mediumGreenZoneMultiplier = 1.00f;
+    [SerializeField] private float hardGreenZoneMultiplier = 0.70f;
+
+    [Header("Difficulty - Indicator Speed")]
+    [SerializeField] private float easyMoveSpeed = 240f;
+    [SerializeField] private float mediumMoveSpeed = 300f;
+    [SerializeField] private float hardMoveSpeed = 380f;
+
+    [Header("Difficulty - Task Duration")]
+    [SerializeField] private float easyTaskDuration = 7f;
+    [SerializeField] private float mediumTaskDuration = 5f;
+    [SerializeField] private float hardTaskDuration = 3.5f;
+
     [Header("Time Penalties")]
     [SerializeField] private float yellowPenalty = 5f;
     [SerializeField] private float orangeLowPenalty = 3f;
@@ -62,18 +80,38 @@ public class GastricJuiceTimingGame : MonoBehaviour
     [SerializeField] private float redPenalty = 5f;
     [SerializeField] private float timeoutPenalty = 5f;
 
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed = 300f;
-
     private float direction = 1f;
     private bool isRunning;
+
+    private int difficulty;
+
+    private float currentMoveSpeed;
+    private float currentTaskDuration;
+
+    private Vector3 originalGreenZoneScale;
 
     // =========================================================
     // UNITY
     // =========================================================
 
+    private void Awake()
+    {
+        if (greenZone != null)
+        {
+            originalGreenZoneScale =
+                greenZone.localScale;
+        }
+    }
+
     private void Start()
     {
+        difficulty = PlayerPrefs.GetInt(
+            "Difficulty",
+            1
+        );
+
+        ApplyDifficultySettings();
+
         if (feedbackPanel != null)
         {
             feedbackPanel.SetActive(false);
@@ -115,6 +153,63 @@ public class GastricJuiceTimingGame : MonoBehaviour
     }
 
     // =========================================================
+    // DIFFICULTY
+    // =========================================================
+
+    private void ApplyDifficultySettings()
+    {
+        float greenMultiplier;
+
+        switch (difficulty)
+        {
+            case 0:
+                greenMultiplier =
+                    easyGreenZoneMultiplier;
+
+                currentMoveSpeed =
+                    easyMoveSpeed;
+
+                currentTaskDuration =
+                    easyTaskDuration;
+                break;
+
+            case 2:
+                greenMultiplier =
+                    hardGreenZoneMultiplier;
+
+                currentMoveSpeed =
+                    hardMoveSpeed;
+
+                currentTaskDuration =
+                    hardTaskDuration;
+                break;
+
+            default:
+                greenMultiplier =
+                    mediumGreenZoneMultiplier;
+
+                currentMoveSpeed =
+                    mediumMoveSpeed;
+
+                currentTaskDuration =
+                    mediumTaskDuration;
+                break;
+        }
+
+        if (greenZone != null)
+        {
+            greenZone.localScale =
+                new Vector3(
+                    originalGreenZoneScale.x *
+                    greenMultiplier,
+
+                    originalGreenZoneScale.y,
+                    originalGreenZoneScale.z
+                );
+        }
+    }
+
+    // =========================================================
     // INDICATOR MOVEMENT
     // =========================================================
 
@@ -145,7 +240,7 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
         pos.x +=
             direction *
-            moveSpeed *
+            currentMoveSpeed *
             Time.deltaTime;
 
         if (pos.x >= rightLimit)
@@ -174,9 +269,13 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
         isRunning = false;
 
+        // ВАЖНО:
+        // Не StopTimer(), а PauseTimer().
+        // Така при грешка запазваме
+        // оставащото време.
         if (taskTimer != null)
         {
-            taskTimer.StopTimer();
+            taskTimer.PauseTimer();
         }
 
         JuiceZone result =
@@ -189,10 +288,10 @@ public class GastricJuiceTimingGame : MonoBehaviour
                 StartCoroutine(
                     ShowFailFeedback(
                         "Твърде малко стомашни сокове!",
-                        yellowPenalty
+                        yellowPenalty,
+                        false
                     )
                 );
-
                 break;
 
             case JuiceZone.OrangeLow:
@@ -200,25 +299,19 @@ public class GastricJuiceTimingGame : MonoBehaviour
                 StartCoroutine(
                     ShowFailFeedback(
                         "Недостатъчно стомашни сокове!",
-                        orangeLowPenalty
+                        orangeLowPenalty,
+                        false
                     )
                 );
-
                 break;
 
             case JuiceZone.Green:
 
-                // Тук вече НЕ пускаме
-                // капките веднага.
-                //
-                // Те ще се пуснат след
-                // success feedback-а.
                 StartCoroutine(
                     ShowSuccessFeedback(
                         "Точното количество стомашни сокове!"
                     )
                 );
-
                 break;
 
             case JuiceZone.OrangeHigh:
@@ -226,10 +319,10 @@ public class GastricJuiceTimingGame : MonoBehaviour
                 StartCoroutine(
                     ShowFailFeedback(
                         "Повече от необходимото количество!",
-                        orangeHighPenalty
+                        orangeHighPenalty,
+                        false
                     )
                 );
-
                 break;
 
             case JuiceZone.Red:
@@ -237,16 +330,18 @@ public class GastricJuiceTimingGame : MonoBehaviour
                 StartCoroutine(
                     ShowFailFeedback(
                         "Твърде много стомашни сокове!",
-                        redPenalty
+                        redPenalty,
+                        false
                     )
                 );
-
                 break;
 
             default:
 
-                StartTiming();
-
+                // Ако по някаква причина индикаторът
+                // не е в нито една зона,
+                // продължаваме със същото оставащо време.
+                ResumeTimingWithRemainingTime();
                 break;
         }
     }
@@ -265,7 +360,8 @@ public class GastricJuiceTimingGame : MonoBehaviour
         StartCoroutine(
             ShowFailFeedback(
                 "Времето за задачата изтече!",
-                timeoutPenalty
+                timeoutPenalty,
+                true
             )
         );
     }
@@ -276,16 +372,20 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
     private IEnumerator ShowFailFeedback(
         string message,
-        float penalty)
+        float penalty,
+        bool restartWithFullTime)
     {
         HideJuicePanel();
 
+        // Стомахът се раздразва.
         if (stateCardController != null)
         {
             stateCardController
                 .ShowIrritated();
         }
 
+        // TotalTimer също не върви,
+        // докато гледаме задължителния feedback.
         if (totalTimer != null)
         {
             totalTimer.PauseTimer();
@@ -332,7 +432,29 @@ public class GastricJuiceTimingGame : MonoBehaviour
             totalTimer.ResumeTimer();
         }
 
-        StartTiming();
+        // ---------------------------------------------
+        // TIMEOUT
+        // ---------------------------------------------
+        //
+        // Таймерът вече е стигнал 0,
+        // затова трябва нов пълен опит.
+
+        if (restartWithFullTime)
+        {
+            StartTiming();
+        }
+
+        // ---------------------------------------------
+        // ОБИКНОВЕНА ГРЕШКА
+        // ---------------------------------------------
+        //
+        // Yellow / Orange / Red:
+        // продължаваме със същото оставащо време.
+
+        else
+        {
+            ResumeTimingWithRemainingTime();
+        }
     }
 
     // =========================================================
@@ -344,6 +466,8 @@ public class GastricJuiceTimingGame : MonoBehaviour
     {
         HideJuicePanel();
 
+        // При успех задачата вече е приключила,
+        // така че тук наистина спираме TaskTimer.
         if (taskTimer != null)
         {
             taskTimer.StopTimer();
@@ -381,9 +505,7 @@ public class GastricJuiceTimingGame : MonoBehaviour
             feedbackPanel.SetActive(true);
         }
 
-        // =============================================
         // 1. SUCCESS FEEDBACK
-        // =============================================
 
         yield return new WaitForSeconds(
             feedbackDuration
@@ -394,41 +516,28 @@ public class GastricJuiceTimingGame : MonoBehaviour
             feedbackPanel.SetActive(false);
         }
 
-        // =============================================
-        // 2. МАЛКА ПАУЗА
-        // =============================================
+        // 2. КРАТКА ПАУЗА
 
         yield return new WaitForSeconds(
             delayBeforeJuiceDrops
         );
 
-        // =============================================
-        // 3. JUICE DROP EFFECT
-        // =============================================
+        // 3. КАПКИ
 
         if (juiceDropEffect != null)
         {
             juiceDropEffect
                 .PlayJuiceDropEffect();
 
-            // Изчакваме coroutine-ът да стартира.
             yield return null;
 
-            // Изчакваме и последната капка
-            // да завърши анимацията си.
             while (juiceDropEffect.IsPlaying)
             {
                 yield return null;
             }
         }
 
-        // =============================================
         // 4. PROGRESS
-        // =============================================
-        //
-        // StomachProgressBar слуша JuiceSucceeded.
-        // StomachMinigameManager също го слуша
-        // и после изчаква ProgressBar анимацията.
 
         JuiceSucceeded?.Invoke();
     }
@@ -457,6 +566,42 @@ public class GastricJuiceTimingGame : MonoBehaviour
         }
 
         HideJuicePanel();
+    }
+
+    // =========================================================
+    // FULL NEW ATTEMPT
+    // =========================================================
+
+    public void StartTiming()
+    {
+        SetIndicatorToLeft();
+
+        if (taskTimer != null)
+        {
+            taskTimer.StartTimer(
+                currentTaskDuration
+            );
+        }
+
+        isRunning = true;
+    }
+
+    // =========================================================
+    // RESUME AFTER WRONG ZONE
+    // =========================================================
+
+    private void ResumeTimingWithRemainingTime()
+    {
+        // Индикаторът започва ново движение
+        // отляво, но TaskTimer НЕ се нулира.
+        SetIndicatorToLeft();
+
+        if (taskTimer != null)
+        {
+            taskTimer.ResumeTimer();
+        }
+
+        isRunning = true;
     }
 
     // =========================================================
@@ -559,22 +704,8 @@ public class GastricJuiceTimingGame : MonoBehaviour
     }
 
     // =========================================================
-    // START TIMING
+    // INDICATOR RESET
     // =========================================================
-
-    public void StartTiming()
-    {
-        SetIndicatorToLeft();
-
-        if (taskTimer != null)
-        {
-            taskTimer.StartTimer(
-                juiceTaskDuration
-            );
-        }
-
-        isRunning = true;
-    }
 
     private void SetIndicatorToLeft()
     {

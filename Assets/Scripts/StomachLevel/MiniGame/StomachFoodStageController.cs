@@ -280,9 +280,6 @@ public class StomachFoodStageController : MonoBehaviour
 
         isTransitioning = true;
 
-        // Ако animator-ът липсва,
-        // запазваме функционалността
-        // с моментална смяна.
         if (foodTransitionAnimator == null)
         {
             if (currentFood != null)
@@ -324,9 +321,6 @@ public class StomachFoodStageController : MonoBehaviour
 
         isTransitioning = false;
 
-        // ВАЖНО:
-        // Този event вече се изпраща ЧАК
-        // след края на food анимацията.
         FoodStageAdvanced?.Invoke(
             currentStageIndex
         );
@@ -336,6 +330,70 @@ public class StomachFoodStageController : MonoBehaviour
         {
             CompleteDigestion();
         }
+    }
+
+    // =========================================================
+    // FINAL HIMUS EXIT
+    // =========================================================
+
+    public void PlayFinalHimusExit(
+        Action onComplete = null)
+    {
+        if (isTransitioning)
+            return;
+
+        if (activeStages == null ||
+            activeStages.Length == 0)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        int finalStageIndex =
+            activeStages.Length - 1;
+
+        // Разрешаваме тази анимация само когато
+        // действително сме стигнали до химуса.
+        if (currentStageIndex !=
+            finalStageIndex)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        GameObject currentHimus =
+            activeStages[currentStageIndex];
+
+        isTransitioning = true;
+
+        // Fallback, ако по някаква причина
+        // animator-ът не е свързан.
+        if (foodTransitionAnimator == null)
+        {
+            if (currentHimus != null)
+            {
+                currentHimus.SetActive(false);
+            }
+
+            isTransitioning = false;
+
+            onComplete?.Invoke();
+            return;
+        }
+
+        // Използваме новия PlayExitOnly(),
+        // който добавихме преди малко.
+        foodTransitionAnimator.PlayExitOnly(
+            currentHimus,
+            () =>
+            {
+                isTransitioning = false;
+
+                // Този callback идва чак след:
+                // shake → движение надолу → fade out.
+                onComplete?.Invoke();
+            }
+        );
     }
 
     // =========================================================

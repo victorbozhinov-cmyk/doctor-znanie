@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 1ef1378ff42ed1a46b39234ea55f6e16
+guid: 21f141f9f54ec0944975b5ea437e67b0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2293364342549128987
-    second: ch1_0
+      213: -2736924265827407257
+    second: understood button minigame_0
+  - first:
+      213: -8611354544920878879
+    second: understood button minigame_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch1_0
+      name: understood button minigame_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1254
-        height: 1254
+        x: 21
+        y: 91
+        width: 2132
+        height: 569
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5e8dfcdf7455c20e0800000000000000
-      internalID: -2293364342549128987
+      spriteID: 76ae53e81ed740ad0800000000000000
+      internalID: -2736924265827407257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: understood button minigame_1
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 47
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e0ab039aa25e7880800000000000000
+      internalID: -8611354544920878879
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0dcf82929970e7a4a9364a7cbd0fde76
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ch1_0: -2293364342549128987
+      understood button minigame_0: -2736924265827407257
+      understood button minigame_1: -8611354544920878879
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

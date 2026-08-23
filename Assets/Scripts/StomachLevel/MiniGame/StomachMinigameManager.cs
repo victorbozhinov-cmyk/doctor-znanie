@@ -33,8 +33,16 @@ public class StomachMinigameManager : MonoBehaviour
     [SerializeField] private GameObject markerPanel;
     [SerializeField] private Button intestineButton;
 
+    [Header("Button Showcase")]
+    [SerializeField] private UIButtonShowcaseAnimation juicesButtonShowcase;
+    [SerializeField] private UIButtonShowcaseAnimation intestineButtonShowcase;
+
+    [Header("Success")]
+    [SerializeField] private GameObject successPanel;
+
     [Header("Current Task")]
     [SerializeField] private TMP_Text currentTaskText;
+    [SerializeField] private CurrentTaskTextAnimation currentTaskTextAnimation;
 
     [Header("Task Timer")]
     [SerializeField] private StomachTaskTimer taskTimer;
@@ -68,12 +76,23 @@ public class StomachMinigameManager : MonoBehaviour
     }
 
     private int difficulty;
-
     private Coroutine progressWaitCoroutine;
 
     // =========================================================
     // UNITY
     // =========================================================
+
+    private void Awake()
+    {
+        // Ако не е свързано ръчно,
+        // автоматично го търсим върху Current Task текста.
+        if (currentTaskTextAnimation == null &&
+            currentTaskText != null)
+        {
+            currentTaskTextAnimation =
+                currentTaskText.GetComponent<CurrentTaskTextAnimation>();
+        }
+    }
 
     private void OnEnable()
     {
@@ -160,6 +179,11 @@ public class StomachMinigameManager : MonoBehaviour
         if (feedbackPanel != null)
         {
             feedbackPanel.SetActive(false);
+        }
+
+        if (successPanel != null)
+        {
+            successPanel.SetActive(false);
         }
 
         StartCoroutine(
@@ -277,7 +301,8 @@ public class StomachMinigameManager : MonoBehaviour
 
         if (juicesButton != null)
         {
-            juicesButton.interactable = true;
+            juicesButton.interactable =
+                true;
         }
 
         if (intestineButton != null)
@@ -289,6 +314,11 @@ public class StomachMinigameManager : MonoBehaviour
         SetCurrentTask(
             "Добави стомашни сокове."
         );
+
+        if (juicesButtonShowcase != null)
+        {
+            juicesButtonShowcase.PlayShowcase();
+        }
 
         if (taskTimer != null)
         {
@@ -315,6 +345,12 @@ public class StomachMinigameManager : MonoBehaviour
 
         CurrentState =
             GameState.JuicePlaying;
+
+        if (juicesButtonShowcase != null)
+        {
+            juicesButtonShowcase
+                .StopShowcaseImmediate();
+        }
 
         if (juicesButton != null)
         {
@@ -351,8 +387,6 @@ public class StomachMinigameManager : MonoBehaviour
                 .ShowJuicesMixed();
         }
 
-        // Не стартираме перисталтиката веднага.
-        // Първо изчакваме ProgressBar.
         CurrentState =
             GameState.ProgressFeedback;
 
@@ -385,6 +419,12 @@ public class StomachMinigameManager : MonoBehaviour
             juiceGame.StopAndHide();
         }
 
+        if (juicesButtonShowcase != null)
+        {
+            juicesButtonShowcase
+                .StopShowcaseImmediate();
+        }
+
         if (juicesButton != null)
         {
             juicesButton.interactable =
@@ -411,14 +451,12 @@ public class StomachMinigameManager : MonoBehaviour
         if (IsLastStageBeforeHimus() &&
             stateCardController != null)
         {
-            stateCardController.ShowChyme();
+            stateCardController
+                .ShowChyme();
         }
 
         UpdatePeristalsisTask();
 
-        // ВАЖНО:
-        // TaskTimer се стартира чак тук,
-        // т.е. след ProgressBar анимацията.
         if (taskTimer != null)
         {
             taskTimer.StartTimer(
@@ -535,10 +573,6 @@ public class StomachMinigameManager : MonoBehaviour
             feedbackPanel.SetActive(false);
         }
 
-        // =====================================================
-        // ЦЕЛИЯТ WAVE SET Е ЗАВЪРШЕН
-        // =====================================================
-
         if (currentWaves >= requiredWaves)
         {
             if (taskTimer != null)
@@ -546,14 +580,6 @@ public class StomachMinigameManager : MonoBehaviour
                 taskTimer.StopTimer();
             }
 
-            // Оттук:
-            // Food transition
-            // ↓
-            // FoodStageAdvanced event
-            // ↓
-            // Progress animation
-            // ↓
-            // следваща задача
             if (foodStageController != null)
             {
                 foodStageController
@@ -562,10 +588,6 @@ public class StomachMinigameManager : MonoBehaviour
 
             yield break;
         }
-
-        // =====================================================
-        // ИМА ОЩЕ ВЪЛНИ В СЪЩИЯ ЕТАП
-        // =====================================================
 
         CurrentState =
             GameState.Peristalsis;
@@ -581,9 +603,6 @@ public class StomachMinigameManager : MonoBehaviour
                 .ResetPeristalsis();
         }
 
-        // Тук няма ProgressBar анимация,
-        // защото progress се дава само след
-        // целия завършен wave stage.
         if (taskTimer != null)
         {
             taskTimer.ResumeTimer();
@@ -860,8 +879,6 @@ public class StomachMinigameManager : MonoBehaviour
             }
         }
 
-        // Food анимацията вече е приключила.
-        // Сега ProgressBar започва неговата анимация.
         CurrentState =
             GameState.ProgressFeedback;
 
@@ -891,13 +908,6 @@ public class StomachMinigameManager : MonoBehaviour
 
     private void OnDigestionCompleted()
     {
-        // FoodStageAdvanced се извиква непосредствено
-        // преди DigestionCompleted и вече е стартирал
-        // чакането на ProgressBar.
-        //
-        // Затова НЕ влизаме веднага във финалното
-        // състояние и не прескачаме progress анимацията.
-
         if (progressWaitCoroutine != null)
         {
             return;
@@ -941,10 +951,6 @@ public class StomachMinigameManager : MonoBehaviour
     private IEnumerator WaitForProgressAnimation(
         Action actionAfterProgress)
     {
-        // ВАЖНО:
-        // ProgressBar и Manager слушат един и същи event.
-        // Изчакваме 1 frame, за да сме сигурни,
-        // че ProgressBar вече е стартирал coroutine-а си.
         yield return null;
 
         if (progressBar != null)
@@ -984,6 +990,12 @@ public class StomachMinigameManager : MonoBehaviour
             juiceGame.StopAndHide();
         }
 
+        if (juicesButtonShowcase != null)
+        {
+            juicesButtonShowcase
+                .StopShowcaseImmediate();
+        }
+
         if (juicesButton != null)
         {
             juicesButton.interactable =
@@ -1011,6 +1023,12 @@ public class StomachMinigameManager : MonoBehaviour
             "Изпрати химуса към тънкото черво."
         );
 
+        if (intestineButtonShowcase != null)
+        {
+            intestineButtonShowcase
+                .PlayShowcase();
+        }
+
         if (taskTimer != null)
         {
             taskTimer.ResetTimer();
@@ -1037,10 +1055,27 @@ public class StomachMinigameManager : MonoBehaviour
         CurrentState =
             GameState.TransferringToIntestine;
 
+        if (intestineButtonShowcase != null)
+        {
+            intestineButtonShowcase
+                .StopShowcaseImmediate();
+        }
+
         if (intestineButton != null)
         {
             intestineButton.interactable =
                 false;
+        }
+
+        if (juicesButton != null)
+        {
+            juicesButton.interactable =
+                false;
+        }
+
+        if (markerPanel != null)
+        {
+            markerPanel.SetActive(false);
         }
 
         if (taskTimer != null)
@@ -1048,8 +1083,29 @@ public class StomachMinigameManager : MonoBehaviour
             taskTimer.StopTimer();
         }
 
+        if (totalTimer != null)
+        {
+            totalTimer.PauseTimer();
+        }
+
         IntestineTransferRequested?.Invoke();
+
+        if (foodStageController != null)
+        {
+            foodStageController
+                .PlayFinalHimusExit(
+                    CompleteMinigameAfterIntestineTransfer
+                );
+        }
+        else
+        {
+            CompleteMinigameAfterIntestineTransfer();
+        }
     }
+
+    // =========================================================
+    // MINIGAME COMPLETE
+    // =========================================================
 
     public void CompleteMinigameAfterIntestineTransfer()
     {
@@ -1062,9 +1118,57 @@ public class StomachMinigameManager : MonoBehaviour
         CurrentState =
             GameState.Finished;
 
+        if (juicesButtonShowcase != null)
+        {
+            juicesButtonShowcase
+                .StopShowcaseImmediate();
+        }
+
+        if (intestineButtonShowcase != null)
+        {
+            intestineButtonShowcase
+                .StopShowcaseImmediate();
+        }
+
         if (totalTimer != null)
         {
             totalTimer.PauseTimer();
+        }
+
+        if (taskTimer != null)
+        {
+            taskTimer.StopTimer();
+        }
+
+        if (markerPanel != null)
+        {
+            markerPanel.SetActive(false);
+        }
+
+        if (juiceGame != null)
+        {
+            juiceGame.StopAndHide();
+        }
+
+        if (juicesButton != null)
+        {
+            juicesButton.interactable =
+                false;
+        }
+
+        if (intestineButton != null)
+        {
+            intestineButton.interactable =
+                false;
+        }
+
+        if (successPanel != null)
+        {
+            successPanel.SetActive(true);
+
+            successPanel
+                .transform
+                .SetAsLastSibling();
         }
     }
 
@@ -1100,10 +1204,23 @@ public class StomachMinigameManager : MonoBehaviour
     private void SetCurrentTask(
         string taskText)
     {
-        if (currentTaskText != null)
+        if (currentTaskText == null)
+            return;
+
+        // Проверяваме дали текстът действително
+        // се променя.
+        bool textChanged =
+            currentTaskText.text != taskText;
+
+        currentTaskText.text =
+            taskText;
+
+        // Анимацията се пуска само при
+        // реална промяна на задачата.
+        if (textChanged &&
+            currentTaskTextAnimation != null)
         {
-            currentTaskText.text =
-                taskText;
+            currentTaskTextAnimation.Play();
         }
     }
 }
