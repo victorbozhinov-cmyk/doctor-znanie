@@ -6,6 +6,10 @@ public class LiverMinigameTimer : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TMP_Text timerText;
 
+    [Header("Game References")]
+    [SerializeField] private LiverHealthController liverHealthController;
+    [SerializeField] private GameObject minigameSuccessPanel;
+
     [Header("Time By Difficulty")]
     [SerializeField] private float easyTime = 60f;
     [SerializeField] private float mediumTime = 75f;
@@ -13,23 +17,40 @@ public class LiverMinigameTimer : MonoBehaviour
 
     private float remainingTime;
     private bool timerRunning;
+    private bool finished = false;
 
     public bool TimerRunning => timerRunning;
     public float RemainingTime => remainingTime;
 
     private void Start()
     {
+        // Success панелът винаги започва скрит
+        if (minigameSuccessPanel != null)
+        {
+            minigameSuccessPanel.SetActive(false);
+        }
+
         SetTimeFromDifficulty();
 
         timerRunning = true;
+        finished = false;
 
         UpdateTimerText();
     }
 
     private void Update()
     {
-        if (!timerRunning)
+        if (!timerRunning || finished)
             return;
+
+        // Ако вече сме загубили, таймерът спира
+        // и SuccessPanel НЯМА да се появи.
+        if (liverHealthController != null &&
+            liverHealthController.IsGameOver)
+        {
+            timerRunning = false;
+            return;
+        }
 
         remainingTime -= Time.deltaTime;
 
@@ -116,7 +137,25 @@ public class LiverMinigameTimer : MonoBehaviour
 
     private void TimerFinished()
     {
-        Debug.Log("Таймерът свърши!");
+        if (finished)
+            return;
+
+        // Допълнителна проверка:
+        // ако сме загубили, няма победа.
+        if (liverHealthController != null &&
+            liverHealthController.IsGameOver)
+        {
+            return;
+        }
+
+        finished = true;
+
+        Debug.Log("МИСИЯТА Е ИЗПЪЛНЕНА!");
+
+        if (minigameSuccessPanel != null)
+        {
+            minigameSuccessPanel.SetActive(true);
+        }
     }
 
     public void StopTimer()
@@ -126,7 +165,9 @@ public class LiverMinigameTimer : MonoBehaviour
 
     public void ResumeTimer()
     {
-        if (remainingTime > 0f)
+        if (remainingTime > 0f && !finished)
+        {
             timerRunning = true;
+        }
     }
 }

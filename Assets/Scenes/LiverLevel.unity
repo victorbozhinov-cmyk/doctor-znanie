@@ -1705,6 +1705,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LiverMinigameTimer
   timerText: {fileID: 614096576}
+  liverHealthController: {fileID: 560874765}
+  minigameSuccessPanel: {fileID: 825984137}
   easyTime: 60
   mediumTime: 75
   hardTime: 90
@@ -3554,7 +3556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &825984138
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4442,8 +4444,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -243, y: -293}
-  m_SizeDelta: {x: 458.3242, y: 279.5076}
+  m_AnchoredPosition: {x: -241.9851, y: -302.18}
+  m_SizeDelta: {x: 466.4435, y: 279.5076}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1174645051
 MonoBehaviour:
@@ -5821,8 +5823,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 4.4074, y: 0}
+  m_SizeDelta: {x: 30.7655, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532946923
 MonoBehaviour:
@@ -6337,8 +6339,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 225, y: -341.82}
-  m_SizeDelta: {x: 452.9003, y: 279.51}
+  m_AnchoredPosition: {x: 224.58691, y: -351}
+  m_SizeDelta: {x: 476.2439, y: 279.51}
   m_Pivot: {x: 0.45608675, y: 0.3253491}
 --- !u!114 &1774217716
 MonoBehaviour:
@@ -6799,7 +6801,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1100, y: 900}
+  m_SizeDelta: {x: 1100, y: 826.0789}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1857296221
 MonoBehaviour:
@@ -6821,7 +6823,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -117778478377409196, guid: 1493cce09f1ec7f4198804c9fc458d96, type: 3}
+  m_Sprite: {fileID: -6841127848874514743, guid: 92694d1c31e137e4ba1bd8c07de85408, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
