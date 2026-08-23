@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UIButtonHoverEffect : MonoBehaviour,
     IPointerEnterHandler,
@@ -7,61 +8,189 @@ public class UIButtonHoverEffect : MonoBehaviour,
     IPointerDownHandler,
     IPointerUpHandler
 {
+    [Header("Scale")]
     [SerializeField] private float hoverScale = 1.05f;
     [SerializeField] private float pressedScale = 0.96f;
     [SerializeField] private float speed = 12f;
 
+    [Header("Interactable Check")]
+    [SerializeField] private bool disableWhenNotInteractable = false;
+
     private Vector3 originalScale;
     private Vector3 targetScale;
+
     private bool isPointerInside;
+
+    private Button button;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Awake()
     {
-        originalScale = transform.localScale;
-        targetScale = originalScale;
+        originalScale =
+            transform.localScale;
+
+        targetScale =
+            originalScale;
+
+        button =
+            GetComponent<Button>();
     }
 
     private void Update()
     {
-        transform.localScale = Vector3.Lerp(
-            transform.localScale,
-            targetScale,
-            1f - Mathf.Exp(-speed * Time.unscaledDeltaTime)
-        );
+        // Само ако тази настройка е включена
+        // за конкретния бутон.
+        if (ShouldBlockEffect())
+        {
+            targetScale =
+                originalScale;
+        }
+        else
+        {
+            // Ако бутонът отново стане активен,
+            // докато курсорът вече е върху него,
+            // hover ефектът отново се позволява.
+            if (isPointerInside &&
+                targetScale == originalScale)
+            {
+                targetScale =
+                    originalScale *
+                    hoverScale;
+            }
+        }
+
+        transform.localScale =
+            Vector3.Lerp(
+                transform.localScale,
+                targetScale,
+                1f - Mathf.Exp(
+                    -speed *
+                    Time.unscaledDeltaTime
+                )
+            );
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    // =========================================================
+    // POINTER ENTER
+    // =========================================================
+
+    public void OnPointerEnter(
+        PointerEventData eventData)
     {
         isPointerInside = true;
-        targetScale = originalScale * hoverScale;
 
-        UISoundManager.Instance?.PlayHover();
+        if (ShouldBlockEffect())
+        {
+            targetScale =
+                originalScale;
+
+            return;
+        }
+
+        targetScale =
+            originalScale *
+            hoverScale;
+
+        UISoundManager.Instance
+            ?.PlayHover();
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    // =========================================================
+    // POINTER EXIT
+    // =========================================================
+
+    public void OnPointerExit(
+        PointerEventData eventData)
     {
         isPointerInside = false;
-        targetScale = originalScale;
+
+        targetScale =
+            originalScale;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    // =========================================================
+    // POINTER DOWN
+    // =========================================================
+
+    public void OnPointerDown(
+        PointerEventData eventData)
     {
-        targetScale = originalScale * pressedScale;
+        if (ShouldBlockEffect())
+        {
+            targetScale =
+                originalScale;
 
-        UISoundManager.Instance?.PlayClick();
+            return;
+        }
+
+        targetScale =
+            originalScale *
+            pressedScale;
+
+        UISoundManager.Instance
+            ?.PlayClick();
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    // =========================================================
+    // POINTER UP
+    // =========================================================
+
+    public void OnPointerUp(
+        PointerEventData eventData)
     {
-        targetScale = isPointerInside
-            ? originalScale * hoverScale
-            : originalScale;
+        if (ShouldBlockEffect())
+        {
+            targetScale =
+                originalScale;
+
+            return;
+        }
+
+        targetScale =
+            isPointerInside
+                ? originalScale * hoverScale
+                : originalScale;
     }
+
+    // =========================================================
+    // CHECK
+    // =========================================================
+
+    private bool ShouldBlockEffect()
+    {
+        // Ако настройката не е включена,
+        // работим точно както старият script.
+        if (!disableWhenNotInteractable)
+        {
+            return false;
+        }
+
+        // Ако по някаква причина няма Button,
+        // също не блокираме ефекта.
+        if (button == null)
+        {
+            return false;
+        }
+
+        return !button.interactable;
+    }
+
+    // =========================================================
+    // DISABLE
+    // =========================================================
 
     private void OnDisable()
     {
-        transform.localScale = originalScale;
-        targetScale = originalScale;
-        isPointerInside = false;
+        transform.localScale =
+            originalScale;
+
+        targetScale =
+            originalScale;
+
+        isPointerInside =
+            false;
     }
 }

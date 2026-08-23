@@ -18,8 +18,29 @@ public class StomachStateCardController : MonoBehaviour
     [SerializeField] private GameObject irritatedCard;
     [SerializeField] private float irritatedDuration = 2f;
 
+    [Header("Panel Animation")]
+    [SerializeField] private StomachStatePanelAnimation statePanelAnimation;
+
+    [Header("Irritation Animation")]
+    [SerializeField] private StomachIrritationAnimation irritationAnimation;
+
     private GameObject currentPermanentCard;
     private Coroutine irritatedCoroutine;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
+
+    private void Awake()
+    {
+        // Ако двата скрипта са върху един и същи обект,
+        // намираме анимацията автоматично.
+        if (statePanelAnimation == null)
+        {
+            statePanelAnimation =
+                GetComponent<StomachStatePanelAnimation>();
+        }
+    }
 
     private void Start()
     {
@@ -27,13 +48,12 @@ public class StomachStateCardController : MonoBehaviour
         ShowStartingFoodCard();
     }
 
+    // =========================================================
+    // STARTING CARD
+    // =========================================================
+
     private void ShowStartingFoodCard()
     {
-        // Difficulty:
-        // 0 = Easy
-        // 1 = Medium
-        // 2 = Hard
-
         int difficulty = PlayerPrefs.GetInt(
             "Difficulty",
             1
@@ -43,26 +63,21 @@ public class StomachStateCardController : MonoBehaviour
         {
             case 0:
                 ShowLightFood();
-                Debug.Log(
-                    "Stomach difficulty: EASY → LightFoodCard"
-                );
                 break;
 
             case 2:
                 ShowHeavyFood();
-                Debug.Log(
-                    "Stomach difficulty: HARD → HeavyFoodCard"
-                );
                 break;
 
             default:
                 ShowMediumFood();
-                Debug.Log(
-                    "Stomach difficulty: MEDIUM → MediumFoodCard"
-                );
                 break;
         }
     }
+
+    // =========================================================
+    // CARD VISIBILITY
+    // =========================================================
 
     private void HideAllCards()
     {
@@ -78,14 +93,24 @@ public class StomachStateCardController : MonoBehaviour
         SetCardActive(irritatedCard, false);
     }
 
-    private void ShowPermanentCard(GameObject card)
+    private void ShowPermanentCard(
+        GameObject card)
     {
         if (card == null)
             return;
 
+        // Проверяваме дали действително ще има
+        // визуална смяна на карта.
+        bool cardActuallyChanged =
+            currentPermanentCard != card ||
+            !card.activeSelf;
+
         if (irritatedCoroutine != null)
         {
-            StopCoroutine(irritatedCoroutine);
+            StopCoroutine(
+                irritatedCoroutine
+            );
+
             irritatedCoroutine = null;
         }
 
@@ -94,7 +119,16 @@ public class StomachStateCardController : MonoBehaviour
         card.SetActive(true);
 
         currentPermanentCard = card;
+
+        if (cardActuallyChanged)
+        {
+            PlayPanelChangeAnimation();
+        }
     }
+
+    // =========================================================
+    // PERMANENT STATES
+    // =========================================================
 
     public void ShowLightFood()
     {
@@ -128,17 +162,32 @@ public class StomachStateCardController : MonoBehaviour
 
     public void ShowReadyForIntestine()
     {
-        ShowPermanentCard(readyForIntestineCard);
+        ShowPermanentCard(
+            readyForIntestineCard
+        );
     }
+
+    // =========================================================
+    // IRRITATED
+    // =========================================================
 
     public void ShowIrritated()
     {
         if (currentPermanentCard == null)
             return;
 
+        // Анимация на самия стомах.
+        if (irritationAnimation != null)
+        {
+            irritationAnimation
+                .PlayIrritation();
+        }
+
         if (irritatedCoroutine != null)
         {
-            StopCoroutine(irritatedCoroutine);
+            StopCoroutine(
+                irritatedCoroutine
+            );
         }
 
         irritatedCoroutine =
@@ -152,16 +201,26 @@ public class StomachStateCardController : MonoBehaviour
         GameObject previousCard =
             currentPermanentCard;
 
+        // ---------------------------------------------
+        // IRRITATED CARD
+        // ---------------------------------------------
+
         HideAllCards();
 
         if (irritatedCard != null)
         {
             irritatedCard.SetActive(true);
+
+            PlayPanelChangeAnimation();
         }
 
         yield return new WaitForSeconds(
             irritatedDuration
         );
+
+        // ---------------------------------------------
+        // RETURN TO PREVIOUS CARD
+        // ---------------------------------------------
 
         SetCardActive(
             irritatedCard,
@@ -174,10 +233,31 @@ public class StomachStateCardController : MonoBehaviour
 
             currentPermanentCard =
                 previousCard;
+
+            // Подскача отново при връщането
+            // към предишната карта.
+            PlayPanelChangeAnimation();
         }
 
         irritatedCoroutine = null;
     }
+
+    // =========================================================
+    // PANEL ANIMATION
+    // =========================================================
+
+    private void PlayPanelChangeAnimation()
+    {
+        if (statePanelAnimation != null)
+        {
+            statePanelAnimation
+                .PlayCardChange();
+        }
+    }
+
+    // =========================================================
+    // HELPER
+    // =========================================================
 
     private void SetCardActive(
         GameObject card,
