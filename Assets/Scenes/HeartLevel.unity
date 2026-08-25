@@ -251,6 +251,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &5551345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,6 +587,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &24244964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,6 +723,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &35636241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,6 +1701,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &122696174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1960,6 +1964,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &131730354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2216,6 +2221,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &147935663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2555,6 +2561,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &183375865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3145,6 +3152,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &237836680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3472,6 +3480,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &259051819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3714,6 +3723,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &270647895
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,6 +3778,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &270647898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4137,6 +4148,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &277483577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5125,6 +5137,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &333387732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5336,6 +5349,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &342957864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5986,6 +6000,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &409940497
 GameObject:
   m_ObjectHideFlags: 0
@@ -6159,6 +6174,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &414913238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6429,6 +6445,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &454318682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7294,6 +7311,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &537064806
 GameObject:
   m_ObjectHideFlags: 0
@@ -7810,6 +7828,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &625969928
 GameObject:
   m_ObjectHideFlags: 0
@@ -8296,6 +8315,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &663327971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9537,6 +9557,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &795327071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10024,6 +10045,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &835512052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10750,6 +10772,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &905614638
 GameObject:
   m_ObjectHideFlags: 0
@@ -11158,6 +11181,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &968449826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12046,6 +12070,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1001464939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12626,6 +12651,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1027455528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12871,6 +12897,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1056609742
 GameObject:
   m_ObjectHideFlags: 0
@@ -12925,6 +12952,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1056609745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14417,6 +14445,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1165933613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14736,6 +14765,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1196191413
 GameObject:
   m_ObjectHideFlags: 0
@@ -15097,6 +15127,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1230261301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15245,6 +15276,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1240074930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15488,6 +15520,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1243715739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15503,6 +15536,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1271064154
 GameObject:
   m_ObjectHideFlags: 0
@@ -16282,6 +16316,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1346535694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17256,6 +17291,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1439643803
 GameObject:
   m_ObjectHideFlags: 0
@@ -17611,6 +17647,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1452309250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18627,6 +18664,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1553780267
 GameObject:
   m_ObjectHideFlags: 0
@@ -19378,6 +19416,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1633241174
 GameObject:
   m_ObjectHideFlags: 0
@@ -20689,6 +20728,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1700433182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21020,6 +21060,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1710745470
 GameObject:
   m_ObjectHideFlags: 0
@@ -21885,6 +21926,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1780244047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22707,6 +22749,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1922495037
 GameObject:
   m_ObjectHideFlags: 0
@@ -23790,6 +23833,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1999786160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23980,6 +24024,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &2002920266
 GameObject:
   m_ObjectHideFlags: 0
@@ -24235,6 +24280,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &2021691641 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6066145229733249659, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
@@ -24557,6 +24603,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &2055974414
 GameObject:
   m_ObjectHideFlags: 0
@@ -24848,6 +24895,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &2105159612
 MonoBehaviour:
   m_ObjectHideFlags: 0

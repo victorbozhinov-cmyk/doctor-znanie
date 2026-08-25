@@ -11,9 +11,14 @@ public class BrainPuzzleDropZone : MonoBehaviour
     [SerializeField] private GameObject placedLabel;
 
     [Header("Visual Feedback")]
-    [SerializeField] private Color correctColor = Color.green;
-    [SerializeField] private Color wrongColor = Color.red;
+    [SerializeField] private Color correctColor =
+        new Color(0.15f, 1f, 0.3f, 1f);
+
+    [SerializeField] private Color wrongColor =
+        new Color(1f, 0.12f, 0.18f, 1f);
+
     [SerializeField] private float feedbackDuration = 0.4f;
+
     [SerializeField] private Vector2 outlineDistance =
         new Vector2(4f, -4f);
 
@@ -38,7 +43,12 @@ public class BrainPuzzleDropZone : MonoBehaviour
         }
 
         outline.effectDistance = outlineDistance;
-        outline.useGraphicAlpha = true;
+
+        // Важно:
+        // не използваме alpha-та на самия slot,
+        // за да остане feedback цветът ярък.
+        outline.useGraphicAlpha = false;
+
         outline.enabled = false;
 
         SetupPlacedLabel();
@@ -125,7 +135,6 @@ public class BrainPuzzleDropZone : MonoBehaviour
             }
         }
 
-        // Появява се веднага.
         placedCanvasGroup.alpha = 1f;
         placedCanvasGroup.blocksRaycasts = false;
         placedCanvasGroup.interactable = false;
@@ -158,14 +167,21 @@ public class BrainPuzzleDropZone : MonoBehaviour
     private IEnumerator FeedbackRoutine(
         Color color)
     {
-        outline.effectColor = color;
-        outline.enabled = true;
+        if (outline != null)
+        {
+            outline.effectColor = color;
+            outline.enabled = true;
+        }
 
         yield return new WaitForSeconds(
             feedbackDuration
         );
 
-        outline.enabled = false;
+        if (outline != null)
+        {
+            outline.enabled = false;
+        }
+
         feedbackCoroutine = null;
     }
 

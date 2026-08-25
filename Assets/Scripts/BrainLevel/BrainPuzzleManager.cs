@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class BrainPuzzleManager : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class BrainPuzzleManager : MonoBehaviour
 
     [Header("Puzzle UI")]
     [SerializeField] private GameObject infoOverlay;
+    [SerializeField] private GameObject settingsOverlay;
+    [SerializeField] private GameObject exitConfirmationOverlay;
+    [SerializeField] private GameObject puzzleSuccessOverlay;
+
+    [Header("Difficulty")]
+    [SerializeField] private DifficultySelector difficultySelector;
 
     [Header("Order")]
     [SerializeField] private bool shuffleOrder = true;
@@ -83,6 +90,11 @@ public class BrainPuzzleManager : MonoBehaviour
         currentIndex = 0;
 
         CloseInfo();
+        CloseSettings();
+        CloseExitConfirmation();
+        HidePuzzleSuccess();
+
+        LockDifficulty();
 
         ResetDropZones();
         SetupLives();
@@ -103,6 +115,11 @@ public class BrainPuzzleManager : MonoBehaviour
         currentIndex = 0;
 
         CloseInfo();
+        CloseSettings();
+        CloseExitConfirmation();
+        HidePuzzleSuccess();
+
+        LockDifficulty();
 
         ResetDropZones();
         SetupLives();
@@ -142,6 +159,91 @@ public class BrainPuzzleManager : MonoBehaviour
         if (infoOverlay != null)
         {
             infoOverlay.SetActive(false);
+        }
+    }
+
+    // -------------------------
+    // SETTINGS PANEL
+    // -------------------------
+
+    public void OpenSettings()
+    {
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(true);
+        }
+    }
+
+    public void CloseSettings()
+    {
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+    }
+
+    // -------------------------
+    // EXIT CONFIRMATION
+    // -------------------------
+
+    public void OpenExitConfirmation()
+    {
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(true);
+        }
+    }
+
+    public void CloseExitConfirmation()
+    {
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+    }
+
+    public void ExitToBodyMap()
+    {
+        SceneManager.LoadScene("BodyMap");
+    }
+
+    // -------------------------
+    // PUZZLE SUCCESS
+    // -------------------------
+
+    public void ShowPuzzleSuccess()
+    {
+        if (puzzleSuccessOverlay != null)
+        {
+            puzzleSuccessOverlay.SetActive(true);
+        }
+    }
+
+    public void HidePuzzleSuccess()
+    {
+        if (puzzleSuccessOverlay != null)
+        {
+            puzzleSuccessOverlay.SetActive(false);
+        }
+    }
+
+    // -------------------------
+    // DIFFICULTY
+    // -------------------------
+
+    private void LockDifficulty()
+    {
+        if (difficultySelector != null)
+        {
+            difficultySelector.SetLocked(true);
+        }
+    }
+
+    public void UnlockDifficulty()
+    {
+        if (difficultySelector != null)
+        {
+            difficultySelector.SetLocked(false);
         }
     }
 
@@ -497,6 +599,10 @@ public class BrainPuzzleManager : MonoBehaviour
         gameOver = true;
 
         CloseInfo();
+        CloseSettings();
+        CloseExitConfirmation();
+        HidePuzzleSuccess();
+
         HideAllLabelImages();
 
         if (currentLabel != null)
@@ -516,12 +622,17 @@ public class BrainPuzzleManager : MonoBehaviour
         puzzleCompleted = true;
 
         CloseInfo();
+        CloseSettings();
+        CloseExitConfirmation();
+
         HideAllLabelImages();
 
         if (currentLabel != null)
         {
             currentLabel.SetActive(false);
         }
+
+        ShowPuzzleSuccess();
 
         Debug.Log(
             "Brain Puzzle е завършен успешно!"

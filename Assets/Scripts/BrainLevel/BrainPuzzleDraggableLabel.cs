@@ -28,8 +28,9 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
     [SerializeField] private Color correctColor =
         new Color(0.15f, 1f, 0.3f, 1f);
 
+    // По-ярко неоново червено при грешка.
     [SerializeField] private Color wrongColor =
-        new Color(1f, 0.08f, 0.08f, 1f);
+        new Color(1f, 0.22f, 0.28f, 1f);
 
     [SerializeField] private float feedbackDuration = 0.25f;
 
@@ -410,14 +411,12 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
                 true;
         }
 
-        // POP нагоре.
         yield return ScaleRoutine(
             originalScale,
             originalScale * correctPopScale,
             correctPopDuration
         );
 
-        // POP обратно.
         yield return ScaleRoutine(
             originalScale * correctPopScale,
             originalScale,
@@ -428,7 +427,6 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
             correctHoldDuration
         );
 
-        // Fade-out на синята draggable карта.
         yield return FadeRoutine(
             1f,
             0f,
@@ -441,19 +439,14 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
                 false;
         }
 
-        // Показваме цветната поставена карта.
         dropZone.ShowPlacedLabel();
 
         yield return new WaitForSeconds(
             placedLabelDelay
         );
 
-        // Докато CurrentLabel е невидим,
-        // го връщаме обратно долу.
         ReturnToStartInstantInvisible();
 
-        // Едва сега казваме на Manager-а
-        // да премине към следващата част.
         if (puzzleManager != null)
         {
             puzzleManager
@@ -462,8 +455,6 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
                 );
         }
 
-        // Ако това е била последната част,
-        // не показваме нов CurrentLabel.
         if (puzzleManager != null &&
             puzzleManager.IsPuzzleCompleted)
         {
@@ -475,7 +466,6 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
             yield break;
         }
 
-        // Новият етикет се появява долу.
         yield return FadeRoutine(
             0f,
             1f,
@@ -622,8 +612,6 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
         isDragging =
             false;
 
-        // Остава заключен, докато
-        // новият label не направи fade-in.
         isLocked =
             true;
 

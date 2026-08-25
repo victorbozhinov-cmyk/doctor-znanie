@@ -9,6 +9,7 @@ public class BrainLevelNavigation : MonoBehaviour
     [Header("Main Panels")]
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject puzzlePanel;
+    [SerializeField] private GameObject minigamePanel;
 
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverOverlay;
@@ -36,9 +37,17 @@ public class BrainLevelNavigation : MonoBehaviour
         {
             puzzleSuccessOverlay.SetActive(false);
         }
+
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(false);
+        }
     }
 
+    // -------------------------
     // START PANEL -> PUZZLE
+    // -------------------------
+
     public void StartBrainPuzzle()
     {
         if (startPanel != null)
@@ -51,13 +60,21 @@ public class BrainLevelNavigation : MonoBehaviour
             puzzlePanel.SetActive(true);
         }
 
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(false);
+        }
+
         if (puzzleManager != null)
         {
             puzzleManager.StartPuzzle();
         }
     }
 
+    // -------------------------
     // GAME OVER
+    // -------------------------
+
     public void ShowGameOver()
     {
         if (gameOverOverlay != null)
@@ -71,7 +88,10 @@ public class BrainLevelNavigation : MonoBehaviour
         }
     }
 
-    // ОПИТАЙ ПАК
+    // -------------------------
+    // RETRY
+    // -------------------------
+
     // Не започва пъзела веднага.
     // Връща играча на StartPanel.
     public void RetryPuzzle()
@@ -79,6 +99,7 @@ public class BrainLevelNavigation : MonoBehaviour
         if (puzzleManager != null)
         {
             puzzleManager.ResetPuzzle();
+            puzzleManager.UnlockDifficulty();
         }
 
         if (gameOverPanel != null)
@@ -96,6 +117,11 @@ public class BrainLevelNavigation : MonoBehaviour
             puzzleSuccessOverlay.SetActive(false);
         }
 
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(false);
+        }
+
         if (puzzlePanel != null)
         {
             puzzlePanel.SetActive(false);
@@ -107,6 +133,10 @@ public class BrainLevelNavigation : MonoBehaviour
         }
     }
 
+    // -------------------------
+    // PUZZLE SUCCESS
+    // -------------------------
+
     public void ShowPuzzleSuccess()
     {
         if (puzzleSuccessOverlay != null)
@@ -114,6 +144,32 @@ public class BrainLevelNavigation : MonoBehaviour
             puzzleSuccessOverlay.SetActive(true);
         }
     }
+
+    // -------------------------
+    // PUZZLE -> MINIGAME
+    // -------------------------
+
+    public void OpenMinigame()
+    {
+        if (puzzleSuccessOverlay != null)
+        {
+            puzzleSuccessOverlay.SetActive(false);
+        }
+
+        if (puzzlePanel != null)
+        {
+            puzzlePanel.SetActive(false);
+        }
+
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(true);
+        }
+    }
+
+    // -------------------------
+    // EXIT
+    // -------------------------
 
     public void ExitToBodyMap()
     {

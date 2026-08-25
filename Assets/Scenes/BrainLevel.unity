@@ -447,6 +447,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &35419512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,8 +714,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrainLevelNavigation
   puzzleManager: {fileID: 877181036}
-  startPanel: {fileID: 0}
+  startPanel: {fileID: 1123340417}
   puzzlePanel: {fileID: 1805733783}
+  minigamePanel: {fileID: 1147965001}
   gameOverOverlay: {fileID: 970726060}
   gameOverPanel: {fileID: 58074729}
   puzzleSuccessOverlay: {fileID: 737731898}
@@ -1087,7 +1089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &92913435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1597,6 +1599,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &168294226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,8 +1644,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartLevelNavigation, Assembly-CSharp
+      - m_Target: {fileID: 877181036}
+        m_TargetAssemblyTypeName: BrainPuzzleManager, Assembly-CSharp
         m_MethodName: OpenExitConfirmation
         m_Mode: 1
         m_Arguments:
@@ -1893,8 +1896,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 231, y: -180}
-  m_SizeDelta: {x: 410.27, y: 138.24}
+  m_AnchoredPosition: {x: 239.30225, y: -168.63034}
+  m_SizeDelta: {x: 448.2701, y: 172.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &184296205
 MonoBehaviour:
@@ -1911,6 +1914,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &184296206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1955,9 +1959,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartLevelNavigation, Assembly-CSharp
-        m_MethodName: ExitLevel
+      - m_Target: {fileID: 877181036}
+        m_TargetAssemblyTypeName: BrainPuzzleManager, Assembly-CSharp
+        m_MethodName: ExitToBodyMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2022,7 +2026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &186617665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2287,6 +2291,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &197836784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2778,6 +2783,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &319460327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3162,6 +3168,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &339968205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3206,8 +3213,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LevelSettingsOverlay, Assembly-CSharp
+      - m_Target: {fileID: 877181036}
+        m_TargetAssemblyTypeName: BrainPuzzleManager, Assembly-CSharp
         m_MethodName: OpenSettings
         m_Mode: 1
         m_Arguments:
@@ -3592,6 +3599,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &363668454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3828,6 +3836,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &366252245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4338,6 +4347,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &384130078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4701,6 +4711,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &420168550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5219,6 +5230,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &466025849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5381,6 +5393,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &466327808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6498,6 +6511,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &616437779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7001,6 +7015,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &631064464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7601,6 +7616,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &694230828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7733,8 +7749,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -183}
-  m_SizeDelta: {x: 730, y: 177}
+  m_AnchoredPosition: {x: 0, y: -356.63068}
+  m_SizeDelta: {x: 647, y: 266.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &694778238
 MonoBehaviour:
@@ -7751,6 +7767,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &694778239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7795,9 +7812,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartLevelManager, Assembly-CSharp
-        m_MethodName: ShowMiniGamePanel
+      - m_Target: {fileID: 66230984}
+        m_TargetAssemblyTypeName: BrainLevelNavigation, Assembly-CSharp
+        m_MethodName: OpenMinigame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7827,7 +7844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2130995313419599771, guid: 4d5eb620494bde04f96773f384eb07ba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fab0b373b65c3c241a127f256ed67ef4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8568,8 +8585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -215, y: -180}
-  m_SizeDelta: {x: 410.2715, y: 138.2478}
+  m_AnchoredPosition: {x: -222.88574, y: -168.63034}
+  m_SizeDelta: {x: 445.7715, y: 166.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &773112044
 MonoBehaviour:
@@ -8586,6 +8603,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &773112045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8630,8 +8648,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartLevelNavigation, Assembly-CSharp
+      - m_Target: {fileID: 877181036}
+        m_TargetAssemblyTypeName: BrainPuzzleManager, Assembly-CSharp
         m_MethodName: CloseExitConfirmation
         m_Mode: 1
         m_Arguments:
@@ -10329,14 +10347,14 @@ PrefabInstance:
     - target: {fileID: 5292430193297423664, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 877181036}
     - target: {fileID: 5292430193297423664, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseSettings
       objectReference: {fileID: 0}
     - target: {fileID: 5292430193297423664, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LevelSettingsOverlay, Assembly-CSharp
+      value: BrainPuzzleManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5353349049533821966, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10828,6 +10846,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &872034888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10949,6 +10968,10 @@ MonoBehaviour:
   lifeHeart2: {fileID: 363668454}
   lifeHeart3: {fileID: 1440868760}
   infoOverlay: {fileID: 1410024519}
+  settingsOverlay: {fileID: 315198473}
+  exitConfirmationOverlay: {fileID: 1627943966}
+  puzzleSuccessOverlay: {fileID: 737731898}
+  difficultySelector: {fileID: 1788846485}
   shuffleOrder: 1
   onWrongPlacement:
     m_PersistentCalls:
@@ -11376,6 +11399,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &930355005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11654,6 +11678,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &937689322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12062,6 +12087,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &967307357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12285,6 +12311,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &972238690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12648,6 +12675,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1045044811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13041,7 +13069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1090932618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13538,6 +13566,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1110251221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14168,6 +14197,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1201289233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14390,8 +14420,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: 0}
-  m_SizeDelta: {x: 1155.0571, y: 856.1486}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1519.3071, y: 941.3984}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1218867260
 MonoBehaviour:
@@ -14441,7 +14471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -664173932545329964, guid: 2cdf29bdd1219d64b89478637debc9c3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be13426748a4f494d9994494a283165a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -14476,7 +14506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1224793008
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15297,6 +15327,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1280967117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15746,6 +15777,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1295906364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16593,7 +16625,7 @@ MonoBehaviour:
   hoverGlowColor: {r: 1, g: 1, b: 1, a: 1}
   hoverGlowAlpha: 0.25
   correctColor: {r: 0.15, g: 1, b: 0.3, a: 1}
-  wrongColor: {r: 1, g: 0.08, b: 0.08, a: 1}
+  wrongColor: {r: 1, g: 0.21960784, b: 0.2784314, a: 1}
   feedbackDuration: 0.45
   feedbackOutlineDistance: {x: 6, y: -6}
   correctPopScale: 1.08
@@ -16658,6 +16690,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1361977933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16882,7 +16915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1410024520
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17108,6 +17141,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1420234324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17294,7 +17328,7 @@ MonoBehaviour:
   acceptedPart: 0
   placedLabel: {fileID: 1224793007}
   correctColor: {r: 0, g: 1, b: 0, a: 1}
-  wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0.65678, a: 1}
   feedbackDuration: 0.4
   outlineDistance: {x: 4, y: -4}
 --- !u!1 &1440868760
@@ -17559,6 +17593,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1458347491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17710,6 +17745,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1462768197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17781,6 +17817,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1462768199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17911,7 +17948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1501284409
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18022,6 +18059,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1502947364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18207,6 +18245,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1509202272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18660,6 +18699,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1531398103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18998,6 +19038,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1622797179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19511,6 +19552,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1657405523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19946,6 +19988,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1709487557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20465,6 +20508,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1761803995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20714,6 +20758,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1778031428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20883,6 +20928,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788479077}
   m_CullTransparentMesh: 1
+--- !u!114 &1788846485 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8112820559975315700, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
+  m_PrefabInstance: {fileID: 847647411}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106ac9f2be86d5948b2ff4b3d1d09fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultySelector
 --- !u!1 &1797837695
 GameObject:
   m_ObjectHideFlags: 0
@@ -20937,6 +20993,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1797837698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21158,8 +21215,8 @@ RectTransform:
   - {fileID: 1456654116}
   - {fileID: 877181035}
   - {fileID: 917731950}
-  - {fileID: 737731902}
   - {fileID: 910802649}
+  - {fileID: 737731902}
   - {fileID: 1627943967}
   - {fileID: 1410024520}
   - {fileID: 315198474}
@@ -21543,6 +21600,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1857463023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21675,8 +21733,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: 0}
-  m_SizeDelta: {x: 1035.0898, y: 700.3897}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1343.3398, y: 829.1396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1865366722
 MonoBehaviour:
@@ -21726,9 +21784,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 887a02b5962d2984aa548068d6928280, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3dce783b1cb5474fa345d6d426af1d9, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -22645,6 +22703,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1937163809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23041,6 +23100,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &1974385628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23393,7 +23453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1988156485
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24075,6 +24135,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &2011118912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24247,6 +24308,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &2021943057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24825,6 +24887,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &2059548145
 GameObject:
   m_ObjectHideFlags: 0
@@ -25118,6 +25181,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 1
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!114 &2075773967
 MonoBehaviour:
   m_ObjectHideFlags: 0
