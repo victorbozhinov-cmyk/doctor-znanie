@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 93d16a944d400c547b8a1c27573794ee
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2542535169371753246
+    second: nerveAvatarFrontImage_0
+  - first:
+      213: 1633968116304683812
+    second: nerveAvatarFrontImage_1
+  - first:
+      213: 7117832390077922520
+    second: nerveAvatarFrontImage_2
+  - first:
+      213: -4634503673427010017
+    second: nerveAvatarFrontImage_3
+  - first:
+      213: 1332126728711952244
+    second: nerveAvatarFrontImage_4
+  - first:
+      213: -3382997017236925651
+    second: nerveAvatarFrontImage_5
+  - first:
+      213: -6745186185518556660
+    second: nerveAvatarFrontImage_6
+  - first:
+      213: -3288383986546918437
+    second: nerveAvatarFrontImage_7
+  - first:
+      213: 886019198199011749
+    second: nerveAvatarFrontImage_8
+  - first:
+      213: 6735022002045394257
+    second: nerveAvatarFrontImage_9
+  - first:
+      213: -5036564257355457816
+    second: nerveAvatarFrontImage_10
+  - first:
+      213: -4355002862374352928
+    second: nerveAvatarFrontImage_11
+  - first:
+      213: -4655337682841504363
+    second: nerveAvatarFrontImage_12
+  - first:
+      213: 289796327965294592
+    second: nerveAvatarFrontImage_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1214
+        height: 1229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e4b8a00cb917bcd0800000000000000
+      internalID: -2542535169371753246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_1
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 1068
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 423a7aa38550da610800000000000000
+      internalID: 1633968116304683812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_2
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 1017
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dc3d5dc8de97c260800000000000000
+      internalID: 7117832390077922520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_3
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 1003
+        width: 28
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1ed323b67feeafb0800000000000000
+      internalID: -4634503673427010017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_4
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 851
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 477ddaca33aac7210800000000000000
+      internalID: 1332126728711952244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_5
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 809
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d23136ff22e2d01d0800000000000000
+      internalID: -3382997017236925651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_6
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 792
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0a5b4cd6e84462a0800000000000000
+      internalID: -6745186185518556660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_7
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 541
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdbb9c4df205d52d0800000000000000
+      internalID: -3288383986546918437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_8
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 485
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a914d434c5cb4c00800000000000000
+      internalID: 886019198199011749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_9
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 487
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15d1b52c3da977d50800000000000000
+      internalID: 6735022002045394257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_10
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 454
+        width: 9
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ea16e72e778a1ab0800000000000000
+      internalID: -5036564257355457816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_11
+      rect:
+        serializedVersion: 2
+        x: 1202
+        y: 475
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e70e5078fbef83c0800000000000000
+      internalID: -4355002862374352928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_12
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 452
+        width: 11
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 595fdb0ea0be46fb0800000000000000
+      internalID: -4655337682841504363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarFrontImage_13
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 299
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00085919930950400800000000000000
+      internalID: 289796327965294592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      nerveAvatarFrontImage_0: -2542535169371753246
+      nerveAvatarFrontImage_1: 1633968116304683812
+      nerveAvatarFrontImage_10: -5036564257355457816
+      nerveAvatarFrontImage_11: -4355002862374352928
+      nerveAvatarFrontImage_12: -4655337682841504363
+      nerveAvatarFrontImage_13: 289796327965294592
+      nerveAvatarFrontImage_2: 7117832390077922520
+      nerveAvatarFrontImage_3: -4634503673427010017
+      nerveAvatarFrontImage_4: 1332126728711952244
+      nerveAvatarFrontImage_5: -3382997017236925651
+      nerveAvatarFrontImage_6: -6745186185518556660
+      nerveAvatarFrontImage_7: -3288383986546918437
+      nerveAvatarFrontImage_8: 886019198199011749
+      nerveAvatarFrontImage_9: 6735022002045394257
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
