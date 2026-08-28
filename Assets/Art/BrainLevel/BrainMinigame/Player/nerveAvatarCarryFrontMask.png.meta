@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 4ba13d77a9f7b3744b082f7cbf8c9558
+guid: 8761b207b97ad3e4b9c28c947bb84a6b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3550733966933080177
-    second: nerveAvatarLeftSideHandsCarryToken_0
+      213: -2288470364193017918
+    second: nerveAvatarCarryFrontMask_0
   - first:
-      213: -6238072363552802129
-    second: nerveAvatarLeftSideHandsCarryToken_1
+      213: 5089689294283949810
+    second: nerveAvatarCarryFrontMask_1
   - first:
-      213: 3879499647042725665
-    second: nerveAvatarLeftSideHandsCarryToken_2
+      213: -223026439388751547
+    second: nerveAvatarCarryFrontMask_2
   - first:
-      213: 89402850173547291
-    second: nerveAvatarLeftSideHandsCarryToken_3
+      213: -7785643752613726207
+    second: nerveAvatarCarryFrontMask_3
   - first:
-      213: -107721425338030678
-    second: nerveAvatarLeftSideHandsCarryToken_4
+      213: 5968745943447229837
+    second: nerveAvatarCarryFrontMask_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -125,13 +125,79 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: nerveAvatarLeftSideHandsCarryToken_0
+      name: nerveAvatarCarryFrontMask_0
       rect:
         serializedVersion: 2
-        x: 54
+        x: 340
+        y: 1005
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cf244f1458bd30e0800000000000000
+      internalID: -2288470364193017918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarCarryFrontMask_1
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 955
+        width: 47
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f647e2627532a640800000000000000
+      internalID: 5089689294283949810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarCarryFrontMask_2
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 21
+        width: 815
+        height: 972
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54996b092a6a7ecf0800000000000000
+      internalID: -223026439388751547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nerveAvatarCarryFrontMask_3
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 39
-        width: 780
-        height: 965
+        width: 671
+        height: 907
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +206,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 178b5f6fabdb64130800000000000000
-      internalID: 3550733966933080177
+      spriteID: 10838b1d146d3f390800000000000000
+      internalID: -7785643752613726207
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: nerveAvatarLeftSideHandsCarryToken_1
+      name: nerveAvatarCarryFrontMask_4
       rect:
         serializedVersion: 2
-        x: 360
-        y: 864
-        width: 7
-        height: 8
+        x: 688
+        y: 690
+        width: 13
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,74 +228,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: faaf04f6c3aed69a0800000000000000
-      internalID: -6238072363552802129
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: nerveAvatarLeftSideHandsCarryToken_2
-      rect:
-        serializedVersion: 2
-        x: 789
-        y: 126
-        width: 684
-        height: 864
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1272c30ef50c6d530800000000000000
-      internalID: 3879499647042725665
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: nerveAvatarLeftSideHandsCarryToken_3
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 785
-        width: 25
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b1370862b6f9d3100800000000000000
-      internalID: 89402850173547291
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: nerveAvatarLeftSideHandsCarryToken_4
-      rect:
-        serializedVersion: 2
-        x: 726
-        y: 245
-        width: 37
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aa527043feb418ef0800000000000000
-      internalID: -107721425338030678
+      spriteID: d85d9b1dfce35d250800000000000000
+      internalID: 5968745943447229837
       vertices: []
       indices: 
       edges: []
@@ -248,11 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      nerveAvatarLeftSideHandsCarryToken_0: 3550733966933080177
-      nerveAvatarLeftSideHandsCarryToken_1: -6238072363552802129
-      nerveAvatarLeftSideHandsCarryToken_2: 3879499647042725665
-      nerveAvatarLeftSideHandsCarryToken_3: 89402850173547291
-      nerveAvatarLeftSideHandsCarryToken_4: -107721425338030678
+      nerveAvatarCarryFrontMask_0: -2288470364193017918
+      nerveAvatarCarryFrontMask_1: 5089689294283949810
+      nerveAvatarCarryFrontMask_2: -223026439388751547
+      nerveAvatarCarryFrontMask_3: -7785643752613726207
+      nerveAvatarCarryFrontMask_4: 5968745943447229837
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

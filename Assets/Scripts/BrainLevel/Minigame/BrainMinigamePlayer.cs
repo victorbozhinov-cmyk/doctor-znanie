@@ -18,34 +18,42 @@ public class BrainMinigamePlayer : MonoBehaviour
 
     [Header("Carry Character Sprites")]
     [SerializeField] private Sprite carryFrontSprite;
+    [SerializeField] private Sprite carryFrontMoveSprite;
     [SerializeField] private Sprite carryLeftSprite;
-
-    [Header("Carry Hands Sprites")]
-    [SerializeField] private Sprite carryFrontHandsSprite;
-    [SerializeField] private Sprite carryLeftHandsSprite;
+    [SerializeField] private Sprite carryRightSprite;
+    [SerializeField] private Sprite carryBackSprite;
 
     [Header("Carry References")]
     [SerializeField] private Transform carryPoint;
     [SerializeField] private Transform carriedTokenTransform;
-    [SerializeField] private SpriteRenderer handsOverlayRenderer;
+
+    [Header("Carry Foregrounds")]
+    [SerializeField] private GameObject frontCarryForeground;
+    [SerializeField] private GameObject frontCarryMoveForeground;
+    [SerializeField] private GameObject leftCarryForeground;
+    [SerializeField] private GameObject rightCarryForeground;
+    [SerializeField] private GameObject backCarryForeground;
+
+    [Header("Carry Masks")]
+    [SerializeField] private GameObject frontCarryMask;
+    [SerializeField] private GameObject frontCarryMoveMask;
+    [SerializeField] private GameObject leftCarryMask;
+    [SerializeField] private GameObject rightCarryMask;
+    [SerializeField] private GameObject backCarryMask;
 
     [Header("Carry Point Positions")]
     [SerializeField] private Vector3 carryPointFrontPosition = Vector3.zero;
+    [SerializeField] private Vector3 carryPointFrontMovePosition = Vector3.zero;
     [SerializeField] private Vector3 carryPointLeftPosition = Vector3.zero;
     [SerializeField] private Vector3 carryPointRightPosition = Vector3.zero;
     [SerializeField] private Vector3 carryPointBackPosition = Vector3.zero;
 
     [Header("Token Local Positions")]
     [SerializeField] private Vector3 tokenFrontPosition = Vector3.zero;
+    [SerializeField] private Vector3 tokenFrontMovePosition = Vector3.zero;
     [SerializeField] private Vector3 tokenLeftPosition = Vector3.zero;
     [SerializeField] private Vector3 tokenRightPosition = Vector3.zero;
     [SerializeField] private Vector3 tokenBackPosition = Vector3.zero;
-
-    [Header("Hands Overlay Local Positions")]
-    [SerializeField] private Vector3 handsFrontPosition = Vector3.zero;
-    [SerializeField] private Vector3 handsLeftPosition = Vector3.zero;
-    [SerializeField] private Vector3 handsRightPosition = Vector3.zero;
-    [SerializeField] private Vector3 handsBackPosition = Vector3.zero;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -63,16 +71,32 @@ public class BrainMinigamePlayer : MonoBehaviour
 
     private FacingDirection facingDirection = FacingDirection.Front;
 
+    private bool IsMoving
+    {
+        get
+        {
+            return moveInput.sqrMagnitude >= 0.01f;
+        }
+    }
+
+    private bool IsMovingFront
+    {
+        get
+        {
+            return
+                facingDirection == FacingDirection.Front &&
+                IsMoving;
+        }
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         tokenCarrier = GetComponent<BrainTokenCarrier>();
 
-        if (handsOverlayRenderer != null)
-        {
-            handsOverlayRenderer.enabled = false;
-        }
+        DisableAllCarryForegrounds();
+        DisableAllCarryMasks();
     }
 
     private void Update()
@@ -97,22 +121,26 @@ public class BrainMinigamePlayer : MonoBehaviour
         if (keyboard == null)
             return;
 
-        if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed)
+        if (keyboard.aKey.isPressed ||
+            keyboard.leftArrowKey.isPressed)
         {
             moveInput.x -= 1f;
         }
 
-        if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed)
+        if (keyboard.dKey.isPressed ||
+            keyboard.rightArrowKey.isPressed)
         {
             moveInput.x += 1f;
         }
 
-        if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed)
+        if (keyboard.wKey.isPressed ||
+            keyboard.upArrowKey.isPressed)
         {
             moveInput.y += 1f;
         }
 
-        if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed)
+        if (keyboard.sKey.isPressed ||
+            keyboard.downArrowKey.isPressed)
         {
             moveInput.y -= 1f;
         }
@@ -127,21 +155,25 @@ public class BrainMinigamePlayer : MonoBehaviour
     {
         Vector2 newPosition =
             rb.position +
-            moveInput * moveSpeed * Time.fixedDeltaTime;
+            moveInput *
+            moveSpeed *
+            Time.fixedDeltaTime;
 
         rb.MovePosition(newPosition);
     }
 
     private void UpdateFacingDirection()
     {
-        // Когато спре, винаги се връща отпред.
-        if (moveInput.sqrMagnitude < 0.01f)
+        // Когато героят спре,
+        // се връща към неподвижната Front визия.
+        if (!IsMoving)
         {
             facingDirection = FacingDirection.Front;
             return;
         }
 
-        if (Mathf.Abs(moveInput.x) > Mathf.Abs(moveInput.y))
+        if (Mathf.Abs(moveInput.x) >
+            Mathf.Abs(moveInput.y))
         {
             facingDirection =
                 moveInput.x > 0f
@@ -175,13 +207,16 @@ public class BrainMinigamePlayer : MonoBehaviour
 
     private void UpdateNormalCharacterSprite()
     {
-        if (moveInput.sqrMagnitude < 0.01f)
+        if (!IsMoving)
         {
-            spriteRenderer.sprite = idleFrontSprite;
+            spriteRenderer.sprite =
+                idleFrontSprite;
+
             return;
         }
 
-        if (Mathf.Abs(moveInput.x) > Mathf.Abs(moveInput.y))
+        if (Mathf.Abs(moveInput.x) >
+            Mathf.Abs(moveInput.y))
         {
             spriteRenderer.sprite =
                 moveInput.x > 0f
@@ -202,24 +237,46 @@ public class BrainMinigamePlayer : MonoBehaviour
         switch (facingDirection)
         {
             case FacingDirection.Left:
+
                 spriteRenderer.sprite =
                     carryLeftSprite != null
                     ? carryLeftSprite
                     : carryFrontSprite;
-                break;
 
-            case FacingDirection.Back:
-                spriteRenderer.sprite = walkUpSprite;
                 break;
 
             case FacingDirection.Right:
-                // Засега използваме front,
-                // докато добавим right carry sprite.
-                spriteRenderer.sprite = carryFrontSprite;
+
+                spriteRenderer.sprite =
+                    carryRightSprite != null
+                    ? carryRightSprite
+                    : carryFrontSprite;
+
                 break;
 
-            default:
-                spriteRenderer.sprite = carryFrontSprite;
+            case FacingDirection.Back:
+
+                spriteRenderer.sprite =
+                    carryBackSprite != null
+                    ? carryBackSprite
+                    : walkUpSprite;
+
+                break;
+
+            case FacingDirection.Front:
+
+                if (IsMovingFront &&
+                    carryFrontMoveSprite != null)
+                {
+                    spriteRenderer.sprite =
+                        carryFrontMoveSprite;
+                }
+                else
+                {
+                    spriteRenderer.sprite =
+                        carryFrontSprite;
+                }
+
                 break;
         }
     }
@@ -231,17 +288,14 @@ public class BrainMinigamePlayer : MonoBehaviour
 
         if (!tokenCarrier.IsCarryingToken)
         {
-            if (handsOverlayRenderer != null)
-            {
-                handsOverlayRenderer.enabled = false;
-            }
-
+            DisableAllCarryForegrounds();
+            DisableAllCarryMasks();
             return;
         }
 
         UpdateCarryPointPosition();
         UpdateTokenPosition();
-        UpdateHandsOverlay();
+        UpdateCarryForeground();
     }
 
     private void UpdateCarryPointPosition()
@@ -252,19 +306,33 @@ public class BrainMinigamePlayer : MonoBehaviour
         switch (facingDirection)
         {
             case FacingDirection.Left:
-                carryPoint.localPosition = carryPointLeftPosition;
+
+                carryPoint.localPosition =
+                    carryPointLeftPosition;
+
                 break;
 
             case FacingDirection.Right:
-                carryPoint.localPosition = carryPointRightPosition;
+
+                carryPoint.localPosition =
+                    carryPointRightPosition;
+
                 break;
 
             case FacingDirection.Back:
-                carryPoint.localPosition = carryPointBackPosition;
+
+                carryPoint.localPosition =
+                    carryPointBackPosition;
+
                 break;
 
-            default:
-                carryPoint.localPosition = carryPointFrontPosition;
+            case FacingDirection.Front:
+
+                carryPoint.localPosition =
+                    IsMovingFront
+                    ? carryPointFrontMovePosition
+                    : carryPointFrontPosition;
+
                 break;
         }
     }
@@ -277,56 +345,135 @@ public class BrainMinigamePlayer : MonoBehaviour
         switch (facingDirection)
         {
             case FacingDirection.Left:
-                carriedTokenTransform.localPosition = tokenLeftPosition;
+
+                carriedTokenTransform.localPosition =
+                    tokenLeftPosition;
+
                 break;
 
             case FacingDirection.Right:
-                carriedTokenTransform.localPosition = tokenRightPosition;
+
+                carriedTokenTransform.localPosition =
+                    tokenRightPosition;
+
                 break;
 
             case FacingDirection.Back:
-                carriedTokenTransform.localPosition = tokenBackPosition;
+
+                carriedTokenTransform.localPosition =
+                    tokenBackPosition;
+
                 break;
 
-            default:
-                carriedTokenTransform.localPosition = tokenFrontPosition;
+            case FacingDirection.Front:
+
+                carriedTokenTransform.localPosition =
+                    IsMovingFront
+                    ? tokenFrontMovePosition
+                    : tokenFrontPosition;
+
                 break;
         }
     }
 
-    private void UpdateHandsOverlay()
+    private void UpdateCarryForeground()
     {
-        if (handsOverlayRenderer == null)
-            return;
+        DisableAllCarryForegrounds();
+        DisableAllCarryMasks();
 
         switch (facingDirection)
         {
             case FacingDirection.Left:
-                handsOverlayRenderer.enabled = true;
-                handsOverlayRenderer.sprite = carryLeftHandsSprite;
-                handsOverlayRenderer.transform.localPosition = handsLeftPosition;
+
+                SetCarryDirectionActive(
+                    leftCarryForeground,
+                    leftCarryMask);
+
                 break;
 
             case FacingDirection.Right:
-                handsOverlayRenderer.enabled = true;
 
-                // Засега front hands,
-                // докато добавим right hands.
-                handsOverlayRenderer.sprite = carryFrontHandsSprite;
-                handsOverlayRenderer.transform.localPosition = handsRightPosition;
+                SetCarryDirectionActive(
+                    rightCarryForeground,
+                    rightCarryMask);
+
                 break;
 
             case FacingDirection.Back:
-                // При движение нагоре гледа в гръб.
-                handsOverlayRenderer.enabled = false;
-                handsOverlayRenderer.transform.localPosition = handsBackPosition;
+
+                SetCarryDirectionActive(
+                    backCarryForeground,
+                    backCarryMask);
+
                 break;
 
-            default:
-                handsOverlayRenderer.enabled = true;
-                handsOverlayRenderer.sprite = carryFrontHandsSprite;
-                handsOverlayRenderer.transform.localPosition = handsFrontPosition;
+            case FacingDirection.Front:
+
+                if (IsMovingFront)
+                {
+                    SetCarryDirectionActive(
+                        frontCarryMoveForeground,
+                        frontCarryMoveMask);
+                }
+                else
+                {
+                    SetCarryDirectionActive(
+                        frontCarryForeground,
+                        frontCarryMask);
+                }
+
                 break;
         }
+    }
+
+    private void SetCarryDirectionActive(
+        GameObject foreground,
+        GameObject mask)
+    {
+        if (foreground != null)
+        {
+            foreground.SetActive(true);
+        }
+
+        if (mask != null)
+        {
+            mask.SetActive(true);
+        }
+    }
+
+    private void DisableAllCarryForegrounds()
+    {
+        if (frontCarryForeground != null)
+            frontCarryForeground.SetActive(false);
+
+        if (frontCarryMoveForeground != null)
+            frontCarryMoveForeground.SetActive(false);
+
+        if (leftCarryForeground != null)
+            leftCarryForeground.SetActive(false);
+
+        if (rightCarryForeground != null)
+            rightCarryForeground.SetActive(false);
+
+        if (backCarryForeground != null)
+            backCarryForeground.SetActive(false);
+    }
+
+    private void DisableAllCarryMasks()
+    {
+        if (frontCarryMask != null)
+            frontCarryMask.SetActive(false);
+
+        if (frontCarryMoveMask != null)
+            frontCarryMoveMask.SetActive(false);
+
+        if (leftCarryMask != null)
+            leftCarryMask.SetActive(false);
+
+        if (rightCarryMask != null)
+            rightCarryMask.SetActive(false);
+
+        if (backCarryMask != null)
+            backCarryMask.SetActive(false);
     }
 }

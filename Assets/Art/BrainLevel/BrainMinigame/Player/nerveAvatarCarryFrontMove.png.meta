@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 91645be870ee8d448bf55b3689ddeed0
+guid: 623c9f5ded7b330489b4b1bb5762cb00
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8893752647921126743
-    second: nerveAvatarCarryHandsFront_0
-  - first:
-      213: 7456579835419242824
-    second: nerveAvatarCarryHandsFront_1
-  - first:
-      213: -3525243267709618086
-    second: nerveAvatarCarryHandsFront_2
+      213: 231260184190221065
+    second: nerveAvatarCarryFrontMove_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: nerveAvatarCarryHandsFront_0
+      name: nerveAvatarCarryFrontMove_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 39
-        width: 681
-        height: 957
+        x: 32
+        y: 20
+        width: 964
+        height: 1507
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a2b87c761b039480800000000000000
-      internalID: -8893752647921126743
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: nerveAvatarCarryHandsFront_1
-      rect:
-        serializedVersion: 2
-        x: 784
-        y: 23
-        width: 675
-        height: 981
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 84131898ad71b7760800000000000000
-      internalID: 7456579835419242824
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: nerveAvatarCarryHandsFront_2
-      rect:
-        serializedVersion: 2
-        x: 1424
-        y: 353
-        width: 43
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a58b451fce1d31fc0800000000000000
-      internalID: -3525243267709618086
+      spriteID: 90b795989e9953300800000000000000
+      internalID: 231260184190221065
       vertices: []
       indices: 
       edges: []
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      nerveAvatarCarryHandsFront_0: -8893752647921126743
-      nerveAvatarCarryHandsFront_1: 7456579835419242824
-      nerveAvatarCarryHandsFront_2: -3525243267709618086
+      nerveAvatarCarryFrontMove_0: 231260184190221065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
