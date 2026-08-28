@@ -7,6 +7,9 @@ public class BrainTokenCarrier : MonoBehaviour
 
     public bool IsCarryingToken { get; private set; }
 
+    public BrainTokenType CurrentTokenType { get; private set; }
+        = BrainTokenType.None;
+
     private void Awake()
     {
         if (carriedTokenRenderer != null)
@@ -16,16 +19,21 @@ public class BrainTokenCarrier : MonoBehaviour
         }
 
         IsCarryingToken = false;
+        CurrentTokenType = BrainTokenType.None;
     }
 
-    public void PickUpToken(Sprite tokenSprite)
+    public void PickUpToken(
+        Sprite tokenSprite,
+        BrainTokenType tokenType)
     {
-        if (carriedTokenRenderer == null || tokenSprite == null)
+        if (carriedTokenRenderer == null ||
+            tokenSprite == null)
             return;
 
         carriedTokenRenderer.sprite = tokenSprite;
         carriedTokenRenderer.enabled = true;
 
+        CurrentTokenType = tokenType;
         IsCarryingToken = true;
     }
 
@@ -37,6 +45,7 @@ public class BrainTokenCarrier : MonoBehaviour
         carriedTokenRenderer.sprite = null;
         carriedTokenRenderer.enabled = false;
 
+        CurrentTokenType = BrainTokenType.None;
         IsCarryingToken = false;
     }
 }
