@@ -127,23 +127,42 @@ public class StomachQuizManager : MonoBehaviour
     [SerializeField] private HintButtonIdlePulse hintButtonIdlePulse;
 
     // =========================================================
-    // PANELS
+    // INFO
     // =========================================================
 
     [Header("Info")]
     [SerializeField] private GameObject infoOverlay;
+    [SerializeField] private UIPopupAnimation infoPanelAnimation;
+
+    // =========================================================
+    // SETTINGS
+    // =========================================================
 
     [Header("Settings")]
     [SerializeField] private GameObject settingsOverlay;
+    [SerializeField] private UIPopupAnimation settingsPanelAnimation;
 
     [Header("Difficulty")]
     [SerializeField] private DifficultySelector difficultySelector;
 
+    // =========================================================
+    // EXIT
+    // =========================================================
+
     [Header("Exit")]
     [SerializeField] private GameObject exitConfirmationOverlay;
+    [SerializeField] private UIPopupAnimation exitConfirmationAnimation;
+
+    // =========================================================
+    // GAME OVER
+    // =========================================================
 
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverOverlay;
+
+    // =========================================================
+    // SUCCESS
+    // =========================================================
 
     [Header("Success")]
     [SerializeField] private GameObject quizSuccessOverlay;
@@ -306,37 +325,34 @@ public class StomachQuizManager : MonoBehaviour
 
         switch (difficulty)
         {
-            // ЛЕСНО
-            // 3 MC + 1 Question Image
-            // + 1 Image Answers + 1 Written
-            // = 6 въпроса
+            // ЛЕСНО = 6
             case 0:
+
                 AddQuestions(multiple, 3);
                 AddQuestions(questionImages, 1);
                 AddQuestions(imageAnswers, 1);
                 AddQuestions(written, 1);
+
                 break;
 
-            // ТРУДНО
-            // 4 MC + 2 Question Image
-            // + 2 Image Answers + 2 Written
-            // = 10 въпроса
+            // ТРУДНО = 10
             case 2:
+
                 AddQuestions(multiple, 4);
                 AddQuestions(questionImages, 2);
                 AddQuestions(imageAnswers, 2);
                 AddQuestions(written, 2);
+
                 break;
 
-            // СРЕДНО
-            // 3 MC + 2 Question Image
-            // + 2 Image Answers + 1 Written
-            // = 8 въпроса
+            // СРЕДНО = 8
             default:
+
                 AddQuestions(multiple, 3);
                 AddQuestions(questionImages, 2);
                 AddQuestions(imageAnswers, 2);
                 AddQuestions(written, 1);
+
                 break;
         }
 
@@ -448,27 +464,35 @@ public class StomachQuizManager : MonoBehaviour
         switch (currentQuestion.questionType)
         {
             case StomachQuizQuestionType.MultipleChoice:
+
                 ShowMultipleChoiceQuestion(
                     currentQuestion
                 );
+
                 break;
 
             case StomachQuizQuestionType.QuestionImage:
+
                 ShowQuestionImageQuestion(
                     currentQuestion
                 );
+
                 break;
 
             case StomachQuizQuestionType.ImageAnswers:
+
                 ShowImageAnswersQuestion(
                     currentQuestion
                 );
+
                 break;
 
             case StomachQuizQuestionType.Written:
+
                 ShowWrittenQuestion(
                     currentQuestion
                 );
+
                 break;
         }
 
@@ -961,6 +985,9 @@ public class StomachQuizManager : MonoBehaviour
                 break;
         }
 
+        if (lifeHearts == null)
+            return;
+
         for (int i = 0;
              i < lifeHearts.Length;
              i++)
@@ -995,7 +1022,8 @@ public class StomachQuizManager : MonoBehaviour
 
         currentLives--;
 
-        if (heartIndex >= 0 &&
+        if (lifeHearts != null &&
+            heartIndex >= 0 &&
             heartIndex < lifeHearts.Length &&
             lifeHearts[heartIndex] != null)
         {
@@ -1097,6 +1125,7 @@ public class StomachQuizManager : MonoBehaviour
         if (hintOverlay != null)
         {
             hintOverlay.SetActive(true);
+            hintOverlay.transform.SetAsLastSibling();
         }
 
         UpdateHintButton();
@@ -1280,22 +1309,38 @@ public class StomachQuizManager : MonoBehaviour
             return;
         }
 
-        if (infoOverlay != null)
-        {
-            isInfoOpen = true;
+        if (infoOverlay == null)
+            return;
 
-            infoOverlay.SetActive(true);
-        }
+        isInfoOpen = true;
+
+        infoOverlay.SetActive(true);
+        infoOverlay.transform.SetAsLastSibling();
     }
 
     public void CloseInfoPanel()
     {
-        if (infoOverlay != null)
+        if (infoOverlay == null)
         {
-            infoOverlay.SetActive(false);
+            isInfoOpen = false;
+            return;
         }
 
-        isInfoOpen = false;
+        if (infoPanelAnimation != null)
+        {
+            infoPanelAnimation.PlayClose(
+                () =>
+                {
+                    infoOverlay.SetActive(false);
+                    isInfoOpen = false;
+                }
+            );
+        }
+        else
+        {
+            infoOverlay.SetActive(false);
+            isInfoOpen = false;
+        }
     }
 
     // =========================================================
@@ -1309,29 +1354,45 @@ public class StomachQuizManager : MonoBehaviour
             return;
         }
 
-        if (settingsOverlay != null)
+        if (settingsOverlay == null)
+            return;
+
+        isSettingsOpen = true;
+
+        settingsOverlay.SetActive(true);
+        settingsOverlay.transform.SetAsLastSibling();
+
+        if (difficultySelector != null)
         {
-            isSettingsOpen = true;
-
-            settingsOverlay.SetActive(true);
-
-            if (difficultySelector != null)
-            {
-                difficultySelector.SetLocked(
-                    true
-                );
-            }
+            difficultySelector.SetLocked(
+                true
+            );
         }
     }
 
     public void CloseSettingsPanel()
     {
-        if (settingsOverlay != null)
+        if (settingsOverlay == null)
         {
-            settingsOverlay.SetActive(false);
+            isSettingsOpen = false;
+            return;
         }
 
-        isSettingsOpen = false;
+        if (settingsPanelAnimation != null)
+        {
+            settingsPanelAnimation.PlayClose(
+                () =>
+                {
+                    settingsOverlay.SetActive(false);
+                    isSettingsOpen = false;
+                }
+            );
+        }
+        else
+        {
+            settingsOverlay.SetActive(false);
+            isSettingsOpen = false;
+        }
     }
 
     // =========================================================
@@ -1345,26 +1406,43 @@ public class StomachQuizManager : MonoBehaviour
             return;
         }
 
-        if (exitConfirmationOverlay != null)
-        {
-            isExitConfirmationOpen = true;
+        if (exitConfirmationOverlay == null)
+            return;
 
-            exitConfirmationOverlay.SetActive(
-                true
-            );
-        }
+        isExitConfirmationOpen = true;
+
+        exitConfirmationOverlay.SetActive(true);
+
+        exitConfirmationOverlay
+            .transform
+            .SetAsLastSibling();
     }
 
     public void CloseExitConfirmation()
     {
-        if (exitConfirmationOverlay != null)
+        if (exitConfirmationOverlay == null)
         {
-            exitConfirmationOverlay.SetActive(
-                false
-            );
+            isExitConfirmationOpen = false;
+            return;
         }
 
-        isExitConfirmationOpen = false;
+        if (exitConfirmationAnimation != null)
+        {
+            exitConfirmationAnimation.PlayClose(
+                () =>
+                {
+                    exitConfirmationOverlay.SetActive(false);
+
+                    isExitConfirmationOpen = false;
+                }
+            );
+        }
+        else
+        {
+            exitConfirmationOverlay.SetActive(false);
+
+            isExitConfirmationOpen = false;
+        }
     }
 
     // =========================================================
@@ -1374,6 +1452,7 @@ public class StomachQuizManager : MonoBehaviour
     private void QuizCompleted()
     {
         isQuizCompleted = true;
+
         isChangingQuestion = false;
         isProcessingWrongAnswer = false;
 
@@ -1447,7 +1526,9 @@ public class StomachQuizManager : MonoBehaviour
         {
             gameOverOverlay.SetActive(true);
 
-            gameOverOverlay.transform.SetAsLastSibling();
+            gameOverOverlay
+                .transform
+                .SetAsLastSibling();
         }
     }
 

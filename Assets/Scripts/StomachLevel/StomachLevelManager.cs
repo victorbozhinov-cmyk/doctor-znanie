@@ -1,8 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StomachLevelManager : MonoBehaviour
 {
+    private const string ReturnToStartKey =
+        "StomachReturnToStartAfterReload";
+
     [Header("Panels")]
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject videoPanel;
@@ -11,25 +15,23 @@ public class StomachLevelManager : MonoBehaviour
     [SerializeField] private GameObject quizPanel;
     [SerializeField] private GameObject finishPanel;
 
-    // Става true САМО когато сме натиснали
-    // "Опитай отново".
-    private static bool returnToStartAfterReload = false;
-
     // =========================================================
     // UNITY
     // =========================================================
 
     private void Start()
     {
-        // При обикновено Play НЕ пипаме панелите.
-        // Запазваме точно това, което си настроил
-        // в сцената.
+        bool shouldReturnToStart =
+            PlayerPrefs.GetInt(
+                ReturnToStartKey,
+                0
+            ) == 1;
 
-        if (returnToStartAfterReload)
+        if (shouldReturnToStart)
         {
-            returnToStartAfterReload = false;
-
-            ShowStartPanel();
+            StartCoroutine(
+                ReturnToStartAfterSceneLoaded()
+            );
         }
     }
 
@@ -39,11 +41,8 @@ public class StomachLevelManager : MonoBehaviour
 
     public void StartLevel()
     {
-        if (startPanel != null)
-            startPanel.SetActive(false);
-
-        if (videoPanel != null)
-            videoPanel.SetActive(true);
+        SetPanel(startPanel, false);
+        SetPanel(videoPanel, true);
     }
 
     // =========================================================
@@ -52,18 +51,46 @@ public class StomachLevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        // Game Over е замразил играта.
         Time.timeScale = 1f;
 
-        // Казваме на следващото зареждане,
-        // че този път искаме StartPanel.
-        returnToStartAfterReload = true;
+        // Запомняме, че след reload
+        // трябва да отидем в StartPanel.
+        PlayerPrefs.SetInt(
+            ReturnToStartKey,
+            1
+        );
+
+        PlayerPrefs.Save();
 
         Scene currentScene =
             SceneManager.GetActiveScene();
 
         SceneManager.LoadScene(
-            currentScene.buildIndex
+            currentScene.name
+        );
+    }
+
+    // =========================================================
+    // RETURN TO START AFTER RELOAD
+    // =========================================================
+
+    private IEnumerator ReturnToStartAfterSceneLoaded()
+    {
+        // Изчакваме всички Start() методи
+        // в новозаредената сцена да приключат.
+        yield return null;
+
+        ShowStartPanel();
+
+        // Флагът вече е използван.
+        PlayerPrefs.DeleteKey(
+            ReturnToStartKey
+        );
+
+        PlayerPrefs.Save();
+
+        Debug.Log(
+            "StomachLevel: върнато е към StartPanel след Retry."
         );
     }
 
