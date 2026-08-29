@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 1946b59c123116144a6d116115a74eab
+guid: 43665ddc2c18ad94c8bbbc6cc270ea1f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4470592730861715767
-    second: cheese_0
-  - first:
-      213: 7447050631415436215
-    second: cheese_1
+      213: 6127244325250999982
+    second: welcome to quiz panel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,45 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cheese_0
+      name: welcome to quiz panel_0
       rect:
         serializedVersion: 2
-        x: 55
-        y: 69
-        width: 1155
-        height: 1164
+        x: 0
+        y: 17
+        width: 1434
+        height: 1069
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9ce3b85f89345f1c0800000000000000
-      internalID: -4470592730861715767
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheese_1
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 69
-        width: 1155
-        height: 1163
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7b39dd5d71d395760800000000000000
-      internalID: 7447050631415436215
+      spriteID: ea62d921048580550800000000000000
+      internalID: 6127244325250999982
       vertices: []
       indices: 
       edges: []
@@ -163,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 00fe3432fa13af542a6993812c14ea9f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cheese_0: -4470592730861715767
-      cheese_1: 7447050631415436215
+      welcome to quiz panel_0: 6127244325250999982
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 1946b59c123116144a6d116115a74eab
+guid: b7933e280b79c294c9b5ce9aa1c3ea2f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4470592730861715767
-    second: cheese_0
+      213: -3336090404990145052
+    second: welcome info button_0
   - first:
-      213: 7447050631415436215
-    second: cheese_1
+      213: -762255763584745590
+    second: welcome info button_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,45 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cheese_0
+      name: welcome info button_0
       rect:
         serializedVersion: 2
-        x: 55
-        y: 69
-        width: 1155
-        height: 1164
+        x: 0
+        y: 142
+        width: 2172
+        height: 490
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9ce3b85f89345f1c0800000000000000
-      internalID: -4470592730861715767
+      spriteID: 4ed29f7b373d3b1d0800000000000000
+      internalID: -3336090404990145052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cheese_1
+      name: welcome info button_1
       rect:
         serializedVersion: 2
-        x: 55
-        y: 69
-        width: 1155
-        height: 1163
+        x: 935
+        y: 142
+        width: 91
+        height: 6
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b39dd5d71d395760800000000000000
-      internalID: 7447050631415436215
+      spriteID: a8f798feb6ceb65f0800000000000000
+      internalID: -762255763584745590
       vertices: []
       indices: 
       edges: []
@@ -163,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 00fe3432fa13af542a6993812c14ea9f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cheese_0: -4470592730861715767
-      cheese_1: 7447050631415436215
+      welcome info button_0: -3336090404990145052
+      welcome info button_1: -762255763584745590
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 1946b59c123116144a6d116115a74eab
+guid: 4cb113bf96bb4d34abe4afd316113ed9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4470592730861715767
-    second: cheese_0
+      213: 7203093130827476981
+    second: go ahead button_0
   - first:
-      213: 7447050631415436215
-    second: cheese_1
+      213: -4668548356853448996
+    second: go ahead button_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cheese_0
+      name: go ahead button_0
       rect:
         serializedVersion: 2
-        x: 55
-        y: 69
-        width: 1155
-        height: 1164
+        x: 76
+        y: 132
+        width: 2031
+        height: 521
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9ce3b85f89345f1c0800000000000000
-      internalID: -4470592730861715767
+      spriteID: 5ff2703f90786f360800000000000000
+      internalID: 7203093130827476981
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cheese_1
+      name: go ahead button_1
       rect:
         serializedVersion: 2
-        x: 55
-        y: 69
-        width: 1155
-        height: 1163
+        x: 593
+        y: 55
+        width: 15
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b39dd5d71d395760800000000000000
-      internalID: 7447050631415436215
+      spriteID: cde3405210cf53fb0800000000000000
+      internalID: -4668548356853448996
       vertices: []
       indices: 
       edges: []
@@ -163,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 00fe3432fa13af542a6993812c14ea9f
+    spriteID: 560d7d12f739108448e6a0e619323e87
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cheese_0: -4470592730861715767
-      cheese_1: 7447050631415436215
+      go ahead button_0: 7203093130827476981
+      go ahead button_1: -4668548356853448996
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

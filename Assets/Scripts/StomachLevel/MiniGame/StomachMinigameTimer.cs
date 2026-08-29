@@ -102,7 +102,12 @@ public class StomachMinigameTimer : MonoBehaviour
         remainingTime =
             GetStartingTimeForDifficulty();
 
-        isRunning = true;
+        // ВАЖНО:
+        // Таймерът вече НЕ тръгва автоматично.
+        // StomachMinigameManager ще го стартира,
+        // когато WelcomePanel се затвори.
+        isRunning = false;
+
         hasExpired = false;
 
         if (penaltyRect != null)
@@ -153,15 +158,12 @@ public class StomachMinigameTimer : MonoBehaviour
     {
         switch (difficulty)
         {
-            // EASY
             case 0:
                 return easyStartingTime;
 
-            // HARD
             case 2:
                 return hardStartingTime;
 
-            // MEDIUM
             default:
                 return mediumStartingTime;
         }

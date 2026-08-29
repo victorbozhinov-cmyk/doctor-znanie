@@ -15,17 +15,10 @@ public class StomachLevelManager : MonoBehaviour
     [SerializeField] private GameObject quizPanel;
     [SerializeField] private GameObject finishPanel;
 
-    // =========================================================
-    // UNITY
-    // =========================================================
-
     private void Start()
     {
         bool shouldReturnToStart =
-            PlayerPrefs.GetInt(
-                ReturnToStartKey,
-                0
-            ) == 1;
+            PlayerPrefs.GetInt(ReturnToStartKey, 0) == 1;
 
         if (shouldReturnToStart)
         {
@@ -36,7 +29,7 @@ public class StomachLevelManager : MonoBehaviour
     }
 
     // =========================================================
-    // NORMAL LEVEL START
+    // START LEVEL
     // =========================================================
 
     public void StartLevel()
@@ -46,15 +39,27 @@ public class StomachLevelManager : MonoBehaviour
     }
 
     // =========================================================
-    // TRY AGAIN
+    // QUIZ -> PUZZLE
+    // =========================================================
+
+    public void GoFromQuizToPuzzle()
+    {
+        SetPanel(quizPanel, false);
+        SetPanel(puzzlePanel, true);
+
+        Debug.Log(
+            "Преминаване от Quiz към Puzzle Welcome."
+        );
+    }
+
+    // =========================================================
+    // RESTART LEVEL
     // =========================================================
 
     public void RestartLevel()
     {
         Time.timeScale = 1f;
 
-        // Запомняме, че след reload
-        // трябва да отидем в StartPanel.
         PlayerPrefs.SetInt(
             ReturnToStartKey,
             1
@@ -70,19 +75,12 @@ public class StomachLevelManager : MonoBehaviour
         );
     }
 
-    // =========================================================
-    // RETURN TO START AFTER RELOAD
-    // =========================================================
-
     private IEnumerator ReturnToStartAfterSceneLoaded()
     {
-        // Изчакваме всички Start() методи
-        // в новозаредената сцена да приключат.
         yield return null;
 
         ShowStartPanel();
 
-        // Флагът вече е използван.
         PlayerPrefs.DeleteKey(
             ReturnToStartKey
         );
@@ -95,13 +93,12 @@ public class StomachLevelManager : MonoBehaviour
     }
 
     // =========================================================
-    // SHOW START PANEL
+    // START PANEL
     // =========================================================
 
     private void ShowStartPanel()
     {
         SetPanel(startPanel, true);
-
         SetPanel(videoPanel, false);
         SetPanel(puzzlePanel, false);
         SetPanel(miniGamePanel, false);
@@ -110,12 +107,13 @@ public class StomachLevelManager : MonoBehaviour
     }
 
     // =========================================================
-    // HELPER
+    // PANEL HELPER
     // =========================================================
 
     private void SetPanel(
         GameObject panel,
-        bool active)
+        bool active
+    )
     {
         if (panel != null)
         {

@@ -9,6 +9,7 @@ public class StomachMinigameManager : MonoBehaviour
     public enum GameState
     {
         Initializing,
+        WaitingForStart,
         JuiceReady,
         JuicePlaying,
         Peristalsis,
@@ -32,6 +33,9 @@ public class StomachMinigameManager : MonoBehaviour
     [SerializeField] private Button juicesButton;
     [SerializeField] private GameObject markerPanel;
     [SerializeField] private Button intestineButton;
+
+    [Header("Welcome")]
+    [SerializeField] private GameObject welcomePanel;
 
     [Header("Button Showcase")]
     [SerializeField] private UIButtonShowcaseAnimation juicesButtonShowcase;
@@ -76,7 +80,11 @@ public class StomachMinigameManager : MonoBehaviour
     }
 
     private int difficulty;
+
     private Coroutine progressWaitCoroutine;
+
+    private bool minigameStarted;
+    private bool welcomeIsClosing;
 
     // =========================================================
     // UNITY
@@ -84,13 +92,12 @@ public class StomachMinigameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Ако не е свързано ръчно,
-        // автоматично го търсим върху Current Task текста.
         if (currentTaskTextAnimation == null &&
             currentTaskText != null)
         {
             currentTaskTextAnimation =
-                currentTaskText.GetComponent<CurrentTaskTextAnimation>();
+                currentTaskText
+                    .GetComponent<CurrentTaskTextAnimation>();
         }
     }
 
@@ -161,7 +168,10 @@ public class StomachMinigameManager : MonoBehaviour
 
         if (progressWaitCoroutine != null)
         {
-            StopCoroutine(progressWaitCoroutine);
+            StopCoroutine(
+                progressWaitCoroutine
+            );
+
             progressWaitCoroutine = null;
         }
     }
@@ -176,6 +186,9 @@ public class StomachMinigameManager : MonoBehaviour
             1
         );
 
+        minigameStarted = false;
+        welcomeIsClosing = false;
+
         if (feedbackPanel != null)
         {
             feedbackPanel.SetActive(false);
@@ -186,14 +199,32 @@ public class StomachMinigameManager : MonoBehaviour
             successPanel.SetActive(false);
         }
 
-        StartCoroutine(
-            InitializeNextFrame()
-        );
+        PrepareForWelcome();
     }
 
-    private IEnumerator InitializeNextFrame()
+    // =========================================================
+    // WELCOME
+    // =========================================================
+
+    private void PrepareForWelcome()
     {
-        yield return null;
+        CurrentState =
+            GameState.WaitingForStart;
+
+        // ---------------------------------------------
+        // STOP GAMEPLAY
+        // ---------------------------------------------
+
+        if (juiceGame != null)
+        {
+            juiceGame.StopAndHide();
+        }
+
+        if (juicesButton != null)
+        {
+            juicesButton.interactable =
+                false;
+        }
 
         if (intestineButton != null)
         {
@@ -201,6 +232,114 @@ public class StomachMinigameManager : MonoBehaviour
                 false;
         }
 
+        if (markerPanel != null)
+        {
+            markerPanel.SetActive(false);
+        }
+
+        // ---------------------------------------------
+        // STOP SHOWCASE ANIMATIONS
+        // ---------------------------------------------
+
+        if (juicesButtonShowcase != null)
+        {
+            juicesButtonShowcase
+                .StopShowcaseImmediate();
+        }
+
+        if (intestineButtonShowcase != null)
+        {
+            intestineButtonShowcase
+                .StopShowcaseImmediate();
+        }
+
+        // ---------------------------------------------
+        // STOP TIMERS
+        // ---------------------------------------------
+
+        if (taskTimer != null)
+        {
+            taskTimer.ResetTimer();
+        }
+
+        if (totalTimer != null)
+        {
+            totalTimer.PauseTimer();
+        }
+
+        // ---------------------------------------------
+        // WELCOME PANEL
+        // ---------------------------------------------
+
+        if (welcomePanel != null)
+        {
+            welcomePanel.SetActive(true);
+
+            welcomePanel.transform
+                .SetAsLastSibling();
+        }
+    }
+
+    public void StartMinigameFromWelcome()
+    {
+        if (minigameStarted ||
+            welcomeIsClosing)
+        {
+            return;
+        }
+
+        welcomeIsClosing = true;
+
+        if (welcomePanel == null)
+        {
+            BeginMinigameAfterWelcome();
+            return;
+        }
+
+        UIPopupAnimation animation =
+            welcomePanel
+                .GetComponentInChildren
+                <UIPopupAnimation>(true);
+
+        // Ако няма animation component,
+        // стартираме веднага.
+        if (animation == null)
+        {
+            welcomePanel.SetActive(false);
+
+            BeginMinigameAfterWelcome();
+
+            return;
+        }
+
+        // Първо изчакваме Welcome панелът
+        // напълно да се затвори.
+        animation.PlayClose(
+            () =>
+            {
+                welcomePanel.SetActive(false);
+
+                BeginMinigameAfterWelcome();
+            }
+        );
+    }
+
+    private void BeginMinigameAfterWelcome()
+    {
+        minigameStarted = true;
+        welcomeIsClosing = false;
+
+        // ПЪРВО показваме началната
+        // Stomach State карта.
+        // Тук ще се пусне и нейната
+        // първа pop анимация.
+        if (stateCardController != null)
+        {
+            stateCardController
+                .ShowStartingFoodCard();
+        }
+
+        // СЛЕД ТОВА започва първата задача.
         BeginCurrentStage();
     }
 
@@ -210,6 +349,9 @@ public class StomachMinigameManager : MonoBehaviour
 
     private void BeginCurrentStage()
     {
+        if (!minigameStarted)
+            return;
+
         if (foodStageController == null)
             return;
 
@@ -315,9 +457,13 @@ public class StomachMinigameManager : MonoBehaviour
             "Добави стомашни сокове."
         );
 
+        // Тази showcase анимация вече
+        // може да започне, защото
+        // WelcomePanel е затворен.
         if (juicesButtonShowcase != null)
         {
-            juicesButtonShowcase.PlayShowcase();
+            juicesButtonShowcase
+                .PlayShowcase();
         }
 
         if (taskTimer != null)
@@ -325,6 +471,7 @@ public class StomachMinigameManager : MonoBehaviour
             taskTimer.ResetTimer();
         }
 
+        // Реалният старт на общия таймер.
         if (totalTimer != null)
         {
             totalTimer.ResumeTimer();
@@ -640,7 +787,8 @@ public class StomachMinigameManager : MonoBehaviour
         }
 
         if (foodStageController != null &&
-            foodStageController.IsHardDifficulty)
+            foodStageController
+                .IsHardDifficulty)
         {
             foodStageController
                 .ResetCurrentWaveProgress();
@@ -870,7 +1018,8 @@ public class StomachMinigameManager : MonoBehaviour
         }
 
         if (newStageIndex ==
-            foodStageController.TotalStageCount - 2)
+            foodStageController
+                .TotalStageCount - 2)
         {
             if (stateCardController != null)
             {
@@ -888,7 +1037,8 @@ public class StomachMinigameManager : MonoBehaviour
         }
 
         if (newStageIndex >=
-            foodStageController.TotalStageCount - 1)
+            foodStageController
+                .TotalStageCount - 1)
         {
             StartProgressWait(
                 EnterReadyForIntestineState
@@ -1207,20 +1357,17 @@ public class StomachMinigameManager : MonoBehaviour
         if (currentTaskText == null)
             return;
 
-        // Проверяваме дали текстът действително
-        // се променя.
         bool textChanged =
             currentTaskText.text != taskText;
 
         currentTaskText.text =
             taskText;
 
-        // Анимацията се пуска само при
-        // реална промяна на задачата.
         if (textChanged &&
             currentTaskTextAnimation != null)
         {
-            currentTaskTextAnimation.Play();
+            currentTaskTextAnimation
+                .Play();
         }
     }
 }

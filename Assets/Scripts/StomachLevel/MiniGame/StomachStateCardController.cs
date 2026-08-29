@@ -33,8 +33,6 @@ public class StomachStateCardController : MonoBehaviour
 
     private void Awake()
     {
-        // Ако двата скрипта са върху един и същи обект,
-        // намираме анимацията автоматично.
         if (statePanelAnimation == null)
         {
             statePanelAnimation =
@@ -44,15 +42,20 @@ public class StomachStateCardController : MonoBehaviour
 
     private void Start()
     {
+        // ВАЖНО:
+        // Началната карта вече НЕ се показва автоматично.
+        // Тя ще се покаже чак след затваряне
+        // на WelcomePanel.
         HideAllCards();
-        ShowStartingFoodCard();
+
+        currentPermanentCard = null;
     }
 
     // =========================================================
     // STARTING CARD
     // =========================================================
 
-    private void ShowStartingFoodCard()
+    public void ShowStartingFoodCard()
     {
         int difficulty = PlayerPrefs.GetInt(
             "Difficulty",
@@ -99,8 +102,6 @@ public class StomachStateCardController : MonoBehaviour
         if (card == null)
             return;
 
-        // Проверяваме дали действително ще има
-        // визуална смяна на карта.
         bool cardActuallyChanged =
             currentPermanentCard != card ||
             !card.activeSelf;
@@ -176,7 +177,6 @@ public class StomachStateCardController : MonoBehaviour
         if (currentPermanentCard == null)
             return;
 
-        // Анимация на самия стомах.
         if (irritationAnimation != null)
         {
             irritationAnimation
@@ -201,10 +201,6 @@ public class StomachStateCardController : MonoBehaviour
         GameObject previousCard =
             currentPermanentCard;
 
-        // ---------------------------------------------
-        // IRRITATED CARD
-        // ---------------------------------------------
-
         HideAllCards();
 
         if (irritatedCard != null)
@@ -218,10 +214,6 @@ public class StomachStateCardController : MonoBehaviour
             irritatedDuration
         );
 
-        // ---------------------------------------------
-        // RETURN TO PREVIOUS CARD
-        // ---------------------------------------------
-
         SetCardActive(
             irritatedCard,
             false
@@ -234,8 +226,6 @@ public class StomachStateCardController : MonoBehaviour
             currentPermanentCard =
                 previousCard;
 
-            // Подскача отново при връщането
-            // към предишната карта.
             PlayPanelChangeAnimation();
         }
 

@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 1946b59c123116144a6d116115a74eab
+guid: 93ffe543d7026d74fab6f721507b5596
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4470592730861715767
-    second: cheese_0
-  - first:
-      213: 7447050631415436215
-    second: cheese_1
+      213: -6192969085761049417
+    second: puzzle welcome info button_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cheese_0
+      name: puzzle welcome info button_0
       rect:
         serializedVersion: 2
-        x: 55
-        y: 69
-        width: 1155
-        height: 1164
+        x: 21
+        y: 48
+        width: 2002
+        height: 693
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9ce3b85f89345f1c0800000000000000
-      internalID: -4470592730861715767
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cheese_1
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 69
-        width: 1155
-        height: 1163
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7b39dd5d71d395760800000000000000
-      internalID: 7447050631415436215
+      spriteID: 7bcac32ad672e0aa0800000000000000
+      internalID: -6192969085761049417
       vertices: []
       indices: 
       edges: []
@@ -163,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 00fe3432fa13af542a6993812c14ea9f
+    spriteID: 963d577ab46868948b61d499a00c2345
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cheese_0: -4470592730861715767
-      cheese_1: 7447050631415436215
+      puzzle welcome info button_0: -6192969085761049417
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
