@@ -19,13 +19,15 @@ public class BrainMinigameDropZone : MonoBehaviour
     [SerializeField]
     private GameObject commandTokenVisual;
 
+    [Header("Failure Feedback")]
+    [SerializeField]
+    private ScreenFlash screenFlash;
+
     private BrainTokenCarrier playerCarrier;
     private bool playerInside = false;
 
     private void Awake()
     {
-        // Зеленият Command токен
-        // не трябва да се вижда в началото.
         if (commandTokenVisual != null)
         {
             commandTokenVisual.SetActive(false);
@@ -55,47 +57,53 @@ public class BrainMinigameDropZone : MonoBehaviour
 
     private void TryInteract()
     {
-        // =====================================================
-        // 1. Героят носи токен.
-        // Опитваме се да предадем Problem токена.
-        // =====================================================
-
+        // Ако носим токен, винаги правим опит за drop.
         if (playerCarrier.IsCarryingToken)
         {
             TryDeliverProblemToken();
             return;
         }
 
-        // =====================================================
-        // 2. Героят НЕ носи токен.
-        // Ако Command токенът е готов,
-        // може да го вземе.
-        // =====================================================
-
         TryPickUpCommandToken();
     }
 
     private void TryDeliverProblemToken()
     {
+        // =====================================================
+        // ГРЕШНА ЗОНА
+        // =====================================================
+
         if (playerCarrier.CurrentTokenType !=
             acceptedProblemTokenType)
         {
-            // Грешен токен за тази мозъчна зона.
+            // Реален drop НЕ се случва.
+            // Токенът остава в ръцете.
+
+            if (screenFlash != null)
+            {
+                screenFlash.PlayRedFlash();
+            }
+
+            Debug.Log(
+                "Wrong brain zone. Drop rejected. Token stays carried: "
+                + playerCarrier.CurrentTokenType);
+
             return;
         }
 
-        // Премахваме червения Problem токен
-        // от ръцете.
+        // =====================================================
+        // ПРАВИЛНА ЗОНА
+        // =====================================================
+
         playerCarrier.DropToken();
 
-        // Появява се зеленият Command токен.
         if (commandTokenVisual != null)
         {
             commandTokenVisual.SetActive(true);
         }
 
         Debug.Log(
-            "Problem token delivered. Command token created at: "
+            "Problem token delivered successfully at: "
             + gameObject.name);
     }
 
@@ -121,6 +129,18 @@ public class BrainMinigameDropZone : MonoBehaviour
 
         Debug.Log(
             "Command token picked up from: "
+            + gameObject.name);
+    }
+
+    public void ClearCommandToken()
+    {
+        if (commandTokenVisual != null)
+        {
+            commandTokenVisual.SetActive(false);
+        }
+
+        Debug.Log(
+            "Command token cleared from: "
             + gameObject.name);
     }
 

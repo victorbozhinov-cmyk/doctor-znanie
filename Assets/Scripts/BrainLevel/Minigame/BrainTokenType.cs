@@ -3,5 +3,7 @@ public enum BrainTokenType
     None,
 
     EyesProblem,
-    EyesCommand
+    EyesCommand,
+
+    TestWrongProblem
 }

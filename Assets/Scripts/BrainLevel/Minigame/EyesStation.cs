@@ -15,13 +15,51 @@ public class EyesStation : MonoBehaviour
     private BrainTokenType acceptedCommandTokenType =
         BrainTokenType.EyesCommand;
 
-    private BrainTokenCarrier playerCarrier;
-    private bool playerInside = false;
+    [Header("Brain Drop Zone")]
+    [SerializeField]
+    private BrainMinigameDropZone brainDropZone;
 
+    [Header("Order UI")]
+    [SerializeField]
+    private EyesOrderUI orderUI;
+
+    private BrainTokenCarrier playerCarrier;
+
+    private bool playerInside = false;
     private bool orderCompleted = false;
+    private bool orderFailed = false;
+
+    private void OnEnable()
+    {
+        if (orderUI != null)
+        {
+            orderUI.OrderFailed += HandleOrderFailed;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (orderUI != null)
+        {
+            orderUI.OrderFailed -= HandleOrderFailed;
+        }
+    }
+
+    private void Start()
+    {
+        // Засега поръчката стартира веднага,
+        // за да тестваме UI системата.
+        if (orderUI != null)
+        {
+            orderUI.StartOrder();
+        }
+    }
 
     private void Update()
     {
+        if (orderCompleted || orderFailed)
+            return;
+
         if (!playerInside)
             return;
 
@@ -58,7 +96,7 @@ public class EyesStation : MonoBehaviour
 
     private void TryGiveProblemToken()
     {
-        if (orderCompleted)
+        if (orderCompleted || orderFailed)
             return;
 
         if (playerCarrier == null)
@@ -80,6 +118,11 @@ public class EyesStation : MonoBehaviour
 
         problemTokenVisual.SetActive(false);
 
+        if (orderUI != null)
+        {
+            orderUI.NotifyProblemPickedUp();
+        }
+
         Debug.Log(
             "Eyes Problem token picked up.");
     }
@@ -95,19 +138,72 @@ public class EyesStation : MonoBehaviour
         if (playerCarrier.CurrentTokenType !=
             acceptedCommandTokenType)
         {
-            // Играчът носи друг токен.
             return;
         }
 
-        // Зелената команда е върната
-        // на правилния орган.
         playerCarrier.DropToken();
 
         orderCompleted = true;
 
+        if (orderUI != null)
+        {
+            orderUI.CompleteOrder();
+        }
+
         Debug.Log(
             "Eyes order completed successfully.");
     }
+
+    // =====================================================
+    // ORDER FAILURE
+    // =====================================================
+
+    private void HandleOrderFailed()
+    {
+        if (orderCompleted || orderFailed)
+            return;
+
+        orderFailed = true;
+
+        // 1. Ако червеният Problem токен
+        // още е при EyesStation, го махаме.
+        if (problemTokenVisual != null)
+        {
+            problemTokenVisual.SetActive(false);
+        }
+
+        // 2. Ако зеленият Command токен
+        // е останал върху мозъчната зона, го махаме.
+        if (brainDropZone != null)
+        {
+            brainDropZone.ClearCommandToken();
+        }
+
+        // 3. Ако играчът в момента носи
+        // EyesProblem или EyesCommand,
+        // махаме токена от ръцете му.
+        BrainTokenCarrier carrier =
+            FindFirstObjectByType<BrainTokenCarrier>();
+
+        if (carrier != null &&
+            carrier.IsCarryingToken)
+        {
+            if (carrier.CurrentTokenType ==
+                    BrainTokenType.EyesProblem ||
+                carrier.CurrentTokenType ==
+                    BrainTokenType.EyesCommand)
+            {
+                carrier.DropToken();
+            }
+        }
+
+        Debug.Log(
+            "Eyes order failed and all Eyes tokens were cleared.");
+    }
+
+    // =====================================================
+    // TRIGGER
+    // =====================================================
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -119,6 +215,11 @@ public class EyesStation : MonoBehaviour
 
         playerCarrier = carrier;
         playerInside = true;
+
+        if (orderUI != null)
+        {
+            orderUI.SetPlayerNearby(true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -133,6 +234,11 @@ public class EyesStation : MonoBehaviour
         {
             playerCarrier = null;
             playerInside = false;
+
+            if (orderUI != null)
+            {
+                orderUI.SetPlayerNearby(false);
+            }
         }
     }
 }
