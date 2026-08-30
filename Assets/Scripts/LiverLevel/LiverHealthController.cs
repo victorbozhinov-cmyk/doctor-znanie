@@ -40,6 +40,25 @@ public class LiverHealthController : MonoBehaviour
     public DifficultyMode CurrentDifficulty => currentDifficulty;
     public bool IsGameOver => gameOverTriggered;
 
+    // 0 = VerySick
+    // 1 = Sick
+    // 2 = Neutral
+    // 3 = Healthy
+    // 4 = VeryHealthy
+    public int CurrentVisualStateIndex
+    {
+        get
+        {
+            if (activeStateIndices == null ||
+                activeStateIndices.Length == 0)
+            {
+                return 2;
+            }
+
+            return activeStateIndices[currentStateStep];
+        }
+    }
+
     private void Awake()
     {
         if (liverImage == null)
@@ -49,13 +68,9 @@ public class LiverHealthController : MonoBehaviour
     private void Start()
     {
         SetupAllStates();
-
         DetermineDifficulty();
-
         BuildStatePathForDifficulty();
-
         SetStartState();
-
         RefreshVisual();
 
         gameOverTriggered = false;
@@ -63,10 +78,6 @@ public class LiverHealthController : MonoBehaviour
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
     }
-
-    // =========================================================
-    // SETUP
-    // =========================================================
 
     private void SetupAllStates()
     {
@@ -108,11 +119,6 @@ public class LiverHealthController : MonoBehaviour
             return;
         }
 
-        // Ако Difficulty се пази като int:
-        // 0 = Easy
-        // 1 = Medium
-        // 2 = Hard
-
         int difficultyInt =
             PlayerPrefs.GetInt("Difficulty", 1);
 
@@ -138,38 +144,23 @@ public class LiverHealthController : MonoBehaviour
         {
             case DifficultyMode.Easy:
 
-                // 5 състояния:
-                //
-                // VerySick
-                // Sick
-                // Neutral
-                // Healthy
-                // VeryHealthy
-
+                // VerySick → Sick → Neutral → Healthy → VeryHealthy
                 activeStateIndices =
                     new int[] { 0, 1, 2, 3, 4 };
 
                 break;
 
-
             case DifficultyMode.Medium:
 
-                // 4 състояния
-
+                // VerySick → Sick → Neutral → VeryHealthy
                 activeStateIndices =
                     new int[] { 0, 1, 2, 4 };
 
                 break;
 
-
             case DifficultyMode.Hard:
 
-                // 3 състояния:
-                //
-                // VerySick
-                // Neutral
-                // VeryHealthy
-
+                // VerySick → Neutral → VeryHealthy
                 activeStateIndices =
                     new int[] { 0, 2, 4 };
 
@@ -179,9 +170,7 @@ public class LiverHealthController : MonoBehaviour
 
     private void SetStartState()
     {
-        // ВИНАГИ започваме от Neutral.
-        // Neutral е allStates[2].
-
+        // Винаги започваме от Neutral = index 2.
         for (int i = 0; i < activeStateIndices.Length; i++)
         {
             if (activeStateIndices[i] == 2)
@@ -193,10 +182,6 @@ public class LiverHealthController : MonoBehaviour
 
         currentStateStep = 0;
     }
-
-    // =========================================================
-    // VISUAL
-    // =========================================================
 
     private void RefreshVisual()
     {
@@ -218,10 +203,6 @@ public class LiverHealthController : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // HEALTH +
-    // =========================================================
-
     public void IncreaseHealth()
     {
         if (gameOverTriggered)
@@ -231,30 +212,16 @@ public class LiverHealthController : MonoBehaviour
             activeStateIndices.Length - 1)
         {
             currentStateStep++;
-
             RefreshVisual();
         }
     }
-
-    // =========================================================
-    // HEALTH -
-    // =========================================================
 
     public void DecreaseHealth()
     {
         if (gameOverTriggered)
             return;
 
-        /*
-         * Ако вече сме на най-ниското състояние,
-         * НЕ слизаме повече.
-         *
-         * Това означава:
-         *
-         * VerySick + още едно вредно =
-         * GAME OVER.
-         */
-
+        // VerySick + още едно вредно = Game Over.
         if (currentStateStep == 0)
         {
             TriggerGameOver();
@@ -262,13 +229,8 @@ public class LiverHealthController : MonoBehaviour
         }
 
         currentStateStep--;
-
         RefreshVisual();
     }
-
-    // =========================================================
-    // GAME OVER
-    // =========================================================
 
     private void TriggerGameOver()
     {
@@ -281,15 +243,11 @@ public class LiverHealthController : MonoBehaviour
             "GAME OVER - Черният дроб не може да понесе повече вредни вещества!"
         );
 
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
-    }
+        Time.timeScale = 0f;
 
-    // =========================================================
-    // STATE CHECKS
-    // =========================================================
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
+    }
 
     public bool IsAtMinimumHealth()
     {
@@ -302,25 +260,16 @@ public class LiverHealthController : MonoBehaviour
                activeStateIndices.Length - 1;
     }
 
-    // =========================================================
-    // RESET
-    // =========================================================
-
     public void ResetToStartState()
     {
         gameOverTriggered = false;
 
         SetStartState();
-
         RefreshVisual();
 
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
     }
-
-    // =========================================================
-    // TESTS
-    // =========================================================
 
     [ContextMenu("TEST Increase Health")]
     private void TestIncreaseHealth()
