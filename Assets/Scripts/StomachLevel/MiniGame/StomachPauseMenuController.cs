@@ -91,8 +91,6 @@ public class StomachPauseMenuController : MonoBehaviour
 
         isClosingPause = true;
 
-        // За всеки случай затваряме
-        // допълнителните overlays.
         HideImmediately(
             informationOverlay
         );
@@ -105,8 +103,6 @@ public class StomachPauseMenuController : MonoBehaviour
             exitOverlay
         );
 
-        // Първо гледаме close анимацията.
-        // Чак след това пускаме играта.
         ClosePanel(
             pauseMenuPanel,
             () =>
@@ -120,7 +116,7 @@ public class StomachPauseMenuController : MonoBehaviour
     }
 
     // =========================================================
-    // INFORMATION
+    // INFORMATION - FROM PAUSE
     // =========================================================
 
     public void OpenInformation()
@@ -132,6 +128,21 @@ public class StomachPauseMenuController : MonoBehaviour
             informationOverlay
         );
     }
+
+    // =========================================================
+    // INFORMATION - FROM WELCOME
+    // =========================================================
+
+    public void OpenInformationFromWelcome()
+    {
+        OpenPanel(
+            informationOverlay
+        );
+    }
+
+    // =========================================================
+    // CLOSE INFORMATION
+    // =========================================================
 
     public void CloseInformation()
     {
@@ -213,12 +224,6 @@ public class StomachPauseMenuController : MonoBehaviour
         panel.transform
             .SetAsLastSibling();
 
-        // Ако обектът току-що е станал active,
-        // UIPopupAnimation.OnEnable()
-        // автоматично стартира PlayOpen().
-        //
-        // Ако вече е бил active,
-        // стартираме анимацията ръчно.
         if (wasAlreadyActive)
         {
             UIPopupAnimation animation =
@@ -254,8 +259,6 @@ public class StomachPauseMenuController : MonoBehaviour
         UIPopupAnimation animation =
             FindAnimation(panel);
 
-        // Ако няма анимация,
-        // запазваме нормалното поведение.
         if (animation == null)
         {
             panel.SetActive(false);
@@ -265,9 +268,6 @@ public class StomachPauseMenuController : MonoBehaviour
             return;
         }
 
-        // Първо PlayClose().
-        // SetActive(false) става чак
-        // след като анимацията приключи.
         animation.PlayClose(
             () =>
             {

@@ -1,8 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StomachLevelManager : MonoBehaviour
 {
+    private const string ReturnToStartKey =
+        "StomachReturnToStartAfterReload";
+
     [Header("Panels")]
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject videoPanel;
@@ -11,70 +15,90 @@ public class StomachLevelManager : MonoBehaviour
     [SerializeField] private GameObject quizPanel;
     [SerializeField] private GameObject finishPanel;
 
-    // Става true САМО когато сме натиснали
-    // "Опитай отново".
-    private static bool returnToStartAfterReload = false;
-
-    // =========================================================
-    // UNITY
-    // =========================================================
-
     private void Start()
     {
-        // При обикновено Play НЕ пипаме панелите.
-        // Запазваме точно това, което си настроил
-        // в сцената.
+        bool shouldReturnToStart =
+            PlayerPrefs.GetInt(ReturnToStartKey, 0) == 1;
 
-        if (returnToStartAfterReload)
+        if (shouldReturnToStart)
         {
-            returnToStartAfterReload = false;
-
-            ShowStartPanel();
+            StartCoroutine(
+                ReturnToStartAfterSceneLoaded()
+            );
         }
     }
 
     // =========================================================
-    // NORMAL LEVEL START
+    // START LEVEL
     // =========================================================
 
     public void StartLevel()
     {
-        if (startPanel != null)
-            startPanel.SetActive(false);
-
-        if (videoPanel != null)
-            videoPanel.SetActive(true);
+        SetPanel(startPanel, false);
+        SetPanel(videoPanel, true);
     }
 
     // =========================================================
-    // TRY AGAIN
+    // QUIZ -> PUZZLE
+    // =========================================================
+
+    public void GoFromQuizToPuzzle()
+    {
+        SetPanel(quizPanel, false);
+        SetPanel(puzzlePanel, true);
+
+        Debug.Log(
+            "Преминаване от Quiz към Puzzle Welcome."
+        );
+    }
+
+    // =========================================================
+    // RESTART LEVEL
     // =========================================================
 
     public void RestartLevel()
     {
-        // Game Over е замразил играта.
         Time.timeScale = 1f;
 
-        // Казваме на следващото зареждане,
-        // че този път искаме StartPanel.
-        returnToStartAfterReload = true;
+        PlayerPrefs.SetInt(
+            ReturnToStartKey,
+            1
+        );
+
+        PlayerPrefs.Save();
 
         Scene currentScene =
             SceneManager.GetActiveScene();
 
         SceneManager.LoadScene(
-            currentScene.buildIndex
+            currentScene.name
+        );
+    }
+
+    private IEnumerator ReturnToStartAfterSceneLoaded()
+    {
+        yield return null;
+
+        ShowStartPanel();
+
+        PlayerPrefs.DeleteKey(
+            ReturnToStartKey
+        );
+
+        PlayerPrefs.Save();
+
+        Debug.Log(
+            "StomachLevel: върнато е към StartPanel след Retry."
         );
     }
 
     // =========================================================
-    // SHOW START PANEL
+    // START PANEL
     // =========================================================
 
     private void ShowStartPanel()
     {
         SetPanel(startPanel, true);
-
         SetPanel(videoPanel, false);
         SetPanel(puzzlePanel, false);
         SetPanel(miniGamePanel, false);
@@ -83,12 +107,13 @@ public class StomachLevelManager : MonoBehaviour
     }
 
     // =========================================================
-    // HELPER
+    // PANEL HELPER
     // =========================================================
 
     private void SetPanel(
         GameObject panel,
-        bool active)
+        bool active
+    )
     {
         if (panel != null)
         {
