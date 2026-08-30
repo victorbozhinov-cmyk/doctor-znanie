@@ -3,19 +3,25 @@ using UnityEngine.InputSystem;
 
 public class BrainMinigameDropZone : MonoBehaviour
 {
-    [Header("Problem Token")]
-    [SerializeField]
-    private BrainTokenType acceptedProblemTokenType =
-        BrainTokenType.EyesProblem;
+    [System.Serializable]
+    public class TokenResponse
+    {
+        [Header("Incoming Problem")]
+        public BrainTokenType problemTokenType =
+            BrainTokenType.None;
 
-    [Header("Command Token")]
-    [SerializeField]
-    private BrainTokenType commandTokenType =
-        BrainTokenType.EyesCommand;
+        [Header("Returned Command")]
+        public BrainTokenType commandTokenType =
+            BrainTokenType.None;
 
-    [SerializeField]
-    private Sprite commandTokenSprite;
+        public Sprite commandTokenSprite;
+    }
 
+    [Header("Accepted Problems")]
+    [SerializeField]
+    private TokenResponse[] tokenResponses;
+
+    [Header("Command Token Visual")]
     [SerializeField]
     private GameObject commandTokenVisual;
 
@@ -25,6 +31,11 @@ public class BrainMinigameDropZone : MonoBehaviour
 
     private BrainTokenCarrier playerCarrier;
     private bool playerInside = false;
+
+    private BrainTokenType activeCommandTokenType =
+        BrainTokenType.None;
+
+    private Sprite activeCommandTokenSprite;
 
     private void Awake()
     {
@@ -57,7 +68,6 @@ public class BrainMinigameDropZone : MonoBehaviour
 
     private void TryInteract()
     {
-        // Ако носим токен, винаги правим опит за drop.
         if (playerCarrier.IsCarryingToken)
         {
             TryDeliverProblemToken();
@@ -69,42 +79,60 @@ public class BrainMinigameDropZone : MonoBehaviour
 
     private void TryDeliverProblemToken()
     {
+        TokenResponse response =
+            FindResponseForProblem(
+                playerCarrier.CurrentTokenType);
+
         // =====================================================
-        // ГРЕШНА ЗОНА
+        // ГРЕШНА МОЗЪЧНА ЗОНА
         // =====================================================
 
-        if (playerCarrier.CurrentTokenType !=
-            acceptedProblemTokenType)
+        if (response == null)
         {
-            // Реален drop НЕ се случва.
-            // Токенът остава в ръцете.
-
             if (screenFlash != null)
             {
                 screenFlash.PlayRedFlash();
             }
 
             Debug.Log(
-                "Wrong brain zone. Drop rejected. Token stays carried: "
-                + playerCarrier.CurrentTokenType);
+                "Wrong brain zone. Drop rejected. " +
+                "Token stays carried: " +
+                playerCarrier.CurrentTokenType);
 
             return;
         }
 
         // =====================================================
-        // ПРАВИЛНА ЗОНА
+        // ПРАВИЛНА МОЗЪЧНА ЗОНА
         // =====================================================
 
         playerCarrier.DropToken();
 
+        activeCommandTokenType =
+            response.commandTokenType;
+
+        activeCommandTokenSprite =
+            response.commandTokenSprite;
+
         if (commandTokenVisual != null)
         {
+            SpriteRenderer spriteRenderer =
+                commandTokenVisual.GetComponent<SpriteRenderer>();
+
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.sprite =
+                    activeCommandTokenSprite;
+            }
+
             commandTokenVisual.SetActive(true);
         }
 
         Debug.Log(
-            "Problem token delivered successfully at: "
-            + gameObject.name);
+            "Problem token delivered successfully at: " +
+            gameObject.name +
+            ". Command prepared: " +
+            activeCommandTokenType);
     }
 
     private void TryPickUpCommandToken()
@@ -118,18 +146,51 @@ public class BrainMinigameDropZone : MonoBehaviour
         if (!commandTokenVisual.activeSelf)
             return;
 
-        if (commandTokenSprite == null)
+        if (activeCommandTokenType ==
+            BrainTokenType.None)
+            return;
+
+        if (activeCommandTokenSprite == null)
             return;
 
         playerCarrier.PickUpToken(
-            commandTokenSprite,
-            commandTokenType);
+            activeCommandTokenSprite,
+            activeCommandTokenType);
 
         commandTokenVisual.SetActive(false);
 
         Debug.Log(
-            "Command token picked up from: "
-            + gameObject.name);
+            "Command token picked up from: " +
+            gameObject.name +
+            " | Type: " +
+            activeCommandTokenType);
+
+        activeCommandTokenType =
+            BrainTokenType.None;
+
+        activeCommandTokenSprite = null;
+    }
+
+    private TokenResponse FindResponseForProblem(
+        BrainTokenType problemTokenType)
+    {
+        if (tokenResponses == null)
+            return null;
+
+        foreach (TokenResponse response in
+                 tokenResponses)
+        {
+            if (response == null)
+                continue;
+
+            if (response.problemTokenType ==
+                problemTokenType)
+            {
+                return response;
+            }
+        }
+
+        return null;
     }
 
     public void ClearCommandToken()
@@ -139,9 +200,14 @@ public class BrainMinigameDropZone : MonoBehaviour
             commandTokenVisual.SetActive(false);
         }
 
+        activeCommandTokenType =
+            BrainTokenType.None;
+
+        activeCommandTokenSprite = null;
+
         Debug.Log(
-            "Command token cleared from: "
-            + gameObject.name);
+            "Command token cleared from: " +
+            gameObject.name);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: ddbae93416c1c4547af1bcd385d0ddc4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5992966995867079703
+    second: brainMinigameEarProblemToken_0
+  - first:
+      213: -4278843634773627424
+    second: brainMinigameEarProblemToken_1
+  - first:
+      213: 4634866070132970767
+    second: brainMinigameEarProblemToken_2
+  - first:
+      213: -8803232231407545343
+    second: brainMinigameEarProblemToken_3
+  - first:
+      213: 7155691858375260111
+    second: brainMinigameEarProblemToken_4
+  - first:
+      213: 5836052643650539736
+    second: brainMinigameEarProblemToken_5
+  - first:
+      213: -3494059403452271474
+    second: brainMinigameEarProblemToken_6
+  - first:
+      213: 6364134152041797940
+    second: brainMinigameEarProblemToken_7
+  - first:
+      213: 7635119338752352199
+    second: brainMinigameEarProblemToken_8
+  - first:
+      213: -632413887183015915
+    second: brainMinigameEarProblemToken_9
+  - first:
+      213: -4571061655675375181
+    second: brainMinigameEarProblemToken_10
+  - first:
+      213: -1900013678599732523
+    second: brainMinigameEarProblemToken_11
+  - first:
+      213: 3222305223027691389
+    second: brainMinigameEarProblemToken_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 39
+        width: 1202
+        height: 1168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ebe3b4f444b4dca0800000000000000
+      internalID: -5992966995867079703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_1
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 824
+        width: 25
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ed60eb626e7e94c0800000000000000
+      internalID: -4278843634773627424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_2
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 369
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0559cb522a525040800000000000000
+      internalID: 4634866070132970767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_3
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 353
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1041fa35de2a4d580800000000000000
+      internalID: -8803232231407545343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_4
+      rect:
+        serializedVersion: 2
+        x: 1154
+        y: 287
+        width: 35
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc7bc9c25df1e4360800000000000000
+      internalID: 7155691858375260111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_5
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 102
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d0154b65f2ddf050800000000000000
+      internalID: 5836052643650539736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_6
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 102
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e843d112c7b928fc0800000000000000
+      internalID: -3494059403452271474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_7
+      rect:
+        serializedVersion: 2
+        x: 962
+        y: 96
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 439126bea42f15850800000000000000
+      internalID: 6364134152041797940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_8
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 71
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cf9c04069465f960800000000000000
+      internalID: 7635119338752352199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_9
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 53
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 510be679be63937f0800000000000000
+      internalID: -632413887183015915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_10
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 62
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b17f0784a35090c0800000000000000
+      internalID: -4571061655675375181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_11
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 47
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d20ea240abc1a5e0800000000000000
+      internalID: -1900013678599732523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemToken_12
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 69
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7f8370278de7bc20800000000000000
+      internalID: 3222305223027691389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      brainMinigameEarProblemToken_0: -5992966995867079703
+      brainMinigameEarProblemToken_1: -4278843634773627424
+      brainMinigameEarProblemToken_10: -4571061655675375181
+      brainMinigameEarProblemToken_11: -1900013678599732523
+      brainMinigameEarProblemToken_12: 3222305223027691389
+      brainMinigameEarProblemToken_2: 4634866070132970767
+      brainMinigameEarProblemToken_3: -8803232231407545343
+      brainMinigameEarProblemToken_4: 7155691858375260111
+      brainMinigameEarProblemToken_5: 5836052643650539736
+      brainMinigameEarProblemToken_6: -3494059403452271474
+      brainMinigameEarProblemToken_7: 6364134152041797940
+      brainMinigameEarProblemToken_8: 7635119338752352199
+      brainMinigameEarProblemToken_9: -632413887183015915
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
