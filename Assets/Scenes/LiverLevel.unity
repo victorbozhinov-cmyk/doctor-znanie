@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 1
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &42008019
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817714402}
+      - m_Target: {fileID: 817714404}
         m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
         m_MethodName: OpenInfoPanel
         m_Mode: 1
@@ -1935,7 +1935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 0
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!114 &110891878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3262,9 +3262,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1071491262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 58.8122, y: -45.947998}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.49999997}
 --- !u!114 &193903265
@@ -3353,7 +3353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &200645186
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4323,7 +4323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 0
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &344401155
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5498,7 +5498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 3
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &533377412
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6064,9 +6064,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1071491262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 58.8122, y: -115.948}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.49999997}
 --- !u!114 &601281241
@@ -7109,7 +7109,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817714402}
+      - m_Target: {fileID: 817714404}
         m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
         m_MethodName: CheckWrittenAnswer
         m_Mode: 1
@@ -7485,7 +7485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 2
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &689892445
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7566,7 +7566,7 @@ PrefabInstance:
     - target: {fileID: 5292430193297423664, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 817714402}
+      objectReference: {fileID: 817714404}
     - target: {fileID: 5292430193297423664, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseSettingsPanel
@@ -8843,15 +8843,34 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 817714403}
-  - component: {fileID: 817714402}
+  - component: {fileID: 817714404}
   m_Layer: 5
-  m_Name: HeartQuizManager
+  m_Name: LiverQuizManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &817714402
+--- !u!224 &817714403
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817714401}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 606980734}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &817714404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8860,424 +8879,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 817714401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae27f7688a6a6d4d9502fd07934f60c, type: 3}
+  m_Script: {fileID: 11500000, guid: c954e52f983d5be4792d5d7983825e7e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizManager
-  questions:
-  - questionType: 0
-    question: "\u041A\u0430\u043A\u0432\u0430 \u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u0442\u0430
-      \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E?"
-    answerA: "\u0438\u0437\u043F\u043E\u043C\u043F\u0432\u0430 \u043A\u0440\u044A\u0432"
-    answerB: "\u043F\u0440\u0435\u0447\u0438\u0441\u0442\u0432\u0430 \u0432\u044A\u0437\u0434\u0443\u0445\u0430"
-    answerV: "\u043F\u0440\u0435\u0447\u0438\u0441\u0442\u0432\u0430 \u043A\u0440\u044A\u0432\u0442\u0430"
-    answerG: "\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0436\u0434\u0430 \u043A\u0440\u044A\u0432"
-    correctAnswerIndex: 0
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u0421\u044A\u0440\u0446\u0435\u0442\u043E \u0440\u0430\u0431\u043E\u0442\u0438
-      \u043A\u0430\u0442\u043E \u043C\u0443\u0441\u043A\u0443\u043B\u043D\u0430 \u043F\u043E\u043C\u043F\u0430"
-  - questionType: 0
-    question: "\u041A\u043E\u043B\u043A\u043E \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u044F
-      \u0438\u043C\u0430 \u0447\u043E\u0432\u0435\u0448\u043A\u043E\u0442\u043E \u0441\u044A\u0440\u0446\u0435?"
-    answerA: 1
-    answerB: 2
-    answerV: 3
-    answerG: 4
-    correctAnswerIndex: 3
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u0421\u044A\u0431\u0435\u0440\u0438 \u0431\u0440\u043E\u044F \u043D\u0430
-      \u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F\u0442\u0430 \u0438
-      \u043A\u0430\u043C\u0435\u0440\u0438\u0442\u0435"
-  - questionType: 0
-    question: "\u041E\u0442 \u043A\u0430\u043A\u0432\u0438 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u044F
-      \u0435 \u0438\u0437\u0433\u0440\u0430\u0434\u0435\u043D\u043E \u0441\u044A\u0440\u0446\u0435\u0442\u043E?"
-    answerA: "\u0447\u0435\u0442\u0438\u0440\u0438 \u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F"
-    answerB: "\u0447\u0435\u0442\u0438\u0440\u0438 \u043A\u0430\u043C\u0435\u0440\u0438"
-    answerV: "\u0434\u0432\u0435 \u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F
-      \u0438 \u0434\u0432\u0435 \u043A\u0430\u043C\u0435\u0440\u0438"
-    answerG: "\u0435\u0434\u043D\u043E \u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u0435
-      \u0438 \u0442\u0440\u0438 \u043A\u0430\u043C\u0435\u0440\u0438"
-    correctAnswerIndex: 2
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u0421\u044A\u0440\u0446\u0435\u0442\u043E \u0438\u043C\u0430 \u0447\u0435\u0442\u0438\u0440\u0438
-      \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u044F \u043E\u0442 \u0434\u0432\u0430
-      \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438 \u0432\u0438\u0434\u0430"
-  - questionType: 0
-    question: "\u041A\u043E\u044F \u0447\u0430\u0441\u0442 \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E
-      \u0438\u0437\u043F\u043E\u043C\u043F\u0432\u0430 \u043A\u0440\u044A\u0432\u0442\u0430
-      \u043A\u044A\u043C \u043E\u0441\u0442\u0430\u043D\u0430\u043B\u0430\u0442\u0430
-      \u0447\u0430\u0441\u0442 \u043D\u0430 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u0430?"
-    answerA: "\u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F\u0442\u0430"
-    answerB: "\u043A\u0430\u043C\u0435\u0440\u0438\u0442\u0435"
-    answerV: "\u043A\u0430\u043F\u0438\u043B\u044F\u0440\u0438\u0442\u0435"
-    answerG: "\u0432\u0435\u043D\u0438\u0442\u0435"
-    correctAnswerIndex: 1
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u041E\u0442 \u0442\u0435\u0437\u0438 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u044F
-      \u043A\u0440\u044A\u0432\u0442\u0430 \u043F\u0440\u0435\u043C\u0438\u043D\u0430\u0432\u0430
-      \u0432 \u0430\u0440\u0442\u0435\u0440\u0438\u0438\u0442\u0435"
-  - questionType: 0
-    question: "\u041A\u044A\u0434\u0435 \u043A\u0440\u044A\u0432\u0442\u0430 \u0441\u0435
-      \u0434\u0432\u0438\u0436\u0438 \u043F\u043E-\u0431\u0430\u0432\u043D\u043E?"
-    answerA: "\u0432 \u0430\u0440\u0442\u0435\u0440\u0438\u0438\u0442\u0435"
-    answerB: "\u0432\u044A\u0432 \u0432\u0435\u043D\u0438\u0442\u0435"
-    answerV: "\u0432 \u043A\u0430\u043C\u0435\u0440\u0438\u0442\u0435"
-    answerG: "\u0432 \u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F\u0442\u0430"
-    correctAnswerIndex: 1
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u0422\u0435\u0437\u0438 \u0441\u044A\u0434\u043E\u0432\u0435 \u0432\u0440\u044A\u0449\u0430\u0442
-      \u043A\u0440\u044A\u0432\u0442\u0430 \u043E\u0431\u0440\u0430\u0442\u043D\u043E
-      \u043A\u044A\u043C \u0441\u044A\u0440\u0446\u0435\u0442\u043E"
-  - questionType: 0
-    question: "\u041A\u044A\u0434\u0435 \u0441\u043F\u043E\u0440\u0435\u0434 \u0432\u0438\u0434\u0435\u043E\u0442\u043E
-      \u043A\u0440\u044A\u0432\u0442\u0430 \u0441\u0435 \u0434\u0432\u0438\u0436\u0438
-      \u043F\u043E-\u0431\u044A\u0440\u0437\u043E?"
-    answerA: "\u0432 \u0430\u0440\u0442\u0435\u0440\u0438\u0438\u0442\u0435"
-    answerB: "\u0432\u044A\u0432 \u0432\u0435\u043D\u0438\u0442\u0435"
-    answerV: "\u0432 \u043A\u0430\u043C\u0435\u0440\u0438\u0442\u0435"
-    answerG: "\u0432 \u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F\u0442\u0430"
-    correctAnswerIndex: 0
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u0437\u0430 \u0441\u044A\u0434\u043E\u0432\u0435\u0442\u0435,
-      \u043A\u043E\u0438\u0442\u043E \u043E\u0442\u0432\u0435\u0436\u0434\u0430\u0442
-      \u043A\u0440\u044A\u0432\u0442\u0430 \u043E\u0442 \u0441\u044A\u0440\u0446\u0435\u0442\u043E"
-  - questionType: 0
-    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430\u0442
-      \u043D\u0430\u0439-\u043C\u0430\u043B\u043A\u0438\u0442\u0435 \u043A\u0440\u044A\u0432\u043E\u043D\u043E\u0441\u043D\u0438
-      \u0441\u044A\u0434\u043E\u0432\u0435?"
-    answerA: "\u0430\u0440\u0442\u0435\u0440\u0438\u0438"
-    answerB: "\u0432\u0435\u043D\u0438"
-    answerV: "\u043A\u0430\u043F\u0438\u043B\u044F\u0440\u0438"
-    answerG: "\u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F"
-    correctAnswerIndex: 2
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u0422\u0435 \u0441\u0432\u044A\u0440\u0437\u0432\u0430\u0442 \u0430\u0440\u0442\u0435\u0440\u0438\u0438\u0442\u0435
-      \u0441 \u0432\u0435\u043D\u0438\u0442\u0435"
-  - questionType: 0
-    question: "\u041A\u043E\u0435 \u043E\u0442 \u0441\u043B\u0435\u0434\u043D\u0438\u0442\u0435
-      \u0441\u044A\u0431\u0438\u0442\u0438\u044F \u043C\u043E\u0436\u0435 \u0434\u0430
-      \u0443\u0432\u0435\u043B\u0438\u0447\u0438 \u043F\u0443\u043B\u0441\u0430?"
-    answerA: "\u043F\u043E\u0447\u0438\u0432\u043A\u0430"
-    answerB: "\u043E\u0445\u043B\u0430\u0436\u0434\u0430\u043D\u0435"
-    answerV: "\u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043A\u043E \u043D\u0430\u0442\u043E\u0432\u0430\u0440\u0432\u0430\u043D\u0435"
-    answerG: "\u0441\u043F\u043E\u043A\u043E\u0439\u043D\u043E \u0434\u0438\u0448\u0430\u043D\u0435"
-    correctAnswerIndex: 2
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u041F\u0440\u0438 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435 \u0441\u044A\u0440\u0446\u0435\u0442\u043E
-      \u0442\u0440\u044F\u0431\u0432\u0430 \u0434\u0430 \u0440\u0430\u0431\u043E\u0442\u0438
-      \u043F\u043E-\u0443\u0441\u0438\u043B\u0435\u043D\u043E"
-  - questionType: 0
-    question: "\u041A\u043E\u0439 \u0434\u0438\u0430\u043F\u0430\u0437\u043E\u043D
-      \u043F\u043E\u043A\u0430\u0437\u0432\u0430 \u043D\u043E\u0440\u043C\u0430\u043B\u0435\u043D
-      \u043F\u0443\u043B\u0441?"
-    answerA: "70\u2013100 \u0443\u0434\u0430\u0440\u0430 \u0432 \u043C\u0438\u043D\u0443\u0442\u0430"
-    answerB: "40\u201360 \u0443\u0434\u0430\u0440\u0430 \u0432 \u043C\u0438\u043D\u0443\u0442\u0430"
-    answerV: "110\u2013130 \u0443\u0434\u0430\u0440\u0430 \u0432 \u043C\u0438\u043D\u0443\u0442\u0430"
-    answerG: "130\u2013160 \u0443\u0434\u0430\u0440\u0430 \u0432 \u043C\u0438\u043D\u0443\u0442\u0430"
-    correctAnswerIndex: 0
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u041D\u0430\u0447\u0430\u043B\u043D\u0438\u044F\u0442 \u043F\u0443\u043B\u0441
-      \u0432 \u043C\u0438\u043D\u0438\u0438\u0433\u0440\u0430\u0442\u0430 \u0431\u0435\u0448\u0435
-      \u0432 \u043D\u043E\u0440\u043C\u0430\u043B\u043D\u0438\u0442\u0435 \u0433\u0440\u0430\u043D\u0438\u0446\u0438"
-  - questionType: 0
-    question: "\u041A\u043E\u0435 \u043E\u0442 \u0441\u043B\u0435\u0434\u043D\u0438\u0442\u0435
-      \u0441\u044A\u0431\u0438\u0442\u0438\u044F \u043D\u0430\u043C\u0430\u043B\u044F\u0432\u0430
-      \u043F\u0443\u043B\u0441\u0430?"
-    answerA: "\u0444\u0438\u0437\u0438\u0447\u0435\u0441\u043A\u043E \u043D\u0430\u0442\u043E\u0432\u0430\u0440\u0432\u0430\u043D\u0435"
-    answerB: "\u0443\u043F\u043B\u0430\u0445\u0430"
-    answerV: "\u043A\u043E\u043D\u0441\u0443\u043C\u0430\u0446\u0438\u044F \u043D\u0430
-      \u043A\u043E\u0444\u0435\u0438\u043D"
-    answerG: "\u043F\u043E\u0447\u0438\u0432\u043A\u0430"
-    correctAnswerIndex: 3
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u043A\u0430\u043A\u0432\u043E
-      \u0441\u0435 \u0441\u043B\u0443\u0447\u0432\u0430, \u043A\u043E\u0433\u0430\u0442\u043E
-      \u0442\u044F\u043B\u043E\u0442\u043E \u0441\u0435 \u0443\u0441\u043F\u043E\u043A\u043E\u0438"
-  - questionType: 1
-    question: "\u041A\u043E\u0435 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u0435
-      \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E \u043B\u0438\u043F\u0441\u0432\u0430?"
-    answerA: "\u0430\u0440\u0442\u0435\u0440\u0438\u044F"
-    answerB: "\u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u0435"
-    answerV: "\u043A\u0430\u043C\u0435\u0440\u0430"
-    answerG: "\u0432\u0435\u043D\u0430"
-    correctAnswerIndex: 2
-    questionImage: {fileID: 21300000, guid: 05e85ce47dbc28d4ca2fc1bc39bffab0, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u041E\u0442 \u0442\u043E\u0432\u0430 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u0435
-      \u043A\u0440\u044A\u0432\u0442\u0430 \u0441\u0435 \u0438\u0437\u043F\u043E\u043C\u043F\u0432\u0430
-      \u043A\u044A\u043C \u043E\u0440\u0433\u0430\u043D\u0438\u0442\u0435"
-  - questionType: 1
-    question: "\u041A\u043E\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u043D\u0430
-      \u0447\u043E\u0432\u0435\u0448\u043A\u043E\u0442\u043E \u0442\u044F\u043B\u043E
-      \u0435 \u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0435\u043D\u0430 \u043D\u0430
-      \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435\u0442\u043E?"
-    answerA: "\u0434\u0438\u0445\u0430\u0442\u0435\u043B\u043D\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430"
-    answerB: "\u0445\u0440\u0430\u043D\u043E\u0441\u043C\u0438\u043B\u0430\u0442\u0435\u043B\u043D\u0430
-      \u0441\u0438\u0441\u0442\u0435\u043C\u0430"
-    answerV: "\u043A\u0440\u044A\u0432\u043E\u043D\u043E\u0441\u043D\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430"
-    answerG: "\u043D\u0435\u0440\u0432\u043D\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430"
-    correctAnswerIndex: 2
-    questionImage: {fileID: 21300000, guid: ba223cc37f01a4e4a8d58b2023ed9974, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u0421\u044A\u0440\u0446\u0435\u0442\u043E \u0435 \u0446\u0435\u043D\u0442\u044A\u0440\u044A\u0442
-      \u043D\u0430 \u0442\u0430\u0437\u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u0430"
-  - questionType: 1
-    question: "\u041A\u043E\u0439 \u043D\u043E\u043C\u0435\u0440 \u043F\u043E\u043A\u0430\u0437\u0432\u0430
-      \u0447\u0430\u0441\u0442\u0438\u0442\u0435 \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E,
-      \u043A\u043E\u0438\u0442\u043E \u0438\u0437\u043F\u043E\u043C\u043F\u0432\u0430\u0442
-      \u043A\u0440\u044A\u0432\u0442\u0430 \u043A\u044A\u043C \u043E\u0441\u0442\u0430\u043D\u0430\u043B\u0430\u0442\u0430
-      \u0447\u0430\u0441\u0442 \u043D\u0430 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u0430?"
-    answerA: 1
-    answerB: 2
-    answerV: 3
-    answerG: 4
-    correctAnswerIndex: 1
-    questionImage: {fileID: 21300000, guid: 3fee064868fcf5744ad6855fd6b82b74, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u041F\u043E\u0442\u044A\u0440\u0441\u0438 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u044F\u0442\u0430,
-      \u043E\u0442 \u043A\u043E\u0438\u0442\u043E \u043A\u0440\u044A\u0432\u0442\u0430
-      \u043F\u0440\u0435\u043C\u0438\u043D\u0430\u0432\u0430 \u0432 \u0430\u0440\u0442\u0435\u0440\u0438\u0438\u0442\u0435"
-  - questionType: 1
-    question: "\u041A\u043E\u0439 \u043D\u043E\u043C\u0435\u0440 \u043F\u043E\u043A\u0430\u0437\u0432\u0430
-      \u0447\u0430\u0441\u0442\u0438\u0442\u0435, \u043F\u0440\u0435\u0437 \u043A\u043E\u0438\u0442\u043E
-      \u043A\u0440\u044A\u0432\u0442\u0430 \u043F\u044A\u0440\u0432\u043E \u0432\u043B\u0438\u0437\u0430
-      \u0432 \u0441\u044A\u0440\u0446\u0435\u0442\u043E?"
-    answerA: 1
-    answerB: 2
-    answerV: 3
-    answerG: 4
-    correctAnswerIndex: 0
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: 
-    hint: "\u041F\u043E\u0442\u044A\u0440\u0441\u0438 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u044F\u0442\u0430,
-      \u0432 \u043A\u043E\u0438\u0442\u043E \u0432\u0435\u043D\u0438\u0442\u0435
-      \u0432\u043D\u0430\u0441\u044F\u0442 \u043A\u0440\u044A\u0432\u0442\u0430"
-  - questionType: 2
-    question: "\u041D\u0430 \u043A\u043E\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435
-      \u0435 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u043E \u0447\u043E\u0432\u0435\u0448\u043A\u043E
-      \u0441\u044A\u0440\u0446\u0435?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 3
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 21300000, guid: bea2d500e59c6414da0ad3c94573d483, type: 3}
-    answerBImage: {fileID: 21300000, guid: 791ed9ab7ff1d5745a7b5965d4f7baf9, type: 3}
-    answerVImage: {fileID: 21300000, guid: 44e0c490428a2e040b7be1091046beef, type: 3}
-    answerGImage: {fileID: 21300000, guid: 250ded9e616789f4a95636bae100ad7f, type: 3}
-    correctWrittenAnswer: 
-    hint: "\u0427\u043E\u0432\u0435\u0448\u043A\u043E\u0442\u043E \u0441\u044A\u0440\u0446\u0435
-      \u0438\u043C\u0430 2 \u043A\u0430\u043C\u0435\u0440\u0438 \u0438 2 \u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F"
-  - questionType: 2
-    question: "\u041D\u0430 \u043A\u043E\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435
-      \u0441\u0430 \u043E\u0441\u0432\u0435\u0442\u0435\u043D\u0438 \u0432\u0441\u0438\u0447\u043A\u0438
-      \u043A\u0430\u043C\u0435\u0440\u0438 \u043D\u0430 \u0447\u043E\u0432\u0435\u0448\u043A\u043E\u0442\u043E
-      \u0441\u044A\u0440\u0446\u0435?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 1
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 21300000, guid: a7bbb25d2c739b448bf96cd3ee30237c, type: 3}
-    answerBImage: {fileID: 21300000, guid: 6ff2ea9121aa8794298b58de7e372c6e, type: 3}
-    answerVImage: {fileID: 21300000, guid: 5197189a498d49e4b9a6669faec3b8a6, type: 3}
-    answerGImage: {fileID: 21300000, guid: 22e76b9da988b2a4a8d961674ce8c1be, type: 3}
-    correctWrittenAnswer: 
-    hint: "\u041A\u0430\u043C\u0435\u0440\u0438\u0442\u0435 \u0441\u0435 \u043D\u0430\u043C\u0438\u0440\u0430\u0442
-      \u0432 \u0434\u043E\u043B\u043D\u0430\u0442\u0430 \u0447\u0430\u0441\u0442
-      \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E"
-  - questionType: 2
-    question: "\u041D\u0430 \u043A\u043E\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435
-      \u0441\u0430 \u043E\u0441\u0432\u0435\u0442\u0435\u043D\u0438 \u0432\u0441\u0438\u0447\u043A\u0438
-      \u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F \u043D\u0430 \u0447\u043E\u0432\u0435\u0448\u043A\u043E\u0442\u043E
-      \u0441\u044A\u0440\u0446\u0435?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 0
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 21300000, guid: a7bbb25d2c739b448bf96cd3ee30237c, type: 3}
-    answerBImage: {fileID: 21300000, guid: 6ff2ea9121aa8794298b58de7e372c6e, type: 3}
-    answerVImage: {fileID: 21300000, guid: 5197189a498d49e4b9a6669faec3b8a6, type: 3}
-    answerGImage: {fileID: 21300000, guid: 4696bf39497dbc549b01ba8ccc7bbf90, type: 3}
-    correctWrittenAnswer: 
-    hint: "\u041F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F\u0442\u0430
-      \u0441\u0435 \u043D\u0430\u043C\u0438\u0440\u0430\u0442 \u0432 \u0433\u043E\u0440\u043D\u0430\u0442\u0430
-      \u0447\u0430\u0441\u0442 \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E"
-  - questionType: 2
-    question: "\u041D\u0430 \u043A\u043E\u0439 \u043F\u0443\u043B\u0441\u043E\u043C\u0435\u0440
-      \u0435 \u043F\u043E\u043A\u0430\u0437\u0430\u043D \u043D\u043E\u0440\u043C\u0430\u043B\u0435\u043D
-      \u043F\u0443\u043B\u0441?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 2
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 21300000, guid: d1e88152e13ac844fbc28a564cf5f8c0, type: 3}
-    answerBImage: {fileID: 21300000, guid: c4029b0be87ce244183594a53162f860, type: 3}
-    answerVImage: {fileID: 21300000, guid: 1fa6af3ec76d9004da2b9e9234ed8d2c, type: 3}
-    answerGImage: {fileID: 21300000, guid: 0561b2b8d13e5da428be33b4e42a1cdc, type: 3}
-    correctWrittenAnswer: 
-    hint: "\u0421\u043F\u043E\u043C\u043D\u0438 \u0441\u0438 \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u0430\u0442\u0430
-      \u0437\u043E\u043D\u0430 \u043E\u0442 \u043C\u0438\u043D\u0438\u0438\u0433\u0440\u0430\u0442\u0430
-      \u0441 \u043F\u0443\u043B\u0441\u0430"
-  - questionType: 3
-    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430\u0442
-      \u043D\u0430\u0439-\u043C\u0430\u043B\u043A\u0438\u0442\u0435 \u043A\u0440\u044A\u0432\u043E\u043D\u043E\u0441\u043D\u0438
-      \u0441\u044A\u0434\u043E\u0432\u0435?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 0
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: "\u041A\u0430\u043F\u0438\u043B\u044F\u0440\u0438"
-    hint: "\u0422\u0435 \u0441\u0432\u044A\u0440\u0437\u0432\u0430\u0442 \u0430\u0440\u0442\u0435\u0440\u0438\u0438\u0442\u0435
-      \u0438 \u0432\u0435\u043D\u0438\u0442\u0435"
-  - questionType: 3
-    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430\u0442
-      \u043A\u0440\u044A\u0432\u043E\u043D\u043E\u0441\u043D\u0438\u0442\u0435 \u0441\u044A\u0434\u043E\u0432\u0435,
-      \u043A\u043E\u0438\u0442\u043E \u043E\u0442\u0432\u0435\u0436\u0434\u0430\u0442
-      \u043A\u0440\u044A\u0432\u0442\u0430 \u043E\u0442 \u0441\u044A\u0440\u0446\u0435\u0442\u043E?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 0
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: "\u0410\u0440\u0442\u0435\u0440\u0438\u0438"
-    hint: "\u0412 \u0442\u044F\u0445 \u043A\u0440\u044A\u0432\u0442\u0430 \u0441\u0435
-      \u0434\u0432\u0438\u0436\u0438 \u043F\u043E-\u0431\u044A\u0440\u0437\u043E"
-  - questionType: 3
-    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430\u0442
-      \u043A\u0440\u044A\u0432\u043E\u043D\u043E\u0441\u043D\u0438\u0442\u0435 \u0441\u044A\u0434\u043E\u0432\u0435,
-      \u043A\u043E\u0438\u0442\u043E \u0432\u0440\u044A\u0449\u0430\u0442 \u043A\u0440\u044A\u0432\u0442\u0430
-      \u043A\u044A\u043C \u0441\u044A\u0440\u0446\u0435\u0442\u043E?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 0
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: "\u0412\u0435\u043D\u0438"
-    hint: "\u0412 \u0442\u044F\u0445 \u043A\u0440\u044A\u0432\u0442\u0430 \u0441\u0435
-      \u0434\u0432\u0438\u0436\u0438 \u043F\u043E-\u0431\u0430\u0432\u043D\u043E"
-  - questionType: 3
-    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430\u0442
-      \u0433\u043E\u0440\u043D\u0438\u0442\u0435 \u0434\u0432\u0435 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u044F
-      \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 0
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: "\u041F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u044F"
-    hint: "\u0412 \u0442\u044F\u0445 \u043F\u044A\u0440\u0432\u043E \u043F\u043E\u0441\u0442\u044A\u043F\u0432\u0430
-      \u043A\u0440\u044A\u0432\u0442\u0430"
-  - questionType: 3
-    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430\u0442
-      \u0434\u043E\u043B\u043D\u0438\u0442\u0435 \u0434\u0432\u0435 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u044F
-      \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E, \u043A\u043E\u0438\u0442\u043E
-      \u0438\u0437\u043F\u043E\u043C\u043F\u0432\u0430\u0442 \u043A\u0440\u044A\u0432\u0442\u0430?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 0
-    questionImage: {fileID: 21300000, guid: 422d71cb3537bf245a802475d52328e0, type: 3}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: "\u041A\u0430\u043C\u0435\u0440\u0438"
-    hint: "\u041E\u0442 \u0442\u044F\u0445 \u043A\u0440\u044A\u0432\u0442\u0430 \u043F\u0440\u043E\u0434\u044A\u043B\u0436\u0430\u0432\u0430
-      \u043A\u044A\u043C \u0430\u0440\u0442\u0435\u0440\u0438\u0438\u0442\u0435"
+  m_EditorClassIdentifier: Assembly-CSharp::LiverQuizManager
+  questions: []
   multipleQuestionUI: {fileID: 1480419107}
   questionImageUI: {fileID: 1991334789}
   imageAnswerUI: {fileID: 982517395}
@@ -9343,25 +8948,6 @@ MonoBehaviour:
   quizSuccessPanel: {fileID: 675753079}
   nextQuestionDelay: 0.8
   wrongAnswerLockDuration: 0.6
---- !u!224 &817714403
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817714401}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 606980734}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &825984137
 GameObject:
   m_ObjectHideFlags: 0
@@ -9424,7 +9010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &831696685
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10125,7 +9711,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817714402}
+      - m_Target: {fileID: 817714404}
         m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
         m_MethodName: OpenExitConfirmation
         m_Mode: 1
@@ -11245,7 +10831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 2
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &1003743180
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11548,7 +11134,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817714402}
+      - m_Target: {fileID: 817714404}
         m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
         m_MethodName: CloseInfoPanel
         m_Mode: 1
@@ -12100,9 +11686,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1071491262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 58.8122, y: -185.948}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.49999997}
 --- !u!114 &1125526877
@@ -12614,7 +12200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 0
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!114 &1165714521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12697,7 +12283,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817714402}
+      - m_Target: {fileID: 817714404}
         m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
         m_MethodName: OpenHint
         m_Mode: 1
@@ -13070,7 +12656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 3
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &1195315059
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14247,7 +13833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 1
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!114 &1329618238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14452,7 +14038,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817714402}
+      - m_Target: {fileID: 817714404}
         m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
         m_MethodName: CloseHint
         m_Mode: 1
@@ -15020,7 +14606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 3
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &1388266693
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17397,7 +16983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 1
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &1700096042
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17678,7 +17264,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817714402}
+      - m_Target: {fileID: 817714404}
         m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
         m_MethodName: OpenSettingsPanel
         m_Mode: 1
@@ -18260,7 +17846,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817714402}
+      - m_Target: {fileID: 817714404}
         m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
         m_MethodName: CloseExitConfirmation
         m_Mode: 1
@@ -20827,7 +20413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 0
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!222 &2051782339
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20949,7 +20535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
   answerIndex: 2
-  quizManager: {fileID: 817714402}
+  quizManager: {fileID: 0}
 --- !u!114 &2064877783
 MonoBehaviour:
   m_ObjectHideFlags: 0
