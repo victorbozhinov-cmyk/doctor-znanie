@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 97e397cc301206b4ba59353459cabc1c
+guid: 48a7d3d0400147f41937772fa4d7b1d8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3081942302825707349
-    second: riding a bike_0
+      213: -4301454216525192735
+    second: gameover panel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: riding a bike_0
+      name: gameover panel_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 29
-        width: 1254
-        height: 1225
+        x: 98
+        y: 0
+        width: 1383
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 557fc22123245ca20800000000000000
-      internalID: 3081942302825707349
+      spriteID: 1e1e86e1e2a2e44c0800000000000000
+      internalID: -4301454216525192735
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      riding a bike_0: 3081942302825707349
+      gameover panel_0: -4301454216525192735
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
