@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BrainMinigameManager : MonoBehaviour
 {
@@ -92,10 +91,23 @@ public class BrainMinigameManager : MonoBehaviour
 
     [Header("Optional Tension UI")]
     [SerializeField]
-    private Image tensionFill;
+    private StressFillMaskController tensionFillMask;
 
     [SerializeField]
     private TMP_Text tensionText;
+
+    [Header("Tension Brain")]
+    [SerializeField]
+    private SpriteRenderer tensionBrainRenderer;
+
+    [SerializeField]
+    private Sprite calmBrainSprite;
+
+    [SerializeField]
+    private Sprite stressedBrainSprite;
+
+    [SerializeField]
+    private Sprite criticalBrainSprite;
 
     [Header("Optional End Objects")]
     [SerializeField]
@@ -432,15 +444,15 @@ public class BrainMinigameManager : MonoBehaviour
             totalSeconds % 60;
 
         roundTimeText.text =
-            $"{minutes}:{seconds:00}";
+            $"{minutes:00}:{seconds:00}";
     }
 
     private void UpdateTensionUI()
     {
-        if (tensionFill != null)
+        if (tensionFillMask != null)
         {
-            tensionFill.fillAmount =
-                nervousTension / 100f;
+            tensionFillMask.SetFill(
+                nervousTension / 100f);
         }
 
         if (tensionText != null)
@@ -449,6 +461,42 @@ public class BrainMinigameManager : MonoBehaviour
                 Mathf.RoundToInt(
                     nervousTension) +
                 "%";
+        }
+
+        UpdateTensionBrain();
+    }
+
+    private void UpdateTensionBrain()
+    {
+        if (tensionBrainRenderer == null)
+            return;
+
+        if (nervousTension >= 80f)
+        {
+            if (criticalBrainSprite != null)
+            {
+                tensionBrainRenderer.sprite =
+                    criticalBrainSprite;
+            }
+
+            return;
+        }
+
+        if (nervousTension >= 50f)
+        {
+            if (stressedBrainSprite != null)
+            {
+                tensionBrainRenderer.sprite =
+                    stressedBrainSprite;
+            }
+
+            return;
+        }
+
+        if (calmBrainSprite != null)
+        {
+            tensionBrainRenderer.sprite =
+                calmBrainSprite;
         }
     }
 
