@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,14 +35,28 @@ public class BrainOrganStation : MonoBehaviour
     private BrainTokenCarrier playerCarrier;
 
     private bool playerInside = false;
+    private bool orderActive = false;
     private bool orderCompleted = false;
     private bool orderFailed = false;
+
+    public event Action<BrainOrganStation>
+        OrderCompleted;
+
+    public event Action<BrainOrganStation>
+        OrderFailed;
+
+    public bool CanStartOrder =>
+        !orderActive;
+
+    public BrainMinigameDropZone BrainDropZone =>
+        brainDropZone;
 
     private void OnEnable()
     {
         if (orderUI != null)
         {
-            orderUI.OrderFailed += HandleOrderFailed;
+            orderUI.OrderFailed +=
+                HandleOrderFailed;
         }
     }
 
@@ -49,24 +64,19 @@ public class BrainOrganStation : MonoBehaviour
     {
         if (orderUI != null)
         {
-            orderUI.OrderFailed -= HandleOrderFailed;
-        }
-    }
-
-    private void Start()
-    {
-        // Засега поръчката стартира веднага.
-        // По-късно това ще се управлява от Order Manager.
-        if (orderUI != null)
-        {
-            orderUI.StartOrder(problemTokenType);
+            orderUI.OrderFailed -=
+                HandleOrderFailed;
         }
     }
 
     private void Update()
     {
-        if (orderCompleted || orderFailed)
+        if (!orderActive ||
+            orderCompleted ||
+            orderFailed)
+        {
             return;
+        }
 
         if (!playerInside)
             return;
@@ -78,13 +88,60 @@ public class BrainOrganStation : MonoBehaviour
             return;
 
         bool interactPressed =
-            Keyboard.current.eKey.wasPressedThisFrame ||
-            Keyboard.current.spaceKey.wasPressedThisFrame;
+            Keyboard.current.eKey
+                .wasPressedThisFrame ||
+            Keyboard.current.spaceKey
+                .wasPressedThisFrame;
 
         if (!interactPressed)
             return;
 
         TryInteract();
+    }
+
+    public void PrepareForManager()
+    {
+        orderActive = false;
+        orderCompleted = false;
+        orderFailed = false;
+
+        if (problemTokenVisual != null)
+        {
+            problemTokenVisual.SetActive(false);
+        }
+
+        if (orderUI != null)
+        {
+            orderUI.CancelOrder();
+        }
+    }
+
+    public void StartManagedOrder(
+        float orderDuration)
+    {
+        if (orderActive)
+            return;
+
+        orderActive = true;
+        orderCompleted = false;
+        orderFailed = false;
+
+        if (problemTokenVisual != null)
+        {
+            problemTokenVisual.SetActive(true);
+        }
+
+        if (orderUI != null)
+        {
+            orderUI.StartOrder(
+                problemTokenType,
+                orderDuration);
+        }
+
+        Debug.Log(
+            gameObject.name +
+            " started managed order: " +
+            problemTokenType);
     }
 
     private void TryInteract()
@@ -100,23 +157,20 @@ public class BrainOrganStation : MonoBehaviour
 
     private void TryGiveProblemToken()
     {
-        if (orderCompleted || orderFailed)
+        if (!orderActive ||
+            orderCompleted ||
+            orderFailed)
+        {
             return;
-
-        if (playerCarrier == null)
-            return;
-
-        if (playerCarrier.IsCarryingToken)
-            return;
+        }
 
         if (problemTokenVisual == null ||
             !problemTokenVisual.activeSelf)
+        {
             return;
+        }
 
         if (problemTokenSprite == null)
-            return;
-
-        if (problemTokenType == BrainTokenType.None)
             return;
 
         playerCarrier.PickUpToken(
@@ -129,24 +183,12 @@ public class BrainOrganStation : MonoBehaviour
         {
             orderUI.NotifyProblemPickedUp();
         }
-
-        Debug.Log(
-            gameObject.name +
-            " Problem token picked up: " +
-            problemTokenType);
     }
 
     private void TryReceiveCommandToken()
     {
-        if (playerCarrier == null)
-            return;
-
         if (!playerCarrier.IsCarryingToken)
             return;
-
-        // =====================================================
-        // ГРЕШЕН COMMAND TOKEN
-        // =====================================================
 
         if (playerCarrier.CurrentTokenType !=
             acceptedCommandTokenType)
@@ -156,59 +198,75 @@ public class BrainOrganStation : MonoBehaviour
                 screenFlash.PlayRedFlash();
             }
 
-            Debug.Log(
-                gameObject.name +
-                " rejected Command token: " +
-                playerCarrier.CurrentTokenType);
-
             return;
         }
-
-        // =====================================================
-        // ПРАВИЛЕН COMMAND TOKEN
-        // =====================================================
 
         playerCarrier.DropToken();
 
         orderCompleted = true;
+        orderActive = false;
 
         if (orderUI != null)
         {
             orderUI.CompleteOrder();
         }
 
-        Debug.Log(
-            gameObject.name +
-            " order completed successfully.");
+        OrderCompleted?.Invoke(this);
     }
 
     private void HandleOrderFailed()
     {
-        if (orderCompleted || orderFailed)
+        if (!orderActive ||
+            orderCompleted ||
+            orderFailed)
+        {
             return;
+        }
 
         orderFailed = true;
+        orderActive = false;
 
-        // Ако Problem токенът още е на станцията,
-        // го махаме.
+        ClearOrderTokens();
+
+        OrderFailed?.Invoke(this);
+    }
+
+    public void CancelOrder()
+    {
+        if (!orderActive &&
+            !orderCompleted &&
+            !orderFailed)
+        {
+            return;
+        }
+
+        orderActive = false;
+        orderCompleted = false;
+        orderFailed = false;
+
+        ClearOrderTokens();
+
+        if (orderUI != null)
+        {
+            orderUI.CancelOrder();
+        }
+    }
+
+    private void ClearOrderTokens()
+    {
         if (problemTokenVisual != null)
         {
             problemTokenVisual.SetActive(false);
         }
 
-        // Ако Command токенът е останал върху
-        // правилната мозъчна зона,
-        // го махаме.
         if (brainDropZone != null)
         {
             brainDropZone.ClearCommandToken();
         }
 
-        // Ако играчът носи токен,
-        // принадлежащ на тази поръчка,
-        // го махаме.
         BrainTokenCarrier carrier =
-            FindFirstObjectByType<BrainTokenCarrier>();
+            FindFirstObjectByType<
+                BrainTokenCarrier>();
 
         if (carrier != null &&
             carrier.IsCarryingToken)
@@ -221,16 +279,14 @@ public class BrainOrganStation : MonoBehaviour
                 carrier.DropToken();
             }
         }
-
-        Debug.Log(
-            gameObject.name +
-            " order failed and its tokens were cleared.");
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(
+        Collider2D other)
     {
         BrainTokenCarrier carrier =
-            other.GetComponent<BrainTokenCarrier>();
+            other.GetComponent<
+                BrainTokenCarrier>();
 
         if (carrier == null)
             return;
@@ -244,10 +300,12 @@ public class BrainOrganStation : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(
+        Collider2D other)
     {
         BrainTokenCarrier carrier =
-            other.GetComponent<BrainTokenCarrier>();
+            other.GetComponent<
+                BrainTokenCarrier>();
 
         if (carrier == null)
             return;

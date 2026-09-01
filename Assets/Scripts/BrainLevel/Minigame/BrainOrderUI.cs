@@ -18,9 +18,9 @@ public class BrainOrderUI : MonoBehaviour
         public TMP_Text infoTimeText;
     }
 
-    [Header("Order Time")]
+    [Header("Default Order Time")]
     [SerializeField]
-    private float orderDuration = 90f;
+    private float orderDuration = 30f;
 
     [Header("Order Alert")]
     [SerializeField]
@@ -54,12 +54,11 @@ public class BrainOrderUI : MonoBehaviour
 
     public event Action OrderFailed;
 
-    public bool IsOrderActive => orderActive;
-    public bool HasTimeExpired => remainingTime <= 0f;
-    public float RemainingTime => remainingTime;
+    public bool IsOrderActive =>
+        orderActive;
 
-    public BrainTokenType ActiveProblemTokenType =>
-        activeProblemTokenType;
+    public float RemainingTime =>
+        remainingTime;
 
     private void Awake()
     {
@@ -73,25 +72,31 @@ public class BrainOrderUI : MonoBehaviour
 
     private void Update()
     {
-        if (!orderActive || orderCompleted)
+        if (!orderActive ||
+            orderCompleted)
+        {
             return;
+        }
 
         UpdateTimer();
         UpdateVisualState();
     }
 
-    // =====================================================
-    // ORDER STATE
-    // =====================================================
-
     public void StartOrder(
-        BrainTokenType problemTokenType)
+        BrainTokenType problemTokenType,
+        float duration)
     {
         activeProblemTokenType =
             problemTokenType;
 
         activeProblemUI =
-            FindProblemUI(problemTokenType);
+            FindProblemUI(
+                problemTokenType);
+
+        orderDuration =
+            Mathf.Max(
+                1f,
+                duration);
 
         remainingTime =
             orderDuration;
@@ -107,17 +112,15 @@ public class BrainOrderUI : MonoBehaviour
 
         UpdateTimeDisplay();
         UpdateVisualState();
-
-        Debug.Log(
-            gameObject.name +
-            " started order: " +
-            activeProblemTokenType);
     }
 
     public void NotifyProblemPickedUp()
     {
-        if (!orderActive || orderCompleted)
+        if (!orderActive ||
+            orderCompleted)
+        {
             return;
+        }
 
         problemPickedUp = true;
 
@@ -133,20 +136,25 @@ public class BrainOrderUI : MonoBehaviour
         orderActive = false;
 
         HideAllOrderUI();
-
-        Debug.Log(
-            gameObject.name +
-            " order completed. Timer stopped.");
     }
 
-    // =====================================================
-    // FAILURE
-    // =====================================================
+    public void CancelOrder()
+    {
+        orderActive = false;
+        orderCompleted = false;
+        problemPickedUp = false;
+        remainingTime = 0f;
+
+        HideAllOrderUI();
+    }
 
     private void FailOrder()
     {
-        if (!orderActive || orderCompleted)
+        if (!orderActive ||
+            orderCompleted)
+        {
             return;
+        }
 
         remainingTime = 0f;
         orderActive = false;
@@ -159,31 +167,21 @@ public class BrainOrderUI : MonoBehaviour
             screenFlash.PlayRedFlash();
         }
 
-        Debug.Log(
-            gameObject.name +
-            " order failed - time expired.");
-
         OrderFailed?.Invoke();
     }
 
-    // =====================================================
-    // PLAYER PROXIMITY
-    // =====================================================
-
-    public void SetPlayerNearby(bool nearby)
+    public void SetPlayerNearby(
+        bool nearby)
     {
         playerNearby = nearby;
 
         UpdateVisualState();
     }
 
-    // =====================================================
-    // TIMER
-    // =====================================================
-
     private void UpdateTimer()
     {
-        remainingTime -= Time.deltaTime;
+        remainingTime -=
+            Time.deltaTime;
 
         if (remainingTime <= 0f)
         {
@@ -202,21 +200,15 @@ public class BrainOrderUI : MonoBehaviour
     {
         if (timeFill != null)
         {
-            if (orderDuration > 0f)
-            {
-                timeFill.fillAmount =
-                    Mathf.Clamp01(
-                        remainingTime /
-                        orderDuration);
-            }
-            else
-            {
-                timeFill.fillAmount = 0f;
-            }
+            timeFill.fillAmount =
+                Mathf.Clamp01(
+                    remainingTime /
+                    orderDuration);
         }
 
         int totalSeconds =
-            Mathf.CeilToInt(remainingTime);
+            Mathf.CeilToInt(
+                remainingTime);
 
         int minutes =
             totalSeconds / 60;
@@ -241,10 +233,6 @@ public class BrainOrderUI : MonoBehaviour
         }
     }
 
-    // =====================================================
-    // VISUAL STATE
-    // =====================================================
-
     private void UpdateVisualState()
     {
         if (!orderActive ||
@@ -254,9 +242,6 @@ public class BrainOrderUI : MonoBehaviour
             return;
         }
 
-        // След взимане на Problem токена
-        // Info panel изчезва,
-        // но Alert + timer остават.
         if (problemPickedUp)
         {
             if (orderAlert != null)
@@ -269,9 +254,6 @@ public class BrainOrderUI : MonoBehaviour
             return;
         }
 
-        // Преди взимане:
-        // ако сме близо до станцията,
-        // показваме правилния Info panel.
         if (playerNearby)
         {
             if (orderAlert != null)
@@ -284,7 +266,8 @@ public class BrainOrderUI : MonoBehaviour
             if (activeProblemUI != null &&
                 activeProblemUI.infoPanelRoot != null)
             {
-                activeProblemUI.infoPanelRoot
+                activeProblemUI
+                    .infoPanelRoot
                     .SetActive(true);
             }
         }
@@ -298,10 +281,6 @@ public class BrainOrderUI : MonoBehaviour
             HideAllInfoPanels();
         }
     }
-
-    // =====================================================
-    // PROBLEM UI LOOKUP
-    // =====================================================
 
     private ProblemUIEntry FindProblemUI(
         BrainTokenType problemTokenType)
@@ -324,15 +303,11 @@ public class BrainOrderUI : MonoBehaviour
 
         Debug.LogWarning(
             gameObject.name +
-            " has no UI entry for problem: " +
+            " has no UI entry for: " +
             problemTokenType);
 
         return null;
     }
-
-    // =====================================================
-    // HIDE UI
-    // =====================================================
 
     private void HideAllOrderUI()
     {
