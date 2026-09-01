@@ -19,10 +19,13 @@ public class ScreenFlash : MonoBehaviour
     {
         if (flashImage == null)
         {
-            flashImage = GetComponent<Image>();
+            Debug.LogWarning(
+                "ScreenFlash: Flash Image is not assigned.");
+            return;
         }
 
         SetAlpha(0f);
+        flashImage.gameObject.SetActive(false);
     }
 
     public void PlayRedFlash()
@@ -30,25 +33,37 @@ public class ScreenFlash : MonoBehaviour
         if (flashImage == null)
             return;
 
+        flashImage.gameObject.SetActive(true);
+
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
         }
 
-        flashCoroutine = StartCoroutine(FlashRoutine());
+        SetAlpha(0f);
+
+        flashCoroutine =
+            StartCoroutine(FlashRoutine());
     }
 
     private IEnumerator FlashRoutine()
     {
-        // Бърз Fade In
         float timer = 0f;
 
+        // Fade In
         while (timer < fadeInDuration)
         {
             timer += Time.unscaledDeltaTime;
 
-            float t = timer / fadeInDuration;
-            float alpha = Mathf.Lerp(0f, maxAlpha, t);
+            float t =
+                Mathf.Clamp01(
+                    timer / fadeInDuration);
+
+            float alpha =
+                Mathf.Lerp(
+                    0f,
+                    maxAlpha,
+                    t);
 
             SetAlpha(alpha);
 
@@ -57,21 +72,29 @@ public class ScreenFlash : MonoBehaviour
 
         SetAlpha(maxAlpha);
 
-        // Кратко задържане
+        // Hold
         if (holdDuration > 0f)
         {
-            yield return new WaitForSecondsRealtime(holdDuration);
+            yield return new WaitForSecondsRealtime(
+                holdDuration);
         }
 
-        // По-плавен Fade Out
         timer = 0f;
 
+        // Fade Out
         while (timer < fadeOutDuration)
         {
             timer += Time.unscaledDeltaTime;
 
-            float t = timer / fadeOutDuration;
-            float alpha = Mathf.Lerp(maxAlpha, 0f, t);
+            float t =
+                Mathf.Clamp01(
+                    timer / fadeOutDuration);
+
+            float alpha =
+                Mathf.Lerp(
+                    maxAlpha,
+                    0f,
+                    t);
 
             SetAlpha(alpha);
 
@@ -80,12 +103,18 @@ public class ScreenFlash : MonoBehaviour
 
         SetAlpha(0f);
 
+        flashImage.gameObject.SetActive(false);
+
         flashCoroutine = null;
     }
 
     private void SetAlpha(float alpha)
     {
-        Color color = flashImage.color;
+        if (flashImage == null)
+            return;
+
+        Color color =
+            flashImage.color;
 
         color.r = 1f;
         color.g = 0f;
