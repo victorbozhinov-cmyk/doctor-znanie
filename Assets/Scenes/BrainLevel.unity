@@ -291,7 +291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.4, y: -0.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &18637719
@@ -4009,7 +4009,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &323947313
@@ -5246,6 +5246,7 @@ MonoBehaviour:
     commandTokenType: 21
     commandTokenSprite: {fileID: 21300000, guid: 8322e141f6e33c04c937af24ab14f502, type: 3}
   commandTokenVisual: {fileID: 894218415}
+  processingDuration: 3
   screenFlash: {fileID: 2107514473}
 --- !u!58 &368583061
 CircleCollider2D:
@@ -6094,6 +6095,7 @@ MonoBehaviour:
     commandTokenType: 19
     commandTokenSprite: {fileID: 21300000, guid: 937b45f2b3bfe824b9ddabb045549bd8, type: 3}
   commandTokenVisual: {fileID: 1968509458}
+  processingDuration: 3
   screenFlash: {fileID: 2107514473}
 --- !u!58 &413992907
 CircleCollider2D:
@@ -6417,7 +6419,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.3, y: 0.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &436483112
@@ -10540,6 +10542,93 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1 &793704765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 793704766}
+  - component: {fileID: 793704767}
+  m_Layer: 0
+  m_Name: BrainMinigameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &793704766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793704765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1196589196}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793704767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793704765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4203e1b3a3ab04349b1235ea528409b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainMinigameManager
+  easySettings:
+    roundDuration: 120
+    maxActiveOrders: 2
+    orderDuration: 28
+    minSpawnDelay: 8
+    maxSpawnDelay: 11
+    brainProcessingTime: 2
+    failedOrderTension: 20
+    wrongBrainZoneTension: 5
+  mediumSettings:
+    roundDuration: 120
+    maxActiveOrders: 3
+    orderDuration: 23
+    minSpawnDelay: 6
+    maxSpawnDelay: 9
+    brainProcessingTime: 3
+    failedOrderTension: 25
+    wrongBrainZoneTension: 8
+  hardSettings:
+    roundDuration: 120
+    maxActiveOrders: 4
+    orderDuration: 19
+    minSpawnDelay: 4
+    maxSpawnDelay: 7
+    brainProcessingTime: 4
+    failedOrderTension: 34
+    wrongBrainZoneTension: 10
+  stations:
+  - {fileID: 1052249972}
+  - {fileID: 317849855}
+  - {fileID: 1853788372}
+  - {fileID: 987974944}
+  - {fileID: 845581140}
+  - {fileID: 1637633535}
+  - {fileID: 1731726327}
+  - {fileID: 656021834}
+  - {fileID: 346141089}
+  - {fileID: 867586215}
+  roundTimeText: {fileID: 0}
+  tensionFill: {fileID: 0}
+  tensionText: {fileID: 0}
+  successObject: {fileID: 0}
+  gameOverObject: {fileID: 0}
 --- !u!1 &796117800
 GameObject:
   m_ObjectHideFlags: 0
@@ -14844,6 +14933,7 @@ MonoBehaviour:
     commandTokenType: 4
     commandTokenSprite: {fileID: 21300000, guid: 3aeaa12b5e39dec47877118642068f49, type: 3}
   commandTokenVisual: {fileID: 1809758894}
+  processingDuration: 3
   screenFlash: {fileID: 2107514473}
 --- !u!1 &1022540652
 GameObject:
@@ -17356,6 +17446,7 @@ Transform:
   - {fileID: 1966820568}
   - {fileID: 650036820}
   - {fileID: 1761408946}
+  - {fileID: 793704766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1196997838
@@ -24579,6 +24670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BrainMinigameDropZone
   tokenResponses: []
   commandTokenVisual: {fileID: 1883471658}
+  processingDuration: 3
   screenFlash: {fileID: 2107514473}
 --- !u!58 &1725484206
 CircleCollider2D:
@@ -30681,6 +30773,7 @@ MonoBehaviour:
     commandTokenType: 17
     commandTokenSprite: {fileID: 21300000, guid: 2b34b04f6acb53f4a979c63609d3d286, type: 3}
   commandTokenVisual: {fileID: 339994824}
+  processingDuration: 3
   screenFlash: {fileID: 2107514473}
 --- !u!58 &2061692657
 CircleCollider2D:
@@ -31664,6 +31757,7 @@ MonoBehaviour:
     commandTokenType: 11
     commandTokenSprite: {fileID: 21300000, guid: c76cb633fbbb8554fbe700e362223202, type: 3}
   commandTokenVisual: {fileID: 712761557}
+  processingDuration: 3
   screenFlash: {fileID: 2107514473}
 --- !u!58 &2119934140
 CircleCollider2D:
