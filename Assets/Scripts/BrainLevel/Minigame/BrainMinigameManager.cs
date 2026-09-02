@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BrainMinigameManager : MonoBehaviour
 {
@@ -109,6 +110,50 @@ public class BrainMinigameManager : MonoBehaviour
     [SerializeField]
     private Sprite criticalBrainSprite;
 
+    // =========================================================
+    // PAUSE
+    // =========================================================
+
+    [Header("Pause")]
+    [SerializeField]
+    private GameObject pauseWorld;
+
+    [Header("Pause Panels")]
+    [SerializeField]
+    private GameObject pausePanel;
+
+    [SerializeField]
+    private GameObject infoPanel;
+
+    // =========================================================
+    // SETTINGS
+    // =========================================================
+
+    [Header("Settings")]
+    [SerializeField]
+    private GameObject settingsOverlay;
+
+    [SerializeField]
+    private PauseUIPopupAnimation settingsPopupAnimation;
+
+    [SerializeField]
+    private DifficultySelector difficultySelector;
+
+    // =========================================================
+    // EXIT CONFIRMATION
+    // =========================================================
+
+    [Header("Exit Confirmation")]
+    [SerializeField]
+    private GameObject exitConfirmationPanel;
+
+    [SerializeField]
+    private PauseUIPopupAnimation exitPopupAnimation;
+
+    // =========================================================
+    // END OBJECTS
+    // =========================================================
+
     [Header("Optional End Objects")]
     [SerializeField]
     private GameObject successObject;
@@ -126,6 +171,8 @@ public class BrainMinigameManager : MonoBehaviour
     private float nervousTension = 0f;
 
     private bool roundRunning = false;
+    private bool isPaused = false;
+
     private Coroutine spawnCoroutine;
 
     public float NervousTension =>
@@ -134,8 +181,19 @@ public class BrainMinigameManager : MonoBehaviour
     public float RemainingRoundTime =>
         remainingRoundTime;
 
+    public bool IsPaused =>
+        isPaused;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
+
     private void Start()
     {
+        Time.timeScale = 1f;
+
+        HidePauseWorld();
+
         StartRound();
     }
 
@@ -144,8 +202,15 @@ public class BrainMinigameManager : MonoBehaviour
         if (!roundRunning)
             return;
 
+        if (isPaused)
+            return;
+
         UpdateRoundTimer();
     }
+
+    // =========================================================
+    // ROUND
+    // =========================================================
 
     private void StartRound()
     {
@@ -157,8 +222,11 @@ public class BrainMinigameManager : MonoBehaviour
 
         nervousTension = 0f;
         roundRunning = true;
+        isPaused = false;
 
         activeStations.Clear();
+
+        HidePauseWorld();
 
         if (successObject != null)
         {
@@ -189,13 +257,296 @@ public class BrainMinigameManager : MonoBehaviour
                 1));
     }
 
+    // =========================================================
+    // PAUSE
+    // =========================================================
+
+    public void PauseGame()
+    {
+        if (!roundRunning)
+            return;
+
+        if (isPaused)
+            return;
+
+        isPaused = true;
+
+        if (pauseWorld != null)
+        {
+            pauseWorld.SetActive(true);
+        }
+
+        ShowMainPausePanel();
+
+        Time.timeScale = 0f;
+
+        Debug.Log(
+            "Brain minigame paused.");
+    }
+
+    public void ResumeGame()
+    {
+        if (!roundRunning)
+            return;
+
+        if (!isPaused)
+            return;
+
+        HidePauseWorld();
+
+        isPaused = false;
+        Time.timeScale = 1f;
+
+        Debug.Log(
+            "Brain minigame resumed.");
+    }
+
+    // =========================================================
+    // INFO
+    // =========================================================
+
+    public void OpenInfoPanel()
+    {
+        if (!isPaused)
+            return;
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(true);
+        }
+    }
+
+    public void CloseInfoPanel()
+    {
+        if (!isPaused)
+            return;
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+        }
+    }
+
+    // =========================================================
+    // SETTINGS
+    // =========================================================
+
+    public void OpenSettingsPanel()
+    {
+        if (!isPaused)
+            return;
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
+        }
+
+        if (difficultySelector != null)
+        {
+            difficultySelector.SetLocked(true);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(true);
+        }
+    }
+
+    public void CloseSettingsPanel()
+    {
+        if (!isPaused)
+            return;
+
+        if (settingsPopupAnimation != null)
+        {
+            settingsPopupAnimation.PlayClose(
+                FinishClosingSettings);
+
+            return;
+        }
+
+        FinishClosingSettings();
+    }
+
+    private void FinishClosingSettings()
+    {
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+        }
+
+        if (pauseWorld != null)
+        {
+            pauseWorld.SetActive(true);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+        }
+    }
+
+    // =========================================================
+    // EXIT CONFIRMATION
+    // =========================================================
+
+    public void OpenExitConfirmation()
+    {
+        if (!isPaused)
+            return;
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(true);
+        }
+    }
+
+    public void CloseExitConfirmation()
+    {
+        if (!isPaused)
+            return;
+
+        if (exitPopupAnimation != null)
+        {
+            exitPopupAnimation.PlayClose(
+                FinishClosingExitConfirmation);
+
+            return;
+        }
+
+        FinishClosingExitConfirmation();
+    }
+
+    private void FinishClosingExitConfirmation()
+    {
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
+        }
+
+        if (pauseWorld != null)
+        {
+            pauseWorld.SetActive(true);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+        }
+    }
+
+    public void ExitToBodyMap()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("BodyMap");
+    }
+
+    // =========================================================
+    // PAUSE PANEL HELPERS
+    // =========================================================
+
+    private void ShowMainPausePanel()
+    {
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
+        }
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+        }
+    }
+
+    private void HidePauseWorld()
+    {
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
+        }
+
+        if (pauseWorld != null)
+        {
+            pauseWorld.SetActive(false);
+        }
+    }
+
+    // =========================================================
+    // SETUP
+    // =========================================================
+
     private void SetupStations()
     {
         if (stations == null)
             return;
 
-        foreach (BrainOrganStation station in
-                 stations)
+        foreach (BrainOrganStation station in stations)
         {
             if (station == null)
                 continue;
@@ -239,6 +590,10 @@ public class BrainMinigameManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // ORDER SPAWNING
+    // =========================================================
+
     private IEnumerator SpawnOrdersRoutine()
     {
         while (roundRunning)
@@ -248,11 +603,13 @@ public class BrainMinigameManager : MonoBehaviour
                     currentSettings.minSpawnDelay,
                     currentSettings.maxSpawnDelay);
 
-            yield return new WaitForSeconds(
-                delay);
+            yield return new WaitForSeconds(delay);
 
             if (!roundRunning)
                 yield break;
+
+            if (isPaused)
+                continue;
 
             if (activeStations.Count <
                 currentSettings.maxActiveOrders)
@@ -267,6 +624,9 @@ public class BrainMinigameManager : MonoBehaviour
         if (!roundRunning)
             return;
 
+        if (isPaused)
+            return;
+
         if (activeStations.Count >=
             currentSettings.maxActiveOrders)
         {
@@ -279,8 +639,7 @@ public class BrainMinigameManager : MonoBehaviour
         if (stations == null)
             return;
 
-        foreach (BrainOrganStation station in
-                 stations)
+        foreach (BrainOrganStation station in stations)
         {
             if (station == null)
                 continue;
@@ -344,6 +703,10 @@ public class BrainMinigameManager : MonoBehaviour
         return false;
     }
 
+    // =========================================================
+    // ORDER EVENTS
+    // =========================================================
+
     private void HandleOrderCompleted(
         BrainOrganStation station)
     {
@@ -382,15 +745,25 @@ public class BrainMinigameManager : MonoBehaviour
         if (!roundRunning)
             return;
 
+        if (isPaused)
+            return;
+
         if (activeStations.Count == 0)
         {
             TryStartRandomOrder();
         }
     }
 
+    // =========================================================
+    // TENSION
+    // =========================================================
+
     private void AddTension(float amount)
     {
         if (!roundRunning)
+            return;
+
+        if (isPaused)
             return;
 
         nervousTension += amount;
@@ -407,44 +780,6 @@ public class BrainMinigameManager : MonoBehaviour
         {
             LoseRound();
         }
-    }
-
-    private void UpdateRoundTimer()
-    {
-        remainingRoundTime -=
-            Time.deltaTime;
-
-        if (remainingRoundTime <= 0f)
-        {
-            remainingRoundTime = 0f;
-
-            UpdateRoundTimeUI();
-
-            WinRound();
-
-            return;
-        }
-
-        UpdateRoundTimeUI();
-    }
-
-    private void UpdateRoundTimeUI()
-    {
-        if (roundTimeText == null)
-            return;
-
-        int totalSeconds =
-            Mathf.CeilToInt(
-                remainingRoundTime);
-
-        int minutes =
-            totalSeconds / 60;
-
-        int seconds =
-            totalSeconds % 60;
-
-        roundTimeText.text =
-            $"{minutes:00}:{seconds:00}";
     }
 
     private void UpdateTensionUI()
@@ -500,20 +835,69 @@ public class BrainMinigameManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // ROUND TIMER
+    // =========================================================
+
+    private void UpdateRoundTimer()
+    {
+        remainingRoundTime -=
+            Time.deltaTime;
+
+        if (remainingRoundTime <= 0f)
+        {
+            remainingRoundTime = 0f;
+
+            UpdateRoundTimeUI();
+
+            WinRound();
+
+            return;
+        }
+
+        UpdateRoundTimeUI();
+    }
+
+    private void UpdateRoundTimeUI()
+    {
+        if (roundTimeText == null)
+            return;
+
+        int totalSeconds =
+            Mathf.CeilToInt(
+                remainingRoundTime);
+
+        int minutes =
+            totalSeconds / 60;
+
+        int seconds =
+            totalSeconds % 60;
+
+        roundTimeText.text =
+            $"{minutes:00}:{seconds:00}";
+    }
+
+    // =========================================================
+    // WIN / LOSE
+    // =========================================================
+
     private void WinRound()
     {
         if (!roundRunning)
             return;
 
         roundRunning = false;
+        isPaused = false;
+
+        Time.timeScale = 1f;
 
         if (spawnCoroutine != null)
         {
-            StopCoroutine(
-                spawnCoroutine);
+            StopCoroutine(spawnCoroutine);
         }
 
         StopAllOrders();
+        HidePauseWorld();
 
         if (successObject != null)
         {
@@ -530,14 +914,17 @@ public class BrainMinigameManager : MonoBehaviour
             return;
 
         roundRunning = false;
+        isPaused = false;
+
+        Time.timeScale = 1f;
 
         if (spawnCoroutine != null)
         {
-            StopCoroutine(
-                spawnCoroutine);
+            StopCoroutine(spawnCoroutine);
         }
 
         StopAllOrders();
+        HidePauseWorld();
 
         if (gameOverObject != null)
         {
@@ -554,8 +941,7 @@ public class BrainMinigameManager : MonoBehaviour
         if (stations == null)
             return;
 
-        foreach (BrainOrganStation station in
-                 stations)
+        foreach (BrainOrganStation station in stations)
         {
             if (station == null)
                 continue;
@@ -565,6 +951,10 @@ public class BrainMinigameManager : MonoBehaviour
 
         activeStations.Clear();
     }
+
+    // =========================================================
+    // DIFFICULTY
+    // =========================================================
 
     private DifficultySettings
         GetCurrentDifficultySettings()
@@ -587,8 +977,14 @@ public class BrainMinigameManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // CLEANUP
+    // =========================================================
+
     private void OnDestroy()
     {
+        Time.timeScale = 1f;
+
         if (stations != null)
         {
             foreach (BrainOrganStation station in
