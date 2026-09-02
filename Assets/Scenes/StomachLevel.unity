@@ -3909,9 +3909,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StomachMinigameTimer
   timerText: {fileID: 285440714}
-  easyStartingTime: 60
-  mediumStartingTime: 75
-  hardStartingTime: 90
+  easyStartingTime: 75
+  mediumStartingTime: 90
+  hardStartingTime: 105
   pulseTarget: {fileID: 245557778}
   warningTime: 10
   criticalTime: 5
@@ -16544,9 +16544,9 @@ MonoBehaviour:
   currentTaskText: {fileID: 7857940}
   currentTaskTextAnimation: {fileID: 0}
   taskTimer: {fileID: 121926089}
-  easyPeristalsisDuration: 7
-  mediumPeristalsisDuration: 7
-  hardPeristalsisDuration: 10
+  easyPeristalsisDuration: 10
+  mediumPeristalsisDuration: 11
+  hardPeristalsisDuration: 12
   easyEarlyReleasePenalty: 3
   mediumEarlyReleasePenalty: 4
   hardEarlyReleasePenalty: 5
@@ -24288,7 +24288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1509678788
 RectTransform:
   m_ObjectHideFlags: 0

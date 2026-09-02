@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: ab6b36b0b537b4e46815bc91786833c4
+guid: 922b2d4805b4a0d4e88a14eafc90bfda
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8811806715494619191
-    second: ExitButton_0
+      213: 9117116974224633323
+    second: settings lobby_0
   - first:
-      213: 1128905586249742808
-    second: ExitButton_1
+      213: -8457372591464175
+    second: settings lobby_1
+  - first:
+      213: -8519776318338071515
+    second: settings lobby_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -59,7 +62,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -75,10 +78,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ExitButton_0
+      name: settings lobby_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 0
-        width: 1438
-        height: 1024
+        x: 4
+        y: 21
+        width: 882
+        height: 264
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9c7aa8daa7c26b580800000000000000
-      internalID: -8811806715494619191
+      spriteID: bede7506591868e70800000000000000
+      internalID: 9117116974224633323
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ExitButton_1
+      name: settings lobby_1
       rect:
         serializedVersion: 2
-        x: 787
-        y: 181
-        width: 6
-        height: 6
+        x: 3
+        y: 21
+        width: 884
+        height: 264
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,22 +156,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8d9be5546adaaaf00800000000000000
-      internalID: 1128905586249742808
+      spriteID: 111e3fe7014f1eff0800000000000000
+      internalID: -8457372591464175
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline:
-    - - {x: 723, y: 473}
-      - {x: 764, y: 473}
-      - {x: 764, y: 512}
-      - {x: 723, y: 511}
+    - serializedVersion: 2
+      name: settings lobby_2
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 0
+        width: 745
+        height: 1
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5248ca3049ca3c980800000000000000
+      internalID: -8519776318338071515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 12f8bf43db4c866479e88ff89584e3d0
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -177,8 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ExitButton_0: -8811806715494619191
-      ExitButton_1: 1128905586249742808
+      settings lobby_0: 9117116974224633323
+      settings lobby_1: -8457372591464175
+      settings lobby_2: -8519776318338071515
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -230,7 +230,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 40, y: -180}
-  m_SizeDelta: {x: 850, y: 607}
+  m_SizeDelta: {x: 658.9, y: 607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &413301884
 MonoBehaviour:
@@ -309,8 +309,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 1809fe9ba2ac2724da7cad45ef7c83c2, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
+  m_Type: 1
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -463,6 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3cc8190bb6ec094290132ca814473fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuNavigation
+  popupAnimation: {fileID: 0}
 --- !u!4 &764224223
 Transform:
   m_ObjectHideFlags: 0
@@ -513,7 +514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: -340}
+  m_AnchoredPosition: {x: 226.4, y: -335.8}
   m_SizeDelta: {x: 420, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252284602
@@ -594,7 +595,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -1725617869057704389, guid: 2bf1a6be2f48c1241ac728dcc3108ae6, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -645,7 +646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125, y: -337}
+  m_AnchoredPosition: {x: -214.2, y: -337}
   m_SizeDelta: {x: 420, y: 296}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432959115
@@ -726,7 +727,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -3763050716308552608, guid: dfc15e52bce473b4c92f4ac349a0657b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
