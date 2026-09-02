@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 97e397cc301206b4ba59353459cabc1c
+guid: 7f2a3240a3987764392c597576fd54e9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3081942302825707349
-    second: riding a bike_0
+      213: -1782633459997472340
+    second: stay and exit 1_0
+  - first:
+      213: -1798948278248986379
+    second: stay and exit 1_1
+  - first:
+      213: 5402803208849959658
+    second: stay and exit 1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: riding a bike_0
+      name: stay and exit 1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 29
-        width: 1254
-        height: 1225
+        x: 1018
+        y: 165
+        width: 944
+        height: 447
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 557fc22123245ca20800000000000000
-      internalID: 3081942302825707349
+      spriteID: ca9002c1050d247e0800000000000000
+      internalID: -1782633459997472340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stay and exit 1_1
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 165
+        width: 944
+        height: 447
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f82ba9721ad807e0800000000000000
+      internalID: -1798948278248986379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stay and exit 1_2
+      rect:
+        serializedVersion: 2
+        x: 1921
+        y: 53
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeaa7d6a4ec9afa40800000000000000
+      internalID: 5402803208849959658
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ecc99fe6467dda24d83c0e755f9f2e8e
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      riding a bike_0: 3081942302825707349
+      stay and exit 1_0: -1782633459997472340
+      stay and exit 1_1: -1798948278248986379
+      stay and exit 1_2: 5402803208849959658
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

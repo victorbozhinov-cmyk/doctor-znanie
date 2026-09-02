@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 97e397cc301206b4ba59353459cabc1c
+guid: 011ecdc9235b02e4d8a297683629bdf3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3081942302825707349
-    second: riding a bike_0
+      213: -4792795767739488296
+    second: exit confirmation panel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: riding a bike_0
+      name: exit confirmation panel_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 29
-        width: 1254
-        height: 1225
+        y: 13
+        width: 1434
+        height: 1073
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 557fc22123245ca20800000000000000
-      internalID: 3081942302825707349
+      spriteID: 8d764ee74a19c7db0800000000000000
+      internalID: -4792795767739488296
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      riding a bike_0: 3081942302825707349
+      exit confirmation panel_0: -4792795767739488296
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
