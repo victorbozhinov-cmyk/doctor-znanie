@@ -647,6 +647,12 @@ public class BrainMinigameManager : MonoBehaviour
             if (!station.CanStartOrder)
                 continue;
 
+            // Първо избираме конкретния проблем
+            // за тази станция.
+            station.PrepareNextVariant();
+
+            // След това проверяваме дали
+            // неговата brain zone вече е заета.
             if (HasActiveOrderForSameBrainZone(
                     station))
             {
@@ -889,11 +895,10 @@ public class BrainMinigameManager : MonoBehaviour
         roundRunning = false;
         isPaused = false;
 
-        Time.timeScale = 1f;
-
         if (spawnCoroutine != null)
         {
             StopCoroutine(spawnCoroutine);
+            spawnCoroutine = null;
         }
 
         StopAllOrders();
@@ -903,6 +908,8 @@ public class BrainMinigameManager : MonoBehaviour
         {
             successObject.SetActive(true);
         }
+
+        Time.timeScale = 0f;
 
         Debug.Log(
             "Brain minigame survived successfully.");
@@ -921,6 +928,7 @@ public class BrainMinigameManager : MonoBehaviour
         if (spawnCoroutine != null)
         {
             StopCoroutine(spawnCoroutine);
+            spawnCoroutine = null;
         }
 
         StopAllOrders();

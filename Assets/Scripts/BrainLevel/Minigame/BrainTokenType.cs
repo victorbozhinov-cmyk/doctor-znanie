@@ -32,5 +32,8 @@ public enum BrainTokenType
     KidneysCommand,
 
     StomachProblem,
-    StomachCommand
+    StomachCommand,
+
+    EyesLightProblem,
+    EarsSoundReactionProblem
 }

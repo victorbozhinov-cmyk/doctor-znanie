@@ -15,12 +15,15 @@ public class ScreenFlash : MonoBehaviour
 
     private Coroutine flashCoroutine;
 
+    private Color currentFlashColor = Color.red;
+
     private void Awake()
     {
         if (flashImage == null)
         {
             Debug.LogWarning(
                 "ScreenFlash: Flash Image is not assigned.");
+
             return;
         }
 
@@ -30,8 +33,20 @@ public class ScreenFlash : MonoBehaviour
 
     public void PlayRedFlash()
     {
+        PlayFlash(Color.red);
+    }
+
+    public void PlayGreenFlash()
+    {
+        PlayFlash(Color.green);
+    }
+
+    private void PlayFlash(Color flashColor)
+    {
         if (flashImage == null)
             return;
+
+        currentFlashColor = flashColor;
 
         flashImage.gameObject.SetActive(true);
 
@@ -43,7 +58,8 @@ public class ScreenFlash : MonoBehaviour
         SetAlpha(0f);
 
         flashCoroutine =
-            StartCoroutine(FlashRoutine());
+            StartCoroutine(
+                FlashRoutine());
     }
 
     private IEnumerator FlashRoutine()
@@ -114,11 +130,8 @@ public class ScreenFlash : MonoBehaviour
             return;
 
         Color color =
-            flashImage.color;
+            currentFlashColor;
 
-        color.r = 1f;
-        color.g = 0f;
-        color.b = 0f;
         color.a = alpha;
 
         flashImage.color = color;

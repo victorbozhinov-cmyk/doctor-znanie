@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 8a138d59d9f9a214490c20e09323795f
+guid: 3312347fcd9d9cc44bb13b8181f1c21e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6398839839114142286
-    second: brainMinigameInfoPanel_0
+      213: 7077097576720724771
+    second: brainMinigameEarProblemPanel2_0
+  - first:
+      213: -8137072898555974740
+    second: brainMinigameEarProblemPanel2_1
+  - first:
+      213: -8661760147249478998
+    second: brainMinigameEarProblemPanel2_2
+  - first:
+      213: -8105749852208749030
+    second: brainMinigameEarProblemPanel2_3
+  - first:
+      213: -3357454864229666333
+    second: brainMinigameEarProblemPanel2_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: brainMinigameInfoPanel_0
+      name: brainMinigameEarProblemPanel2_0
       rect:
         serializedVersion: 2
-        x: 74
-        y: 0
-        width: 1359
-        height: 1024
+        x: 32
+        y: 66
+        width: 1603
+        height: 824
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +140,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2bddbfe9111c237a0800000000000000
-      internalID: -6398839839114142286
+      spriteID: 323773dffb6e63260800000000000000
+      internalID: 7077097576720724771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemPanel2_1
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 72
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cabec129f4f431f80800000000000000
+      internalID: -8137072898555974740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemPanel2_2
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 68
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa24f8db90f3bc780800000000000000
+      internalID: -8661760147249478998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemPanel2_3
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 64
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a162cec9477928f80800000000000000
+      internalID: -8105749852208749030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEarProblemPanel2_4
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 54
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e1fe2ce69ce761d0800000000000000
+      internalID: -3357454864229666333
       vertices: []
       indices: 
       edges: []
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      brainMinigameInfoPanel_0: -6398839839114142286
+      brainMinigameEarProblemPanel2_0: 7077097576720724771
+      brainMinigameEarProblemPanel2_1: -8137072898555974740
+      brainMinigameEarProblemPanel2_2: -8661760147249478998
+      brainMinigameEarProblemPanel2_3: -8105749852208749030
+      brainMinigameEarProblemPanel2_4: -3357454864229666333
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

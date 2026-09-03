@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 8a138d59d9f9a214490c20e09323795f
+guid: 42f2832772a8dd24786e47d3d9ef894d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6398839839114142286
-    second: brainMinigameInfoPanel_0
+      213: -6236414953687599907
+    second: brainMinigameEyeProblemPanel2_0
+  - first:
+      213: -4054689642437869760
+    second: brainMinigameEyeProblemPanel2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: brainMinigameInfoPanel_0
+      name: brainMinigameEyeProblemPanel2_0
       rect:
         serializedVersion: 2
-        x: 74
-        y: 0
-        width: 1359
-        height: 1024
+        x: 18
+        y: 48
+        width: 1629
+        height: 861
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2bddbfe9111c237a0800000000000000
-      internalID: -6398839839114142286
+      spriteID: dd4348d34adc379a0800000000000000
+      internalID: -6236414953687599907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brainMinigameEyeProblemPanel2_1
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 54
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04ff80cb049dab7c0800000000000000
+      internalID: -4054689642437869760
       vertices: []
       indices: 
       edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      brainMinigameInfoPanel_0: -6398839839114142286
+      brainMinigameEyeProblemPanel2_0: -6236414953687599907
+      brainMinigameEyeProblemPanel2_1: -4054689642437869760
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

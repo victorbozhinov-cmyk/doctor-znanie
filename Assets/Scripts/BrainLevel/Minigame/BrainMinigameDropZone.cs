@@ -31,6 +31,13 @@ public class BrainMinigameDropZone : MonoBehaviour
     [SerializeField]
     private float processingDuration = 3f;
 
+    [Header("Processing Indicator")]
+    [SerializeField]
+    private GameObject processingIndicator;
+
+    [SerializeField]
+    private Transform processingFill;
+
     [Header("Failure Feedback")]
     [SerializeField]
     private ScreenFlash screenFlash;
@@ -47,6 +54,12 @@ public class BrainMinigameDropZone : MonoBehaviour
 
     private Coroutine processingCoroutine;
 
+    private Vector3 processingFillFullScale =
+        Vector3.one;
+
+    private Vector3 processingFillFullPosition =
+        Vector3.zero;
+
     public event Action WrongProblemDelivered;
 
     public bool IsBusy =>
@@ -59,6 +72,20 @@ public class BrainMinigameDropZone : MonoBehaviour
         if (commandTokenVisual != null)
         {
             commandTokenVisual.SetActive(false);
+        }
+
+        if (processingFill != null)
+        {
+            processingFillFullScale =
+                processingFill.localScale;
+
+            processingFillFullPosition =
+                processingFill.localPosition;
+        }
+
+        if (processingIndicator != null)
+        {
+            processingIndicator.SetActive(false);
         }
     }
 
@@ -150,10 +177,38 @@ public class BrainMinigameDropZone : MonoBehaviour
     {
         processing = true;
 
+        if (processingIndicator != null)
+        {
+            processingIndicator.SetActive(true);
+        }
+
+        SetProcessingFill(0f);
+
         if (processingDuration > 0f)
         {
-            yield return new WaitForSeconds(
-                processingDuration);
+            float elapsed = 0f;
+
+            while (elapsed <
+                   processingDuration)
+            {
+                elapsed += Time.deltaTime;
+
+                float progress =
+                    Mathf.Clamp01(
+                        elapsed /
+                        processingDuration);
+
+                SetProcessingFill(progress);
+
+                yield return null;
+            }
+        }
+
+        SetProcessingFill(1f);
+
+        if (processingIndicator != null)
+        {
+            processingIndicator.SetActive(false);
         }
 
         processing = false;
@@ -183,6 +238,54 @@ public class BrainMinigameDropZone : MonoBehaviour
 
             commandTokenVisual.SetActive(true);
         }
+    }
+
+    private void SetProcessingFill(
+        float progress)
+    {
+        if (processingFill == null)
+            return;
+
+        progress =
+            Mathf.Clamp01(progress);
+
+        SpriteRenderer spriteRenderer =
+            processingFill
+                .GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null ||
+            spriteRenderer.sprite == null)
+        {
+            return;
+        }
+
+        Vector3 scale =
+            processingFillFullScale;
+
+        scale.x =
+            processingFillFullScale.x *
+            progress;
+
+        processingFill.localScale =
+            scale;
+
+        float fullWidth =
+            spriteRenderer.sprite
+                .bounds.size.x *
+            processingFillFullScale.x;
+
+        float missingWidth =
+            fullWidth *
+            (1f - progress);
+
+        Vector3 position =
+            processingFillFullPosition;
+
+        position.x -=
+            missingWidth * 0.5f;
+
+        processingFill.localPosition =
+            position;
     }
 
     private void TryPickUpCommandToken()
@@ -251,6 +354,13 @@ public class BrainMinigameDropZone : MonoBehaviour
         }
 
         processing = false;
+
+        if (processingIndicator != null)
+        {
+            processingIndicator.SetActive(false);
+        }
+
+        SetProcessingFill(0f);
 
         if (commandTokenVisual != null)
         {

@@ -9,6 +9,12 @@ public class BrainMinigamePlayer : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
 
+    [Header("Movement Bounds")]
+    [SerializeField] private float minX = -8f;
+    [SerializeField] private float maxX = 8f;
+    [SerializeField] private float minY = -4.5f;
+    [SerializeField] private float maxY = 4.5f;
+
     [Header("Normal Directional Sprites")]
     [SerializeField] private Sprite idleFrontSprite;
     [SerializeField] private Sprite walkUpSprite;
@@ -101,6 +107,17 @@ public class BrainMinigamePlayer : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0f)
+        {
+            moveInput = Vector2.zero;
+
+            UpdateFacingDirection();
+            UpdateCharacterSprite();
+            UpdateCarryVisuals();
+
+            return;
+        }
+
         ReadMovementInput();
         UpdateFacingDirection();
         UpdateCharacterSprite();
@@ -109,6 +126,9 @@ public class BrainMinigamePlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Time.timeScale == 0f)
+            return;
+
         MovePlayer();
     }
 
@@ -159,13 +179,23 @@ public class BrainMinigamePlayer : MonoBehaviour
             moveSpeed *
             Time.fixedDeltaTime;
 
+        newPosition.x =
+            Mathf.Clamp(
+                newPosition.x,
+                minX,
+                maxX);
+
+        newPosition.y =
+            Mathf.Clamp(
+                newPosition.y,
+                minY,
+                maxY);
+
         rb.MovePosition(newPosition);
     }
 
     private void UpdateFacingDirection()
     {
-        // Когато героят спре,
-        // се връща към неподвижната Front визия.
         if (!IsMoving)
         {
             facingDirection = FacingDirection.Front;
