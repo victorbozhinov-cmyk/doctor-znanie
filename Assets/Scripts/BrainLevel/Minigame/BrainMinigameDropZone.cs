@@ -27,6 +27,10 @@ public class BrainMinigameDropZone : MonoBehaviour
     [SerializeField]
     private GameObject commandTokenVisual;
 
+    [SerializeField]
+    private BrainCommandReadyAnimation
+        commandReadyAnimation;
+
     [Header("Brain Processing")]
     [SerializeField]
     private float processingDuration = 3f;
@@ -237,6 +241,11 @@ public class BrainMinigameDropZone : MonoBehaviour
             }
 
             commandTokenVisual.SetActive(true);
+
+            if (commandReadyAnimation != null)
+            {
+                commandReadyAnimation.Play();
+            }
         }
     }
 

@@ -808,7 +808,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.2674417}
+  m_AnchoredPosition: {x: 0.041423406, y: 0.3751428}
   m_SizeDelta: {x: 17.413, y: 16.8219}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!212 &43635839
@@ -2078,6 +2078,7 @@ GameObject:
   - component: {fileID: 122743435}
   - component: {fileID: 122743437}
   - component: {fileID: 122743436}
+  - component: {fileID: 122743438}
   m_Layer: 0
   m_Name: "\u0415arStationImage"
   m_TagString: Untagged
@@ -2197,6 +2198,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &122743438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122743434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &141639695
 GameObject:
   m_ObjectHideFlags: 0
@@ -2905,6 +2922,7 @@ GameObject:
   - component: {fileID: 177506441}
   - component: {fileID: 177506443}
   - component: {fileID: 177506442}
+  - component: {fileID: 177506444}
   m_Layer: 0
   m_Name: MuscleStationImage
   m_TagString: Untagged
@@ -3024,6 +3042,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &177506444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177506440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &184296203
 GameObject:
   m_ObjectHideFlags: 0
@@ -4346,6 +4380,7 @@ MonoBehaviour:
   brainDropZone: {fileID: 368583060}
   additionalProblemVariants: []
   orderUI: {fileID: 1226075468}
+  orderSpawnAnimation: {fileID: 2028358804}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &319460323
 GameObject:
@@ -5002,6 +5037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 339994825}
   - component: {fileID: 339994826}
+  - component: {fileID: 339994827}
   m_Layer: 0
   m_Name: CommandTokenVisual
   m_TagString: Untagged
@@ -5088,6 +5124,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &339994827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339994824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0b25f7788d1dd40808ede1a20bb4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainCommandReadyAnimation
+  animationTarget: {fileID: 339994825}
+  startScale: 0.75
+  overshootScale: 1.15
+  growDuration: 0.14
+  returnDuration: 0.14
 --- !u!1 &346141087
 GameObject:
   m_ObjectHideFlags: 0
@@ -5147,6 +5200,7 @@ MonoBehaviour:
   brainDropZone: {fileID: 413992906}
   additionalProblemVariants: []
   orderUI: {fileID: 798137873}
+  orderSpawnAnimation: {fileID: 804790413}
   screenFlash: {fileID: 2107514473}
 --- !u!70 &346141090
 CapsuleCollider2D:
@@ -5564,6 +5618,7 @@ GameObject:
   - component: {fileID: 364005098}
   - component: {fileID: 364005100}
   - component: {fileID: 364005099}
+  - component: {fileID: 364005101}
   m_Layer: 0
   m_Name: SkinStationImage
   m_TagString: Untagged
@@ -5683,6 +5738,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &364005101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364005097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &368510092
 GameObject:
   m_ObjectHideFlags: 0
@@ -5801,6 +5872,7 @@ MonoBehaviour:
     commandTokenType: 21
     commandTokenSprite: {fileID: 21300000, guid: 8322e141f6e33c04c937af24ab14f502, type: 3}
   commandTokenVisual: {fileID: 894218415}
+  commandReadyAnimation: {fileID: 894218418}
   processingDuration: 3
   processingIndicator: {fileID: 997925608}
   processingFill: {fileID: 1942404475}
@@ -6281,6 +6353,8 @@ GameObject:
   m_Component:
   - component: {fileID: 403032477}
   - component: {fileID: 403032478}
+  - component: {fileID: 403032479}
+  - component: {fileID: 403032480}
   m_Layer: 0
   m_Name: TimeRoundPanel
   m_TagString: Untagged
@@ -6364,6 +6438,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &403032479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403032476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a424044bb75ef4e88dac9f664c8332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderTimerWarningAnimation
+  animationTarget: {fileID: 403032477}
+  lightScale: 1.05
+  mediumScale: 1.08
+  strongScale: 1.12
+  lightShake: 0.02
+  mediumShake: 0.04
+  strongShake: 0.06
+  animationDuration: 0.22
+  shakeSpeed: 40
+--- !u!114 &403032480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403032476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde8b87e9c84f3248953e64298ef7b86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainRoundTimerPulse
+  animationTarget: {fileID: 403032477}
+  pulseScale: 1.12
+  growDuration: 0.1
+  returnDuration: 0.12
 --- !u!1 &407790111
 GameObject:
   m_ObjectHideFlags: 0
@@ -6746,6 +6857,7 @@ MonoBehaviour:
     commandTokenType: 19
     commandTokenSprite: {fileID: 21300000, guid: 937b45f2b3bfe824b9ddabb045549bd8, type: 3}
   commandTokenVisual: {fileID: 1968509458}
+  commandReadyAnimation: {fileID: 1968509461}
   processingDuration: 3
   processingIndicator: {fileID: 1907696313}
   processingFill: {fileID: 883393847}
@@ -9936,6 +10048,7 @@ MonoBehaviour:
   brainDropZone: {fileID: 2061692656}
   additionalProblemVariants: []
   orderUI: {fileID: 1047181915}
+  orderSpawnAnimation: {fileID: 1279904494}
   screenFlash: {fileID: 2107514473}
 --- !u!70 &656021835
 CapsuleCollider2D:
@@ -11012,7 +11125,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.2674417}
+  m_AnchoredPosition: {x: 0.06627712, y: 0.37514246}
   m_SizeDelta: {x: 17.413, y: 16.8219}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!212 &694803509
@@ -11319,6 +11432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 712761558}
   - component: {fileID: 712761559}
+  - component: {fileID: 712761560}
   m_Layer: 0
   m_Name: CommandTokenVisual
   m_TagString: Untagged
@@ -11405,6 +11519,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &712761560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712761557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0b25f7788d1dd40808ede1a20bb4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainCommandReadyAnimation
+  animationTarget: {fileID: 712761558}
+  startScale: 0.75
+  overshootScale: 1.15
+  growDuration: 0.14
+  returnDuration: 0.14
 --- !u!1 &720924383
 GameObject:
   m_ObjectHideFlags: 0
@@ -12369,32 +12500,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrainMinigameManager
   easySettings:
-    roundDuration: 120
+    roundDuration: 100
     maxActiveOrders: 2
-    orderDuration: 28
+    orderDuration: 26
+    recentOrderBlockCount: 4
     minSpawnDelay: 8
     maxSpawnDelay: 11
     brainProcessingTime: 2
     failedOrderTension: 20
-    wrongBrainZoneTension: 5
+    wrongBrainZoneTension: 10
+    passiveTensionPerActiveOrderPerSecond: 0
   mediumSettings:
     roundDuration: 120
     maxActiveOrders: 3
-    orderDuration: 23
+    orderDuration: 21
+    recentOrderBlockCount: 4
     minSpawnDelay: 6
     maxSpawnDelay: 9
     brainProcessingTime: 3
     failedOrderTension: 25
-    wrongBrainZoneTension: 8
+    wrongBrainZoneTension: 15
+    passiveTensionPerActiveOrderPerSecond: 0.1
   hardSettings:
-    roundDuration: 120
+    roundDuration: 140
     maxActiveOrders: 4
     orderDuration: 19
+    recentOrderBlockCount: 4
     minSpawnDelay: 4
     maxSpawnDelay: 7
     brainProcessingTime: 4
     failedOrderTension: 34
-    wrongBrainZoneTension: 10
+    wrongBrainZoneTension: 20
+    passiveTensionPerActiveOrderPerSecond: 0.15
   stations:
   - {fileID: 1052249972}
   - {fileID: 317849855}
@@ -12407,12 +12544,15 @@ MonoBehaviour:
   - {fileID: 346141089}
   - {fileID: 867586215}
   roundTimeText: {fileID: 665676324}
+  roundTimerPulse: {fileID: 403032480}
+  roundTimerPulseStartTime: 10
   tensionFillMask: {fileID: 651002880}
   tensionText: {fileID: 0}
   tensionBrainRenderer: {fileID: 1334482644}
   calmBrainSprite: {fileID: 21300000, guid: d9cbb91d28658744ead5d01c823a3b76, type: 3}
   stressedBrainSprite: {fileID: 21300000, guid: ceb17025b98c9784eaa21bfaf6272d28, type: 3}
   criticalBrainSprite: {fileID: 21300000, guid: 09a6e261a62c2224e91b7a765151efcd, type: 3}
+  tensionStateAnimation: {fileID: 855521340}
   pauseWorld: {fileID: 1858905420}
   pausePanel: {fileID: 96737627}
   infoPanel: {fileID: 1457446206}
@@ -13096,6 +13236,7 @@ GameObject:
   - component: {fileID: 804790410}
   - component: {fileID: 804790412}
   - component: {fileID: 804790411}
+  - component: {fileID: 804790413}
   m_Layer: 0
   m_Name: KidneyStationImage
   m_TagString: Untagged
@@ -13215,6 +13356,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &804790413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804790409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &811458895
 GameObject:
   m_ObjectHideFlags: 0
@@ -14021,6 +14178,7 @@ MonoBehaviour:
   brainDropZone: {fileID: 2119934139}
   additionalProblemVariants: []
   orderUI: {fileID: 484111678}
+  orderSpawnAnimation: {fileID: 2036265556}
   screenFlash: {fileID: 2107514473}
 --- !u!70 &845581141
 CapsuleCollider2D:
@@ -14462,6 +14620,7 @@ GameObject:
   m_Component:
   - component: {fileID: 855521338}
   - component: {fileID: 855521339}
+  - component: {fileID: 855521340}
   m_Layer: 0
   m_Name: StressPanel
   m_TagString: Untagged
@@ -14547,6 +14706,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &855521340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855521337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f2f5091764aae440aad35a5390e7944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainTensionStateAnimation
+  animationTarget: {fileID: 0}
+  popScale: 1.15
+  popDuration: 0.12
+  shakeDuration: 0.25
+  shakeStrength: 0.06
+  shakeSpeed: 40
+  returnDuration: 0.14
 --- !u!1 &865964627
 GameObject:
   m_ObjectHideFlags: 0
@@ -14746,6 +14924,7 @@ MonoBehaviour:
   brainDropZone: {fileID: 368583060}
   additionalProblemVariants: []
   orderUI: {fileID: 1574052467}
+  orderSpawnAnimation: {fileID: 2134582429}
   screenFlash: {fileID: 2107514473}
 --- !u!70 &867586216
 CapsuleCollider2D:
@@ -15629,6 +15808,7 @@ GameObject:
   m_Component:
   - component: {fileID: 894218416}
   - component: {fileID: 894218417}
+  - component: {fileID: 894218418}
   m_Layer: 0
   m_Name: CommandTokenVisual
   m_TagString: Untagged
@@ -15715,6 +15895,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &894218418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894218415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0b25f7788d1dd40808ede1a20bb4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainCommandReadyAnimation
+  animationTarget: {fileID: 894218416}
+  startScale: 0.75
+  overshootScale: 1.15
+  growDuration: 0.14
+  returnDuration: 0.14
 --- !u!1 &896627863
 GameObject:
   m_ObjectHideFlags: 0
@@ -17322,6 +17519,7 @@ MonoBehaviour:
   brainDropZone: {fileID: 2119934139}
   additionalProblemVariants: []
   orderUI: {fileID: 914068442}
+  orderSpawnAnimation: {fileID: 1349317020}
   screenFlash: {fileID: 2107514473}
 --- !u!70 &987974945
 CapsuleCollider2D:
@@ -17636,6 +17834,7 @@ MonoBehaviour:
     commandTokenType: 4
     commandTokenSprite: {fileID: 21300000, guid: 3aeaa12b5e39dec47877118642068f49, type: 3}
   commandTokenVisual: {fileID: 1809758894}
+  commandReadyAnimation: {fileID: 1809758897}
   processingDuration: 3
   processingIndicator: {fileID: 812751659}
   processingFill: {fileID: 1359466513}
@@ -18215,6 +18414,7 @@ MonoBehaviour:
     acceptedCommandTokenType: 2
     brainDropZone: {fileID: 1725484205}
   orderUI: {fileID: 865964629}
+  orderSpawnAnimation: {fileID: 2117390573}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &1056944089
 GameObject:
@@ -21911,6 +22111,7 @@ GameObject:
   - component: {fileID: 1279904491}
   - component: {fileID: 1279904493}
   - component: {fileID: 1279904492}
+  - component: {fileID: 1279904494}
   m_Layer: 0
   m_Name: BoneStationImage
   m_TagString: Untagged
@@ -22030,6 +22231,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &1279904494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279904490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &1284880368
 GameObject:
   m_ObjectHideFlags: 0
@@ -23658,6 +23875,7 @@ GameObject:
   - component: {fileID: 1349317017}
   - component: {fileID: 1349317019}
   - component: {fileID: 1349317018}
+  - component: {fileID: 1349317020}
   m_Layer: 0
   m_Name: LungsStationImage
   m_TagString: Untagged
@@ -23777,6 +23995,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &1349317020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349317016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &1356886877
 GameObject:
   m_ObjectHideFlags: 0
@@ -25312,7 +25546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.2674417}
+  m_AnchoredPosition: {x: 0.03867264, y: 0.3281341}
   m_SizeDelta: {x: 17.413, y: 16.8219}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!212 &1445673990
@@ -25432,7 +25666,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 42f2832772a8dd24786e47d3d9ef894d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3312347fcd9d9cc44bb13b8181f1c21e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -25543,7 +25777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1457446207
 Transform:
   m_ObjectHideFlags: 0
@@ -27652,6 +27886,7 @@ MonoBehaviour:
   brainDropZone: {fileID: 413992906}
   additionalProblemVariants: []
   orderUI: {fileID: 1518722035}
+  orderSpawnAnimation: {fileID: 364005101}
   screenFlash: {fileID: 2107514473}
 --- !u!70 &1637633536
 CapsuleCollider2D:
@@ -29422,6 +29657,7 @@ MonoBehaviour:
     commandTokenType: 4
     commandTokenSprite: {fileID: 21300000, guid: 3aeaa12b5e39dec47877118642068f49, type: 3}
   commandTokenVisual: {fileID: 1883471658}
+  commandReadyAnimation: {fileID: 1883471661}
   processingDuration: 3
   processingIndicator: {fileID: 1667155688}
   processingFill: {fileID: 680915960}
@@ -29521,6 +29757,7 @@ MonoBehaviour:
   brainDropZone: {fileID: 2061692656}
   additionalProblemVariants: []
   orderUI: {fileID: 484324350}
+  orderSpawnAnimation: {fileID: 177506444}
   screenFlash: {fileID: 2107514473}
 --- !u!70 &1731726328
 CapsuleCollider2D:
@@ -30275,6 +30512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1809758895}
   - component: {fileID: 1809758896}
+  - component: {fileID: 1809758897}
   m_Layer: 0
   m_Name: CommandTokenVisual
   m_TagString: Untagged
@@ -30361,6 +30599,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &1809758897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809758894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0b25f7788d1dd40808ede1a20bb4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainCommandReadyAnimation
+  animationTarget: {fileID: 1809758895}
+  startScale: 0.75
+  overshootScale: 1.15
+  growDuration: 0.14
+  returnDuration: 0.14
 --- !u!1 &1812691343
 GameObject:
   m_ObjectHideFlags: 0
@@ -30394,7 +30649,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.2674417}
+  m_AnchoredPosition: {x: 0.041423887, y: 0.35028863}
   m_SizeDelta: {x: 17.413, y: 16.8219}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!212 &1812691345
@@ -30930,6 +31185,7 @@ MonoBehaviour:
     acceptedCommandTokenType: 4
     brainDropZone: {fileID: 1725484205}
   orderUI: {fileID: 326063393}
+  orderSpawnAnimation: {fileID: 122743438}
   screenFlash: {fileID: 2107514473}
 --- !u!70 &1853788373
 CapsuleCollider2D:
@@ -31269,7 +31525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1858905421
 Transform:
   m_ObjectHideFlags: 0
@@ -31565,9 +31821,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.2674417}
+  m_AnchoredPosition: {x: 0.04142388, y: 0.34200427}
   m_SizeDelta: {x: 17.413, y: 16.8219}
-  m_Pivot: {x: 0.49999997, y: 0.5}
+  m_Pivot: {x: 0.552393, y: 0.5976207}
 --- !u!212 &1881047969
 SpriteRenderer:
   serializedVersion: 3
@@ -31674,6 +31930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1883471659}
   - component: {fileID: 1883471660}
+  - component: {fileID: 1883471661}
   m_Layer: 0
   m_Name: CommandTokenVisual
   m_TagString: Untagged
@@ -31760,6 +32017,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &1883471661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883471658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0b25f7788d1dd40808ede1a20bb4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainCommandReadyAnimation
+  animationTarget: {fileID: 1883471659}
+  startScale: 0.75
+  overshootScale: 1.15
+  growDuration: 0.14
+  returnDuration: 0.14
 --- !u!1 &1883492197
 GameObject:
   m_ObjectHideFlags: 0
@@ -33823,6 +34097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968509459}
   - component: {fileID: 1968509460}
+  - component: {fileID: 1968509461}
   m_Layer: 0
   m_Name: CommandTokenVisual
   m_TagString: Untagged
@@ -33909,6 +34184,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &1968509461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968509458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0b25f7788d1dd40808ede1a20bb4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainCommandReadyAnimation
+  animationTarget: {fileID: 1968509459}
+  startScale: 0.75
+  overshootScale: 1.15
+  growDuration: 0.14
+  returnDuration: 0.14
 --- !u!1 &1971090079
 GameObject:
   m_ObjectHideFlags: 0
@@ -35657,6 +35949,7 @@ GameObject:
   - component: {fileID: 2028358801}
   - component: {fileID: 2028358803}
   - component: {fileID: 2028358802}
+  - component: {fileID: 2028358804}
   m_Layer: 0
   m_Name: HeartStationImage
   m_TagString: Untagged
@@ -35776,6 +36069,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &2028358804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028358800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &2036265552
 GameObject:
   m_ObjectHideFlags: 0
@@ -35787,6 +36096,7 @@ GameObject:
   - component: {fileID: 2036265553}
   - component: {fileID: 2036265555}
   - component: {fileID: 2036265554}
+  - component: {fileID: 2036265556}
   m_Layer: 0
   m_Name: MouthStationImage
   m_TagString: Untagged
@@ -35906,6 +36216,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &2036265556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036265552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &2040715045
 GameObject:
   m_ObjectHideFlags: 0
@@ -36473,6 +36799,7 @@ MonoBehaviour:
     commandTokenType: 17
     commandTokenSprite: {fileID: 21300000, guid: 2b34b04f6acb53f4a979c63609d3d286, type: 3}
   commandTokenVisual: {fileID: 339994824}
+  commandReadyAnimation: {fileID: 339994827}
   processingDuration: 3
   processingIndicator: {fileID: 1159728893}
   processingFill: {fileID: 2068172358}
@@ -37378,6 +37705,7 @@ GameObject:
   - component: {fileID: 2117390570}
   - component: {fileID: 2117390571}
   - component: {fileID: 2117390572}
+  - component: {fileID: 2117390573}
   m_Layer: 0
   m_Name: EyesStationImage
   m_TagString: Untagged
@@ -37497,6 +37825,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.5}
   m_Size: {x: 10.673062, y: 5.9861298}
   m_Direction: 1
+--- !u!114 &2117390573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117390569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 2117390570}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &2119934137
 GameObject:
   m_ObjectHideFlags: 0
@@ -37552,6 +37896,7 @@ MonoBehaviour:
     commandTokenType: 11
     commandTokenSprite: {fileID: 21300000, guid: c76cb633fbbb8554fbe700e362223202, type: 3}
   commandTokenVisual: {fileID: 712761557}
+  commandReadyAnimation: {fileID: 712761560}
   processingDuration: 3
   processingIndicator: {fileID: 1631934653}
   processingFill: {fileID: 63653455}
@@ -37695,6 +38040,7 @@ GameObject:
   - component: {fileID: 2134582426}
   - component: {fileID: 2134582428}
   - component: {fileID: 2134582427}
+  - component: {fileID: 2134582429}
   m_Layer: 0
   m_Name: StomachStationImage
   m_TagString: Untagged
@@ -37814,6 +38160,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &2134582429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134582425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df272cb3a88b538409ee970a092f36c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainOrderSpawnAnimation
+  animationTarget: {fileID: 0}
+  growDuration: 0.12
+  returnDuration: 0.16
+  pulseScale: 1.12
 --- !u!1 &2136099526
 GameObject:
   m_ObjectHideFlags: 0

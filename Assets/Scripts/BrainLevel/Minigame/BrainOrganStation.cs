@@ -50,6 +50,11 @@ public class BrainOrganStation : MonoBehaviour
     [SerializeField]
     private BrainOrderUI orderUI;
 
+    [Header("Order Spawn Animation")]
+    [SerializeField]
+    private BrainOrderSpawnAnimation
+        orderSpawnAnimation;
+
     [Header("Failure / Success Feedback")]
     [SerializeField]
     private ScreenFlash screenFlash;
@@ -81,6 +86,9 @@ public class BrainOrganStation : MonoBehaviour
 
     public event Action<BrainOrganStation>
         OrderFailed;
+
+    public event Action
+        WrongCommandDelivered;
 
     public bool CanStartOrder =>
         !orderActive;
@@ -270,6 +278,11 @@ public class BrainOrganStation : MonoBehaviour
             problemTokenVisual.SetActive(true);
         }
 
+        if (orderSpawnAnimation != null)
+        {
+            orderSpawnAnimation.Play();
+        }
+
         if (orderUI != null)
         {
             orderUI.StartOrder(
@@ -336,6 +349,8 @@ public class BrainOrganStation : MonoBehaviour
             {
                 screenFlash.PlayRedFlash();
             }
+
+            WrongCommandDelivered?.Invoke();
 
             return;
         }

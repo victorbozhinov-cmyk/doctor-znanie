@@ -20,6 +20,10 @@ public class BrainMinigameManager : MonoBehaviour
         [Min(1f)]
         public float orderDuration = 28f;
 
+        [Header("Order Variety")]
+        [Min(0)]
+        public int recentOrderBlockCount = 3;
+
         [Header("New Order Delay")]
         [Min(0f)]
         public float minSpawnDelay = 8f;
@@ -37,6 +41,9 @@ public class BrainMinigameManager : MonoBehaviour
 
         [Range(0f, 100f)]
         public float wrongBrainZoneTension = 5f;
+
+        [Min(0f)]
+        public float passiveTensionPerActiveOrderPerSecond = 0f;
     }
 
     [Header("Difficulty Settings")]
@@ -47,11 +54,13 @@ public class BrainMinigameManager : MonoBehaviour
             roundDuration = 120f,
             maxActiveOrders = 2,
             orderDuration = 28f,
+            recentOrderBlockCount = 3,
             minSpawnDelay = 8f,
             maxSpawnDelay = 11f,
             brainProcessingTime = 2f,
             failedOrderTension = 20f,
-            wrongBrainZoneTension = 5f
+            wrongBrainZoneTension = 5f,
+            passiveTensionPerActiveOrderPerSecond = 0f
         };
 
     [SerializeField]
@@ -61,11 +70,13 @@ public class BrainMinigameManager : MonoBehaviour
             roundDuration = 120f,
             maxActiveOrders = 3,
             orderDuration = 23f,
+            recentOrderBlockCount = 3,
             minSpawnDelay = 6f,
             maxSpawnDelay = 9f,
             brainProcessingTime = 3f,
             failedOrderTension = 25f,
-            wrongBrainZoneTension = 8f
+            wrongBrainZoneTension = 8f,
+            passiveTensionPerActiveOrderPerSecond = 0.15f
         };
 
     [SerializeField]
@@ -75,11 +86,13 @@ public class BrainMinigameManager : MonoBehaviour
             roundDuration = 120f,
             maxActiveOrders = 4,
             orderDuration = 19f,
+            recentOrderBlockCount = 3,
             minSpawnDelay = 4f,
             maxSpawnDelay = 7f,
             brainProcessingTime = 4f,
             failedOrderTension = 34f,
-            wrongBrainZoneTension = 10f
+            wrongBrainZoneTension = 10f,
+            passiveTensionPerActiveOrderPerSecond = 0.5f
         };
 
     [Header("Stations")]
@@ -89,6 +102,13 @@ public class BrainMinigameManager : MonoBehaviour
     [Header("Optional Round UI")]
     [SerializeField]
     private TMP_Text roundTimeText;
+
+    [Header("Round Timer Pulse")]
+    [SerializeField]
+    private BrainRoundTimerPulse roundTimerPulse;
+
+    [SerializeField]
+    private float roundTimerPulseStartTime = 10f;
 
     [Header("Optional Tension UI")]
     [SerializeField]
@@ -109,6 +129,11 @@ public class BrainMinigameManager : MonoBehaviour
 
     [SerializeField]
     private Sprite criticalBrainSprite;
+
+    [Header("Tension Brain Animation")]
+    [SerializeField]
+    private BrainTensionStateAnimation
+        tensionStateAnimation;
 
     // =========================================================
     // PAUSE
@@ -167,6 +192,10 @@ public class BrainMinigameManager : MonoBehaviour
         activeStations =
             new List<BrainOrganStation>();
 
+    private readonly List<BrainOrganStation>
+        recentStations =
+            new List<BrainOrganStation>();
+
     private float remainingRoundTime;
     private float nervousTension = 0f;
 
@@ -174,6 +203,10 @@ public class BrainMinigameManager : MonoBehaviour
     private bool isPaused = false;
 
     private Coroutine spawnCoroutine;
+
+    private int currentTensionBrainState = 0;
+
+    private int lastRoundTimerPulseSecond = -1;
 
     public float NervousTension =>
         nervousTension;
@@ -205,6 +238,11 @@ public class BrainMinigameManager : MonoBehaviour
         if (isPaused)
             return;
 
+        UpdatePassiveTension();
+
+        if (!roundRunning)
+            return;
+
         UpdateRoundTimer();
     }
 
@@ -221,10 +259,21 @@ public class BrainMinigameManager : MonoBehaviour
             currentSettings.roundDuration;
 
         nervousTension = 0f;
+
+        currentTensionBrainState = 0;
+
+        lastRoundTimerPulseSecond = -1;
+
+        if (roundTimerPulse != null)
+        {
+            roundTimerPulse.ResetAnimation();
+        }
+
         roundRunning = true;
         isPaused = false;
 
         activeStations.Clear();
+        recentStations.Clear();
 
         HidePauseWorld();
 
@@ -557,11 +606,17 @@ public class BrainMinigameManager : MonoBehaviour
             station.OrderFailed -=
                 HandleOrderFailed;
 
+            station.WrongCommandDelivered -=
+                HandleWrongCommandDelivered;
+
             station.OrderCompleted +=
                 HandleOrderCompleted;
 
             station.OrderFailed +=
                 HandleOrderFailed;
+
+            station.WrongCommandDelivered +=
+                HandleWrongCommandDelivered;
 
             station.PrepareForManager();
         }
@@ -647,12 +702,11 @@ public class BrainMinigameManager : MonoBehaviour
             if (!station.CanStartOrder)
                 continue;
 
-            // Първо избираме конкретния проблем
-            // за тази станция.
+            if (IsRecentlyUsed(station))
+                continue;
+
             station.PrepareNextVariant();
 
-            // След това проверяваме дали
-            // неговата brain zone вече е заета.
             if (HasActiveOrderForSameBrainZone(
                     station))
             {
@@ -660,6 +714,28 @@ public class BrainMinigameManager : MonoBehaviour
             }
 
             available.Add(station);
+        }
+
+        if (available.Count == 0)
+        {
+            foreach (BrainOrganStation station in stations)
+            {
+                if (station == null)
+                    continue;
+
+                if (!station.CanStartOrder)
+                    continue;
+
+                station.PrepareNextVariant();
+
+                if (HasActiveOrderForSameBrainZone(
+                        station))
+                {
+                    continue;
+                }
+
+                available.Add(station);
+            }
         }
 
         if (available.Count == 0)
@@ -675,6 +751,8 @@ public class BrainMinigameManager : MonoBehaviour
             currentSettings.orderDuration);
 
         activeStations.Add(selected);
+
+        RegisterRecentStation(selected);
 
         Debug.Log(
             "New brain order: " +
@@ -707,6 +785,47 @@ public class BrainMinigameManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    // =========================================================
+    // ORDER VARIETY
+    // =========================================================
+
+    private bool IsRecentlyUsed(
+        BrainOrganStation station)
+    {
+        if (station == null)
+            return false;
+
+        return recentStations.Contains(
+            station);
+    }
+
+    private void RegisterRecentStation(
+        BrainOrganStation station)
+    {
+        if (station == null)
+            return;
+
+        int maxRecent =
+            Mathf.Max(
+                0,
+                currentSettings
+                    .recentOrderBlockCount);
+
+        if (maxRecent == 0)
+        {
+            recentStations.Clear();
+            return;
+        }
+
+        recentStations.Add(station);
+
+        while (recentStations.Count >
+               maxRecent)
+        {
+            recentStations.RemoveAt(0);
+        }
     }
 
     // =========================================================
@@ -746,6 +865,12 @@ public class BrainMinigameManager : MonoBehaviour
             currentSettings.wrongBrainZoneTension);
     }
 
+    private void HandleWrongCommandDelivered()
+    {
+        AddTension(
+            currentSettings.wrongBrainZoneTension);
+    }
+
     private void TryFillAvailableOrderSlots()
     {
         if (!roundRunning)
@@ -758,6 +883,34 @@ public class BrainMinigameManager : MonoBehaviour
         {
             TryStartRandomOrder();
         }
+    }
+
+    // =========================================================
+    // PASSIVE TENSION
+    // =========================================================
+
+    private void UpdatePassiveTension()
+    {
+        if (currentSettings == null)
+            return;
+
+        if (activeStations.Count <= 0)
+            return;
+
+        float rate =
+            currentSettings
+                .passiveTensionPerActiveOrderPerSecond;
+
+        if (rate <= 0f)
+            return;
+
+        float tensionToAdd =
+            rate *
+            activeStations.Count *
+            Time.deltaTime;
+
+        AddTension(
+            tensionToAdd);
     }
 
     // =========================================================
@@ -812,33 +965,50 @@ public class BrainMinigameManager : MonoBehaviour
         if (tensionBrainRenderer == null)
             return;
 
+        int newState;
+
         if (nervousTension >= 80f)
         {
+            newState = 2;
+
             if (criticalBrainSprite != null)
             {
                 tensionBrainRenderer.sprite =
                     criticalBrainSprite;
             }
-
-            return;
         }
-
-        if (nervousTension >= 50f)
+        else if (nervousTension >= 50f)
         {
+            newState = 1;
+
             if (stressedBrainSprite != null)
             {
                 tensionBrainRenderer.sprite =
                     stressedBrainSprite;
             }
-
-            return;
         }
-
-        if (calmBrainSprite != null)
+        else
         {
-            tensionBrainRenderer.sprite =
-                calmBrainSprite;
+            newState = 0;
+
+            if (calmBrainSprite != null)
+            {
+                tensionBrainRenderer.sprite =
+                    calmBrainSprite;
+            }
         }
+
+        if (newState >
+            currentTensionBrainState)
+        {
+            if (tensionStateAnimation != null)
+            {
+                tensionStateAnimation.Play();
+            }
+        }
+
+        currentTensionBrainState =
+            newState;
     }
 
     // =========================================================
@@ -861,7 +1031,38 @@ public class BrainMinigameManager : MonoBehaviour
             return;
         }
 
+        UpdateRoundTimerPulse();
         UpdateRoundTimeUI();
+    }
+
+    private void UpdateRoundTimerPulse()
+    {
+        if (roundTimerPulse == null)
+            return;
+
+        if (remainingRoundTime >
+            roundTimerPulseStartTime)
+        {
+            return;
+        }
+
+        int currentSecond =
+            Mathf.CeilToInt(
+                remainingRoundTime);
+
+        if (currentSecond <= 0)
+            return;
+
+        if (currentSecond ==
+            lastRoundTimerPulseSecond)
+        {
+            return;
+        }
+
+        lastRoundTimerPulseSecond =
+            currentSecond;
+
+        roundTimerPulse.Play();
     }
 
     private void UpdateRoundTimeUI()
@@ -1006,6 +1207,9 @@ public class BrainMinigameManager : MonoBehaviour
 
                 station.OrderFailed -=
                     HandleOrderFailed;
+
+                station.WrongCommandDelivered -=
+                    HandleWrongCommandDelivered;
             }
         }
     }
