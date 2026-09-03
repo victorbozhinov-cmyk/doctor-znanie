@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,30 @@ public class MusicManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float lobbyMusicVolume = 0.35f;
 
+    [Header("Intro / Lesson Music")]
+    [SerializeField] private AudioClip introMusic;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float introMusicVolume = 0.30f;
+
+    [Header("Puzzle Music")]
+    [SerializeField] private AudioClip puzzleMusic;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float puzzleMusicVolume = 0.30f;
+
+    [Header("Quiz Music")]
+    [SerializeField] private AudioClip quizMusic;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float quizMusicVolume = 0.30f;
+
+    [Header("Video Ducking")]
+    [Range(0f, 1f)]
+    [SerializeField] private float videoDuckedVolumeMultiplier = 0.25f;
+
+    [SerializeField] private float volumeFadeDuration = 0.4f;
+
     [Header("Lobby Scenes")]
     [SerializeField] private List<string> lobbyScenes = new List<string>
     {
@@ -22,7 +47,22 @@ public class MusicManager : MonoBehaviour
         "BodyMap"
     };
 
+    [Header("Organ Level Scenes")]
+    [SerializeField] private List<string> organLevelScenes = new List<string>
+    {
+        "HeartLevel",
+        "StomachLevel",
+        "LiverLevel",
+        "BrainLevel",
+        "LungsLevel"
+    };
+
     private AudioSource musicSource;
+
+    private float currentBaseVolume;
+    private bool isVideoDucked;
+
+    private Coroutine volumeFadeCoroutine;
 
     private void Awake()
     {
@@ -33,6 +73,7 @@ public class MusicManager : MonoBehaviour
         }
 
         Instance = this;
+
         DontDestroyOnLoad(gameObject);
 
         musicSource = GetComponent<AudioSource>();
@@ -64,9 +105,16 @@ public class MusicManager : MonoBehaviour
 
     private void HandleSceneMusic(string sceneName)
     {
+        isVideoDucked = false;
+
         if (lobbyScenes.Contains(sceneName))
         {
             PlayLobbyMusic();
+        }
+        else if (organLevelScenes.Contains(sceneName))
+        {
+            // Всяко органно ниво започва със Start Panel.
+            PlayIntroMusic();
         }
         else
         {
@@ -76,27 +124,144 @@ public class MusicManager : MonoBehaviour
 
     public void PlayLobbyMusic()
     {
-        if (lobbyMusic == null)
+        PlayMusic(lobbyMusic, lobbyMusicVolume);
+    }
+
+    public void PlayIntroMusic()
+    {
+        PlayMusic(introMusic, introMusicVolume);
+    }
+
+    public void PlayPuzzleMusic()
+    {
+        PlayMusic(puzzleMusic, puzzleMusicVolume);
+    }
+
+    public void PlayQuizMusic()
+    {
+        PlayMusic(quizMusic, quizMusicVolume);
+    }
+
+    private void PlayMusic(AudioClip clip, float volume)
+    {
+        if (clip == null)
         {
-            Debug.LogWarning("MusicManager: Lobby Music не е зададена.");
+            Debug.LogWarning("MusicManager: Няма зададен AudioClip.");
             return;
         }
 
-        // Ако вече свири lobby музиката, не я рестартираме.
-        if (musicSource.isPlaying && musicSource.clip == lobbyMusic)
+        isVideoDucked = false;
+        currentBaseVolume = volume;
+
+        StopVolumeFade();
+
+        // Ако същата музика вече свири,
+        // не я рестартираме.
+        if (musicSource.isPlaying && musicSource.clip == clip)
         {
+            musicSource.volume = currentBaseVolume;
             return;
         }
 
-        musicSource.clip = lobbyMusic;
-        musicSource.volume = lobbyMusicVolume;
+        musicSource.clip = clip;
+        musicSource.volume = currentBaseVolume;
         musicSource.loop = true;
 
         musicSource.Play();
     }
 
+    // Ще го използваме по-късно,
+    // когато видеото започне да се възпроизвежда.
+    public void DuckMusicForVideo()
+    {
+        if (!musicSource.isPlaying)
+        {
+            return;
+        }
+
+        isVideoDucked = true;
+
+        float targetVolume =
+            currentBaseVolume * videoDuckedVolumeMultiplier;
+
+        FadeToVolume(targetVolume);
+    }
+
+    // Ще го използваме при Pause или край на видеото.
+    public void RestoreMusicAfterVideo()
+    {
+        if (!musicSource.isPlaying)
+        {
+            return;
+        }
+
+        isVideoDucked = false;
+
+        FadeToVolume(currentBaseVolume);
+    }
+
+    private void FadeToVolume(float targetVolume)
+    {
+        StopVolumeFade();
+
+        volumeFadeCoroutine =
+            StartCoroutine(
+                FadeVolumeCoroutine(targetVolume)
+            );
+    }
+
+    private IEnumerator FadeVolumeCoroutine(float targetVolume)
+    {
+        float startVolume = musicSource.volume;
+        float elapsed = 0f;
+
+        if (volumeFadeDuration <= 0f)
+        {
+            musicSource.volume = targetVolume;
+            volumeFadeCoroutine = null;
+            yield break;
+        }
+
+        while (elapsed < volumeFadeDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            float t =
+                Mathf.Clamp01(
+                    elapsed / volumeFadeDuration
+                );
+
+            musicSource.volume =
+                Mathf.Lerp(
+                    startVolume,
+                    targetVolume,
+                    t
+                );
+
+            yield return null;
+        }
+
+        musicSource.volume = targetVolume;
+        volumeFadeCoroutine = null;
+    }
+
+    private void StopVolumeFade()
+    {
+        if (volumeFadeCoroutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(volumeFadeCoroutine);
+        volumeFadeCoroutine = null;
+    }
+
     public void StopMusic()
     {
+        StopVolumeFade();
+
+        isVideoDucked = false;
+
         if (!musicSource.isPlaying)
         {
             return;

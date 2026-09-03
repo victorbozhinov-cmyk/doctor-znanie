@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: ea6f9db06adc3f34cb5905b0cbe0a32f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -665101666861308290
+    second: play lobby 1_0
+  - first:
+      213: 575420034677386560
+    second: play lobby 1_1
+  - first:
+      213: -1055274284864648655
+    second: play lobby 1_2
+  - first:
+      213: -365108827266561942
+    second: play lobby 1_3
+  - first:
+      213: 2863122919795237524
+    second: play lobby 1_4
+  - first:
+      213: 2324452039160305116
+    second: play lobby 1_5
+  - first:
+      213: 429733062294610939
+    second: play lobby 1_6
+  - first:
+      213: -4398683542544008667
+    second: play lobby 1_7
+  - first:
+      213: 8735181575734560359
+    second: play lobby 1_8
+  - first:
+      213: -7382742389461676786
+    second: play lobby 1_9
+  - first:
+      213: -7848289076466260788
+    second: play lobby 1_10
+  - first:
+      213: -7984207782297530980
+    second: play lobby 1_11
+  - first:
+      213: 6248607278404253491
+    second: play lobby 1_12
+  - first:
+      213: -7664777837643569730
+    second: play lobby 1_13
+  - first:
+      213: 7746876136717544651
+    second: play lobby 1_14
+  - first:
+      213: -3602071571210272302
+    second: play lobby 1_15
+  - first:
+      213: -590931193631412685
+    second: play lobby 1_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: play lobby 1_0
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 355
+        width: 1144
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e76263fce8515c6f0800000000000000
+      internalID: -665101666861308290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_1
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 823
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04da69b097d4cf700800000000000000
+      internalID: 575420034677386560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_2
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 785
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13ac90601a9ea51f0800000000000000
+      internalID: -1055274284864648655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_3
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 703
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a68ca6eb47fdeeaf0800000000000000
+      internalID: -365108827266561942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 561
+        width: 19
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 492aca6402bdbb720800000000000000
+      internalID: 2863122919795237524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_5
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 447
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd5159b60dc124020800000000000000
+      internalID: 2324452039160305116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 398
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3af4e71f7b6f500800000000000000
+      internalID: 429733062294610939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_7
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 367
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52abe4f8f9cb4f2c0800000000000000
+      internalID: -4398683542544008667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_8
+      rect:
+        serializedVersion: 2
+        x: 1442
+        y: 299
+        width: 15
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7660236bc59993970800000000000000
+      internalID: 8735181575734560359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_9
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 333
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0d0be789ea3b8990800000000000000
+      internalID: -7382742389461676786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_10
+      rect:
+        serializedVersion: 2
+        x: 1438
+        y: 307
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc466aebaa6451390800000000000000
+      internalID: -7848289076466260788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_11
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 257
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9d0f3bf255623190800000000000000
+      internalID: -7984207782297530980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_12
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 225
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 337b432963387b650800000000000000
+      internalID: 6248607278404253491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_13
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 231
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb5e7f89a2d31a590800000000000000
+      internalID: -7664777837643569730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_14
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 225
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcceff73dce628b60800000000000000
+      internalID: 7746876136717544651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_15
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 221
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d18a769dfed20ec0800000000000000
+      internalID: -3602071571210272302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby 1_16
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 43
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33ee6e4d5379cc7f0800000000000000
+      internalID: -590931193631412685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1a4e88894b3405f4fa5af688aa74e534
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      play lobby 1_0: -665101666861308290
+      play lobby 1_1: 575420034677386560
+      play lobby 1_10: -7848289076466260788
+      play lobby 1_11: -7984207782297530980
+      play lobby 1_12: 6248607278404253491
+      play lobby 1_13: -7664777837643569730
+      play lobby 1_14: 7746876136717544651
+      play lobby 1_15: -3602071571210272302
+      play lobby 1_16: -590931193631412685
+      play lobby 1_2: -1055274284864648655
+      play lobby 1_3: -365108827266561942
+      play lobby 1_4: 2863122919795237524
+      play lobby 1_5: 2324452039160305116
+      play lobby 1_6: 429733062294610939
+      play lobby 1_7: -4398683542544008667
+      play lobby 1_8: 8735181575734560359
+      play lobby 1_9: -7382742389461676786
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
