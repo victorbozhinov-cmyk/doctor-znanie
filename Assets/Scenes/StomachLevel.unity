@@ -2909,7 +2909,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 156026824}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 603188610}
+        m_TargetAssemblyTypeName: StomachVideoPanelNavigation, Assembly-CSharp
+        m_MethodName: ContinueToQuiz
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &156026824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9336,6 +9348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 603188608}
   - component: {fileID: 603188609}
+  - component: {fileID: 603188610}
   m_Layer: 0
   m_Name: StomachLevelManager
   m_TagString: Untagged
@@ -9376,6 +9389,20 @@ MonoBehaviour:
   miniGamePanel: {fileID: 1509678787}
   quizPanel: {fileID: 536751543}
   finishPanel: {fileID: 959139021}
+--- !u!114 &603188610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603188607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2dfecafa04c9f4ba17a09f61fabbc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StomachVideoPanelNavigation
+  videoPanel: {fileID: 116469188}
+  quizPanel: {fileID: 536751543}
 --- !u!1 &614979211
 GameObject:
   m_ObjectHideFlags: 0
@@ -18189,7 +18216,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4281479730
   m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -18202,7 +18229,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
