@@ -1,13 +1,22 @@
 fileFormatVersion: 2
-guid: ab6b36b0b537b4e46815bc91786833c4
+guid: 28348f26515f4ad4d9e669596513e756
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8811806715494619191
-    second: ExitButton_0
+      213: 969778440658805597
+    second: play lobby_0
   - first:
-      213: 1128905586249742808
-    second: ExitButton_1
+      213: 1447736958673871622
+    second: play lobby_1
+  - first:
+      213: 4213426603980351880
+    second: play lobby_2
+  - first:
+      213: -6004709195928027747
+    second: play lobby_3
+  - first:
+      213: -8579497552265185580
+    second: play lobby_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -59,7 +68,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -75,10 +84,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ExitButton_0
+      name: play lobby_0
       rect:
         serializedVersion: 2
-        x: 67
-        y: 0
-        width: 1438
-        height: 1024
+        x: 21
+        y: 98
+        width: 2004
+        height: 577
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9c7aa8daa7c26b580800000000000000
-      internalID: -8811806715494619191
+      spriteID: d53ec4a8a58557d00800000000000000
+      internalID: 969778440658805597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ExitButton_1
+      name: play lobby_1
       rect:
         serializedVersion: 2
-        x: 787
-        y: 181
-        width: 6
-        height: 6
+        x: 600
+        y: 61
+        width: 20
+        height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,22 +162,106 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8d9be5546adaaaf00800000000000000
-      internalID: 1128905586249742808
+      spriteID: 603e5fde715671410800000000000000
+      internalID: 1447736958673871622
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline:
-    - - {x: 723, y: 473}
-      - {x: 764, y: 473}
-      - {x: 764, y: 512}
-      - {x: 723, y: 511}
+    - serializedVersion: 2
+      name: play lobby_2
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 52
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 889ed613c29197a30800000000000000
+      internalID: 4213426603980351880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby_3
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 71
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9d3035fcccfaaca0800000000000000
+      internalID: -6004709195928027747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby_4
+      rect:
+        serializedVersion: 2
+        x: 1479
+        y: 63
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d676edae608fe880800000000000000
+      internalID: -8579497552265185580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play lobby_5
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 42
+        width: 10
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fc842f43c2a449498f09b0c7e0f8fb8
+      internalID: 2090566777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: b85e53cdcbe18a0498a5a5d3f97f2cf3
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -177,8 +270,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ExitButton_0: -8811806715494619191
-      ExitButton_1: 1128905586249742808
+      play lobby_0: 969778440658805597
+      play lobby_1: 1447736958673871622
+      play lobby_2: 4213426603980351880
+      play lobby_3: -6004709195928027747
+      play lobby_4: -8579497552265185580
+      play lobby_5: 2090566777
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

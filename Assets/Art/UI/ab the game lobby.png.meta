@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 1809fe9ba2ac2724da7cad45ef7c83c2
+guid: b8862e52db340c54186dd3928bf8ccde
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7691235793186426219
-    second: PlayButtonImage_0
+      213: 5673671268897607824
+    second: ab the game lobby_0
+  - first:
+      213: -8348886750130700273
+    second: ab the game lobby_1
+  - first:
+      213: 1238029160632059786
+    second: ab the game lobby_2
+  - first:
+      213: 3426502558428841493
+    second: ab the game lobby_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,23 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayButtonImage_0
+      name: ab the game lobby_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 0
-        width: 1523
-        height: 1024
+        x: 63
+        y: 9
+        width: 887
+        height: 264
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b6d85a83432ccba60800000000000000
-      internalID: 7691235793186426219
+      spriteID: 0905bfa65fdecbe40800000000000000
+      internalID: 5673671268897607824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ab the game lobby_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 31
+        height: 212
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f008e7c2cbbc22c80800000000000000
+      internalID: -8348886750130700273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ab the game lobby_2
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 9
+        width: 887
+        height: 264
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a878c0556fc5e2110800000000000000
+      internalID: 1238029160632059786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ab the game lobby_3
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 9
+        width: 852
+        height: 264
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5164e192ce16d8f20800000000000000
+      internalID: 3426502558428841493
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 13eb03af40adbb34191630ee824b29ac
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayButtonImage_0: 7691235793186426219
+      ab the game lobby_0: 5673671268897607824
+      ab the game lobby_1: -8348886750130700273
+      ab the game lobby_2: 1238029160632059786
+      ab the game lobby_3: 3426502558428841493
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
