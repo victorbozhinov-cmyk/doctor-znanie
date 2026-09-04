@@ -1,12 +1,23 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LiverMinigamePenaltyController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private LiverMinigameTimer timer;
     [SerializeField] private DoctorMovement doctorMovement;
+
+    [Header("Doctor Stun Visual")]
+    [SerializeField] private Image doctorImage;
+    [SerializeField] private RectTransform doctorTransform;
+    [SerializeField] private Sprite stunnedSprite;
+
+    [SerializeField] private float fallDistance = 20f;
+    [SerializeField] private float fallRotation = -8f;
+    [SerializeField] private float fallDuration = 0.12f;
+    [SerializeField] private float recoverDuration = 0.12f;
 
     [Header("Stun Stars")]
     [SerializeField] private GameObject stunStarsRoot;
@@ -49,6 +60,13 @@ public class LiverMinigamePenaltyController : MonoBehaviour
 
     private Vector2 starsStartAnchoredPosition;
     private Vector2 popupStartAnchoredPosition;
+
+    // Позицията, на която докторът е бил
+    // В МОМЕНТА на stun-а.
+    private Vector2 doctorStunStartPosition;
+    private Quaternion doctorStunStartRotation;
+
+    private Sprite doctorNormalSprite;
 
     public bool IsStunned => isStunned;
 
@@ -95,11 +113,12 @@ public class LiverMinigamePenaltyController : MonoBehaviour
 
         ShowTimePenaltyPopup(timePenalty);
 
-        // Stun-овете не се наслагват.
         if (!isStunned)
         {
             stunCoroutine =
-                StartCoroutine(StunDoctor(stunDuration));
+                StartCoroutine(
+                    StunDoctor(stunDuration)
+                );
         }
     }
 
@@ -117,17 +136,17 @@ public class LiverMinigamePenaltyController : MonoBehaviour
 
         switch (difficulty)
         {
-            case 0: // Easy
+            case 0:
                 timePenalty = easyTimePenalty;
                 stunDuration = easyStunDuration;
                 break;
 
-            case 2: // Hard
+            case 2:
                 timePenalty = hardTimePenalty;
                 stunDuration = hardStunDuration;
                 break;
 
-            default: // Medium
+            default:
                 timePenalty = mediumTimePenalty;
                 stunDuration = mediumStunDuration;
                 break;
@@ -147,11 +166,65 @@ public class LiverMinigamePenaltyController : MonoBehaviour
             doctorMovement.enabled = false;
         }
 
+        // ВАЖНО:
+        // Запомняме позицията точно в момента,
+        // в който докторът е stun-нат.
+        if (doctorTransform != null)
+        {
+            doctorStunStartPosition =
+                doctorTransform.anchoredPosition;
+
+            doctorStunStartRotation =
+                doctorTransform.localRotation;
+        }
+
+        if (doctorImage != null)
+        {
+            doctorNormalSprite =
+                doctorImage.sprite;
+
+            if (stunnedSprite != null)
+            {
+                doctorImage.sprite =
+                    stunnedSprite;
+            }
+        }
+
         ShowStunStars();
 
-        yield return new WaitForSeconds(duration);
+        // Пада по дупе на ТЕКУЩОТО място.
+        yield return StartCoroutine(
+            AnimateDoctorFall()
+        );
+
+        float holdDuration =
+            Mathf.Max(
+                0f,
+                duration -
+                fallDuration -
+                recoverDuration
+            );
+
+        if (holdDuration > 0f)
+        {
+            yield return new WaitForSeconds(
+                holdDuration
+            );
+        }
 
         HideStunStars();
+
+        // Изправя се пак на същото място.
+        yield return StartCoroutine(
+            AnimateDoctorRecover()
+        );
+
+        if (doctorImage != null &&
+            doctorNormalSprite != null)
+        {
+            doctorImage.sprite =
+                doctorNormalSprite;
+        }
 
         if (doctorMovement != null)
         {
@@ -161,6 +234,139 @@ public class LiverMinigamePenaltyController : MonoBehaviour
         isStunned = false;
         stunCoroutine = null;
     }
+
+    // =========================================================
+    // FALL
+    // =========================================================
+
+    private IEnumerator AnimateDoctorFall()
+    {
+        if (doctorTransform == null)
+        {
+            yield break;
+        }
+
+        Vector2 startPosition =
+            doctorStunStartPosition;
+
+        Vector2 fallenPosition =
+            doctorStunStartPosition +
+            new Vector2(
+                0f,
+                -fallDistance
+            );
+
+        Quaternion startRotation =
+            doctorStunStartRotation;
+
+        Quaternion fallenRotation =
+            Quaternion.Euler(
+                0f,
+                0f,
+                fallRotation
+            );
+
+        float timer = 0f;
+
+        while (timer < fallDuration)
+        {
+            timer += Time.deltaTime;
+
+            float t =
+                Mathf.Clamp01(
+                    timer / fallDuration
+                );
+
+            float smoothT =
+                1f -
+                Mathf.Pow(
+                    1f - t,
+                    3f
+                );
+
+            doctorTransform.anchoredPosition =
+                Vector2.Lerp(
+                    startPosition,
+                    fallenPosition,
+                    smoothT
+                );
+
+            doctorTransform.localRotation =
+                Quaternion.Lerp(
+                    startRotation,
+                    fallenRotation,
+                    smoothT
+                );
+
+            yield return null;
+        }
+
+        doctorTransform.anchoredPosition =
+            fallenPosition;
+
+        doctorTransform.localRotation =
+            fallenRotation;
+    }
+
+    // =========================================================
+    // RECOVER
+    // =========================================================
+
+    private IEnumerator AnimateDoctorRecover()
+    {
+        if (doctorTransform == null)
+        {
+            yield break;
+        }
+
+        Vector2 startPosition =
+            doctorTransform.anchoredPosition;
+
+        Quaternion startRotation =
+            doctorTransform.localRotation;
+
+        float timer = 0f;
+
+        while (timer < recoverDuration)
+        {
+            timer += Time.deltaTime;
+
+            float t =
+                Mathf.Clamp01(
+                    timer / recoverDuration
+                );
+
+            float smoothT =
+                t * t *
+                (3f - 2f * t);
+
+            doctorTransform.anchoredPosition =
+                Vector2.Lerp(
+                    startPosition,
+                    doctorStunStartPosition,
+                    smoothT
+                );
+
+            doctorTransform.localRotation =
+                Quaternion.Lerp(
+                    startRotation,
+                    doctorStunStartRotation,
+                    smoothT
+                );
+
+            yield return null;
+        }
+
+        doctorTransform.anchoredPosition =
+            doctorStunStartPosition;
+
+        doctorTransform.localRotation =
+            doctorStunStartRotation;
+    }
+
+    // =========================================================
+    // STUN STARS
+    // =========================================================
 
     private void ShowStunStars()
     {
@@ -187,18 +393,25 @@ public class LiverMinigamePenaltyController : MonoBehaviour
 
         if (starsAnimationCoroutine != null)
         {
-            StopCoroutine(starsAnimationCoroutine);
+            StopCoroutine(
+                starsAnimationCoroutine
+            );
         }
 
         starsAnimationCoroutine =
-            StartCoroutine(AnimateStunStars());
+            StartCoroutine(
+                AnimateStunStars()
+            );
     }
 
     private void HideStunStars()
     {
         if (starsAnimationCoroutine != null)
         {
-            StopCoroutine(starsAnimationCoroutine);
+            StopCoroutine(
+                starsAnimationCoroutine
+            );
+
             starsAnimationCoroutine = null;
         }
 
@@ -227,21 +440,34 @@ public class LiverMinigamePenaltyController : MonoBehaviour
         while (true)
         {
             float bob =
-                Mathf.Sin(Time.unscaledTime * starsBobSpeed) *
+                Mathf.Sin(
+                    Time.unscaledTime *
+                    starsBobSpeed
+                ) *
                 starsBobAmount;
 
             float rotation =
-                Mathf.Sin(Time.unscaledTime * starsRotationSpeed) *
+                Mathf.Sin(
+                    Time.unscaledTime *
+                    starsRotationSpeed
+                ) *
                 starsRotationAmount;
 
             if (stunStarsTransform != null)
             {
                 stunStarsTransform.anchoredPosition =
                     starsStartAnchoredPosition +
-                    new Vector2(0f, bob);
+                    new Vector2(
+                        0f,
+                        bob
+                    );
 
                 stunStarsTransform.localRotation =
-                    Quaternion.Euler(0f, 0f, rotation);
+                    Quaternion.Euler(
+                        0f,
+                        0f,
+                        rotation
+                    );
             }
 
             yield return null;
@@ -252,7 +478,9 @@ public class LiverMinigamePenaltyController : MonoBehaviour
     // TIME POPUP
     // =========================================================
 
-    private void ShowTimePenaltyPopup(float penaltySeconds)
+    private void ShowTimePenaltyPopup(
+        float penaltySeconds
+    )
     {
         if (timePenaltyPopupRoot == null ||
             timePenaltyPopupTransform == null ||
@@ -264,16 +492,18 @@ public class LiverMinigamePenaltyController : MonoBehaviour
 
         if (popupCoroutine != null)
         {
-            StopCoroutine(popupCoroutine);
+            StopCoroutine(
+                popupCoroutine
+            );
         }
 
-        string penaltyText =
+        timePenaltyPopupText.text =
             $"+{Mathf.RoundToInt(penaltySeconds)} сек.";
 
-        timePenaltyPopupText.text = penaltyText;
-
         popupCoroutine =
-            StartCoroutine(AnimateTimePenaltyPopup());
+            StartCoroutine(
+                AnimateTimePenaltyPopup()
+            );
     }
 
     private IEnumerator AnimateTimePenaltyPopup()
@@ -283,46 +513,80 @@ public class LiverMinigamePenaltyController : MonoBehaviour
         timePenaltyPopupTransform.anchoredPosition =
             popupStartAnchoredPosition;
 
-        timePenaltyPopupTransform.localScale = Vector3.one;
+        timePenaltyPopupTransform.localScale =
+            Vector3.one;
 
-        timePenaltyPopupCanvasGroup.alpha = 1f;
+        timePenaltyPopupCanvasGroup.alpha =
+            1f;
 
         float timer = 0f;
 
-        Vector2 startPos = popupStartAnchoredPosition;
+        Vector2 startPos =
+            popupStartAnchoredPosition;
+
         Vector2 endPos =
             popupStartAnchoredPosition +
-            new Vector2(0f, popupRiseDistance);
+            new Vector2(
+                0f,
+                popupRiseDistance
+            );
 
         while (timer < popupDuration)
         {
             timer += Time.unscaledDeltaTime;
 
             float t =
-                Mathf.Clamp01(timer / popupDuration);
+                Mathf.Clamp01(
+                    timer / popupDuration
+                );
 
             float smoothT =
-                1f - Mathf.Pow(1f - t, 3f);
+                1f -
+                Mathf.Pow(
+                    1f - t,
+                    3f
+                );
 
-            timePenaltyPopupTransform.anchoredPosition =
-                Vector2.Lerp(startPos, endPos, smoothT);
+            timePenaltyPopupTransform
+                .anchoredPosition =
+                Vector2.Lerp(
+                    startPos,
+                    endPos,
+                    smoothT
+                );
 
             float scale =
-                1f + Mathf.Sin(t * Mathf.PI) * 0.12f;
+                1f +
+                Mathf.Sin(
+                    t *
+                    Mathf.PI
+                ) *
+                0.12f;
 
-            timePenaltyPopupTransform.localScale =
-                Vector3.one * scale;
+            timePenaltyPopupTransform
+                .localScale =
+                Vector3.one *
+                scale;
 
             timePenaltyPopupCanvasGroup.alpha =
-                Mathf.Lerp(1f, 0f, t);
+                Mathf.Lerp(
+                    1f,
+                    0f,
+                    t
+                );
 
             yield return null;
         }
 
-        timePenaltyPopupCanvasGroup.alpha = 0f;
-        timePenaltyPopupTransform.anchoredPosition =
+        timePenaltyPopupCanvasGroup.alpha =
+            0f;
+
+        timePenaltyPopupTransform
+            .anchoredPosition =
             popupStartAnchoredPosition;
-        timePenaltyPopupTransform.localScale = Vector3.one;
+
+        timePenaltyPopupTransform.localScale =
+            Vector3.one;
 
         timePenaltyPopupRoot.SetActive(false);
 
@@ -340,30 +604,37 @@ public class LiverMinigamePenaltyController : MonoBehaviour
             doctorMovement.enabled = true;
         }
 
+        if (doctorTransform != null &&
+            isStunned)
+        {
+            doctorTransform.anchoredPosition =
+                doctorStunStartPosition;
+
+            doctorTransform.localRotation =
+                doctorStunStartRotation;
+        }
+
+        if (doctorImage != null &&
+            doctorNormalSprite != null)
+        {
+            doctorImage.sprite =
+                doctorNormalSprite;
+        }
+
         HideStunStars();
 
         if (popupCoroutine != null)
         {
-            StopCoroutine(popupCoroutine);
+            StopCoroutine(
+                popupCoroutine
+            );
+
             popupCoroutine = null;
         }
 
         if (timePenaltyPopupRoot != null)
         {
             timePenaltyPopupRoot.SetActive(false);
-        }
-
-        if (timePenaltyPopupCanvasGroup != null)
-        {
-            timePenaltyPopupCanvasGroup.alpha = 0f;
-        }
-
-        if (timePenaltyPopupTransform != null)
-        {
-            timePenaltyPopupTransform.anchoredPosition =
-                popupStartAnchoredPosition;
-
-            timePenaltyPopupTransform.localScale = Vector3.one;
         }
 
         isStunned = false;

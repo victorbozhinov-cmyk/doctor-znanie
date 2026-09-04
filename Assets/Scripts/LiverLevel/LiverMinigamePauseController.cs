@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LiverMinigamePauseController : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class LiverMinigamePauseController : MonoBehaviour
     [Header("Optional Sub Panels")]
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject infoPanel;
+
+    [Header("Exit Confirmation")]
+    [SerializeField] private GameObject exitConfirmationPanel;
 
     private bool isPaused = false;
 
@@ -36,6 +40,11 @@ public class LiverMinigamePauseController : MonoBehaviour
         if (infoPanel != null)
         {
             infoPanel.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
         }
     }
 
@@ -74,6 +83,11 @@ public class LiverMinigamePauseController : MonoBehaviour
         if (infoPanel != null)
         {
             infoPanel.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
         }
 
         if (pausePanel != null)
@@ -154,6 +168,53 @@ public class LiverMinigamePauseController : MonoBehaviour
         {
             pausePanel.SetActive(true);
         }
+    }
+
+    // =========================================================
+    // EXIT CONFIRMATION
+    // =========================================================
+
+    public void OpenExitConfirmation()
+    {
+        if (!isPaused)
+        {
+            return;
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(true);
+        }
+    }
+
+    public void CloseExitConfirmation()
+    {
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+        }
+
+        // Не променяме timeScale.
+        // Играта продължава да е паузирана.
+    }
+
+    public void ConfirmExitToBodyMap()
+    {
+        // Връщаме времето преди смяна на сцената,
+        // за да не остане BodyMap замразен.
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("BodyMap");
     }
 
     // =========================================================

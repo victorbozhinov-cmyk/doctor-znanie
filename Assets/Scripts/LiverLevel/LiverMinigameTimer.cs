@@ -21,6 +21,7 @@ public class LiverMinigameTimer : MonoBehaviour
 
     public bool TimerRunning => timerRunning;
     public float RemainingTime => remainingTime;
+    public bool IsFinished => finished;
 
     private void Start()
     {
@@ -42,6 +43,8 @@ public class LiverMinigameTimer : MonoBehaviour
         if (!timerRunning || finished)
             return;
 
+        // Ако вече сме загубили,
+        // SuccessPanel не трябва да се появява.
         if (liverHealthController != null &&
             liverHealthController.IsGameOver)
         {
@@ -134,7 +137,7 @@ public class LiverMinigameTimer : MonoBehaviour
     }
 
     // =========================================================
-    // ADD PENALTY TIME
+    // TIME PENALTY
     // =========================================================
 
     public void AddTime(float seconds)
@@ -156,6 +159,10 @@ public class LiverMinigameTimer : MonoBehaviour
         UpdateTimerText();
     }
 
+    // =========================================================
+    // SUCCESS
+    // =========================================================
+
     private void TimerFinished()
     {
         if (finished)
@@ -168,16 +175,29 @@ public class LiverMinigameTimer : MonoBehaviour
         }
 
         finished = true;
+        timerRunning = false;
 
-        Debug.Log(
-            "МИСИЯТА Е ИЗПЪЛНЕНА!"
-        );
+        Debug.Log("МИСИЯТА Е ИЗПЪЛНЕНА!");
+
+        // Спираме ЦЯЛАТА миниигра.
+        Time.timeScale = 0f;
 
         if (minigameSuccessPanel != null)
         {
             minigameSuccessPanel.SetActive(true);
+            minigameSuccessPanel.transform.SetAsLastSibling();
+        }
+        else
+        {
+            Debug.LogError(
+                "MinigameSuccessPanel не е зададен!"
+            );
         }
     }
+
+    // =========================================================
+    // TIMER CONTROL
+    // =========================================================
 
     public void StopTimer()
     {
@@ -191,5 +211,23 @@ public class LiverMinigameTimer : MonoBehaviour
         {
             timerRunning = true;
         }
+    }
+
+    // =========================================================
+    // CONTINUE AFTER SUCCESS
+    // =========================================================
+
+    public void ContinueAfterSuccess()
+    {
+        Time.timeScale = 1f;
+    }
+
+    // =========================================================
+    // SAFETY
+    // =========================================================
+
+    private void OnDestroy()
+    {
+        Time.timeScale = 1f;
     }
 }
