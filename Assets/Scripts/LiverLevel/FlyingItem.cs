@@ -24,6 +24,10 @@ public class FlyingItem : MonoBehaviour
     [SerializeField] private float doctorHitboxShrink = 15f;
     [SerializeField] private float bubbleHitboxShrink = 5f;
 
+    [Header("Penalty")]
+    [SerializeField]
+    private LiverMinigamePenaltyController penaltyController;
+
     [Header("Harmful - Correct POP")]
     [SerializeField] private float harmfulSquashDuration = 0.06f;
     [SerializeField] private float harmfulBurstDuration = 0.16f;
@@ -77,31 +81,58 @@ public class FlyingItem : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
 
         if (canvasGroup == null)
-            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        {
+            canvasGroup =
+                gameObject.AddComponent<CanvasGroup>();
+        }
 
         // Ако не са свързани ръчно в Inspector,
         // опитваме да ги намерим автоматично.
         if (bubbleImage == null)
         {
-            Transform bubbleTransform = transform.Find("BubbleImage");
+            Transform bubbleTransform =
+                transform.Find("BubbleImage");
 
             if (bubbleTransform != null)
-                bubbleImage = bubbleTransform.GetComponent<Image>();
+            {
+                bubbleImage =
+                    bubbleTransform.GetComponent<Image>();
+            }
         }
 
         if (itemIcon == null)
         {
-            Transform iconTransform = transform.Find("ItemIcon");
+            Transform iconTransform =
+                transform.Find("ItemIcon");
 
             if (iconTransform != null)
-                itemIcon = iconTransform.GetComponent<Image>();
+            {
+                itemIcon =
+                    iconTransform.GetComponent<Image>();
+            }
         }
 
         if (bubbleImage != null)
-            normalBubbleColor = bubbleImage.color;
+        {
+            normalBubbleColor =
+                bubbleImage.color;
+        }
 
         if (itemIcon != null)
-            normalIconColor = itemIcon.color;
+        {
+            normalIconColor =
+                itemIcon.color;
+        }
+
+        // Ако PenaltyController не е зададен
+        // ръчно в prefab-а, намираме го автоматично.
+        if (penaltyController == null)
+        {
+            penaltyController =
+                FindFirstObjectByType<
+                    LiverMinigamePenaltyController
+                >();
+        }
 
         SetSpeedFromDifficulty();
     }
@@ -109,7 +140,9 @@ public class FlyingItem : MonoBehaviour
     private void Update()
     {
         if (hasFinished)
+        {
             return;
+        }
 
         MoveLeft();
 
@@ -117,7 +150,9 @@ public class FlyingItem : MonoBehaviour
         CheckDoctorCollision();
 
         if (hasFinished)
+        {
             return;
+        }
 
         CheckLiverBoundary();
     }
@@ -142,7 +177,8 @@ public class FlyingItem : MonoBehaviour
         if (itemIcon != null)
         {
             itemIcon.sprite = iconSprite;
-            itemIcon.enabled = iconSprite != null;
+            itemIcon.enabled =
+                iconSprite != null;
         }
     }
 
@@ -153,7 +189,10 @@ public class FlyingItem : MonoBehaviour
     private void SetSpeedFromDifficulty()
     {
         string difficultyString =
-            PlayerPrefs.GetString("Difficulty", "").ToLower();
+            PlayerPrefs.GetString(
+                "Difficulty",
+                ""
+            ).ToLower();
 
         if (difficultyString == "easy")
         {
@@ -174,7 +213,10 @@ public class FlyingItem : MonoBehaviour
         }
 
         int difficultyInt =
-            PlayerPrefs.GetInt("Difficulty", 1);
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
         switch (difficultyInt)
         {
@@ -199,7 +241,9 @@ public class FlyingItem : MonoBehaviour
     private void MoveLeft()
     {
         rectTransform.anchoredPosition +=
-            Vector2.left * moveSpeed * Time.deltaTime;
+            Vector2.left *
+            moveSpeed *
+            Time.deltaTime;
     }
 
     // =========================================================
@@ -209,7 +253,9 @@ public class FlyingItem : MonoBehaviour
     private void CheckDoctorCollision()
     {
         if (doctorCharacter == null)
+        {
             return;
+        }
 
         Rect bubbleRect =
             GetWorldRect(
@@ -232,12 +278,16 @@ public class FlyingItem : MonoBehaviour
     private void HitByDoctor()
     {
         if (hasFinished)
+        {
             return;
+        }
 
         hasFinished = true;
 
         if (itemType == ItemType.Harmful)
         {
+            // Вреден балон:
+            // правилно действие.
             PlaySfx(harmfulPopSfx);
 
             StartCoroutine(
@@ -246,7 +296,26 @@ public class FlyingItem : MonoBehaviour
         }
         else
         {
+            // Полезен балон:
+            // грешка.
             PlaySfx(helpfulMistakeSfx);
+
+            // Прилагаме наказанието:
+            // Easy   = +2 сек. + 0.5 сек. stun
+            // Medium = +3 сек. + 0.75 сек. stun
+            // Hard   = +4 сек. + 1 сек. stun
+            if (penaltyController != null)
+            {
+                penaltyController
+                    .ApplyUsefulBubblePenalty();
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "FlyingItem не откри " +
+                    "LiverMinigamePenaltyController."
+                );
+            }
 
             StartCoroutine(
                 HelpfulDoctorMistakeAnimation()
@@ -260,11 +329,6 @@ public class FlyingItem : MonoBehaviour
 
     private IEnumerator HarmfulDoctorPopAnimation()
     {
-        // -----------------------------------------
-        // ФАЗА 1:
-        // Балончето първо се свива рязко.
-        // -----------------------------------------
-
         float timer = 0f;
 
         Vector3 startScale =
@@ -274,7 +338,8 @@ public class FlyingItem : MonoBehaviour
             rectTransform.localRotation;
 
         Vector3 squashScale =
-            normalScale * harmfulSquashScale;
+            normalScale *
+            harmfulSquashScale;
 
         while (timer < harmfulSquashDuration)
         {
@@ -282,12 +347,16 @@ public class FlyingItem : MonoBehaviour
 
             float t =
                 Mathf.Clamp01(
-                    timer / harmfulSquashDuration
+                    timer /
+                    harmfulSquashDuration
                 );
 
-            // Ease Out
             float smoothT =
-                1f - Mathf.Pow(1f - t, 3f);
+                1f -
+                Mathf.Pow(
+                    1f - t,
+                    3f
+                );
 
             rectTransform.localScale =
                 Vector3.Lerp(
@@ -299,22 +368,22 @@ public class FlyingItem : MonoBehaviour
             rectTransform.localRotation =
                 Quaternion.Lerp(
                     startRotation,
-                    Quaternion.Euler(0f, 0f, -8f),
+                    Quaternion.Euler(
+                        0f,
+                        0f,
+                        -8f
+                    ),
                     smoothT
                 );
 
             yield return null;
         }
 
-        // -----------------------------------------
-        // ФАЗА 2:
-        // Силен burst / POP.
-        // -----------------------------------------
-
         timer = 0f;
 
         Vector3 burstScale =
-            normalScale * harmfulBurstScale;
+            normalScale *
+            harmfulBurstScale;
 
         Color targetBubbleColor =
             new Color(
@@ -330,11 +399,16 @@ public class FlyingItem : MonoBehaviour
 
             float t =
                 Mathf.Clamp01(
-                    timer / harmfulBurstDuration
+                    timer /
+                    harmfulBurstDuration
                 );
 
             float smoothT =
-                1f - Mathf.Pow(1f - t, 3f);
+                1f -
+                Mathf.Pow(
+                    1f - t,
+                    3f
+                );
 
             rectTransform.localScale =
                 Vector3.Lerp(
@@ -354,31 +428,38 @@ public class FlyingItem : MonoBehaviour
                     )
                 );
 
-            // Зелен flash при правилно действие.
             if (bubbleImage != null)
             {
                 bubbleImage.color =
                     Color.Lerp(
                         normalBubbleColor,
                         targetBubbleColor,
-                        Mathf.Sin(t * Mathf.PI)
+                        Mathf.Sin(
+                            t *
+                            Mathf.PI
+                        )
                     );
             }
 
-            // Иконката също светва леко.
             if (itemIcon != null)
             {
                 itemIcon.color =
                     Color.Lerp(
                         normalIconColor,
                         Color.white,
-                        Mathf.Sin(t * Mathf.PI)
+                        Mathf.Sin(
+                            t *
+                            Mathf.PI
+                        )
                     );
             }
 
-            // Изчезване към края.
             canvasGroup.alpha =
-                1f - Mathf.Pow(t, 2f);
+                1f -
+                Mathf.Pow(
+                    t,
+                    2f
+                );
 
             yield return null;
         }
@@ -411,31 +492,37 @@ public class FlyingItem : MonoBehaviour
 
             float t =
                 Mathf.Clamp01(
-                    timer / helpfulMistakeDuration
+                    timer /
+                    helpfulMistakeDuration
                 );
 
             float remaining =
                 1f - t;
 
-            // -----------------------------------------
-            // Силно разклащане ляво / дясно
-            // -----------------------------------------
-
+            // Разклащане наляво / надясно.
             float shake =
-                Mathf.Sin(t * Mathf.PI * 10f) *
+                Mathf.Sin(
+                    t *
+                    Mathf.PI *
+                    10f
+                ) *
                 helpfulShakeAmount *
                 remaining;
 
             rectTransform.anchoredPosition =
                 startPosition +
-                new Vector2(shake, 0f);
+                new Vector2(
+                    shake,
+                    0f
+                );
 
-            // -----------------------------------------
-            // Wobble rotation
-            // -----------------------------------------
-
+            // Wobble rotation.
             float wobble =
-                Mathf.Sin(t * Mathf.PI * 8f) *
+                Mathf.Sin(
+                    t *
+                    Mathf.PI *
+                    8f
+                ) *
                 helpfulWobbleRotation *
                 remaining;
 
@@ -446,16 +533,16 @@ public class FlyingItem : MonoBehaviour
                     wobble
                 );
 
-            // -----------------------------------------
-            // Лек pulsating ефект
-            // -----------------------------------------
-
+            // Pulse.
             float pulse =
                 1f +
-                Mathf.Sin(t * Mathf.PI * 6f) *
+                Mathf.Sin(
+                    t *
+                    Mathf.PI *
+                    6f
+                ) *
                 helpfulPulseAmount;
 
-            // Последната част се свива.
             float shrink = 1f;
 
             if (t > 0.55f)
@@ -480,17 +567,17 @@ public class FlyingItem : MonoBehaviour
                 pulse *
                 shrink;
 
-            // -----------------------------------------
-            // Червен flash
-            // -----------------------------------------
-
+            // Червен flash.
             if (bubbleImage != null)
             {
                 bubbleImage.color =
                     Color.Lerp(
                         normalBubbleColor,
                         mistakeBubbleColor,
-                        Mathf.Sin(t * Mathf.PI)
+                        Mathf.Sin(
+                            t *
+                            Mathf.PI
+                        )
                     );
             }
 
@@ -499,19 +586,27 @@ public class FlyingItem : MonoBehaviour
                 itemIcon.color =
                     Color.Lerp(
                         normalIconColor,
-                        new Color(1f, 0.6f, 0.6f, 1f),
-                        Mathf.Sin(t * Mathf.PI)
+                        new Color(
+                            1f,
+                            0.6f,
+                            0.6f,
+                            1f
+                        ),
+                        Mathf.Sin(
+                            t *
+                            Mathf.PI
+                        )
                     );
             }
 
-            // Fade в последната половина.
             if (t > 0.5f)
             {
                 canvasGroup.alpha =
                     Mathf.Lerp(
                         1f,
                         0f,
-                        (t - 0.5f) / 0.5f
+                        (t - 0.5f) /
+                        0.5f
                     );
             }
 
@@ -528,10 +623,12 @@ public class FlyingItem : MonoBehaviour
     private void CheckLiverBoundary()
     {
         float halfWidth =
-            rectTransform.rect.width * 0.5f;
+            rectTransform.rect.width *
+            0.5f;
 
         float bubbleLeftEdge =
-            rectTransform.anchoredPosition.x -
+            rectTransform
+                .anchoredPosition.x -
             halfWidth;
 
         if (bubbleLeftEdge <= liverBoundaryX)
@@ -543,7 +640,9 @@ public class FlyingItem : MonoBehaviour
     private void ReachLiver()
     {
         if (hasFinished)
+        {
             return;
+        }
 
         hasFinished = true;
 
@@ -577,13 +676,15 @@ public class FlyingItem : MonoBehaviour
 
             float t =
                 Mathf.Clamp01(
-                    timer / liverPopDuration
+                    timer /
+                    liverPopDuration
                 );
 
             rectTransform.localScale =
                 Vector3.Lerp(
                     startScale,
-                    normalScale * liverPopScale,
+                    normalScale *
+                    liverPopScale,
                     t
                 );
 
@@ -603,27 +704,22 @@ public class FlyingItem : MonoBehaviour
     private void PlaySfx(AudioClip clip)
     {
         if (clip == null)
+        {
             return;
-
-        /*
-         * Правим временен AudioSource.
-         *
-         * Така звукът няма да бъде прекъснат,
-         * когато FlyingItem бъде Destroy-нат.
-         */
+        }
 
         GameObject audioObject =
-            new GameObject("FlyingItem_SFX");
+            new GameObject(
+                "FlyingItem_SFX"
+            );
 
         AudioSource source =
-            audioObject.AddComponent<AudioSource>();
+            audioObject
+                .AddComponent<AudioSource>();
 
         source.clip = clip;
         source.volume = sfxVolume;
-
-        // 2D звук
         source.spatialBlend = 0f;
-
         source.playOnAwake = false;
 
         source.Play();
@@ -645,7 +741,9 @@ public class FlyingItem : MonoBehaviour
         Vector3[] corners =
             new Vector3[4];
 
-        target.GetWorldCorners(corners);
+        target.GetWorldCorners(
+            corners
+        );
 
         float minX = corners[0].x;
         float maxX = corners[0].x;
@@ -656,16 +754,24 @@ public class FlyingItem : MonoBehaviour
         for (int i = 1; i < 4; i++)
         {
             if (corners[i].x < minX)
+            {
                 minX = corners[i].x;
+            }
 
             if (corners[i].x > maxX)
+            {
                 maxX = corners[i].x;
+            }
 
             if (corners[i].y < minY)
+            {
                 minY = corners[i].y;
+            }
 
             if (corners[i].y > maxY)
+            {
                 maxY = corners[i].y;
+            }
         }
 
         Rect result =
@@ -691,11 +797,15 @@ public class FlyingItem : MonoBehaviour
 
     public bool IsHelpful()
     {
-        return itemType == ItemType.Helpful;
+        return
+            itemType ==
+            ItemType.Helpful;
     }
 
     public bool IsHarmful()
     {
-        return itemType == ItemType.Harmful;
+        return
+            itemType ==
+            ItemType.Harmful;
     }
 }
