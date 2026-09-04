@@ -12,6 +12,8 @@ public class MusicManager : MonoBehaviour
         private set;
     }
 
+    private const string SettingsSceneName = "SettingsMenu";
+
     [Header("Lobby Music")]
     [SerializeField]
     private AudioClip lobbyMusic;
@@ -64,7 +66,6 @@ public class MusicManager : MonoBehaviour
         new List<string>
         {
             "MainMenu",
-            "SettingsMenu",
             "GameInfo",
             "BodyMap"
         };
@@ -147,6 +148,16 @@ public class MusicManager : MonoBehaviour
     private void HandleSceneMusic(
         string sceneName)
     {
+        // SettingsMenu НЕ избира собствена музика.
+        //
+        // Запазваме музиката от сцената,
+        // от която играчът е дошъл.
+        if (sceneName == SettingsSceneName)
+        {
+            RestoreNormalMusicVolume();
+            return;
+        }
+
         ResetDucking();
 
         if (lobbyScenes.Contains(sceneName))
@@ -156,6 +167,8 @@ public class MusicManager : MonoBehaviour
         else if (
             organLevelScenes.Contains(sceneName))
         {
+            // Всяко органно ниво започва
+            // със StartPanel.
             PlayIntroMusic();
         }
         else
@@ -163,6 +176,10 @@ public class MusicManager : MonoBehaviour
             StopMusic();
         }
     }
+
+    // =========================
+    // Music Types
+    // =========================
 
     public void PlayLobbyMusic()
     {
@@ -216,6 +233,8 @@ public class MusicManager : MonoBehaviour
 
         StopVolumeFade();
 
+        // Ако същата музика вече свири,
+        // не я започваме отначало.
         if (musicSource.isPlaying &&
             musicSource.clip == clip)
         {
@@ -226,12 +245,31 @@ public class MusicManager : MonoBehaviour
         }
 
         musicSource.clip = clip;
+
         musicSource.volume =
             currentBaseVolume;
 
         musicSource.loop = true;
 
         musicSource.Play();
+    }
+
+    // =========================
+    // Settings Menu
+    // =========================
+
+    private void RestoreNormalMusicVolume()
+    {
+        if (!musicSource.isPlaying)
+        {
+            return;
+        }
+
+        ResetDucking();
+
+        FadeToVolume(
+            currentBaseVolume
+        );
     }
 
     // =========================

@@ -767,9 +767,8 @@ MonoBehaviour:
   volumeFadeDuration: 0.4
   lobbyScenes:
   - MainMenu
-  - SettingsMenu
-  - GameInfo
   - BodyMap
+  - GameInfo
   organLevelScenes:
   - HeartLevel
   - StomachLevel
