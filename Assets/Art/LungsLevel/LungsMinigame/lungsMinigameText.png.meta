@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b02e925d446b16e468d099a0695249d3
+guid: 0eaa85e08d269ae4ba54d3d3b804d11b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1446734079671829601
-    second: lungsMinigameBackground_0
+      213: -1599545288931905911
+    second: lungsMinigameText_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lungsMinigameBackground_0
+      name: lungsMinigameText_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1672
-        height: 941
+        x: 16
+        y: 23
+        width: 2019
+        height: 691
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f9b75b8050b2cebe0800000000000000
-      internalID: -1446734079671829601
+      spriteID: 98e6013d8064dc9e0800000000000000
+      internalID: -1599545288931905911
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      lungsMinigameBackground_0: -1446734079671829601
+      lungsMinigameText_0: -1599545288931905911
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

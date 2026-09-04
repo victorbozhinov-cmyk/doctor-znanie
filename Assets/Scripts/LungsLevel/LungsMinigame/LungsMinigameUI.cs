@@ -16,6 +16,10 @@ public class LungsMinigameUI : MonoBehaviour
     [SerializeField] private Image exhaleFill;
     [SerializeField] private TMP_Text exhalePercentText;
 
+    [Header("Round UI")]
+    [SerializeField] private TMP_Text currentRoundText;
+    [SerializeField] private TMP_Text totalRoundsText;
+
     private void Update()
     {
         if (LungsMinigameManager.Instance == null)
@@ -25,7 +29,12 @@ public class LungsMinigameUI : MonoBehaviour
 
         UpdatePhasePanels();
         UpdateProgress();
+        UpdateRound();
     }
+
+    // =========================================================
+    // PHASE PANELS
+    // =========================================================
 
     private void UpdatePhasePanels()
     {
@@ -44,6 +53,10 @@ public class LungsMinigameUI : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // PROGRESS
+    // =========================================================
+
     private void UpdateProgress()
     {
         float oxygen =
@@ -51,6 +64,10 @@ public class LungsMinigameUI : MonoBehaviour
 
         float co2 =
             LungsMinigameManager.Instance.CO2Percent;
+
+        // -------------------------
+        // INHALE / O2
+        // -------------------------
 
         if (inhaleFill != null)
         {
@@ -63,6 +80,10 @@ public class LungsMinigameUI : MonoBehaviour
                 Mathf.RoundToInt(oxygen) + "%";
         }
 
+        // -------------------------
+        // EXHALE / CO2
+        // -------------------------
+
         if (exhaleFill != null)
         {
             exhaleFill.fillAmount = co2 / 100f;
@@ -72,6 +93,31 @@ public class LungsMinigameUI : MonoBehaviour
         {
             exhalePercentText.text =
                 Mathf.RoundToInt(co2) + "%";
+        }
+    }
+
+    // =========================================================
+    // ROUND
+    // =========================================================
+
+    private void UpdateRound()
+    {
+        int currentRound =
+            LungsMinigameManager.Instance.CurrentRound;
+
+        int totalRounds =
+            LungsMinigameManager.Instance.TotalRounds;
+
+        if (currentRoundText != null)
+        {
+            currentRoundText.text =
+                currentRound.ToString();
+        }
+
+        if (totalRoundsText != null)
+        {
+            totalRoundsText.text =
+                "/" + totalRounds;
         }
     }
 }

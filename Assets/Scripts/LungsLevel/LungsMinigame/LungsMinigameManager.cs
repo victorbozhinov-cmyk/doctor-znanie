@@ -13,7 +13,8 @@ public class LungsMinigameManager : MonoBehaviour
     [Header("Round Settings")]
     [SerializeField] private int totalRounds = 3;
 
-    [Header("Phase Timer")]
+    [Header("Timer - Disabled For Now")]
+    [SerializeField] private bool useTimer = false;
     [SerializeField] private float phaseDuration = 10f;
 
     [Header("Progress Settings")]
@@ -32,11 +33,18 @@ public class LungsMinigameManager : MonoBehaviour
     private bool gameEnded;
 
     public LungsBreathingPhase CurrentPhase => currentPhase;
+
     public float OxygenPercent => oxygenPercent;
+
     public float CO2Percent => co2Percent;
+
     public float PhaseTimeRemaining => phaseTimeRemaining;
+
     public int CurrentRound => currentRound;
+
     public int TotalRounds => totalRounds;
+
+    public bool GameEnded => gameEnded;
 
     private void Awake()
     {
@@ -61,14 +69,25 @@ public class LungsMinigameManager : MonoBehaviour
             return;
         }
 
+        // Засега таймерът е изключен.
+        if (!useTimer)
+        {
+            return;
+        }
+
         phaseTimeRemaining -= Time.deltaTime;
 
         if (phaseTimeRemaining <= 0f)
         {
             phaseTimeRemaining = 0f;
+
             FailGame();
         }
     }
+
+    // =========================================================
+    // BUBBLE CLICK
+    // =========================================================
 
     public void HandleBubbleClicked(LungGasType gasType)
     {
@@ -88,6 +107,10 @@ public class LungsMinigameManager : MonoBehaviour
 
         PrintCurrentStatus();
     }
+
+    // =========================================================
+    // INHALE
+    // =========================================================
 
     private void HandleInhaleClick(LungGasType gasType)
     {
@@ -118,6 +141,34 @@ public class LungsMinigameManager : MonoBehaviour
         }
     }
 
+    private void StartInhalePhase()
+    {
+        currentPhase = LungsBreathingPhase.Inhale;
+
+        oxygenPercent = 0f;
+        co2Percent = 100f;
+
+        ResetPhaseTimer();
+
+        Debug.Log(
+            "START INHALE | Round " +
+            currentRound +
+            "/" +
+            totalRounds
+        );
+    }
+
+    private void CompleteInhalePhase()
+    {
+        Debug.Log("INHALE COMPLETE");
+
+        StartExhalePhase();
+    }
+
+    // =========================================================
+    // EXHALE
+    // =========================================================
+
     private void HandleExhaleClick(LungGasType gasType)
     {
         if (gasType == LungGasType.CO2)
@@ -147,37 +198,13 @@ public class LungsMinigameManager : MonoBehaviour
         }
     }
 
-    private void StartInhalePhase()
-    {
-        currentPhase = LungsBreathingPhase.Inhale;
-
-        oxygenPercent = 0f;
-        co2Percent = 100f;
-
-        phaseTimeRemaining = phaseDuration;
-
-        Debug.Log(
-            "START INHALE | Round " +
-            currentRound +
-            "/" +
-            totalRounds
-        );
-    }
-
-    private void CompleteInhalePhase()
-    {
-        Debug.Log("INHALE COMPLETE");
-
-        StartExhalePhase();
-    }
-
     private void StartExhalePhase()
     {
         currentPhase = LungsBreathingPhase.Exhale;
 
         co2Percent = 100f;
 
-        phaseTimeRemaining = phaseDuration;
+        ResetPhaseTimer();
 
         Debug.Log(
             "START EXHALE | Round " +
@@ -202,6 +229,19 @@ public class LungsMinigameManager : MonoBehaviour
         StartInhalePhase();
     }
 
+    // =========================================================
+    // TIMER
+    // =========================================================
+
+    private void ResetPhaseTimer()
+    {
+        phaseTimeRemaining = phaseDuration;
+    }
+
+    // =========================================================
+    // GAME END
+    // =========================================================
+
     private void CompleteGame()
     {
         gameEnded = true;
@@ -216,6 +256,10 @@ public class LungsMinigameManager : MonoBehaviour
         Debug.Log("LUNGS MINIGAME FAILED!");
     }
 
+    // =========================================================
+    // DEBUG
+    // =========================================================
+
     private void PrintCurrentStatus()
     {
         Debug.Log(
@@ -225,8 +269,10 @@ public class LungsMinigameManager : MonoBehaviour
             oxygenPercent +
             "% | CO2: " +
             co2Percent +
-            "% | Time: " +
-            phaseTimeRemaining.ToString("F1")
+            "% | Round: " +
+            currentRound +
+            "/" +
+            totalRounds
         );
     }
 }
