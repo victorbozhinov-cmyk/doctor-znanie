@@ -401,11 +401,9 @@ MonoBehaviour:
   pressedMultiplier: 0.97
   scaleSpeed: 10
   glowColor: {r: 0.4117647, g: 0.4117647, b: 0.4117647, a: 1}
-  glowMaxAlpha: 0.6
+  glowAlpha: 1
   glowSize: 2
-  glowSpeed: 8
-  pulseSpeed: 2
-  pulseAmount: 0.08
+  glowFadeSpeed: 8
 --- !u!114 &377431161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,12 +926,10 @@ MonoBehaviour:
   hoverMultiplier: 1.1
   pressedMultiplier: 0.95
   scaleSpeed: 10
-  glowColor: {r: 1, g: 1, b: 1, a: 1}
-  glowMaxAlpha: 0.75
-  glowSize: 9
-  glowSpeed: 8
-  pulseSpeed: 3
-  pulseAmount: 0.07
+  glowColor: {r: 0, g: 0, b: 0, a: 1}
+  glowAlpha: 0.9
+  glowSize: 15
+  glowFadeSpeed: 8
 --- !u!114 &1414159331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,12 +1167,10 @@ MonoBehaviour:
   hoverMultiplier: 1.1
   pressedMultiplier: 0.95
   scaleSpeed: 10
-  glowColor: {r: 1, g: 1, b: 1, a: 1}
-  glowMaxAlpha: 0.75
-  glowSize: 5
-  glowSpeed: 8
-  pulseSpeed: 3
-  pulseAmount: 0.07
+  glowColor: {r: 0, g: 0, b: 0, a: 1}
+  glowAlpha: 0.9
+  glowSize: 10
+  glowFadeSpeed: 8
 --- !u!114 &1540770130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1576,12 +1570,10 @@ MonoBehaviour:
   hoverMultiplier: 1.05
   pressedMultiplier: 0.97
   scaleSpeed: 10
-  glowColor: {r: 1, g: 1, b: 1, a: 1}
-  glowMaxAlpha: 0.4
+  glowColor: {r: 0, g: 0, b: 0, a: 1}
+  glowAlpha: 0.8
   glowSize: 0.8
-  glowSpeed: 8
-  pulseSpeed: 2
-  pulseAmount: 0.03
+  glowFadeSpeed: 8
 --- !u!114 &1710840010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2105,12 +2097,10 @@ MonoBehaviour:
   hoverMultiplier: 1.2
   pressedMultiplier: 0.95
   scaleSpeed: 10
-  glowColor: {r: 1, g: 1, b: 1, a: 1}
-  glowMaxAlpha: 1
-  glowSize: 11
-  glowSpeed: 8
-  pulseSpeed: 4
-  pulseAmount: 0.4
+  glowColor: {r: 0, g: 0, b: 0, a: 1}
+  glowAlpha: 0.9
+  glowSize: 24
+  glowFadeSpeed: 8
 --- !u!1 &2081379490
 GameObject:
   m_ObjectHideFlags: 0
