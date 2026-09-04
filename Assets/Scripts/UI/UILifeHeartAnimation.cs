@@ -6,16 +6,25 @@ using UnityEngine;
 public class UILifeHeartAnimation : MonoBehaviour
 {
     [Header("Pulse")]
-    [SerializeField] private float pulseDuration = 0.12f;
-    [SerializeField] private float pulseScale = 1.2f;
+    [SerializeField]
+    private float pulseDuration = 0.12f;
+
+    [SerializeField]
+    private float pulseScale = 1.2f;
 
     [Header("Shake")]
-    [SerializeField] private float shakeDuration = 0.22f;
-    [SerializeField] private float shakeStrength = 10f;
+    [SerializeField]
+    private float shakeDuration = 0.22f;
+
+    [SerializeField]
+    private float shakeStrength = 10f;
 
     [Header("Disappear")]
-    [SerializeField] private float disappearDuration = 0.2f;
-    [SerializeField] private float disappearScale = 0.4f;
+    [SerializeField]
+    private float disappearDuration = 0.2f;
+
+    [SerializeField]
+    private float disappearScale = 0.4f;
 
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
@@ -27,10 +36,14 @@ public class UILifeHeartAnimation : MonoBehaviour
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform =
+            GetComponent<RectTransform>();
 
-        originalScale = rectTransform.localScale;
+        canvasGroup =
+            GetComponent<CanvasGroup>();
+
+        originalScale =
+            rectTransform.localScale;
     }
 
     public void PlayLoseAnimation()
@@ -38,35 +51,42 @@ public class UILifeHeartAnimation : MonoBehaviour
         PlayLoseAnimation(null);
     }
 
-    public void PlayLoseAnimation(Action onFinished)
+    public void PlayLoseAnimation(
+        Action onFinished)
     {
         if (animationCoroutine != null)
         {
-            StopCoroutine(animationCoroutine);
+            StopCoroutine(
+                animationCoroutine
+            );
         }
 
-        // Принуждаваме Layout Group да приключи
-        // подреждането преди да вземем позицията.
+        // Принуждаваме Layout Group
+        // да приключи подреждането.
         Canvas.ForceUpdateCanvases();
 
-        // Запазваме реалната позиция на сърцето
-        // точно в момента на започване на анимацията.
         animationStartPosition =
             rectTransform.anchoredPosition;
 
         originalScale =
             rectTransform.localScale;
 
-        animationCoroutine = StartCoroutine(
-            LoseLifeRoutine(onFinished)
-        );
+        animationCoroutine =
+            StartCoroutine(
+                LoseLifeRoutine(
+                    onFinished
+                )
+            );
     }
 
     public void ResetHeart()
     {
         if (animationCoroutine != null)
         {
-            StopCoroutine(animationCoroutine);
+            StopCoroutine(
+                animationCoroutine
+            );
+
             animationCoroutine = null;
         }
 
@@ -76,10 +96,9 @@ public class UILifeHeartAnimation : MonoBehaviour
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
-        rectTransform.localScale = originalScale;
+        rectTransform.localScale =
+            originalScale;
 
-        // Оставяме HorizontalLayoutGroup сам
-        // да определи правилната позиция.
         Canvas.ForceUpdateCanvases();
     }
 
@@ -89,7 +108,10 @@ public class UILifeHeartAnimation : MonoBehaviour
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
 
-        // Пулсиране.
+        // =========================
+        // Pulse
+        // =========================
+
         yield return AnimateScale(
             originalScale,
             originalScale * pulseScale,
@@ -102,16 +124,21 @@ public class UILifeHeartAnimation : MonoBehaviour
             pulseDuration
         );
 
-        // Разклащане около текущото място.
+        // =========================
+        // Shake
+        // =========================
+
         float shakeTimer = 0f;
 
         while (shakeTimer < shakeDuration)
         {
-            shakeTimer += Time.unscaledDeltaTime;
+            shakeTimer +=
+                Time.unscaledDeltaTime;
 
             float progress =
                 Mathf.Clamp01(
-                    shakeTimer / shakeDuration
+                    shakeTimer /
+                    shakeDuration
                 );
 
             float currentStrength =
@@ -122,7 +149,8 @@ public class UILifeHeartAnimation : MonoBehaviour
                 );
 
             Vector2 shakeOffset =
-                UnityEngine.Random.insideUnitCircle *
+                UnityEngine.Random
+                    .insideUnitCircle *
                 currentStrength;
 
             rectTransform.anchoredPosition =
@@ -132,11 +160,13 @@ public class UILifeHeartAnimation : MonoBehaviour
             yield return null;
         }
 
-        // Връщаме го точно на мястото му.
         rectTransform.anchoredPosition =
             animationStartPosition;
 
-        // Намаляване и избледняване.
+        // =========================
+        // Disappear
+        // =========================
+
         float timer = 0f;
 
         float startAlpha =
@@ -147,11 +177,13 @@ public class UILifeHeartAnimation : MonoBehaviour
 
         while (timer < disappearDuration)
         {
-            timer += Time.unscaledDeltaTime;
+            timer +=
+                Time.unscaledDeltaTime;
 
             float progress =
                 Mathf.Clamp01(
-                    timer / disappearDuration
+                    timer /
+                    disappearDuration
                 );
 
             float eased =
@@ -171,7 +203,8 @@ public class UILifeHeartAnimation : MonoBehaviour
             rectTransform.localScale =
                 Vector3.Lerp(
                     startScale,
-                    originalScale * disappearScale,
+                    originalScale *
+                    disappearScale,
                     eased
                 );
 
@@ -181,21 +214,27 @@ public class UILifeHeartAnimation : MonoBehaviour
         canvasGroup.alpha = 0f;
 
         rectTransform.localScale =
-            originalScale * disappearScale;
+            originalScale *
+            disappearScale;
 
         rectTransform.anchoredPosition =
             animationStartPosition;
 
         animationCoroutine = null;
 
-        // Чак след цялата анимация скриваме сърцето.
+        // ВАЖНО:
+        // Първо казваме на HeartPuzzleLives,
+        // че цялата анимация е приключила.
+        //
+        // Ако това е последният живот,
+        // там ще се покаже Game Over.
+        onFinished?.Invoke();
+
+        // Чак след callback-а
+        // скриваме самото сърце.
         gameObject.SetActive(false);
 
-        // Сега HorizontalLayoutGroup може да
-        // пренареди останалите сърца.
         Canvas.ForceUpdateCanvases();
-
-        onFinished?.Invoke();
     }
 
     private IEnumerator AnimateScale(
@@ -207,10 +246,14 @@ public class UILifeHeartAnimation : MonoBehaviour
 
         while (timer < duration)
         {
-            timer += Time.unscaledDeltaTime;
+            timer +=
+                Time.unscaledDeltaTime;
 
             float progress =
-                Mathf.Clamp01(timer / duration);
+                Mathf.Clamp01(
+                    timer /
+                    duration
+                );
 
             float eased =
                 Mathf.SmoothStep(
@@ -236,7 +279,10 @@ public class UILifeHeartAnimation : MonoBehaviour
     {
         if (animationCoroutine != null)
         {
-            StopCoroutine(animationCoroutine);
+            StopCoroutine(
+                animationCoroutine
+            );
+
             animationCoroutine = null;
         }
 
