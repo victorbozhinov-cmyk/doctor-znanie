@@ -344,17 +344,28 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
 
         // Пуснат извън зона:
-        // връща се плавно, без да губи живот.
+        // няма Correct/Wrong звук
+        // и етикетът просто се връща.
         if (dropZone == null)
         {
             ReturnToStartAnimated();
             return;
         }
 
-        // Правилна зона.
+        // =========================
+        // ПРАВИЛЕН ОТГОВОР
+        // =========================
+
         if (dropZone.Accepts(partType))
         {
             dropZone.ShowCorrectFeedback();
+
+            if (GameFeedbackSoundManager.Instance != null)
+            {
+                GameFeedbackSoundManager
+                    .Instance
+                    .PlayCorrect();
+            }
 
             SnapToDropZone(
                 dropZone,
@@ -370,11 +381,19 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             return;
         }
 
-        // Грешна зона.
+        // =========================
+        // ГРЕШЕН ОТГОВОР
+        // =========================
+
         dropZone.ShowWrongFeedback();
 
-        // Заключваме етикета, докато траят
-        // feedback-ът и връщащата анимация.
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
+        }
+
         SnapToDropZone(
             dropZone,
             true

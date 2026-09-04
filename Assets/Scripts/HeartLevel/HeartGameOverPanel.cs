@@ -14,28 +14,49 @@ public class HeartGameOverPanel : MonoBehaviour
 
     public void RetryLevel()
     {
-        // Скриваме всички останали панели
+        // Скриваме всички останали панели.
         if (videoPanel != null)
+        {
             videoPanel.SetActive(false);
+        }
 
         if (puzzlePanel != null)
+        {
             puzzlePanel.SetActive(false);
+        }
 
         if (minigamePanel != null)
+        {
             minigamePanel.SetActive(false);
+        }
 
         if (quizPanel != null)
+        {
             quizPanel.SetActive(false);
+        }
 
         if (finishPanel != null)
+        {
             finishPanel.SetActive(false);
+        }
 
         if (gameOverOverlay != null)
+        {
             gameOverOverlay.SetActive(false);
+        }
 
-        // Връщаме се в началния панел на HeartLevel
+        // Връщаме се в началния панел.
         if (startPanel != null)
+        {
             startPanel.SetActive(true);
+        }
+
+        // Връщаме Intro / Lesson музиката,
+        // която се използва в Start + Video панелите.
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayIntroMusic();
+        }
     }
 
     public void ExitToBodyMap()

@@ -11,9 +11,22 @@ public class HeartLevelNavigation : MonoBehaviour
     [SerializeField] private GameObject infoOverlay;
     [SerializeField] private UIPopupAnimation infoPanelAnimation;
 
+    // =========================
+    // Body Map
+    // =========================
+
     public void BackToBodyMap()
     {
         SceneManager.LoadScene("BodyMap");
+    }
+
+    // =========================
+    // Settings
+    // =========================
+
+    public void OpenSettings()
+    {
+        SettingsNavigation.OpenSettings();
     }
 
     // =========================
