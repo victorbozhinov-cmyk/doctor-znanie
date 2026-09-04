@@ -15,16 +15,28 @@ public class LiverMinigamePauseController : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 1f;
+        /*
+         * НЕ задаваме Time.timeScale = 1 тук.
+         *
+         * Причината е, че минииграта може да бъде
+         * активирана зад Welcome или Info панел,
+         * докато Time.timeScale трябва да остане 0.
+         */
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(false);
+        }
 
         if (settingsPanel != null)
+        {
             settingsPanel.SetActive(false);
+        }
 
         if (infoPanel != null)
+        {
             infoPanel.SetActive(false);
+        }
     }
 
     // =========================================================
@@ -34,14 +46,18 @@ public class LiverMinigamePauseController : MonoBehaviour
     public void OpenPause()
     {
         if (isPaused)
+        {
             return;
+        }
 
         isPaused = true;
 
         Time.timeScale = 0f;
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(true);
+        }
     }
 
     // =========================================================
@@ -51,13 +67,19 @@ public class LiverMinigamePauseController : MonoBehaviour
     public void ContinueGame()
     {
         if (settingsPanel != null)
+        {
             settingsPanel.SetActive(false);
+        }
 
         if (infoPanel != null)
+        {
             infoPanel.SetActive(false);
+        }
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(false);
+        }
 
         isPaused = false;
 
@@ -71,22 +93,32 @@ public class LiverMinigamePauseController : MonoBehaviour
     public void OpenSettings()
     {
         if (!isPaused)
+        {
             return;
+        }
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(false);
+        }
 
         if (settingsPanel != null)
+        {
             settingsPanel.SetActive(true);
+        }
     }
 
     public void CloseSettings()
     {
         if (settingsPanel != null)
+        {
             settingsPanel.SetActive(false);
+        }
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(true);
+        }
     }
 
     // =========================================================
@@ -96,22 +128,32 @@ public class LiverMinigamePauseController : MonoBehaviour
     public void OpenInfo()
     {
         if (!isPaused)
+        {
             return;
+        }
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(false);
+        }
 
         if (infoPanel != null)
+        {
             infoPanel.SetActive(true);
+        }
     }
 
     public void CloseInfo()
     {
         if (infoPanel != null)
+        {
             infoPanel.SetActive(false);
+        }
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(true);
+        }
     }
 
     // =========================================================
@@ -120,8 +162,6 @@ public class LiverMinigamePauseController : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Ако напуснем сцената, никога не оставяме играта
-        // глобално замръзнала.
         Time.timeScale = 1f;
     }
 }
