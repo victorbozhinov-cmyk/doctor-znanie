@@ -3,17 +3,22 @@ using UnityEngine;
 public class HeartPuzzleLives : MonoBehaviour
 {
     [Header("Life Hearts")]
-    [SerializeField] private GameObject[] lifeHearts =
+    [SerializeField]
+    private GameObject[] lifeHearts =
         new GameObject[3];
 
     [Header("Game Over")]
-    [SerializeField] private GameObject gameOverOverlay;
+    [SerializeField]
+    private GameObject gameOverOverlay;
 
     private int currentLives;
     private bool isLosingLife;
 
-    public int CurrentLives => currentLives;
-    public bool IsGameOver => currentLives <= 0;
+    public int CurrentLives =>
+        currentLives;
+
+    public bool IsGameOver =>
+        currentLives <= 0;
 
     private void Awake()
     {
@@ -30,6 +35,7 @@ public class HeartPuzzleLives : MonoBehaviour
         isLosingLife = false;
 
         LoadLivesFromDifficulty();
+
         HideGameOver();
         ResetHeartAnimations();
         UpdateLivesUI();
@@ -42,15 +48,18 @@ public class HeartPuzzleLives : MonoBehaviour
 
         switch (difficulty)
         {
-            case 0: // Лесно
+            case 0:
+                // Лесно
                 currentLives = 3;
                 break;
 
-            case 1: // Нормално
+            case 1:
+                // Нормално
                 currentLives = 2;
                 break;
 
-            case 2: // Трудно
+            case 2:
+                // Трудно
                 currentLives = 1;
                 break;
 
@@ -62,12 +71,14 @@ public class HeartPuzzleLives : MonoBehaviour
 
     public void LoseLife()
     {
-        if (IsGameOver || isLosingLife)
+        if (IsGameOver ||
+            isLosingLife)
         {
             return;
         }
 
-        int lostHeartIndex = currentLives - 1;
+        int lostHeartIndex =
+            currentLives - 1;
 
         currentLives--;
         isLosingLife = true;
@@ -88,7 +99,9 @@ public class HeartPuzzleLives : MonoBehaviour
             lifeHearts[lostHeartIndex];
 
         UILifeHeartAnimation heartAnimation =
-            lostHeart.GetComponent<UILifeHeartAnimation>();
+            lostHeart.GetComponent<
+                UILifeHeartAnimation
+            >();
 
         if (heartAnimation != null)
         {
@@ -117,12 +130,15 @@ public class HeartPuzzleLives : MonoBehaviour
 
     private void ShowGameOver()
     {
-        Debug.Log("Няма останали животи!");
+        Debug.Log(
+            "Няма останали животи!"
+        );
 
         if (gameOverOverlay == null)
         {
             Debug.LogError(
-                "GameOverOverlay не е свързан в HeartPuzzleLives!"
+                "GameOverOverlay не е свързан " +
+                "в HeartPuzzleLives!"
             );
 
             return;
@@ -142,7 +158,9 @@ public class HeartPuzzleLives : MonoBehaviour
 
     private void ResetHeartAnimations()
     {
-        for (int i = 0; i < lifeHearts.Length; i++)
+        for (int i = 0;
+             i < lifeHearts.Length;
+             i++)
         {
             if (lifeHearts[i] == null)
             {
@@ -151,7 +169,9 @@ public class HeartPuzzleLives : MonoBehaviour
 
             UILifeHeartAnimation animation =
                 lifeHearts[i]
-                    .GetComponent<UILifeHeartAnimation>();
+                    .GetComponent<
+                        UILifeHeartAnimation
+                    >();
 
             if (animation != null)
             {
@@ -162,7 +182,9 @@ public class HeartPuzzleLives : MonoBehaviour
 
     private void UpdateLivesUI()
     {
-        for (int i = 0; i < lifeHearts.Length; i++)
+        for (int i = 0;
+             i < lifeHearts.Length;
+             i++)
         {
             if (lifeHearts[i] == null)
             {
