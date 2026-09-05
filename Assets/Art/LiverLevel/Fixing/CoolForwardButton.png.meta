@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: b4dd3d7493ca11e4f98a447676b5a967
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2355361353710223416
+    second: CoolForwardButton_0
+  - first:
+      213: 7895216641636045930
+    second: CoolForwardButton_1
+  - first:
+      213: 5770682787289605677
+    second: CoolForwardButton_2
+  - first:
+      213: 7168535216071512898
+    second: CoolForwardButton_3
+  - first:
+      213: 1490650178999871325
+    second: CoolForwardButton_4
+  - first:
+      213: 6730977351396459479
+    second: CoolForwardButton_5
+  - first:
+      213: 8976900012863417934
+    second: CoolForwardButton_6
+  - first:
+      213: -5733849712072867024
+    second: CoolForwardButton_7
+  - first:
+      213: -5350967114561714489
+    second: CoolForwardButton_8
+  - first:
+      213: 4650386165256663078
+    second: CoolForwardButton_9
+  - first:
+      213: 2727514956458386614
+    second: CoolForwardButton_10
+  - first:
+      213: -1602126433202854450
+    second: CoolForwardButton_11
+  - first:
+      213: -8902883802634885667
+    second: CoolForwardButton_12
+  - first:
+      213: -3712449323079350209
+    second: CoolForwardButton_13
+  - first:
+      213: 2625762567670024798
+    second: CoolForwardButton_14
+  - first:
+      213: -9025036996463066649
+    second: CoolForwardButton_15
+  - first:
+      213: -8802670957701219400
+    second: CoolForwardButton_16
+  - first:
+      213: 7879137794396052101
+    second: CoolForwardButton_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CoolForwardButton_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 637
+        width: 174
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 830c4950cacefa020800000000000000
+      internalID: 2355361353710223416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_1
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 623
+        width: 43
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a64187574b1719d60800000000000000
+      internalID: 7895216641636045930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_2
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 649
+        width: 34
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d26abdfab65951050800000000000000
+      internalID: 5770682787289605677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_3
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 618
+        width: 86
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24312d96cc0cb7360800000000000000
+      internalID: 7168535216071512898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_4
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 583
+        width: 114
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d57e8a3a07adfa410800000000000000
+      internalID: 1490650178999871325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_5
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 579
+        width: 222
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d38f252d3c396d50800000000000000
+      internalID: 6730977351396459479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_6
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 618
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4e6ce2000b549c70800000000000000
+      internalID: 8976900012863417934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_7
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 614
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 033cb6ce0164d60b0800000000000000
+      internalID: -5733849712072867024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_8
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 621
+        width: 58
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c680cb82cb8db5b0800000000000000
+      internalID: -5350967114561714489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_9
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 647
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 620b388149d798040800000000000000
+      internalID: 4650386165256663078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_10
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 584
+        width: 206
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b46443e6641ad520800000000000000
+      internalID: 2727514956458386614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_11
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 613
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec52ea75f7a14c9e0800000000000000
+      internalID: -1602126433202854450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_12
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 596
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd56e5bd95a927480800000000000000
+      internalID: -8902883802634885667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_13
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 599
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f384733920bba7cc0800000000000000
+      internalID: -3712449323079350209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_14
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 582
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5a4d76b425907420800000000000000
+      internalID: 2625762567670024798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_15
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 572
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e18f0d1ba0a0c280800000000000000
+      internalID: -9025036996463066649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_16
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 19
+        width: 1010
+        height: 556
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bb329b0761a6d580800000000000000
+      internalID: -8802670957701219400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolForwardButton_17
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 131
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58ad45b1412585d60800000000000000
+      internalID: 7879137794396052101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CoolForwardButton_0: 2355361353710223416
+      CoolForwardButton_1: 7895216641636045930
+      CoolForwardButton_10: 2727514956458386614
+      CoolForwardButton_11: -1602126433202854450
+      CoolForwardButton_12: -8902883802634885667
+      CoolForwardButton_13: -3712449323079350209
+      CoolForwardButton_14: 2625762567670024798
+      CoolForwardButton_15: -9025036996463066649
+      CoolForwardButton_16: -8802670957701219400
+      CoolForwardButton_17: 7879137794396052101
+      CoolForwardButton_2: 5770682787289605677
+      CoolForwardButton_3: 7168535216071512898
+      CoolForwardButton_4: 1490650178999871325
+      CoolForwardButton_5: 6730977351396459479
+      CoolForwardButton_6: 8976900012863417934
+      CoolForwardButton_7: -5733849712072867024
+      CoolForwardButton_8: -5350967114561714489
+      CoolForwardButton_9: 4650386165256663078
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
