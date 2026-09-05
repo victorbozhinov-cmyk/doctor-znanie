@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum LungsBreathingPhase
 {
@@ -102,6 +103,9 @@ public class LungsMinigameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject infoOverlay;
+
+    [SerializeField]
+    private GameObject exitConfirmationOverlay;
 
     [SerializeField]
     private DifficultySelector difficultySelector;
@@ -233,6 +237,11 @@ public class LungsMinigameManager : MonoBehaviour
             infoOverlay.SetActive(false);
         }
 
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
@@ -304,6 +313,11 @@ public class LungsMinigameManager : MonoBehaviour
             infoOverlay.SetActive(false);
         }
 
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+
         if (pauseOverlay != null)
         {
             pauseOverlay.SetActive(true);
@@ -336,6 +350,11 @@ public class LungsMinigameManager : MonoBehaviour
             infoOverlay.SetActive(false);
         }
 
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+
         Time.timeScale = 1f;
     }
 
@@ -360,14 +379,17 @@ public class LungsMinigameManager : MonoBehaviour
             infoOverlay.SetActive(false);
         }
 
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+
         if (settingsOverlay != null)
         {
             settingsOverlay.SetActive(true);
             settingsOverlay.transform.SetAsLastSibling();
         }
 
-        // Заключваме трудността,
-        // защото нивото вече е започнало.
         if (difficultySelector != null)
         {
             difficultySelector.SetLocked(true);
@@ -415,6 +437,11 @@ public class LungsMinigameManager : MonoBehaviour
             settingsOverlay.SetActive(false);
         }
 
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+
         if (infoOverlay != null)
         {
             infoOverlay.SetActive(true);
@@ -440,6 +467,76 @@ public class LungsMinigameManager : MonoBehaviour
         isPaused = true;
 
         Time.timeScale = 0f;
+    }
+
+    // =========================================================
+    // EXIT CONFIRMATION FROM PAUSE
+    // =========================================================
+
+    public void OpenExitConfirmationFromPause()
+    {
+        if (!isPaused)
+        {
+            return;
+        }
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(true);
+            exitConfirmationOverlay.transform.SetAsLastSibling();
+        }
+
+        Time.timeScale = 0f;
+    }
+
+    // =========================================================
+    // STAY
+    // =========================================================
+
+    public void StayInMinigame()
+    {
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(true);
+            pauseOverlay.transform.SetAsLastSibling();
+        }
+
+        isPaused = true;
+
+        Time.timeScale = 0f;
+    }
+
+    // =========================================================
+    // LEAVE TO BODY MAP
+    // =========================================================
+
+    public void LeaveToBodyMap()
+    {
+        isPaused = false;
+
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("BodyMap");
     }
 
     // =========================================================
@@ -798,6 +895,11 @@ public class LungsMinigameManager : MonoBehaviour
             infoOverlay.SetActive(false);
         }
 
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+
         if (bubbleSpawner != null)
         {
             bubbleSpawner.BeginPhaseTransition();
@@ -849,6 +951,11 @@ public class LungsMinigameManager : MonoBehaviour
         if (infoOverlay != null)
         {
             infoOverlay.SetActive(false);
+        }
+
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
         }
 
         if (bubbleSpawner != null)
