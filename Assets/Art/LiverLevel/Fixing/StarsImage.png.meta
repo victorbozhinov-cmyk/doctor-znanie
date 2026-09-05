@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: 01321ae7dabbcad43a581b76e66a9e14
+guid: 1686489aee3c81e4f8204ff4e1badac1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -668963645161312947
-    second: GameOverExitButton_0
+      213: 9058755719145458956
+    second: StarsImage_0
   - first:
-      213: -7359069631665675396
-    second: GameOverExitButton_1
+      213: -2032586080999345114
+    second: StarsImage_1
   - first:
-      213: -2973838594515454554
-    second: GameOverExitButton_2
+      213: -2691396314167582408
+    second: StarsImage_2
   - first:
-      213: 3260692730840791048
-    second: GameOverExitButton_3
+      213: -4066987790120608911
+    second: StarsImage_3
+  - first:
+      213: 6508965635193603545
+    second: StarsImage_4
+  - first:
+      213: 8695238454199015566
+    second: StarsImage_5
+  - first:
+      213: -5364406963750298317
+    second: StarsImage_6
+  - first:
+      213: 4907035855314212987
+    second: StarsImage_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +67,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -122,89 +134,177 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOverExitButton_0
+      name: StarsImage_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 282
-        width: 1488
-        height: 471
+        x: 104
+        y: 322
+        width: 1103
+        height: 830
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4d628aeb1d57b6f0800000000000000
-      internalID: -668963645161312947
+      spriteID: c0d04bac45a27bd70800000000000000
+      internalID: 9058755719145458956
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverExitButton_1
+      name: StarsImage_1
       rect:
         serializedVersion: 2
-        x: 1336
-        y: 983
-        width: 7
+        x: 659
+        y: 1134
+        width: 79
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62471aa7abdcac3e0800000000000000
+      internalID: -2032586080999345114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarsImage_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 39
+        width: 519
+        height: 485
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 831ee38df4d36aad0800000000000000
+      internalID: -2691396314167582408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarsImage_3
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 273
+        width: 347
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17b920817282f87c0800000000000000
+      internalID: -4066987790120608911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarsImage_4
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 345
+        width: 45
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d580fc52cd745a50800000000000000
+      internalID: 6508965635193603545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarsImage_5
+      rect:
+        serializedVersion: 2
+        x: 1085
+        y: 361
+        width: 27
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8859d30e41bba870800000000000000
+      internalID: 8695238454199015566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarsImage_6
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 192
+        width: 42
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33d180fc94ccd85b0800000000000000
+      internalID: -5364406963750298317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StarsImage_7
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 198
+        width: 6
         height: 9
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c73e337f8255fd990800000000000000
-      internalID: -7359069631665675396
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOverExitButton_2
-      rect:
-        serializedVersion: 2
-        x: 758
-        y: 151
-        width: 15
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6a53f8aed8dcab6d0800000000000000
-      internalID: -2973838594515454554
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOverExitButton_3
-      rect:
-        serializedVersion: 2
-        x: 838
-        y: 160
-        width: 11
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 808b67743ce404d20800000000000000
-      internalID: 3260692730840791048
+      spriteID: b78db10ac1b491440800000000000000
+      internalID: 4907035855314212987
       vertices: []
       indices: 
       edges: []
@@ -213,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 506fd1c67b3b5e74796b764c33efdda9
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +323,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GameOverExitButton_0: -668963645161312947
-      GameOverExitButton_1: -7359069631665675396
-      GameOverExitButton_2: -2973838594515454554
-      GameOverExitButton_3: 3260692730840791048
+      StarsImage_0: 9058755719145458956
+      StarsImage_1: -2032586080999345114
+      StarsImage_2: -2691396314167582408
+      StarsImage_3: -4066987790120608911
+      StarsImage_4: 6508965635193603545
+      StarsImage_5: 8695238454199015566
+      StarsImage_6: -5364406963750298317
+      StarsImage_7: 4907035855314212987
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -21,10 +21,10 @@ public class LiverMinigameTimer : MonoBehaviour
 
     public bool TimerRunning => timerRunning;
     public float RemainingTime => remainingTime;
+    public bool IsFinished => finished;
 
     private void Start()
     {
-        // Success панелът винаги започва скрит
         if (minigameSuccessPanel != null)
         {
             minigameSuccessPanel.SetActive(false);
@@ -43,8 +43,8 @@ public class LiverMinigameTimer : MonoBehaviour
         if (!timerRunning || finished)
             return;
 
-        // Ако вече сме загубили, таймерът спира
-        // и SuccessPanel НЯМА да се появи.
+        // Ако вече сме загубили,
+        // SuccessPanel не трябва да се появява.
         if (liverHealthController != null &&
             liverHealthController.IsGameOver)
         {
@@ -73,7 +73,10 @@ public class LiverMinigameTimer : MonoBehaviour
     private void SetTimeFromDifficulty()
     {
         string difficultyString =
-            PlayerPrefs.GetString("Difficulty", "").ToLower();
+            PlayerPrefs.GetString(
+                "Difficulty",
+                ""
+            ).ToLower();
 
         if (difficultyString == "easy")
         {
@@ -93,13 +96,11 @@ public class LiverMinigameTimer : MonoBehaviour
             return;
         }
 
-        // Ако Difficulty се пази като int:
-        // 0 = Easy
-        // 1 = Medium
-        // 2 = Hard
-
         int difficultyInt =
-            PlayerPrefs.GetInt("Difficulty", 1);
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
         switch (difficultyInt)
         {
@@ -135,13 +136,38 @@ public class LiverMinigameTimer : MonoBehaviour
             $"{minutes:00}:{seconds:00}";
     }
 
+    // =========================================================
+    // TIME PENALTY
+    // =========================================================
+
+    public void AddTime(float seconds)
+    {
+        if (finished)
+            return;
+
+        if (liverHealthController != null &&
+            liverHealthController.IsGameOver)
+        {
+            return;
+        }
+
+        if (seconds <= 0f)
+            return;
+
+        remainingTime += seconds;
+
+        UpdateTimerText();
+    }
+
+    // =========================================================
+    // SUCCESS
+    // =========================================================
+
     private void TimerFinished()
     {
         if (finished)
             return;
 
-        // Допълнителна проверка:
-        // ако сме загубили, няма победа.
         if (liverHealthController != null &&
             liverHealthController.IsGameOver)
         {
@@ -149,14 +175,29 @@ public class LiverMinigameTimer : MonoBehaviour
         }
 
         finished = true;
+        timerRunning = false;
 
         Debug.Log("МИСИЯТА Е ИЗПЪЛНЕНА!");
+
+        // Спираме ЦЯЛАТА миниигра.
+        Time.timeScale = 0f;
 
         if (minigameSuccessPanel != null)
         {
             minigameSuccessPanel.SetActive(true);
+            minigameSuccessPanel.transform.SetAsLastSibling();
+        }
+        else
+        {
+            Debug.LogError(
+                "MinigameSuccessPanel не е зададен!"
+            );
         }
     }
+
+    // =========================================================
+    // TIMER CONTROL
+    // =========================================================
 
     public void StopTimer()
     {
@@ -165,9 +206,28 @@ public class LiverMinigameTimer : MonoBehaviour
 
     public void ResumeTimer()
     {
-        if (remainingTime > 0f && !finished)
+        if (remainingTime > 0f &&
+            !finished)
         {
             timerRunning = true;
         }
+    }
+
+    // =========================================================
+    // CONTINUE AFTER SUCCESS
+    // =========================================================
+
+    public void ContinueAfterSuccess()
+    {
+        Time.timeScale = 1f;
+    }
+
+    // =========================================================
+    // SAFETY
+    // =========================================================
+
+    private void OnDestroy()
+    {
+        Time.timeScale = 1f;
     }
 }

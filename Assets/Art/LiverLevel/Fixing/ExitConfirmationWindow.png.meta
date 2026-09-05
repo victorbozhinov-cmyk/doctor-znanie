@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 01321ae7dabbcad43a581b76e66a9e14
+guid: 72cc07238535e8f4fafc2bc115188017
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -668963645161312947
-    second: GameOverExitButton_0
+      213: 8524083274977803554
+    second: ExitConfirmationWindow_0
   - first:
-      213: -7359069631665675396
-    second: GameOverExitButton_1
+      213: -7491384842954220221
+    second: ExitConfirmationWindow_1
   - first:
-      213: -2973838594515454554
-    second: GameOverExitButton_2
+      213: 4509437578062535801
+    second: ExitConfirmationWindow_2
   - first:
-      213: 3260692730840791048
-    second: GameOverExitButton_3
+      213: 8329388330926164874
+    second: ExitConfirmationWindow_3
+  - first:
+      213: -1911121262113320374
+    second: ExitConfirmationWindow_4
+  - first:
+      213: 4758740587120871593
+    second: ExitConfirmationWindow_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +61,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -122,89 +128,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOverExitButton_0
+      name: ExitConfirmationWindow_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 282
-        width: 1488
-        height: 471
+        x: 0
+        y: 9
+        width: 1427
+        height: 1069
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4d628aeb1d57b6f0800000000000000
-      internalID: -668963645161312947
+      spriteID: 22d76e87390ab4670800000000000000
+      internalID: 8524083274977803554
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverExitButton_1
+      name: ExitConfirmationWindow_1
       rect:
         serializedVersion: 2
-        x: 1336
-        y: 983
+        x: 290
+        y: 1055
         width: 7
-        height: 9
+        height: 7
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c73e337f8255fd990800000000000000
-      internalID: -7359069631665675396
+      spriteID: 34dd7f72d21490890800000000000000
+      internalID: -7491384842954220221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverExitButton_2
+      name: ExitConfirmationWindow_2
       rect:
         serializedVersion: 2
-        x: 758
-        y: 151
-        width: 15
-        height: 11
+        x: 1160
+        y: 1059
+        width: 27
+        height: 23
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a53f8aed8dcab6d0800000000000000
-      internalID: -2973838594515454554
+      spriteID: 97c1731d59db49e30800000000000000
+      internalID: 4509437578062535801
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverExitButton_3
+      name: ExitConfirmationWindow_3
       rect:
         serializedVersion: 2
-        x: 838
-        y: 160
-        width: 11
+        x: 1263
+        y: 1052
+        width: 17
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 808b67743ce404d20800000000000000
-      internalID: 3260692730840791048
+      spriteID: a8b43255e8ee79370800000000000000
+      internalID: 8329388330926164874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ExitConfirmationWindow_4
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 1030
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a421a0176555a75e0800000000000000
+      internalID: -1911121262113320374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ExitConfirmationWindow_5
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 990
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a8c291e9517a0240800000000000000
+      internalID: 4758740587120871593
       vertices: []
       indices: 
       edges: []
@@ -213,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 506fd1c67b3b5e74796b764c33efdda9
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GameOverExitButton_0: -668963645161312947
-      GameOverExitButton_1: -7359069631665675396
-      GameOverExitButton_2: -2973838594515454554
-      GameOverExitButton_3: 3260692730840791048
+      ExitConfirmationWindow_0: 8524083274977803554
+      ExitConfirmationWindow_1: -7491384842954220221
+      ExitConfirmationWindow_2: 4509437578062535801
+      ExitConfirmationWindow_3: 8329388330926164874
+      ExitConfirmationWindow_4: -1911121262113320374
+      ExitConfirmationWindow_5: 4758740587120871593
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
