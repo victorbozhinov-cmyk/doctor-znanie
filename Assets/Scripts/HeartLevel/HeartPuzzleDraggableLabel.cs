@@ -34,7 +34,7 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     [SerializeField, Range(0f, 1f)]
     private float hoverGlowAlpha = 0.5f;
 
-    [Header("Placement Feedback")]
+    [Header("Normal Theme Feedback")]
     [SerializeField]
     private Color correctColor =
         new Color(0.15f, 1f, 0.3f, 1f);
@@ -43,6 +43,16 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     private Color wrongColor =
         new Color(1f, 0.08f, 0.08f, 1f);
 
+    [Header("Colorblind Theme Feedback")]
+    [SerializeField]
+    private Color colorblindCorrectColor =
+        new Color32(0, 114, 178, 255); // #0072B2
+
+    [SerializeField]
+    private Color colorblindWrongColor =
+        new Color32(213, 94, 0, 255); // #D55E00
+
+    [Header("Feedback Settings")]
     [SerializeField]
     private float feedbackDuration = 0.5f;
 
@@ -57,6 +67,8 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     [Header("Return Animation")]
     [SerializeField]
     private UIDragReturnAnimation returnAnimation;
+
+    private const string ThemeKey = "ColorTheme";
 
     private RectTransform rectTransform;
     private Canvas canvas;
@@ -373,7 +385,7 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             );
 
             StartFeedback(
-                correctColor,
+                GetCorrectFeedbackColor(),
                 false,
                 dropZone
             );
@@ -414,10 +426,43 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
 
         StartFeedback(
-            wrongColor,
+            GetWrongFeedbackColor(),
             true,
             null
         );
+    }
+
+    private Color GetCorrectFeedbackColor()
+    {
+        if (IsColorblindThemeActive())
+        {
+            return colorblindCorrectColor;
+        }
+
+        return correctColor;
+    }
+
+    private Color GetWrongFeedbackColor()
+    {
+        if (IsColorblindThemeActive())
+        {
+            return colorblindWrongColor;
+        }
+
+        return wrongColor;
+    }
+
+    private bool IsColorblindThemeActive()
+    {
+        if (ColorThemeManager.Instance != null)
+        {
+            return ColorThemeManager.Instance.CurrentTheme == 1;
+        }
+
+        return PlayerPrefs.GetInt(
+            ThemeKey,
+            0
+        ) == 1;
     }
 
     private void SnapToDropZone(

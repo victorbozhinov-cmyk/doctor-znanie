@@ -7,14 +7,30 @@ public class HeartPuzzleDropZone : MonoBehaviour
     [Header("Correct Answer")]
     [SerializeField] private HeartPartType acceptedPart;
 
-    [Header("Visual Feedback")]
+    [Header("Normal Theme Feedback")]
     [SerializeField] private Color correctColor = Color.green;
     [SerializeField] private Color wrongColor = Color.red;
+
+    [Header("Colorblind Theme Feedback")]
+    [SerializeField]
+    private Color colorblindCorrectColor =
+        new Color32(0, 114, 178, 255); // #0072B2
+
+    [SerializeField]
+    private Color colorblindWrongColor =
+        new Color32(213, 94, 0, 255); // #D55E00
+
+    [Header("Feedback Settings")]
     [SerializeField] private float feedbackDuration = 0.4f;
-    [SerializeField] private Vector2 outlineDistance = new Vector2(4f, -4f);
+
+    [SerializeField]
+    private Vector2 outlineDistance =
+        new Vector2(4f, -4f);
 
     private Outline outline;
     private Coroutine feedbackCoroutine;
+
+    private const string ThemeKey = "ColorTheme";
 
     public HeartPartType AcceptedPart => acceptedPart;
 
@@ -39,12 +55,49 @@ public class HeartPuzzleDropZone : MonoBehaviour
 
     public void ShowCorrectFeedback()
     {
-        ShowFeedback(correctColor);
+        Color selectedColor;
+
+        if (IsColorblindThemeActive())
+        {
+            selectedColor = colorblindCorrectColor;
+        }
+        else
+        {
+            selectedColor = correctColor;
+        }
+
+        ShowFeedback(selectedColor);
     }
 
     public void ShowWrongFeedback()
     {
-        ShowFeedback(wrongColor);
+        Color selectedColor;
+
+        if (IsColorblindThemeActive())
+        {
+            selectedColor = colorblindWrongColor;
+        }
+        else
+        {
+            selectedColor = wrongColor;
+        }
+
+        ShowFeedback(selectedColor);
+    }
+
+    private bool IsColorblindThemeActive()
+    {
+        // Нормалният вариант:
+        // използваме глобалния manager.
+        if (ColorThemeManager.Instance != null)
+        {
+            return ColorThemeManager.Instance.CurrentTheme == 1;
+        }
+
+        // Резервен вариант:
+        // ако сцената е пусната директно без Bootstrap,
+        // четем запазената тема.
+        return PlayerPrefs.GetInt(ThemeKey, 0) == 1;
     }
 
     private void ShowFeedback(Color color)
@@ -54,7 +107,10 @@ public class HeartPuzzleDropZone : MonoBehaviour
             StopCoroutine(feedbackCoroutine);
         }
 
-        feedbackCoroutine = StartCoroutine(FeedbackRoutine(color));
+        feedbackCoroutine =
+            StartCoroutine(
+                FeedbackRoutine(color)
+            );
     }
 
     private IEnumerator FeedbackRoutine(Color color)

@@ -3152,6 +3152,8 @@ MonoBehaviour:
   acceptedPart: 1
   correctColor: {r: 0, g: 1, b: 0, a: 1}
   wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  colorblindCorrectColor: {r: 0, g: 0.44705883, b: 0.69803923, a: 1}
+  colorblindWrongColor: {r: 0.8352941, g: 0.36862746, b: 0, a: 1}
   feedbackDuration: 0.4
   outlineDistance: {x: 4, y: -4}
 --- !u!1 &237836677
@@ -4560,6 +4562,8 @@ MonoBehaviour:
   acceptedPart: 5
   correctColor: {r: 0, g: 1, b: 0, a: 1}
   wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  colorblindCorrectColor: {r: 0, g: 0.44705883, b: 0.69803923, a: 1}
+  colorblindWrongColor: {r: 0.8352941, g: 0.36862746, b: 0, a: 1}
   feedbackDuration: 0.4
   outlineDistance: {x: 4, y: -4}
 --- !u!1 &302254851
@@ -5109,6 +5113,8 @@ MonoBehaviour:
   acceptedPart: 6
   correctColor: {r: 0, g: 1, b: 0, a: 1}
   wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  colorblindCorrectColor: {r: 0, g: 0.44705883, b: 0.69803923, a: 1}
+  colorblindWrongColor: {r: 0.8352941, g: 0.36862746, b: 0, a: 1}
   feedbackDuration: 0.4
   outlineDistance: {x: 4, y: -4}
 --- !u!1 &333387727
@@ -13633,6 +13639,8 @@ MonoBehaviour:
   acceptedPart: 4
   correctColor: {r: 0, g: 1, b: 0, a: 1}
   wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  colorblindCorrectColor: {r: 0, g: 0.44705883, b: 0.69803923, a: 1}
+  colorblindWrongColor: {r: 0.8352941, g: 0.36862746, b: 0, a: 1}
   feedbackDuration: 0.4
   outlineDistance: {x: 4, y: -4}
 --- !u!1 &1072517254
@@ -16554,8 +16562,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 66603366}
   - {fileID: 1695131416}
+  - {fileID: 66603366}
   m_Father: {fileID: 1272353475}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -17549,6 +17557,8 @@ MonoBehaviour:
   acceptedPart: 3
   correctColor: {r: 0, g: 1, b: 0, a: 1}
   wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  colorblindCorrectColor: {r: 0, g: 0.44705883, b: 0.69803923, a: 1}
+  colorblindWrongColor: {r: 0.8352941, g: 0.36862746, b: 0, a: 1}
   feedbackDuration: 0.4
   outlineDistance: {x: 4, y: -4}
 --- !u!1 &1436785191
@@ -19377,6 +19387,8 @@ MonoBehaviour:
   acceptedPart: 2
   correctColor: {r: 0, g: 1, b: 0, a: 1}
   wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  colorblindCorrectColor: {r: 0, g: 0.44705883, b: 0.69803923, a: 1}
+  colorblindWrongColor: {r: 0.8352941, g: 0.36862746, b: 0, a: 1}
   feedbackDuration: 0.4
   outlineDistance: {x: 4, y: -4}
 --- !u!1 &1557666961
@@ -23984,6 +23996,8 @@ MonoBehaviour:
   acceptedPart: 0
   correctColor: {r: 0, g: 1, b: 0, a: 1}
   wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  colorblindCorrectColor: {r: 0, g: 0.44705883, b: 0.69803923, a: 1}
+  colorblindWrongColor: {r: 0.8352941, g: 0.36862746, b: 0, a: 1}
   feedbackDuration: 0.4
   outlineDistance: {x: 4, y: -4}
 --- !u!1 &1961441727

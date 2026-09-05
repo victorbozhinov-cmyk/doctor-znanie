@@ -41,7 +41,6 @@ public class UILabelChangeAnimation : MonoBehaviour
             StopCoroutine(animationCoroutine);
         }
 
-        // Новият етикет се задава веднага.
         image.sprite = newSprite;
         image.preserveAspect = true;
 
@@ -57,7 +56,6 @@ public class UILabelChangeAnimation : MonoBehaviour
 
         float timer = 0f;
 
-        // Новият етикет изскача нагоре.
         while (timer < growDuration)
         {
             timer += Time.unscaledDeltaTime;
@@ -85,7 +83,6 @@ public class UILabelChangeAnimation : MonoBehaviour
 
         timer = 0f;
 
-        // Леко се връща до нормалния размер.
         while (timer < settleDuration)
         {
             timer += Time.unscaledDeltaTime;
