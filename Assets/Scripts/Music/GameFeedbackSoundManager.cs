@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -40,7 +41,24 @@ public class GameFeedbackSoundManager : MonoBehaviour
     [SerializeField]
     private float wrongVolume = 0.75f;
 
+    [Header("Success / Game Over Crossfade")]
+    [Tooltip(
+        "Колко секунди преди края на Success звука " +
+        "той започва да затихва, а Lobby музиката да се усилва."
+    )]
+    [SerializeField]
+    private float successCrossfadeDuration = 1.25f;
+
+    [Tooltip(
+        "Колко секунди преди края на Game Over звука " +
+        "той започва да затихва, а Lobby музиката да се усилва."
+    )]
+    [SerializeField]
+    private float gameOverCrossfadeDuration = 1.25f;
+
     private AudioSource audioSource;
+
+    private Coroutine panelFeedbackCoroutine;
 
     private void Awake()
     {
@@ -61,27 +79,172 @@ public class GameFeedbackSoundManager : MonoBehaviour
         audioSource.playOnAwake = false;
         audioSource.loop = false;
         audioSource.spatialBlend = 0f;
+        audioSource.volume = 1f;
     }
+
+    // =====================================================
+    // SUCCESS / GAME OVER
+    // =====================================================
 
     public void PlaySuccess()
     {
-        PlayFeedback(
+        PlayPanelFeedback(
             successClip,
-            successVolume
+            successVolume,
+            successCrossfadeDuration
         );
     }
 
     public void PlayGameOver()
     {
-        PlayFeedback(
+        PlayPanelFeedback(
             gameOverClip,
-            gameOverVolume
+            gameOverVolume,
+            gameOverCrossfadeDuration
         );
     }
 
+    private void PlayPanelFeedback(
+        AudioClip clip,
+        float volume,
+        float crossfadeDuration)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager: " +
+                "липсва AudioClip."
+            );
+
+            return;
+        }
+
+        if (panelFeedbackCoroutine != null)
+        {
+            StopCoroutine(
+                panelFeedbackCoroutine
+            );
+
+            panelFeedbackCoroutine = null;
+        }
+
+        audioSource.Stop();
+
+        // Lobby музиката започва веднага,
+        // но е напълно без звук.
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .PlayLobbyMusicMuted();
+        }
+
+        panelFeedbackCoroutine =
+            StartCoroutine(
+                PlayPanelFeedbackRoutine(
+                    clip,
+                    volume,
+                    crossfadeDuration
+                )
+            );
+    }
+
+    private IEnumerator PlayPanelFeedbackRoutine(
+        AudioClip clip,
+        float volume,
+        float crossfadeDuration)
+    {
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+
+        audioSource.Play();
+
+        float fadeDuration =
+            Mathf.Clamp(
+                crossfadeDuration,
+                0f,
+                clip.length
+            );
+
+        float fullVolumeDuration =
+            Mathf.Max(
+                0f,
+                clip.length - fadeDuration
+            );
+
+        // =============================================
+        // Feedback звукът свири сам.
+        // Lobby музиката през това време е на 0%.
+        // =============================================
+
+        float timer = 0f;
+
+        while (timer < fullVolumeDuration)
+        {
+            timer +=
+                Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        // =============================================
+        // CROSSFADE
+        //
+        // Feedback: 100% -> 0%
+        // Lobby:       0% -> нормална сила
+        // =============================================
+
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .FadeInLobbyMusic(
+                    fadeDuration
+                );
+        }
+
+        float startFeedbackVolume =
+            volume;
+
+        timer = 0f;
+
+        if (fadeDuration > 0f)
+        {
+            while (timer < fadeDuration)
+            {
+                timer +=
+                    Time.unscaledDeltaTime;
+
+                float t =
+                    Mathf.Clamp01(
+                        timer /
+                        fadeDuration
+                    );
+
+                audioSource.volume =
+                    Mathf.Lerp(
+                        startFeedbackVolume,
+                        0f,
+                        t
+                    );
+
+                yield return null;
+            }
+        }
+
+        audioSource.Stop();
+
+        audioSource.clip = null;
+        audioSource.volume = 1f;
+
+        panelFeedbackCoroutine = null;
+    }
+
+    // =====================================================
+    // CORRECT / WRONG
+    // =====================================================
+
     public void PlayCorrect()
     {
-        PlayFeedback(
+        PlayShortFeedback(
             correctClip,
             correctVolume
         );
@@ -89,13 +252,13 @@ public class GameFeedbackSoundManager : MonoBehaviour
 
     public void PlayWrong()
     {
-        PlayFeedback(
+        PlayShortFeedback(
             wrongClip,
             wrongVolume
         );
     }
 
-    private void PlayFeedback(
+    private void PlayShortFeedback(
         AudioClip clip,
         float volume)
     {
@@ -109,8 +272,8 @@ public class GameFeedbackSoundManager : MonoBehaviour
             return;
         }
 
-        // Леко намаляваме музиката
-        // за времетраенето на SFX-а.
+        // Correct / Wrong НЕ сменят музиката.
+        // Само я намаляват леко.
         if (MusicManager.Instance != null)
         {
             MusicManager.Instance

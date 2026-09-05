@@ -31,6 +31,14 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private GameObject minigamePanel;
 
     // =====================================================
+    // AUDIO
+    // =====================================================
+
+    [Header("Audio")]
+    [SerializeField]
+    private HeartMinigameAudio minigameAudio;
+
+    // =====================================================
     // PAUSE
     // =====================================================
 
@@ -440,8 +448,28 @@ public class HeartMinigameManager : MonoBehaviour
         ResetDangerCountdown();
         HideAllEventCards();
 
+        // Спираме ECG monitor звука.
+        if (minigameAudio != null)
+        {
+            minigameAudio.StopECG();
+        }
+
+        // Heart Minigame музиката се заменя
+        // с Lobby / Main Menu музиката.
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayLobbyMusic();
+        }
+
+        // FeedbackPanelSound на този overlay
+        // пуска Success звука.
+        //
+        // Той автоматично duck-ва Lobby музиката,
+        // докато Success звукът приключи.
         if (minigameSuccessOverlay != null)
+        {
             minigameSuccessOverlay.SetActive(true);
+        }
 
         Debug.Log(
             "MINIGAME SUCCESS! Timer reached 00:00."
@@ -554,7 +582,14 @@ public class HeartMinigameManager : MonoBehaviour
         HideAllEventCards();
 
         if (card != null)
+        {
             card.SetActive(true);
+
+            if (minigameAudio != null)
+            {
+                minigameAudio.PlayEventPop();
+            }
+        }
     }
 
     private void HideAllEventCards()
@@ -914,6 +949,19 @@ public class HeartMinigameManager : MonoBehaviour
         ResetDangerCountdown();
         HideAllEventCards();
 
+        // Спираме ECG monitor звука.
+        if (minigameAudio != null)
+        {
+            minigameAudio.StopECG();
+        }
+
+        // Heart Minigame музиката се заменя
+        // с Lobby / Main Menu музиката.
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayLobbyMusic();
+        }
+
         if (heartNormal != null)
             heartNormal.SetActive(false);
 
@@ -926,8 +974,13 @@ public class HeartMinigameManager : MonoBehaviour
         if (heartDead != null)
             heartDead.SetActive(true);
 
+        // FeedbackPanelSound на GameOverOverlay
+        // пуска Game Over звука и автоматично
+        // duck-ва Lobby музиката за неговата дължина.
         if (gameOverOverlay != null)
+        {
             gameOverOverlay.SetActive(true);
+        }
 
         Debug.Log("GAME OVER!");
     }
@@ -1077,8 +1130,6 @@ public class HeartMinigameManager : MonoBehaviour
 
         UpdateHeartVisual();
 
-        // Pop при всяка реална смяна
-        // на състоянието.
         if (
             stateChanged &&
             !isGameOver &&
@@ -1090,8 +1141,6 @@ public class HeartMinigameManager : MonoBehaviour
                 .PlayStateChange();
         }
 
-        // Shake само при първоначално
-        // влизане в Critical.
         if (
             enteredCritical &&
             !isGameOver &&
