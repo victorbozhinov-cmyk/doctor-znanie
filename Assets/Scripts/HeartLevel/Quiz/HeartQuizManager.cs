@@ -736,6 +736,8 @@ public class HeartQuizManager : MonoBehaviour
             writtenCheckFeedback.PlayCorrect();
         }
 
+        PlayCorrectSound();
+
         StartCoroutine(
             GoToNextQuestionAfterDelay()
         );
@@ -765,6 +767,8 @@ public class HeartQuizManager : MonoBehaviour
         {
             writtenCheckFeedback.PlayWrong();
         }
+
+        PlayWrongSoundIfNotGameOver();
 
         LoseLife();
 
@@ -832,6 +836,8 @@ public class HeartQuizManager : MonoBehaviour
             feedback.PlayCorrect();
         }
 
+        PlayCorrectSound();
+
         StartCoroutine(
             GoToNextQuestionAfterDelay()
         );
@@ -851,6 +857,8 @@ public class HeartQuizManager : MonoBehaviour
             feedback.PlayWrong();
         }
 
+        PlayWrongSoundIfNotGameOver();
+
         LoseLife();
 
         if (!isGameOver)
@@ -858,6 +866,42 @@ public class HeartQuizManager : MonoBehaviour
             StartCoroutine(
                 UnlockAfterWrongAnswer()
             );
+        }
+    }
+
+    // =========================
+    // ANSWER SOUNDS
+    // =========================
+
+    private void PlayCorrectSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayCorrect();
+        }
+    }
+
+    private void PlayWrongSoundIfNotGameOver()
+    {
+        // Ако това е последният живот,
+        // директно след грешката ще се появи
+        // Game Over панелът.
+        //
+        // Затова не пускаме Wrong звук,
+        // който веднага би бил прекъснат
+        // от Game Over звука.
+        if (currentLives <= 1)
+        {
+            return;
+        }
+
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
         }
     }
 

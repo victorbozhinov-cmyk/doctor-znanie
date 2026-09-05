@@ -46,6 +46,14 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private float quizMusicVolume = 0.30f;
 
+    [Header("Heart Minigame Music")]
+    [SerializeField]
+    private AudioClip heartMinigameMusic;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float heartMinigameMusicVolume = 0.30f;
+
     [Header("Video Ducking")]
     [Range(0f, 1f)]
     [SerializeField]
@@ -148,10 +156,6 @@ public class MusicManager : MonoBehaviour
     private void HandleSceneMusic(
         string sceneName)
     {
-        // SettingsMenu НЕ избира собствена музика.
-        //
-        // Запазваме музиката от сцената,
-        // от която играчът е дошъл.
         if (sceneName == SettingsSceneName)
         {
             RestoreNormalMusicVolume();
@@ -167,8 +171,6 @@ public class MusicManager : MonoBehaviour
         else if (
             organLevelScenes.Contains(sceneName))
         {
-            // Всяко органно ниво започва
-            // със StartPanel.
             PlayIntroMusic();
         }
         else
@@ -213,6 +215,67 @@ public class MusicManager : MonoBehaviour
         );
     }
 
+    public void PlayHeartMinigameMusic()
+    {
+        PlayMusic(
+            heartMinigameMusic,
+            heartMinigameMusicVolume
+        );
+    }
+
+    // =========================
+    // Panel Transition
+    // =========================
+
+    public void PlayLobbyMusicMuted()
+    {
+        if (lobbyMusic == null)
+        {
+            Debug.LogWarning(
+                "MusicManager: Lobby Music липсва."
+            );
+
+            return;
+        }
+
+        ResetDucking();
+        StopVolumeFade();
+
+        currentBaseVolume =
+            lobbyMusicVolume;
+
+        musicSource.Stop();
+
+        musicSource.clip =
+            lobbyMusic;
+
+        musicSource.loop = true;
+        musicSource.volume = 0f;
+
+        musicSource.Play();
+    }
+
+    public void FadeInLobbyMusic(
+        float duration)
+    {
+        if (!musicSource.isPlaying ||
+            musicSource.clip != lobbyMusic)
+        {
+            return;
+        }
+
+        ResetDucking();
+
+        FadeToVolume(
+            currentBaseVolume,
+            duration
+        );
+    }
+
+    // =========================
+    // General Play
+    // =========================
+
     private void PlayMusic(
         AudioClip clip,
         float volume)
@@ -233,8 +296,6 @@ public class MusicManager : MonoBehaviour
 
         StopVolumeFade();
 
-        // Ако същата музика вече свири,
-        // не я започваме отначало.
         if (musicSource.isPlaying &&
             musicSource.clip == clip)
         {
@@ -245,7 +306,6 @@ public class MusicManager : MonoBehaviour
         }
 
         musicSource.clip = clip;
-
         musicSource.volume =
             currentBaseVolume;
 
@@ -301,7 +361,7 @@ public class MusicManager : MonoBehaviour
     }
 
     // =========================
-    // Feedback SFX Ducking
+    // Correct / Wrong Ducking
     // =========================
 
     public void DuckMusicForFeedback(
@@ -398,25 +458,37 @@ public class MusicManager : MonoBehaviour
     private void FadeToVolume(
         float targetVolume)
     {
+        FadeToVolume(
+            targetVolume,
+            volumeFadeDuration
+        );
+    }
+
+    private void FadeToVolume(
+        float targetVolume,
+        float duration)
+    {
         StopVolumeFade();
 
         volumeFadeCoroutine =
             StartCoroutine(
                 FadeVolumeCoroutine(
-                    targetVolume
+                    targetVolume,
+                    duration
                 )
             );
     }
 
     private IEnumerator FadeVolumeCoroutine(
-        float targetVolume)
+        float targetVolume,
+        float duration)
     {
         float startVolume =
             musicSource.volume;
 
         float elapsed = 0f;
 
-        if (volumeFadeDuration <= 0f)
+        if (duration <= 0f)
         {
             musicSource.volume =
                 targetVolume;
@@ -426,17 +498,14 @@ public class MusicManager : MonoBehaviour
             yield break;
         }
 
-        while (
-            elapsed <
-            volumeFadeDuration)
+        while (elapsed < duration)
         {
             elapsed +=
                 Time.unscaledDeltaTime;
 
             float t =
                 Mathf.Clamp01(
-                    elapsed /
-                    volumeFadeDuration
+                    elapsed / duration
                 );
 
             musicSource.volume =

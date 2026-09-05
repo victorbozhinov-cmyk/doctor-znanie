@@ -14,11 +14,36 @@ public class FeedbackPanelSound : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayFeedbackSound();
+        PlayFeedback();
     }
 
-    private void PlayFeedbackSound()
+    private void PlayFeedback()
     {
+        // =============================================
+        // BACKGROUND MUSIC
+        // =============================================
+
+        // Всеки Success / Game Over панел
+        // преминава към Lobby / Main Menu музиката.
+        //
+        // След това Feedback SFX автоматично
+        // ще я duck-не за продължителността си.
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayLobbyMusic();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "MusicManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+
+        // =============================================
+        // FEEDBACK SOUND
+        // =============================================
+
         if (GameFeedbackSoundManager.Instance == null)
         {
             Debug.LogWarning(

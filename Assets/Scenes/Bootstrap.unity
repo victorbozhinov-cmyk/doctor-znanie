@@ -665,6 +665,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc64683c82d8d64eb9ce180c068d971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorThemeManager
+  accessibleColorMaterial: {fileID: 2100000, guid: 99d0d7e86819181489c8fcbf697aa201, type: 2}
+  accessibleThemeStrength: 0.6
+  canvasPlaneDistance: 1
 --- !u!4 &1843493988
 Transform:
   m_ObjectHideFlags: 0
@@ -762,6 +765,8 @@ MonoBehaviour:
   puzzleMusicVolume: 0.3
   quizMusic: {fileID: 8300000, guid: 755f46296afec344cab6f86b4b72340a, type: 3}
   quizMusicVolume: 0.3
+  heartMinigameMusic: {fileID: 8300000, guid: bc9c56c07c6cfd74bbd19dea2c758d62, type: 3}
+  heartMinigameMusicVolume: 0.3
   videoDuckedVolumeMultiplier: 0.25
   feedbackDuckedVolumeMultiplier: 0.6
   volumeFadeDuration: 0.4
