@@ -3630,9 +3630,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1071491262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 58.8122, y: -45.947998}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.49999997}
 --- !u!114 &193903265
@@ -3721,7 +3721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &200645186
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6346,7 +6346,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 286c9a6dc4574514d95479f2a8aace39, type: 3}
   - {fileID: 21300000, guid: 679c67a895214a849a7a88af2ec031da, type: 3}
   - {fileID: 21300000, guid: f47778e48203b0b4a80d84ace01c22d6, type: 3}
-  helpfulChance: 0.5
+  helpfulChance: 0.4
   easySpawnInterval: 1.8
   mediumSpawnInterval: 1.35
   hardSpawnInterval: 0.9
@@ -6742,9 +6742,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1071491262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 58.8122, y: -115.948}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.49999997}
 --- !u!114 &601281241
@@ -8660,8 +8660,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: -130.6399}
-  m_SizeDelta: {x: 598.2863, y: 1599.7216}
+  m_AnchoredPosition: {x: -400, y: 0.0050201}
+  m_SizeDelta: {x: 598.2863, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &718238872
 MonoBehaviour:
@@ -8676,14 +8676,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8117647}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 220c57e4d0b8c514eac808057ce5f360, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88a852076ba03e44fafefa74dcc314f0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -10395,13 +10395,11 @@ MonoBehaviour:
       \u0435 \u043A\u043E\u043D\u043A\u0440\u0435\u0442\u043D\u043E \u0441 \u0447\u0435\u0440\u043D\u0438\u044F
       \u0434\u0440\u043E\u0431."
   - questionType: 3
-    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430
-      \u043F\u0440\u043E\u0446\u0435\u0441\u044A\u0442, \u043F\u0440\u0438 \u043A\u043E\u0439\u0442\u043E
-      \u0447\u0435\u0440\u043D\u0438\u044F\u0442 \u0434\u0440\u043E\u0431 \u043F\u043E\u043C\u0430\u0433\u0430
-      \u0437\u0430 \u043F\u0440\u0435\u043C\u0430\u0445\u0432\u0430\u043D\u0435\u0442\u043E
-      \u043D\u0430 \u0432\u0440\u0435\u0434\u043D\u043E\u0442\u043E \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435
-      \u043D\u0430 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u0430 \u043A\u0430\u0442\u043E
-      \u0430\u043B\u043A\u043E\u0445\u043E\u043B\u0430?"
+    question: "\u0412 \u043A\u0430\u043A\u0432\u043E \u043F\u0440\u0435\u0432\u0440\u044A\u0449\u0430
+      \u0447\u0435\u0440\u043D\u0438\u044F\u0442 \u0434\u0440\u043E\u0431 \u0447\u0430\u0441\u0442
+      \u043E\u0442 \u0438\u0437\u043B\u0438\u0448\u043D\u0430\u0442\u0430 \u0433\u043B\u044E\u043A\u043E\u0437\u0430,
+      \u0437\u0430 \u0434\u0430 \u044F \u0441\u044A\u0445\u0440\u0430\u043D\u0438
+      \u043A\u0430\u0442\u043E \u0435\u043D\u0435\u0440\u0433\u0438\u0435\u043D \u0437\u0430\u043F\u0430\u0441?"
     answerA: 
     answerB: 
     answerV: 
@@ -10412,39 +10410,19 @@ MonoBehaviour:
     answerBImage: {fileID: 0}
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
-    correctWrittenAnswer: "\u043E\u0431\u0435\u0437\u0432\u0440\u0435\u0436\u0434\u0430\u043D\u0435"
-    hint: "\u0422\u043E\u0432\u0430 \u0435 \u043F\u0440\u043E\u0446\u0435\u0441\u044A\u0442,
-      \u0447\u0440\u0435\u0437 \u043A\u043E\u0439\u0442\u043E \u0432\u0440\u0435\u0434\u043D\u043E\u0442\u043E
-      \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043D\u0430 \u0434\u0430\u0434\u0435\u043D\u043E
-      \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u043E \u0441\u0435 \u043D\u0430\u043C\u0430\u043B\u044F\u0432\u0430
-      \u0438\u043B\u0438 \u043F\u0440\u0435\u043C\u0430\u0445\u0432\u0430."
-  - questionType: 3
-    question: "\u041A\u0430\u043A\u044A\u0432 \u0432\u0438\u0434 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u0430,
-      \u043E\u0441\u0432\u0435\u043D \u0436\u043B\u044A\u0447\u043A\u0430\u0442\u0430,
-      \u043C\u043E\u0436\u0435 \u0434\u0430 \u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0436\u0434\u0430
-      \u0447\u0435\u0440\u043D\u0438\u044F\u0442 \u0434\u0440\u043E\u0431?"
-    answerA: 
-    answerB: 
-    answerV: 
-    answerG: 
-    correctAnswerIndex: 0
-    questionImage: {fileID: 0}
-    answerAImage: {fileID: 0}
-    answerBImage: {fileID: 0}
-    answerVImage: {fileID: 0}
-    answerGImage: {fileID: 0}
-    correctWrittenAnswer: "\u0431\u0435\u043B\u0442\u044A\u0446\u0438"
-    hint: "\u0422\u0435\u0437\u0438 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u0430
-      \u0441\u0430 \u0432\u0430\u0436\u043D\u0438 \u0437\u0430 \u0438\u0437\u0433\u0440\u0430\u0436\u0434\u0430\u043D\u0435\u0442\u043E
-      \u0438 \u043F\u0440\u0430\u0432\u0438\u043B\u043D\u0430\u0442\u0430 \u0440\u0430\u0431\u043E\u0442\u0430
-      \u043D\u0430 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u0430."
+    correctWrittenAnswer: "\u0433\u043B\u0438\u043A\u043E\u0433\u0435\u043D"
+    hint: "\u0422\u043E\u0432\u0430 \u0435 \u0437\u0430\u043F\u0430\u0441\u043D\u0430
+      \u0444\u043E\u0440\u043C\u0430 \u043D\u0430 \u0433\u043B\u044E\u043A\u043E\u0437\u0430\u0442\u0430,
+      \u043A\u043E\u044F\u0442\u043E \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u044A\u0442
+      \u0438\u0437\u043F\u043E\u043B\u0437\u0432\u0430 \u043F\u0440\u0438 \u043D\u0443\u0436\u0434\u0430
+      \u043E\u0442 \u0435\u043D\u0435\u0440\u0433\u0438\u044F."
   - questionType: 3
     question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430
-      \u0442\u0435\u0447\u043D\u043E\u0441\u0442\u0442\u0430, \u043A\u043E\u044F\u0442\u043E
-      \u0441\u0435 \u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0436\u0434\u0430 \u043E\u0442
-      \u0447\u0435\u0440\u043D\u0438\u044F \u0434\u0440\u043E\u0431 \u0438 \u043F\u043E\u0434\u043F\u043E\u043C\u0430\u0433\u0430
-      \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0432\u0430\u043D\u0435\u0442\u043E
-      \u043D\u0430 \u043C\u0430\u0437\u043D\u0438\u043D\u0438\u0442\u0435?"
+      \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0442\u0430 \u043D\u0430
+      \u0447\u0435\u0440\u043D\u0438\u044F \u0434\u0440\u043E\u0431 \u0434\u0430
+      \u0432\u044A\u0437\u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0432\u0430 \u0447\u0430\u0441\u0442
+      \u043E\u0442 \u0443\u0432\u0440\u0435\u0434\u0435\u043D\u0430\u0442\u0430 \u0441\u0438
+      \u0442\u044A\u043A\u0430\u043D?"
     answerA: 
     answerB: 
     answerV: 
@@ -10455,11 +10433,36 @@ MonoBehaviour:
     answerBImage: {fileID: 0}
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
-    correctWrittenAnswer: "\u0436\u043B\u044A\u0447\u043A\u0430"
-    hint: "\u0422\u0430\u0437\u0438 \u0442\u0435\u0447\u043D\u043E\u0441\u0442 \u043D\u0435
-      \u0441\u0435 \u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0436\u0434\u0430 \u0432
-      \u0441\u0442\u043E\u043C\u0430\u0445\u0430, \u0432\u044A\u043F\u0440\u0435\u043A\u0438
-      \u0447\u0435 \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0432 \u0445\u0440\u0430\u043D\u043E\u0441\u043C\u0438\u043B\u0430\u043D\u0435\u0442\u043E."
+    correctWrittenAnswer: "\u0440\u0435\u0433\u0438\u043D\u0435\u0440\u0430\u0446\u0438\u044F"
+    hint: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438 \u0441\u0438, \u0447\u0435
+      \u0447\u0435\u0440\u043D\u0438\u044F\u0442 \u0434\u0440\u043E\u0431 \u043C\u043E\u0436\u0435
+      \u0441\u0430\u043C \u0434\u0430 \u201E\u043F\u043E\u043F\u0440\u0430\u0432\u044F\u201C
+      \u0443\u0432\u0440\u0435\u0434\u0435\u043D\u0438\u0442\u0435 \u0441\u0438 \u0447\u0430\u0441\u0442\u0438
+      \u0438 \u043F\u043E\u0441\u0442\u0435\u043F\u0435\u043D\u043D\u043E \u0434\u0430
+      \u0432\u044A\u0437\u0441\u0442\u0430\u043D\u043E\u0432\u044F\u0432\u0430 \u0442\u044A\u043A\u0430\u043D\u0442\u0430
+      \u0441\u0438."
+  - questionType: 3
+    question: "\u041A\u044A\u043C \u043A\u043E\u044F \u0433\u043E\u043B\u044F\u043C\u0430
+      \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u043E\u0442 \u043E\u0440\u0433\u0430\u043D\u0438
+      \u0432 \u0447\u043E\u0432\u0435\u0448\u043A\u043E\u0442\u043E \u0442\u044F\u043B\u043E
+      \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0438 \u0447\u0435\u0440\u043D\u0438\u044F\u0442
+      \u0434\u0440\u043E\u0431?"
+    answerA: 
+    answerB: 
+    answerV: 
+    answerG: 
+    correctAnswerIndex: 0
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: "\u0445\u0440\u0430\u043D\u043E\u0441\u043C\u0438\u043B\u0430\u0442\u0435\u043B\u043D\u0430\u0442\u0430"
+    hint: "\u0422\u043E\u0439 \u043E\u0442\u0434\u0435\u043B\u044F \u0441\u043E\u043A,
+      \u043A\u043E\u0439\u0442\u043E \u043F\u043E\u043C\u0430\u0433\u0430 \u0437\u0430
+      \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430\u0442\u0430 \u043D\u0430
+      \u043F\u0440\u0438\u0435\u0442\u0430\u0442\u0430 \u0445\u0440\u0430\u043D\u0430
+      \u0432 \u0447\u0435\u0440\u0432\u0430\u0442\u0430."
   multipleQuestionUI: {fileID: 1480419107}
   questionImageUI: {fileID: 1991334789}
   imageAnswerUI: {fileID: 982517395}
@@ -11227,7 +11230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.0441284, y: 0}
+  m_AnchoredPosition: {x: 1.0441895, y: 0}
   m_SizeDelta: {x: 19.1117, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &907876851
@@ -14080,9 +14083,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1071491262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 58.8122, y: -185.948}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.49999997}
 --- !u!114 &1125526877
@@ -22529,6 +22532,7 @@ GameObject:
   - component: {fileID: 1874851503}
   - component: {fileID: 1874851502}
   - component: {fileID: 1874851501}
+  - component: {fileID: 1874851504}
   m_Layer: 5
   m_Name: FinalButton
   m_TagString: Untagged
@@ -22649,6 +22653,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874851499}
   m_CullTransparentMesh: 1
+--- !u!114 &1874851504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874851499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448a3fffe2cd59947a0054fd9f38770f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonHoverEffect
+  hoverScale: 1.05
+  pressedScale: 0.96
+  speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1875806073
 GameObject:
   m_ObjectHideFlags: 0
@@ -24336,7 +24356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c7085fe18265744a6f7c75a901ddea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoctorMovement
-  moveSpeed: 350
+  moveSpeed: 338
   leftPadding: 10
   rightPadding: 10
   bottomPadding: 10
