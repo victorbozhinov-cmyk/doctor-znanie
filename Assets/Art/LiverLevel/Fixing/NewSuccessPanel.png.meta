@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 01321ae7dabbcad43a581b76e66a9e14
+guid: 4c9e22c506abaea4fac3f3660b2c2056
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -668963645161312947
-    second: GameOverExitButton_0
-  - first:
-      213: -7359069631665675396
-    second: GameOverExitButton_1
-  - first:
-      213: -2973838594515454554
-    second: GameOverExitButton_2
-  - first:
-      213: 3260692730840791048
-    second: GameOverExitButton_3
+      213: -8905095083507421137
+    second: NewSuccessPanel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -122,89 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOverExitButton_0
+      name: NewSuccessPanel_0
       rect:
         serializedVersion: 2
         x: 25
-        y: 282
-        width: 1488
-        height: 471
+        y: 0
+        width: 1397
+        height: 1076
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4d628aeb1d57b6f0800000000000000
-      internalID: -668963645161312947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOverExitButton_1
-      rect:
-        serializedVersion: 2
-        x: 1336
-        y: 983
-        width: 7
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c73e337f8255fd990800000000000000
-      internalID: -7359069631665675396
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOverExitButton_2
-      rect:
-        serializedVersion: 2
-        x: 758
-        y: 151
-        width: 15
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6a53f8aed8dcab6d0800000000000000
-      internalID: -2973838594515454554
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOverExitButton_3
-      rect:
-        serializedVersion: 2
-        x: 838
-        y: 160
-        width: 11
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 808b67743ce404d20800000000000000
-      internalID: 3260692730840791048
+      spriteID: f207678e33fba6480800000000000000
+      internalID: -8905095083507421137
       vertices: []
       indices: 
       edges: []
@@ -213,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 506fd1c67b3b5e74796b764c33efdda9
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GameOverExitButton_0: -668963645161312947
-      GameOverExitButton_1: -7359069631665675396
-      GameOverExitButton_2: -2973838594515454554
-      GameOverExitButton_3: 3260692730840791048
+      NewSuccessPanel_0: -8905095083507421137
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

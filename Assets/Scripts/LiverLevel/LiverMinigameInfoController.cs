@@ -9,54 +9,176 @@ public class LiverMinigameInfoController : MonoBehaviour
 
     [Header("Minigame")]
     [SerializeField] private GameObject liverMinigameRoot;
+    [SerializeField] private GameObject welcomePanel;
     [SerializeField] private GameObject infoPanel;
     [SerializeField] private GameObject pausePanel;
 
-    private bool openedFromPause = false;
+    private enum InfoOpenedFrom
+    {
+        None,
+        Welcome,
+        Puzzle,
+        Pause
+    }
+
+    private InfoOpenedFrom openedFrom =
+        InfoOpenedFrom.None;
 
     // =========================================================
-    // ОТ ПЪЗЕЛА
+    // WELCOME PANEL - СЛЕД ПЪЗЕЛА
+    // =========================================================
+
+    public void OpenWelcomeFromPuzzle()
+    {
+        openedFrom = InfoOpenedFrom.None;
+
+        // Замразяваме ПРЕДИ да включим минииграта.
+        Time.timeScale = 0f;
+
+        // Скриваме Success панела на пъзела.
+        if (puzzleSuccessPanel != null)
+        {
+            puzzleSuccessPanel.SetActive(false);
+        }
+
+        // Скриваме самия пъзел.
+        if (puzzlePanel != null)
+        {
+            puzzlePanel.SetActive(false);
+        }
+
+        // Включваме минииграта,
+        // за да се вижда като фон.
+        if (liverMinigameRoot != null)
+        {
+            liverMinigameRoot.SetActive(true);
+        }
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+        }
+
+        ShowWelcomePanel();
+
+        /*
+         * Някой Start() в LiverMiniGameRoot
+         * може да върне Time.timeScale на 1.
+         *
+         * Затова след един frame подсигуряваме
+         * Welcome панела и паузата отново.
+         */
+        StartCoroutine(
+            EnsureWelcomeAfterMinigameStart()
+        );
+    }
+
+    private IEnumerator EnsureWelcomeAfterMinigameStart()
+    {
+        yield return null;
+
+        if (welcomePanel == null ||
+            !welcomePanel.activeSelf)
+        {
+            yield break;
+        }
+
+        ShowWelcomePanel();
+
+        Time.timeScale = 0f;
+    }
+
+    private void ShowWelcomePanel()
+    {
+        if (welcomePanel == null)
+        {
+            return;
+        }
+
+        welcomePanel.SetActive(true);
+
+        // Welcome панелът винаги стои
+        // над минииграта.
+        welcomePanel.transform.SetAsLastSibling();
+    }
+
+    // =========================================================
+    // БУТОН "ПРОДЪЛЖИ" НА WELCOME PANEL
+    // =========================================================
+
+    public void ContinueFromWelcome()
+    {
+        if (welcomePanel != null)
+        {
+            welcomePanel.SetActive(false);
+        }
+
+        openedFrom = InfoOpenedFrom.None;
+
+        // Тук реално започва минииграта.
+        Time.timeScale = 1f;
+    }
+
+    // =========================================================
+    // "КАК СЕ ИГРАЕ" ОТ WELCOME PANEL
+    // =========================================================
+
+    public void OpenInfoFromWelcome()
+    {
+        openedFrom = InfoOpenedFrom.Welcome;
+
+        // Минииграта остава замразена.
+        Time.timeScale = 0f;
+
+        if (welcomePanel != null)
+        {
+            welcomePanel.SetActive(false);
+        }
+
+        ShowInfoPanel();
+    }
+
+    // =========================================================
+    // INFO ДИРЕКТНО СЛЕД ПЪЗЕЛА
+    // Оставяме го за съвместимост.
     // =========================================================
 
     public void OpenInfoFromPuzzle()
     {
-        openedFromPause = false;
+        openedFrom = InfoOpenedFrom.Puzzle;
 
-        // Скриваме Success прозореца на пъзела.
-        if (puzzleSuccessPanel != null)
-            puzzleSuccessPanel.SetActive(false);
-
-        // Скриваме самия пъзел.
-        if (puzzlePanel != null)
-            puzzlePanel.SetActive(false);
-
-        // Включваме минииграта, за да я виждаме отзад.
-        if (liverMinigameRoot != null)
-            liverMinigameRoot.SetActive(true);
-
-        // Показваме InfoPanel-а.
-        ShowInfoPanel();
-
-        // Замразяваме веднага.
         Time.timeScale = 0f;
 
-        /*
-         * LiverMinigameRoot току-що е активиран.
-         * Някои негови Start() методи могат да се изпълнят
-         * на следващия frame и да върнат timeScale на 1
-         * или да скрият панела.
-         *
-         * Затова го подсигуряваме още веднъж.
-         */
-        StartCoroutine(EnsureInfoAfterMinigameStart());
+        if (puzzleSuccessPanel != null)
+        {
+            puzzleSuccessPanel.SetActive(false);
+        }
+
+        if (puzzlePanel != null)
+        {
+            puzzlePanel.SetActive(false);
+        }
+
+        if (liverMinigameRoot != null)
+        {
+            liverMinigameRoot.SetActive(true);
+        }
+
+        ShowInfoPanel();
+
+        StartCoroutine(
+            EnsureInfoAfterMinigameStart()
+        );
     }
 
     private IEnumerator EnsureInfoAfterMinigameStart()
     {
         yield return null;
 
-        if (openedFromPause)
+        if (openedFrom != InfoOpenedFrom.Puzzle)
+        {
             yield break;
+        }
 
         ShowInfoPanel();
 
@@ -64,50 +186,53 @@ public class LiverMinigameInfoController : MonoBehaviour
     }
 
     // =========================================================
-    // ОТ PAUSE МЕНЮТО
+    // INFO ОТ PAUSE МЕНЮТО
     // =========================================================
 
     public void OpenInfoFromPause()
     {
-        openedFromPause = true;
+        openedFrom = InfoOpenedFrom.Pause;
 
         Time.timeScale = 0f;
 
         if (pausePanel != null)
+        {
             pausePanel.SetActive(false);
+        }
 
         ShowInfoPanel();
     }
 
     // =========================================================
-    // ПОКАЗВАНЕ НА INFO
+    // ПОКАЗВАНЕ НА INFO PANEL
     // =========================================================
 
     private void ShowInfoPanel()
     {
         if (infoPanel == null)
+        {
             return;
+        }
 
         infoPanel.SetActive(true);
 
-        /*
-         * Слагаме InfoPanel последен в Canvas,
-         * за да се рисува НАД LiverMinigameRoot.
-         */
+        // InfoPanel винаги е над минииграта.
         infoPanel.transform.SetAsLastSibling();
     }
 
     // =========================================================
-    // БУТОН "НАПРЕД"
+    // БУТОН "НАПРЕД" НА INFO PANEL
     // =========================================================
 
     public void ContinueFromInfo()
     {
         if (infoPanel != null)
+        {
             infoPanel.SetActive(false);
+        }
 
-        // Ако сме дошли от Pause менюто:
-        if (openedFromPause)
+        // Ако сме дошли от Pause:
+        if (openedFrom == InfoOpenedFrom.Pause)
         {
             if (pausePanel != null)
             {
@@ -118,11 +243,15 @@ public class LiverMinigameInfoController : MonoBehaviour
             // Играта остава паузирана.
             Time.timeScale = 0f;
 
+            openedFrom = InfoOpenedFrom.None;
+
             return;
         }
 
-        // Ако сме дошли след пъзела:
-        // стартираме минииграта.
+        // Ако сме дошли от Welcome или след пъзела,
+        // започваме минииграта.
+        openedFrom = InfoOpenedFrom.None;
+
         Time.timeScale = 1f;
     }
 

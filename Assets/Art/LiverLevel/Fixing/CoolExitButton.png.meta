@@ -1,19 +1,28 @@
 fileFormatVersion: 2
-guid: 01321ae7dabbcad43a581b76e66a9e14
+guid: b4f72242d68d7c345b7de16f099e668a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -668963645161312947
-    second: GameOverExitButton_0
+      213: -4650733774154538511
+    second: CoolExitButton_0
   - first:
-      213: -7359069631665675396
-    second: GameOverExitButton_1
+      213: 4700005088268216011
+    second: CoolExitButton_1
   - first:
-      213: -2973838594515454554
-    second: GameOverExitButton_2
+      213: 7748526912701259936
+    second: CoolExitButton_2
   - first:
-      213: 3260692730840791048
-    second: GameOverExitButton_3
+      213: -2391008151148532614
+    second: CoolExitButton_3
+  - first:
+      213: -43465030656970675
+    second: CoolExitButton_4
+  - first:
+      213: -1304600816459230719
+    second: CoolExitButton_5
+  - first:
+      213: -7231548442011603209
+    second: CoolExitButton_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +64,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -122,89 +131,155 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOverExitButton_0
+      name: CoolExitButton_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 282
-        width: 1488
-        height: 471
+        x: 19
+        y: 19
+        width: 1043
+        height: 669
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4d628aeb1d57b6f0800000000000000
-      internalID: -668963645161312947
+      spriteID: 1f16b96e546457fb0800000000000000
+      internalID: -4650733774154538511
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverExitButton_1
+      name: CoolExitButton_1
       rect:
         serializedVersion: 2
-        x: 1336
-        y: 983
-        width: 7
+        x: 423
+        y: 679
+        width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c73e337f8255fd990800000000000000
-      internalID: -7359069631665675396
+      spriteID: bc661c0e9b5c93140800000000000000
+      internalID: 4700005088268216011
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverExitButton_2
+      name: CoolExitButton_2
       rect:
         serializedVersion: 2
-        x: 758
-        y: 151
+        x: 749
+        y: 598
+        width: 227
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a0ec147c2c488b60800000000000000
+      internalID: 7748526912701259936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolExitButton_3
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 622
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c6abf21ce61ded0800000000000000
+      internalID: -2391008151148532614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolExitButton_4
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 622
+        width: 30
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d403a8fe8c4956ff0800000000000000
+      internalID: -43465030656970675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolExitButton_5
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 59
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1025341387025ede0800000000000000
+      internalID: -1304600816459230719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoolExitButton_6
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 33
         width: 15
         height: 11
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a53f8aed8dcab6d0800000000000000
-      internalID: -2973838594515454554
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameOverExitButton_3
-      rect:
-        serializedVersion: 2
-        x: 838
-        y: 160
-        width: 11
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 808b67743ce404d20800000000000000
-      internalID: 3260692730840791048
+      spriteID: 7fe6ed1a10164ab90800000000000000
+      internalID: -7231548442011603209
       vertices: []
       indices: 
       edges: []
@@ -213,7 +288,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 506fd1c67b3b5e74796b764c33efdda9
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +298,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GameOverExitButton_0: -668963645161312947
-      GameOverExitButton_1: -7359069631665675396
-      GameOverExitButton_2: -2973838594515454554
-      GameOverExitButton_3: 3260692730840791048
+      CoolExitButton_0: -4650733774154538511
+      CoolExitButton_1: 4700005088268216011
+      CoolExitButton_2: 7748526912701259936
+      CoolExitButton_3: -2391008151148532614
+      CoolExitButton_4: -43465030656970675
+      CoolExitButton_5: -1304600816459230719
+      CoolExitButton_6: -7231548442011603209
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -243,11 +243,12 @@ MonoBehaviour:
   itemType: 0
   bubbleImage: {fileID: 861465863650087599}
   itemIcon: {fileID: 8697090167883519051}
-  easySpeed: 140
-  mediumSpeed: 180
-  hardSpeed: 230
+  easySpeed: 210
+  mediumSpeed: 260
+  hardSpeed: 325
   doctorHitboxShrink: 15
   bubbleHitboxShrink: 5
+  penaltyController: {fileID: 0}
   harmfulSquashDuration: 0.06
   harmfulBurstDuration: 0.16
   harmfulSquashScale: 0.78

@@ -14,11 +14,16 @@ public class LiverPuzzleManager : MonoBehaviour
     [Header("Puzzle")]
     [SerializeField] private int totalCards = 8;
 
+    [Header("Game Over")]
+    [SerializeField] private float gameOverDelay = 2f;
+
     private int currentLives;
     private int maxLives;
 
     private int correctCards = 0;
+
     private bool puzzleCompleted = false;
+    private bool gameOverStarted = false;
 
     private void Start()
     {
@@ -26,17 +31,23 @@ public class LiverPuzzleManager : MonoBehaviour
 
         correctCards = 0;
         puzzleCompleted = false;
+        gameOverStarted = false;
 
         if (successPanel != null)
+        {
             successPanel.SetActive(false);
+        }
 
         if (gameOverPanel != null)
+        {
             gameOverPanel.SetActive(false);
+        }
     }
 
     private void SetupLivesFromDifficulty()
     {
-        int difficulty = PlayerPrefs.GetInt("Difficulty", 1);
+        int difficulty =
+            PlayerPrefs.GetInt("Difficulty", 1);
 
         switch (difficulty)
         {
@@ -59,54 +70,98 @@ public class LiverPuzzleManager : MonoBehaviour
 
         currentLives = maxLives;
 
-        for (int i = 0; i < heartAnimations.Length; i++)
+        for (int i = 0;
+             i < heartAnimations.Length;
+             i++)
         {
             if (heartAnimations[i] != null)
             {
-                heartAnimations[i].gameObject.SetActive(i < maxLives);
+                heartAnimations[i]
+                    .gameObject
+                    .SetActive(i < maxLives);
             }
         }
     }
 
     public void LoseLife()
     {
-        if (currentLives <= 0 || puzzleCompleted)
+        if (currentLives <= 0 ||
+            puzzleCompleted ||
+            gameOverStarted)
+        {
             return;
+        }
 
-        int heartIndexToRemove = currentLives - 1;
+        int heartIndexToRemove =
+            currentLives - 1;
+
         currentLives--;
 
         if (heartIndexToRemove >= 0 &&
             heartIndexToRemove < heartAnimations.Length &&
             heartAnimations[heartIndexToRemove] != null)
         {
-            heartAnimations[heartIndexToRemove].PlayLoseAnimation();
+            heartAnimations[
+                heartIndexToRemove
+            ].PlayLoseAnimation();
         }
 
         if (currentLives <= 0)
         {
-            if (gameOverPanel != null)
-            {
-                gameOverPanel.SetActive(true);
-            }
+            gameOverStarted = true;
+
+            StartCoroutine(
+                ShowGameOverPanel()
+            );
+        }
+    }
+
+    private IEnumerator ShowGameOverPanel()
+    {
+        // Даваме време на последната грешна карта
+        // да завърши червеното сияние и разклащането.
+        yield return new WaitForSeconds(
+            gameOverDelay
+        );
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError(
+                "GameOverPanel не е зададен " +
+                "в LiverPuzzleManager!"
+            );
         }
     }
 
     // Извиква се при всяка правилно поставена карта.
     public void RegisterCorrectCard()
     {
-        if (puzzleCompleted)
+        if (puzzleCompleted ||
+            gameOverStarted)
+        {
             return;
+        }
 
         correctCards++;
 
-        Debug.Log("Правилно поставени карти: " +
-                  correctCards + "/" + totalCards);
+        Debug.Log(
+            "Правилно поставени карти: " +
+            correctCards +
+            "/" +
+            totalCards
+        );
 
         if (correctCards >= totalCards)
         {
             puzzleCompleted = true;
-            StartCoroutine(ShowSuccessPanel());
+
+            StartCoroutine(
+                ShowSuccessPanel()
+            );
         }
     }
 
@@ -123,7 +178,8 @@ public class LiverPuzzleManager : MonoBehaviour
         else
         {
             Debug.LogError(
-                "SuccessPanel не е зададен в LiverPuzzleManager!"
+                "SuccessPanel не е зададен " +
+                "в LiverPuzzleManager!"
             );
         }
     }
@@ -135,7 +191,9 @@ public class LiverPuzzleManager : MonoBehaviour
 
     public void RetryLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
     }
 
     public void ExitToBodyMap()
