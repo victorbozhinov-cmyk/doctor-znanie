@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum LungsBreathingPhase
@@ -6,20 +7,144 @@ public enum LungsBreathingPhase
     Exhale
 }
 
+[System.Serializable]
+public class LungsDifficultySettings
+{
+    [Header("Rounds")]
+    [Min(1)]
+    public int totalRounds = 3;
+
+    [Header("Timer")]
+    [Min(1f)]
+    public float phaseDuration = 20f;
+
+    [Header("Progress")]
+    [Range(0.1f, 100f)]
+    public float correctAmount = 10f;
+
+    [Range(0f, 100f)]
+    public float wrongPenalty = 10f;
+
+    [Header("Wrong Click")]
+    [Min(0f)]
+    public float wrongClickLockDuration = 0.3f;
+}
+
 public class LungsMinigameManager : MonoBehaviour
 {
     public static LungsMinigameManager Instance { get; private set; }
 
-    [Header("Round Settings")]
-    [SerializeField] private int totalRounds = 3;
+    // =========================================================
+    // DIFFICULTY
+    // =========================================================
 
-    [Header("Timer - Disabled For Now")]
-    [SerializeField] private bool useTimer = false;
-    [SerializeField] private float phaseDuration = 10f;
+    [Header("Difficulty Settings")]
 
-    [Header("Progress Settings")]
-    [SerializeField] private float correctAmount = 20f;
-    [SerializeField] private float wrongPenalty = 10f;
+    [SerializeField]
+    private LungsDifficultySettings easySettings =
+        new LungsDifficultySettings
+        {
+            totalRounds = 3,
+            phaseDuration = 25f,
+            correctAmount = 10f,
+            wrongPenalty = 10f,
+            wrongClickLockDuration = 0.25f
+        };
+
+    [SerializeField]
+    private LungsDifficultySettings mediumSettings =
+        new LungsDifficultySettings
+        {
+            totalRounds = 4,
+            phaseDuration = 22f,
+            correctAmount = 8f,
+            wrongPenalty = 12f,
+            wrongClickLockDuration = 0.35f
+        };
+
+    [SerializeField]
+    private LungsDifficultySettings hardSettings =
+        new LungsDifficultySettings
+        {
+            totalRounds = 5,
+            phaseDuration = 20f,
+            correctAmount = 5f,
+            wrongPenalty = 15f,
+            wrongClickLockDuration = 0.5f
+        };
+
+    // =========================================================
+    // REFERENCES
+    // =========================================================
+
+    [Header("Minigame References")]
+
+    [SerializeField]
+    private LungsBubbleSpawner bubbleSpawner;
+
+    [SerializeField]
+    private LungsBreathingAnimation breathingAnimation;
+
+    [SerializeField]
+    private LungsAirEffect airEffect;
+
+    // =========================================================
+    // PAUSE
+    // =========================================================
+
+    [Header("Pause")]
+
+    [SerializeField]
+    private GameObject pauseOverlay;
+
+    [SerializeField]
+    private GameObject settingsOverlay;
+
+    [SerializeField]
+    private GameObject infoOverlay;
+
+    [SerializeField]
+    private DifficultySelector difficultySelector;
+
+    // =========================================================
+    // END PANELS
+    // =========================================================
+
+    [Header("End Panels")]
+
+    [SerializeField]
+    private GameObject gameOverPanel;
+
+    [SerializeField]
+    private GameObject successPanel;
+
+    // =========================================================
+    // TIMER
+    // =========================================================
+
+    [Header("Timer")]
+
+    [SerializeField]
+    private bool useTimer = true;
+
+    // =========================================================
+    // TRANSITION
+    // =========================================================
+
+    [Header("Phase Transition")]
+
+    [Tooltip(
+        "Колко време изчакваме цялата визуална анимация преди новата фаза."
+    )]
+    [Min(0f)]
+    [SerializeField]
+    private float phaseTransitionDelay = 1f;
+
+    // =========================================================
+    // RUNTIME
+    // =========================================================
+
+    private LungsDifficultySettings currentSettings;
 
     private int currentRound = 1;
 
@@ -29,22 +154,57 @@ public class LungsMinigameManager : MonoBehaviour
     private float co2Percent;
 
     private float phaseTimeRemaining;
+    private float wrongClickLockRemaining;
 
     private bool gameEnded;
+    private bool isTransitioning;
+    private bool isPaused;
 
-    public LungsBreathingPhase CurrentPhase => currentPhase;
+    // =========================================================
+    // PUBLIC
+    // =========================================================
 
-    public float OxygenPercent => oxygenPercent;
+    public LungsBreathingPhase CurrentPhase =>
+        currentPhase;
 
-    public float CO2Percent => co2Percent;
+    public float OxygenPercent =>
+        oxygenPercent;
 
-    public float PhaseTimeRemaining => phaseTimeRemaining;
+    public float CO2Percent =>
+        co2Percent;
 
-    public int CurrentRound => currentRound;
+    public float PhaseTimeRemaining =>
+        phaseTimeRemaining;
 
-    public int TotalRounds => totalRounds;
+    public int CurrentRound =>
+        currentRound;
 
-    public bool GameEnded => gameEnded;
+    public int TotalRounds =>
+        currentSettings != null
+            ? currentSettings.totalRounds
+            : 0;
+
+    public bool GameEnded =>
+        gameEnded;
+
+    public bool IsTransitioning =>
+        isTransitioning;
+
+    public bool IsPaused =>
+        isPaused;
+
+    public bool IsClickLocked =>
+        gameEnded ||
+        isPaused ||
+        isTransitioning ||
+        wrongClickLockRemaining > 0f;
+
+    public LungsDifficultySettings CurrentSettings =>
+        currentSettings;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Awake()
     {
@@ -55,10 +215,43 @@ public class LungsMinigameManager : MonoBehaviour
         }
 
         Instance = this;
+
+        LoadDifficultySettings();
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
+
+        if (successPanel != null)
+        {
+            successPanel.SetActive(false);
+        }
     }
 
     private void Start()
     {
+        isPaused = false;
+
+        Time.timeScale = 1f;
+
+        currentRound = 1;
+
         StartInhalePhase();
     }
 
@@ -69,13 +262,235 @@ public class LungsMinigameManager : MonoBehaviour
             return;
         }
 
-        // Засега таймерът е изключен.
+        if (isPaused)
+        {
+            return;
+        }
+
+        UpdateWrongClickLock();
+        UpdateTimer();
+    }
+
+    // =========================================================
+    // PAUSE
+    // =========================================================
+
+    public void OpenPause()
+    {
+        if (gameEnded)
+        {
+            return;
+        }
+
+        if (isPaused)
+        {
+            return;
+        }
+
+        if (isTransitioning)
+        {
+            return;
+        }
+
+        isPaused = true;
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(true);
+            pauseOverlay.transform.SetAsLastSibling();
+        }
+
+        Time.timeScale = 0f;
+    }
+
+    // =========================================================
+    // CONTINUE
+    // =========================================================
+
+    public void ContinueGame()
+    {
+        isPaused = false;
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        Time.timeScale = 1f;
+    }
+
+    // =========================================================
+    // SETTINGS FROM PAUSE
+    // =========================================================
+
+    public void OpenSettingsFromPause()
+    {
+        if (!isPaused)
+        {
+            return;
+        }
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(false);
+        }
+
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(true);
+            settingsOverlay.transform.SetAsLastSibling();
+        }
+
+        // Заключваме трудността,
+        // защото нивото вече е започнало.
+        if (difficultySelector != null)
+        {
+            difficultySelector.SetLocked(true);
+        }
+
+        Time.timeScale = 0f;
+    }
+
+    public void CloseSettingsToPause()
+    {
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(true);
+            pauseOverlay.transform.SetAsLastSibling();
+        }
+
+        isPaused = true;
+
+        Time.timeScale = 0f;
+    }
+
+    // =========================================================
+    // INFO FROM PAUSE
+    // =========================================================
+
+    public void OpenInfoFromPause()
+    {
+        if (!isPaused)
+        {
+            return;
+        }
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(true);
+            infoOverlay.transform.SetAsLastSibling();
+        }
+
+        Time.timeScale = 0f;
+    }
+
+    public void CloseInfoToPause()
+    {
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(true);
+            pauseOverlay.transform.SetAsLastSibling();
+        }
+
+        isPaused = true;
+
+        Time.timeScale = 0f;
+    }
+
+    // =========================================================
+    // DIFFICULTY
+    // =========================================================
+
+    private void LoadDifficultySettings()
+    {
+        int difficulty =
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
+
+        switch (difficulty)
+        {
+            case 0:
+                currentSettings =
+                    easySettings;
+                break;
+
+            case 2:
+                currentSettings =
+                    hardSettings;
+                break;
+
+            default:
+                currentSettings =
+                    mediumSettings;
+                break;
+        }
+    }
+
+    // =========================================================
+    // TIMER
+    // =========================================================
+
+    private void UpdateTimer()
+    {
         if (!useTimer)
         {
             return;
         }
 
-        phaseTimeRemaining -= Time.deltaTime;
+        if (isTransitioning)
+        {
+            return;
+        }
+
+        phaseTimeRemaining -=
+            Time.deltaTime;
 
         if (phaseTimeRemaining <= 0f)
         {
@@ -85,18 +500,55 @@ public class LungsMinigameManager : MonoBehaviour
         }
     }
 
+    private void ResetPhaseTimer()
+    {
+        phaseTimeRemaining =
+            currentSettings.phaseDuration;
+    }
+
     // =========================================================
-    // BUBBLE CLICK
+    // WRONG CLICK
     // =========================================================
 
-    public void HandleBubbleClicked(LungGasType gasType)
+    private void UpdateWrongClickLock()
     {
-        if (gameEnded)
+        if (wrongClickLockRemaining <= 0f)
         {
             return;
         }
 
-        if (currentPhase == LungsBreathingPhase.Inhale)
+        wrongClickLockRemaining -=
+            Time.deltaTime;
+
+        if (wrongClickLockRemaining < 0f)
+        {
+            wrongClickLockRemaining = 0f;
+        }
+    }
+
+    private void ApplyWrongClickLock()
+    {
+        wrongClickLockRemaining =
+            currentSettings.wrongClickLockDuration;
+    }
+
+    // =========================================================
+    // CLICK
+    // =========================================================
+
+    public void HandleBubbleClicked(
+        LungGasType gasType
+    )
+    {
+        if (IsClickLocked)
+        {
+            return;
+        }
+
+        if (
+            currentPhase ==
+            LungsBreathingPhase.Inhale
+        )
         {
             HandleInhaleClick(gasType);
         }
@@ -104,175 +556,318 @@ public class LungsMinigameManager : MonoBehaviour
         {
             HandleExhaleClick(gasType);
         }
-
-        PrintCurrentStatus();
     }
 
     // =========================================================
     // INHALE
     // =========================================================
 
-    private void HandleInhaleClick(LungGasType gasType)
+    private void HandleInhaleClick(
+        LungGasType gasType
+    )
     {
         if (gasType == LungGasType.O2)
         {
-            oxygenPercent += correctAmount;
+            oxygenPercent +=
+                currentSettings.correctAmount;
 
-            oxygenPercent = Mathf.Clamp(
-                oxygenPercent,
-                0f,
-                100f
-            );
+            oxygenPercent =
+                Mathf.Clamp(
+                    oxygenPercent,
+                    0f,
+                    100f
+                );
 
             if (oxygenPercent >= 100f)
             {
+                oxygenPercent = 100f;
+
                 CompleteInhalePhase();
             }
         }
         else
         {
-            oxygenPercent -= wrongPenalty;
+            oxygenPercent -=
+                currentSettings.wrongPenalty;
 
-            oxygenPercent = Mathf.Clamp(
-                oxygenPercent,
-                0f,
-                100f
-            );
+            oxygenPercent =
+                Mathf.Clamp(
+                    oxygenPercent,
+                    0f,
+                    100f
+                );
+
+            ApplyWrongClickLock();
         }
     }
 
     private void StartInhalePhase()
     {
-        currentPhase = LungsBreathingPhase.Inhale;
+        currentPhase =
+            LungsBreathingPhase.Inhale;
 
         oxygenPercent = 0f;
         co2Percent = 100f;
 
         ResetPhaseTimer();
-
-        Debug.Log(
-            "START INHALE | Round " +
-            currentRound +
-            "/" +
-            totalRounds
-        );
     }
 
     private void CompleteInhalePhase()
     {
-        Debug.Log("INHALE COMPLETE");
+        if (isTransitioning)
+        {
+            return;
+        }
+
+        StartCoroutine(
+            TransitionToExhale()
+        );
+    }
+
+    private IEnumerator TransitionToExhale()
+    {
+        isTransitioning = true;
+
+        if (bubbleSpawner != null)
+        {
+            bubbleSpawner.BeginPhaseTransition();
+        }
+
+        if (breathingAnimation != null)
+        {
+            breathingAnimation.PlayInhaleComplete();
+        }
+
+        if (airEffect != null)
+        {
+            airEffect.PlayInhale();
+        }
+
+        yield return new WaitForSecondsRealtime(
+            phaseTransitionDelay
+        );
 
         StartExhalePhase();
+
+        isTransitioning = false;
+
+        if (bubbleSpawner != null)
+        {
+            bubbleSpawner.StartNewPhase();
+        }
     }
 
     // =========================================================
     // EXHALE
     // =========================================================
 
-    private void HandleExhaleClick(LungGasType gasType)
+    private void HandleExhaleClick(
+        LungGasType gasType
+    )
     {
         if (gasType == LungGasType.CO2)
         {
-            co2Percent -= correctAmount;
+            co2Percent -=
+                currentSettings.correctAmount;
 
-            co2Percent = Mathf.Clamp(
-                co2Percent,
-                0f,
-                100f
-            );
+            co2Percent =
+                Mathf.Clamp(
+                    co2Percent,
+                    0f,
+                    100f
+                );
 
             if (co2Percent <= 0f)
             {
+                co2Percent = 0f;
+
                 CompleteExhalePhase();
             }
         }
         else
         {
-            co2Percent += wrongPenalty;
+            co2Percent +=
+                currentSettings.wrongPenalty;
 
-            co2Percent = Mathf.Clamp(
-                co2Percent,
-                0f,
-                100f
-            );
+            co2Percent =
+                Mathf.Clamp(
+                    co2Percent,
+                    0f,
+                    100f
+                );
+
+            ApplyWrongClickLock();
         }
     }
 
     private void StartExhalePhase()
     {
-        currentPhase = LungsBreathingPhase.Exhale;
+        currentPhase =
+            LungsBreathingPhase.Exhale;
 
         co2Percent = 100f;
 
         ResetPhaseTimer();
-
-        Debug.Log(
-            "START EXHALE | Round " +
-            currentRound +
-            "/" +
-            totalRounds
-        );
     }
 
     private void CompleteExhalePhase()
     {
-        Debug.Log("EXHALE COMPLETE");
+        if (isTransitioning)
+        {
+            return;
+        }
 
-        if (currentRound >= totalRounds)
+        StartCoroutine(
+            FinishRoundTransition()
+        );
+    }
+
+    private IEnumerator FinishRoundTransition()
+    {
+        isTransitioning = true;
+
+        if (bubbleSpawner != null)
+        {
+            bubbleSpawner.BeginPhaseTransition();
+        }
+
+        if (breathingAnimation != null)
+        {
+            breathingAnimation.PlayExhaleComplete();
+        }
+
+        if (airEffect != null)
+        {
+            airEffect.PlayExhale();
+        }
+
+        yield return new WaitForSecondsRealtime(
+            phaseTransitionDelay
+        );
+
+        if (currentRound >= TotalRounds)
         {
             CompleteGame();
-            return;
+
+            isTransitioning = false;
+
+            yield break;
         }
 
         currentRound++;
 
         StartInhalePhase();
+
+        isTransitioning = false;
+
+        if (bubbleSpawner != null)
+        {
+            bubbleSpawner.StartNewPhase();
+        }
     }
 
     // =========================================================
-    // TIMER
-    // =========================================================
-
-    private void ResetPhaseTimer()
-    {
-        phaseTimeRemaining = phaseDuration;
-    }
-
-    // =========================================================
-    // GAME END
+    // SUCCESS
     // =========================================================
 
     private void CompleteGame()
     {
+        if (gameEnded)
+        {
+            return;
+        }
+
         gameEnded = true;
 
-        Debug.Log("LUNGS MINIGAME COMPLETE!");
+        isPaused = false;
+
+        Time.timeScale = 1f;
+
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        if (bubbleSpawner != null)
+        {
+            bubbleSpawner.BeginPhaseTransition();
+        }
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
+
+        if (successPanel != null)
+        {
+            successPanel.SetActive(true);
+        }
+
+        Debug.Log(
+            "LUNGS MINIGAME COMPLETE!"
+        );
     }
+
+    // =========================================================
+    // GAME OVER
+    // =========================================================
 
     private void FailGame()
     {
+        if (gameEnded)
+        {
+            return;
+        }
+
         gameEnded = true;
 
-        Debug.Log("LUNGS MINIGAME FAILED!");
-    }
+        isPaused = false;
+        isTransitioning = false;
 
-    // =========================================================
-    // DEBUG
-    // =========================================================
+        Time.timeScale = 1f;
 
-    private void PrintCurrentStatus()
-    {
+        if (pauseOverlay != null)
+        {
+            pauseOverlay.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        if (bubbleSpawner != null)
+        {
+            bubbleSpawner.BeginPhaseTransition();
+        }
+
+        if (successPanel != null)
+        {
+            successPanel.SetActive(false);
+        }
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+
         Debug.Log(
-            "Phase: " +
-            currentPhase +
-            " | O2: " +
-            oxygenPercent +
-            "% | CO2: " +
-            co2Percent +
-            "% | Round: " +
-            currentRound +
-            "/" +
-            totalRounds
+            "LUNGS MINIGAME FAILED!"
         );
     }
 }

@@ -50,12 +50,32 @@ public class LungsLevelNavigation : MonoBehaviour
     public void OpenVideoPanel()
     {
         if (startPanel != null)
+        {
             startPanel.SetActive(false);
+        }
 
         if (videoPanel != null)
         {
             videoPanel.SetActive(true);
             videoPanel.transform.SetAsLastSibling();
+        }
+    }
+
+    // =========================================================
+    // MINIGAME -> QUIZ
+    // =========================================================
+
+    public void OpenQuizPanel()
+    {
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(false);
+        }
+
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(true);
+            quizPanel.transform.SetAsLastSibling();
         }
     }
 
@@ -81,24 +101,38 @@ public class LungsLevelNavigation : MonoBehaviour
     private void ShowStartPanel()
     {
         if (startPanel != null)
+        {
             startPanel.SetActive(true);
+        }
 
         if (videoPanel != null)
+        {
             videoPanel.SetActive(false);
+        }
 
         if (puzzlePanel != null)
+        {
             puzzlePanel.SetActive(false);
+        }
 
         if (minigamePanel != null)
+        {
             minigamePanel.SetActive(false);
+        }
 
         if (quizPanel != null)
+        {
             quizPanel.SetActive(false);
+        }
 
         if (finishPanel != null)
+        {
             finishPanel.SetActive(false);
+        }
 
         if (startPanel != null)
+        {
             startPanel.transform.SetAsLastSibling();
+        }
     }
 }

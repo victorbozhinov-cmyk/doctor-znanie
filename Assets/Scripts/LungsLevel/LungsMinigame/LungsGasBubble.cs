@@ -14,14 +14,16 @@ public class LungsGasBubble : MonoBehaviour
     [SerializeField] private LungGasType gasType;
 
     private Button button;
-
     private bool wasClicked;
 
     private void Awake()
     {
         button = GetComponent<Button>();
 
-        button.onClick.AddListener(OnBubbleClicked);
+        if (button != null)
+        {
+            button.onClick.AddListener(OnBubbleClicked);
+        }
     }
 
     private void OnDestroy()
@@ -39,20 +41,29 @@ public class LungsGasBubble : MonoBehaviour
             return;
         }
 
-        wasClicked = true;
-
-        if (LungsMinigameManager.Instance != null)
-        {
-            LungsMinigameManager.Instance.HandleBubbleClicked(
-                gasType
-            );
-        }
-        else
+        if (LungsMinigameManager.Instance == null)
         {
             Debug.LogWarning(
                 "LungsMinigameManager липсва в сцената."
             );
+
+            return;
         }
+
+        // Ако играта е приключила,
+        // има transition,
+        // или сме в lock след грешен клик,
+        // балончето НЕ се пука.
+        if (LungsMinigameManager.Instance.IsClickLocked)
+        {
+            return;
+        }
+
+        wasClicked = true;
+
+        LungsMinigameManager.Instance.HandleBubbleClicked(
+            gasType
+        );
 
         Destroy(gameObject);
     }

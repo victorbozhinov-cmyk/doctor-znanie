@@ -20,6 +20,9 @@ public class LungsMinigameUI : MonoBehaviour
     [SerializeField] private TMP_Text currentRoundText;
     [SerializeField] private TMP_Text totalRoundsText;
 
+    [Header("Timer UI")]
+    [SerializeField] private TMP_Text timeText;
+
     private void Update()
     {
         if (LungsMinigameManager.Instance == null)
@@ -30,6 +33,7 @@ public class LungsMinigameUI : MonoBehaviour
         UpdatePhasePanels();
         UpdateProgress();
         UpdateRound();
+        UpdateTimer();
     }
 
     // =========================================================
@@ -65,13 +69,10 @@ public class LungsMinigameUI : MonoBehaviour
         float co2 =
             LungsMinigameManager.Instance.CO2Percent;
 
-        // -------------------------
-        // INHALE / O2
-        // -------------------------
-
         if (inhaleFill != null)
         {
-            inhaleFill.fillAmount = oxygen / 100f;
+            inhaleFill.fillAmount =
+                oxygen / 100f;
         }
 
         if (inhalePercentText != null)
@@ -80,13 +81,10 @@ public class LungsMinigameUI : MonoBehaviour
                 Mathf.RoundToInt(oxygen) + "%";
         }
 
-        // -------------------------
-        // EXHALE / CO2
-        // -------------------------
-
         if (exhaleFill != null)
         {
-            exhaleFill.fillAmount = co2 / 100f;
+            exhaleFill.fillAmount =
+                co2 / 100f;
         }
 
         if (exhalePercentText != null)
@@ -119,5 +117,37 @@ public class LungsMinigameUI : MonoBehaviour
             totalRoundsText.text =
                 "/" + totalRounds;
         }
+    }
+
+    // =========================================================
+    // TIMER
+    // =========================================================
+
+    private void UpdateTimer()
+    {
+        if (timeText == null)
+        {
+            return;
+        }
+
+        float remainingTime =
+            LungsMinigameManager.Instance.PhaseTimeRemaining;
+
+        remainingTime =
+            Mathf.Max(0f, remainingTime);
+
+        int totalSeconds =
+            Mathf.CeilToInt(remainingTime);
+
+        int minutes =
+            totalSeconds / 60;
+
+        int seconds =
+            totalSeconds % 60;
+
+        timeText.text =
+            minutes.ToString("00") +
+            ":" +
+            seconds.ToString("00");
     }
 }
