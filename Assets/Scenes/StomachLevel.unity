@@ -31371,6 +31371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc64683c82d8d64eb9ce180c068d971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorThemeManager
+  accessibleColorMaterial: {fileID: 0}
+  accessibleThemeStrength: 0.65
+  canvasPlaneDistance: 1
 --- !u!4 &2013502619
 Transform:
   m_ObjectHideFlags: 0
