@@ -15142,7 +15142,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1629788615}
   successPanel: {fileID: 1066305947}
   useTimer: 1
-  phaseTransitionDelay: 4
+  phaseTransitionDelay: 3
 --- !u!1 &1695115191
 GameObject:
   m_ObjectHideFlags: 0
@@ -17909,7 +17909,7 @@ MonoBehaviour:
     bubbleScaleMin: 0.85
     bubbleScaleMax: 1.1
   hardSettings:
-    initialBubbleCount: 13
+    initialBubbleCount: 15
     minimumBubblesOnScreen: 10
     maximumBubblesOnScreen: 17
     spawnInterval: 0.11
