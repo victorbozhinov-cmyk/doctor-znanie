@@ -13,16 +13,29 @@ public class LungsGasBubble : MonoBehaviour
     [Header("Gas Type")]
     [SerializeField] private LungGasType gasType;
 
+    [Header("Pop Animation")]
+    [SerializeField]
+    private LungsBubblePopAnimation popAnimation;
+
     private Button button;
     private bool wasClicked;
 
     private void Awake()
     {
-        button = GetComponent<Button>();
+        button =
+            GetComponent<Button>();
+
+        if (popAnimation == null)
+        {
+            popAnimation =
+                GetComponent<LungsBubblePopAnimation>();
+        }
 
         if (button != null)
         {
-            button.onClick.AddListener(OnBubbleClicked);
+            button.onClick.AddListener(
+                OnBubbleClicked
+            );
         }
     }
 
@@ -30,7 +43,9 @@ public class LungsGasBubble : MonoBehaviour
     {
         if (button != null)
         {
-            button.onClick.RemoveListener(OnBubbleClicked);
+            button.onClick.RemoveListener(
+                OnBubbleClicked
+            );
         }
     }
 
@@ -50,21 +65,57 @@ public class LungsGasBubble : MonoBehaviour
             return;
         }
 
-        // Ако играта е приключила,
-        // има transition,
-        // или сме в lock след грешен клик,
-        // балончето НЕ се пука.
-        if (LungsMinigameManager.Instance.IsClickLocked)
+        if (
+            LungsMinigameManager.Instance
+                .IsClickLocked
+        )
         {
             return;
         }
 
         wasClicked = true;
 
-        LungsMinigameManager.Instance.HandleBubbleClicked(
-            gasType
-        );
+        if (button != null)
+        {
+            button.interactable = false;
+        }
 
-        Destroy(gameObject);
+        bool isCorrect =
+            IsCorrectForCurrentPhase();
+
+        LungsMinigameManager.Instance
+            .HandleBubbleClicked(
+                gasType
+            );
+
+        if (popAnimation != null)
+        {
+            popAnimation.PlayPop(
+                isCorrect
+            );
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // =========================================================
+    // CORRECT CHECK
+    // =========================================================
+
+    private bool IsCorrectForCurrentPhase()
+    {
+        if (
+            LungsMinigameManager.Instance.CurrentPhase ==
+            LungsBreathingPhase.Inhale
+        )
+        {
+            return gasType ==
+                LungGasType.O2;
+        }
+
+        return gasType ==
+            LungGasType.CO2;
     }
 }
