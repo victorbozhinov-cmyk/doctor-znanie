@@ -2884,6 +2884,9 @@ GameObject:
   - component: {fileID: 333040624}
   - component: {fileID: 333040626}
   - component: {fileID: 333040625}
+  - component: {fileID: 333040627}
+  - component: {fileID: 333040629}
+  - component: {fileID: 333040628}
   m_Layer: 5
   m_Name: InhalePanel
   m_TagString: Untagged
@@ -2950,6 +2953,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333040623}
   m_CullTransparentMesh: 1
+--- !u!114 &333040627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333040623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2dfd5cc59d14944894e04f21d4da7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LungsProgressFeedback
+  popScaleMultiplier: 1.06
+  popUpDuration: 0.07
+  popReturnDuration: 0.1
+  shakeAmount: 8
+  shakeDuration: 0.18
+  shakeSpeed: 45
+--- !u!114 &333040628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333040623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081d3c9d1e1fcb941b20d5a370fc7dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LungsPhasePanelTransition
+  showStartScale: 0.88
+  showDuration: 0.22
+  hideEndScale: 0.92
+  hideDuration: 0.18
+--- !u!225 &333040629
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333040623}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &335989691
 GameObject:
   m_ObjectHideFlags: 0
@@ -15093,7 +15142,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1629788615}
   successPanel: {fileID: 1066305947}
   useTimer: 1
-  phaseTransitionDelay: 4
+  phaseTransitionDelay: 3
 --- !u!1 &1695115191
 GameObject:
   m_ObjectHideFlags: 0
@@ -15278,8 +15327,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14.042633, y: -15.661116}
-  m_SizeDelta: {x: 485, y: 50}
+  m_AnchoredPosition: {x: -14.042633, y: -13.286116}
+  m_SizeDelta: {x: 485, y: 45.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1712073360
 MonoBehaviour:
@@ -16447,10 +16496,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LungsMinigameUI
   inhalePanel: {fileID: 333040623}
   exhalePanel: {fileID: 2017516746}
+  inhalePanelTransition: {fileID: 333040628}
+  exhalePanelTransition: {fileID: 2017516751}
   inhaleFill: {fileID: 335989693}
   inhalePercentText: {fileID: 1629504961}
+  inhaleFeedback: {fileID: 333040627}
   exhaleFill: {fileID: 1712073360}
   exhalePercentText: {fileID: 977621512}
+  exhaleFeedback: {fileID: 2017516750}
+  exhaleFillColor: {r: 0.3509434, g: 0.3509434, b: 0.3509434, a: 1}
+  fillSmoothSpeed: 8
   currentRoundText: {fileID: 165883707}
   totalRoundsText: {fileID: 2100537120}
   timeText: {fileID: 2019514965}
@@ -17862,7 +17917,7 @@ MonoBehaviour:
     exhaleCorrectBubbleChance: 0.3
     ratioTolerance: 0.05
     finalPhaseThreshold: 0.5
-    finalPhaseCorrectChanceReduction: 0.05
+    finalPhaseCorrectChanceReduction: 0.07
     finalBubbleLifetimeMin: 1
     finalBubbleLifetimeMax: 3
     bubbleLifetimeMin: 2
@@ -18279,6 +18334,9 @@ GameObject:
   - component: {fileID: 2017516747}
   - component: {fileID: 2017516749}
   - component: {fileID: 2017516748}
+  - component: {fileID: 2017516750}
+  - component: {fileID: 2017516752}
+  - component: {fileID: 2017516751}
   m_Layer: 5
   m_Name: ExhalePanel
   m_TagString: Untagged
@@ -18345,6 +18403,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017516746}
   m_CullTransparentMesh: 1
+--- !u!114 &2017516750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017516746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2dfd5cc59d14944894e04f21d4da7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LungsProgressFeedback
+  popScaleMultiplier: 1.2
+  popUpDuration: 0.07
+  popReturnDuration: 0.1
+  shakeAmount: 8
+  shakeDuration: 0.18
+  shakeSpeed: 45
+--- !u!114 &2017516751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017516746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081d3c9d1e1fcb941b20d5a370fc7dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LungsPhasePanelTransition
+  showStartScale: 0.88
+  showDuration: 0.22
+  hideEndScale: 0.92
+  hideDuration: 0.18
+--- !u!225 &2017516752
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017516746}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2019514963
 GameObject:
   m_ObjectHideFlags: 0

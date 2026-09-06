@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7063934955087633318}
   - component: {fileID: 7105948743571723645}
   - component: {fileID: 2532629731084225588}
+  - component: {fileID: 5905718440256524098}
   m_Layer: 5
   m_Name: CO2Bubble
   m_TagString: Untagged
@@ -97,7 +98,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LungsGasBubble
   gasType: 1
+  popAnimation: {fileID: 0}
 --- !u!114 &2532629731084225588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,3 +152,22 @@ MonoBehaviour:
   horizontalAmount: 8
   verticalAmount: 10
   floatSpeed: 1.5
+--- !u!114 &5905718440256524098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344575196742587031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2469e7eb19a5310409ca2a399d6db9d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LungsBubblePopAnimation
+  bubbleImage: {fileID: 0}
+  popScaleMultiplier: 1.18
+  growDuration: 0.08
+  shrinkDuration: 0.12
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  colorStrength: 0.5
