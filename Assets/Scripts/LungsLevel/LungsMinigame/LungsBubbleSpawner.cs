@@ -4,7 +4,12 @@ using UnityEngine;
 [System.Serializable]
 public class LungsSpawnerDifficultySettings
 {
+    // =========================================================
+    // BUBBLE AMOUNT
+    // =========================================================
+
     [Header("Bubble Amount")]
+
     [Min(1)]
     public int initialBubbleCount = 10;
 
@@ -14,32 +19,92 @@ public class LungsSpawnerDifficultySettings
     [Min(1)]
     public int maximumBubblesOnScreen = 14;
 
+    // =========================================================
+    // SPAWN SPEED
+    // =========================================================
+
     [Header("Spawn Speed")]
+
     [Min(0.05f)]
     public float spawnInterval = 0.8f;
 
+    // =========================================================
+    // CORRECT BUBBLE CHANCE
+    // =========================================================
+
     [Header("Correct Bubble Chance")]
+
     [Range(0.05f, 0.95f)]
-    public float correctBubbleChance = 0.5f;
+    public float inhaleCorrectBubbleChance = 0.5f;
+
+    [Range(0.05f, 0.95f)]
+    public float exhaleCorrectBubbleChance = 0.5f;
+
+    // =========================================================
+    // RATIO CONTROL
+    // =========================================================
+
+    [Header("Ratio Control")]
+
+    [Tooltip(
+        "Колко отклонение от зададеното съотношение е позволено. " +
+        "По-малка стойност = по-стриктно се поддържа ratio-то."
+    )]
+    [Range(0f, 0.3f)]
+    public float ratioTolerance = 0.1f;
+
+    // =========================================================
+    // FINAL SECTION
+    // =========================================================
 
     [Header("Final Phase Difficulty")]
+
+    [Tooltip(
+        "При какъв прогрес започва по-трудната финална част. " +
+        "0.7 означава след 70%."
+    )]
     [Range(0.5f, 0.95f)]
     public float finalPhaseThreshold = 0.8f;
 
-    [Range(0.2f, 1f)]
-    public float finalPhaseSpawnIntervalMultiplier = 0.75f;
-
+    [Tooltip(
+        "Колко се намалява шансът за правилно балонче " +
+        "след достигане на Final Phase Threshold."
+    )]
     [Range(0f, 0.5f)]
     public float finalPhaseCorrectChanceReduction = 0.1f;
 
-    [Header("Bubble Lifetime")]
+    [Header("Final Phase Bubble Lifetime")]
+
+    [Tooltip(
+        "Минималният живот на балонче във финалната част."
+    )]
+    [Min(0.5f)]
+    public float finalBubbleLifetimeMin = 3f;
+
+    [Tooltip(
+        "Максималният живот на балонче във финалната част."
+    )]
+    [Min(0.5f)]
+    public float finalBubbleLifetimeMax = 5f;
+
+    // =========================================================
+    // NORMAL LIFETIME
+    // =========================================================
+
+    [Header("Normal Bubble Lifetime")]
+
     [Min(0.5f)]
     public float bubbleLifetimeMin = 4f;
 
     [Min(0.5f)]
     public float bubbleLifetimeMax = 6f;
 
+    // =========================================================
+    // SIZE
+    // =========================================================
+
     [Header("Bubble Size")]
+
     [Range(0.5f, 1.5f)]
     public float bubbleScaleMin = 0.9f;
 
@@ -67,10 +132,11 @@ public class LungsBubbleSpawner : MonoBehaviour
     [SerializeField] private RectTransform bubblesContainer;
 
     // =========================================================
-    // DIFFICULTY
+    // EASY
     // =========================================================
 
     [Header("Easy Settings")]
+
     [SerializeField]
     private LungsSpawnerDifficultySettings easySettings =
         new LungsSpawnerDifficultySettings
@@ -78,18 +144,33 @@ public class LungsBubbleSpawner : MonoBehaviour
             initialBubbleCount = 8,
             minimumBubblesOnScreen = 7,
             maximumBubblesOnScreen = 12,
+
             spawnInterval = 0.9f,
-            correctBubbleChance = 0.65f,
-            finalPhaseThreshold = 0.8f,
-            finalPhaseSpawnIntervalMultiplier = 0.85f,
-            finalPhaseCorrectChanceReduction = 0.05f,
+
+            inhaleCorrectBubbleChance = 0.5f,
+            exhaleCorrectBubbleChance = 0.5f,
+
+            ratioTolerance = 0.1f,
+
+            finalPhaseThreshold = 0.7f,
+            finalPhaseCorrectChanceReduction = 0.1f,
+
             bubbleLifetimeMin = 5f,
             bubbleLifetimeMax = 7f,
-            bubbleScaleMin = 0.95f,
+
+            finalBubbleLifetimeMin = 4f,
+            finalBubbleLifetimeMax = 6f,
+
+            bubbleScaleMin = 0.9f,
             bubbleScaleMax = 1.1f
         };
 
+    // =========================================================
+    // MEDIUM
+    // =========================================================
+
     [Header("Medium Settings")]
+
     [SerializeField]
     private LungsSpawnerDifficultySettings mediumSettings =
         new LungsSpawnerDifficultySettings
@@ -97,18 +178,33 @@ public class LungsBubbleSpawner : MonoBehaviour
             initialBubbleCount = 10,
             minimumBubblesOnScreen = 8,
             maximumBubblesOnScreen = 14,
+
             spawnInterval = 0.7f,
-            correctBubbleChance = 0.5f,
-            finalPhaseThreshold = 0.8f,
-            finalPhaseSpawnIntervalMultiplier = 0.75f,
-            finalPhaseCorrectChanceReduction = 0.1f,
+
+            inhaleCorrectBubbleChance = 0.5f,
+            exhaleCorrectBubbleChance = 0.5f,
+
+            ratioTolerance = 0.1f,
+
+            finalPhaseThreshold = 0.75f,
+            finalPhaseCorrectChanceReduction = 0.12f,
+
             bubbleLifetimeMin = 4f,
             bubbleLifetimeMax = 6f,
+
+            finalBubbleLifetimeMin = 3f,
+            finalBubbleLifetimeMax = 5f,
+
             bubbleScaleMin = 0.9f,
             bubbleScaleMax = 1.1f
         };
 
+    // =========================================================
+    // HARD
+    // =========================================================
+
     [Header("Hard Settings")]
+
     [SerializeField]
     private LungsSpawnerDifficultySettings hardSettings =
         new LungsSpawnerDifficultySettings
@@ -116,13 +212,23 @@ public class LungsBubbleSpawner : MonoBehaviour
             initialBubbleCount = 12,
             minimumBubblesOnScreen = 10,
             maximumBubblesOnScreen = 16,
+
             spawnInterval = 0.55f,
-            correctBubbleChance = 0.38f,
-            finalPhaseThreshold = 0.8f,
-            finalPhaseSpawnIntervalMultiplier = 0.65f,
-            finalPhaseCorrectChanceReduction = 0.08f,
+
+            inhaleCorrectBubbleChance = 0.4f,
+            exhaleCorrectBubbleChance = 0.4f,
+
+            ratioTolerance = 0.08f,
+
+            finalPhaseThreshold = 0.75f,
+            finalPhaseCorrectChanceReduction = 0.1f,
+
             bubbleLifetimeMin = 3f,
             bubbleLifetimeMax = 5f,
+
+            finalBubbleLifetimeMin = 2f,
+            finalBubbleLifetimeMax = 4f,
+
             bubbleScaleMin = 0.85f,
             bubbleScaleMax = 1.1f
         };
@@ -137,6 +243,12 @@ public class LungsBubbleSpawner : MonoBehaviour
 
     private bool initialized;
     private bool spawningEnabled = true;
+
+    // Ratio tracking
+    private int correctSpawned;
+    private int wrongSpawned;
+
+    private bool previousFinalSectionState;
 
     // =========================================================
     // UNITY
@@ -154,10 +266,14 @@ public class LungsBubbleSpawner : MonoBehaviour
 
         ClearAllBubblesImmediate();
 
+        ResetRatioTracking();
+
         SpawnInitialBubbles();
 
         spawnCoroutine =
-            StartCoroutine(SpawnLoop());
+            StartCoroutine(
+                SpawnLoop()
+            );
     }
 
     private void Update()
@@ -192,20 +308,26 @@ public class LungsBubbleSpawner : MonoBehaviour
     private void LoadDifficultySettings()
     {
         int difficulty =
-            PlayerPrefs.GetInt("Difficulty", 1);
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
         switch (difficulty)
         {
             case 0:
-                currentSettings = easySettings;
+                currentSettings =
+                    easySettings;
                 break;
 
             case 2:
-                currentSettings = hardSettings;
+                currentSettings =
+                    hardSettings;
                 break;
 
             default:
-                currentSettings = mediumSettings;
+                currentSettings =
+                    mediumSettings;
                 break;
         }
     }
@@ -235,7 +357,102 @@ public class LungsBubbleSpawner : MonoBehaviour
 
         spawningEnabled = true;
 
+        ResetRatioTracking();
+
         SpawnInitialBubbles();
+    }
+
+    // =========================================================
+    // RATIO TRACKING
+    // =========================================================
+
+    private void ResetRatioTracking()
+    {
+        correctSpawned = 0;
+        wrongSpawned = 0;
+
+        previousFinalSectionState =
+            IsInFinalPhaseSection();
+    }
+
+    private bool ShouldSpawnCorrectBubble()
+    {
+        bool finalSection =
+            IsInFinalPhaseSection();
+
+        /*
+         * Когато преминем във финалната част,
+         * започваме ново ratio броене.
+         *
+         * Така новият по-нисък шанс започва
+         * да се прилага веднага.
+         */
+        if (
+            finalSection !=
+            previousFinalSectionState
+        )
+        {
+            correctSpawned = 0;
+            wrongSpawned = 0;
+
+            previousFinalSectionState =
+                finalSection;
+        }
+
+        float targetChance =
+            GetCurrentCorrectBubbleChance();
+
+        int totalSpawned =
+            correctSpawned +
+            wrongSpawned;
+
+        /*
+         * При първите няколко балончета
+         * оставяме малко повече случайност.
+         */
+        if (totalSpawned < 2)
+        {
+            return Random.value <
+                targetChance;
+        }
+
+        float currentCorrectRatio =
+            (float)correctSpawned /
+            totalSpawned;
+
+        float tolerance =
+            currentSettings.ratioTolerance;
+
+        /*
+         * Ако имаме прекалено малко правилни,
+         * принудително spawn-ваме правилно.
+         */
+        if (
+            currentCorrectRatio <
+            targetChance - tolerance
+        )
+        {
+            return true;
+        }
+
+        /*
+         * Ако имаме прекалено много правилни,
+         * принудително spawn-ваме грешно.
+         */
+        if (
+            currentCorrectRatio >
+            targetChance + tolerance
+        )
+        {
+            return false;
+        }
+
+        /*
+         * Ако сме в допустимото отклонение,
+         * запазваме случайността.
+         */
+        return Random.value <
+            targetChance;
     }
 
     // =========================================================
@@ -355,11 +572,21 @@ public class LungsBubbleSpawner : MonoBehaviour
         }
 
         bool correctBubble =
-            Random.value <
-            GetCurrentCorrectBubbleChance();
+            ShouldSpawnCorrectBubble();
+
+        if (correctBubble)
+        {
+            correctSpawned++;
+        }
+        else
+        {
+            wrongSpawned++;
+        }
 
         LungGasType gasType =
-            GetGasTypeForSpawn(correctBubble);
+            GetGasTypeForSpawn(
+                correctBubble
+            );
 
         GameObject prefab =
             gasType == LungGasType.O2
@@ -371,7 +598,10 @@ public class LungsBubbleSpawner : MonoBehaviour
                 ? leftSpawnAreas
                 : rightSpawnAreas;
 
-        if (areas == null || areas.Length == 0)
+        if (
+            areas == null ||
+            areas.Length == 0
+        )
         {
             return;
         }
@@ -405,11 +635,17 @@ public class LungsBubbleSpawner : MonoBehaviour
         }
 
         bubbleRect.position =
-            GetRandomWorldPositionInside(area);
+            GetRandomWorldPositionInside(
+                area
+            );
 
-        ApplyRandomScale(bubbleRect);
+        ApplyRandomScale(
+            bubbleRect
+        );
 
-        ApplyRandomLifetime(bubble);
+        ApplyRandomLifetime(
+            bubble
+        );
     }
 
     // =========================================================
@@ -441,7 +677,10 @@ public class LungsBubbleSpawner : MonoBehaviour
 
     private bool IsInFinalPhaseSection()
     {
-        if (LungsMinigameManager.Instance == null)
+        if (
+            LungsMinigameManager.Instance == null ||
+            currentSettings == null
+        )
         {
             return false;
         }
@@ -471,6 +710,10 @@ public class LungsBubbleSpawner : MonoBehaviour
             currentSettings.finalPhaseThreshold;
     }
 
+    // =========================================================
+    // SPAWN INTERVAL
+    // =========================================================
+
     private float GetCurrentSpawnInterval()
     {
         if (currentSettings == null)
@@ -478,26 +721,47 @@ public class LungsBubbleSpawner : MonoBehaviour
             return 1f;
         }
 
-        float interval =
-            currentSettings.spawnInterval;
-
-        if (IsInFinalPhaseSection())
-        {
-            interval *=
-                currentSettings
-                    .finalPhaseSpawnIntervalMultiplier;
-        }
-
+        /*
+         * Final Phase вече НЕ променя
+         * скоростта на spawn.
+         */
         return Mathf.Max(
             0.05f,
-            interval
+            currentSettings.spawnInterval
         );
     }
 
+    // =========================================================
+    // CORRECT CHANCE
+    // =========================================================
+
     private float GetCurrentCorrectBubbleChance()
     {
-        float chance =
-            currentSettings.correctBubbleChance;
+        if (
+            currentSettings == null ||
+            LungsMinigameManager.Instance == null
+        )
+        {
+            return 0.5f;
+        }
+
+        float chance;
+
+        if (
+            LungsMinigameManager.Instance.CurrentPhase ==
+            LungsBreathingPhase.Inhale
+        )
+        {
+            chance =
+                currentSettings
+                    .inhaleCorrectBubbleChance;
+        }
+        else
+        {
+            chance =
+                currentSettings
+                    .exhaleCorrectBubbleChance;
+        }
 
         if (IsInFinalPhaseSection())
         {
@@ -521,7 +785,8 @@ public class LungsBubbleSpawner : MonoBehaviour
         RectTransform area
     )
     {
-        Rect rect = area.rect;
+        Rect rect =
+            area.rect;
 
         float x =
             Random.Range(
@@ -570,21 +835,44 @@ public class LungsBubbleSpawner : MonoBehaviour
         GameObject bubble
     )
     {
-        float min =
-            Mathf.Min(
-                currentSettings.bubbleLifetimeMin,
-                currentSettings.bubbleLifetimeMax
-            );
+        float min;
+        float max;
 
-        float max =
-            Mathf.Max(
-                currentSettings.bubbleLifetimeMin,
-                currentSettings.bubbleLifetimeMax
-            );
+        if (IsInFinalPhaseSection())
+        {
+            min =
+                Mathf.Min(
+                    currentSettings.finalBubbleLifetimeMin,
+                    currentSettings.finalBubbleLifetimeMax
+                );
+
+            max =
+                Mathf.Max(
+                    currentSettings.finalBubbleLifetimeMin,
+                    currentSettings.finalBubbleLifetimeMax
+                );
+        }
+        else
+        {
+            min =
+                Mathf.Min(
+                    currentSettings.bubbleLifetimeMin,
+                    currentSettings.bubbleLifetimeMax
+                );
+
+            max =
+                Mathf.Max(
+                    currentSettings.bubbleLifetimeMin,
+                    currentSettings.bubbleLifetimeMax
+                );
+        }
 
         Destroy(
             bubble,
-            Random.Range(min, max)
+            Random.Range(
+                min,
+                max
+            )
         );
     }
 
@@ -600,7 +888,8 @@ public class LungsBubbleSpawner : MonoBehaviour
         }
 
         for (
-            int i = bubblesContainer.childCount - 1;
+            int i =
+                bubblesContainer.childCount - 1;
             i >= 0;
             i--
         )

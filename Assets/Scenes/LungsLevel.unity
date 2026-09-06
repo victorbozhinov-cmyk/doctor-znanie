@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6670460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2279,10 +2279,13 @@ MonoBehaviour:
     minimumBubblesOnScreen: 7
     maximumBubblesOnScreen: 12
     spawnInterval: 0.9
-    correctBubbleChance: 0.65
+    inhaleCorrectBubbleChance: 0.7
+    exhaleCorrectBubbleChance: 0.7
+    ratioTolerance: 0.1
     finalPhaseThreshold: 0.8
-    finalPhaseSpawnIntervalMultiplier: 0.85
     finalPhaseCorrectChanceReduction: 0.05
+    finalBubbleLifetimeMin: 4
+    finalBubbleLifetimeMax: 6
     bubbleLifetimeMin: 5
     bubbleLifetimeMax: 7
     bubbleScaleMin: 0.95
@@ -2292,10 +2295,13 @@ MonoBehaviour:
     minimumBubblesOnScreen: 8
     maximumBubblesOnScreen: 14
     spawnInterval: 0.7
-    correctBubbleChance: 0.5
+    inhaleCorrectBubbleChance: 0.55
+    exhaleCorrectBubbleChance: 0.55
+    ratioTolerance: 0.1
     finalPhaseThreshold: 0.8
-    finalPhaseSpawnIntervalMultiplier: 0.75
     finalPhaseCorrectChanceReduction: 0.1
+    finalBubbleLifetimeMin: 3
+    finalBubbleLifetimeMax: 5
     bubbleLifetimeMin: 4
     bubbleLifetimeMax: 6
     bubbleScaleMin: 0.9
@@ -2305,10 +2311,13 @@ MonoBehaviour:
     minimumBubblesOnScreen: 10
     maximumBubblesOnScreen: 16
     spawnInterval: 0.55
-    correctBubbleChance: 0.38
+    inhaleCorrectBubbleChance: 0.4
+    exhaleCorrectBubbleChance: 0.4
+    ratioTolerance: 0.08
     finalPhaseThreshold: 0.8
-    finalPhaseSpawnIntervalMultiplier: 0.65
     finalPhaseCorrectChanceReduction: 0.08
+    finalBubbleLifetimeMin: 2
+    finalBubbleLifetimeMax: 4
     bubbleLifetimeMin: 3
     bubbleLifetimeMax: 5
     bubbleScaleMin: 0.85
@@ -15056,23 +15065,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LungsMinigameManager
   easySettings:
-    totalRounds: 3
+    totalRounds: 2
     phaseDuration: 25
     correctAmount: 10
     wrongPenalty: 10
     wrongClickLockDuration: 0.25
   mediumSettings:
-    totalRounds: 4
+    totalRounds: 3
     phaseDuration: 22
     correctAmount: 8
     wrongPenalty: 12
-    wrongClickLockDuration: 0.35
-  hardSettings:
-    totalRounds: 5
-    phaseDuration: 20
-    correctAmount: 5
-    wrongPenalty: 15
     wrongClickLockDuration: 0.5
+  hardSettings:
+    totalRounds: 4
+    phaseDuration: 20
+    correctAmount: 6
+    wrongPenalty: 14
+    wrongClickLockDuration: 0.6
   bubbleSpawner: {fileID: 1963496362}
   breathingAnimation: {fileID: 313262116}
   airEffect: {fileID: 1991020591}
@@ -17816,40 +17825,49 @@ MonoBehaviour:
     initialBubbleCount: 8
     minimumBubblesOnScreen: 7
     maximumBubblesOnScreen: 12
-    spawnInterval: 0.9
-    correctBubbleChance: 0.65
-    finalPhaseThreshold: 0.8
-    finalPhaseSpawnIntervalMultiplier: 0.85
-    finalPhaseCorrectChanceReduction: 0.05
+    spawnInterval: 0.3
+    inhaleCorrectBubbleChance: 0.5
+    exhaleCorrectBubbleChance: 0.5
+    ratioTolerance: 0.1
+    finalPhaseThreshold: 0.7
+    finalPhaseCorrectChanceReduction: 0.15
+    finalBubbleLifetimeMin: 3
+    finalBubbleLifetimeMax: 5
     bubbleLifetimeMin: 5
     bubbleLifetimeMax: 7
-    bubbleScaleMin: 0.95
-    bubbleScaleMax: 1.1
-  mediumSettings:
-    initialBubbleCount: 10
-    minimumBubblesOnScreen: 8
-    maximumBubblesOnScreen: 14
-    spawnInterval: 0.7
-    correctBubbleChance: 0.5
-    finalPhaseThreshold: 0.8
-    finalPhaseSpawnIntervalMultiplier: 0.75
-    finalPhaseCorrectChanceReduction: 0.1
-    bubbleLifetimeMin: 4
-    bubbleLifetimeMax: 6
     bubbleScaleMin: 0.9
     bubbleScaleMax: 1.1
-  hardSettings:
-    initialBubbleCount: 12
-    minimumBubblesOnScreen: 10
-    maximumBubblesOnScreen: 16
-    spawnInterval: 0.55
-    correctBubbleChance: 0.38
-    finalPhaseThreshold: 0.8
-    finalPhaseSpawnIntervalMultiplier: 0.65
-    finalPhaseCorrectChanceReduction: 0.08
-    bubbleLifetimeMin: 3
-    bubbleLifetimeMax: 5
+  mediumSettings:
+    initialBubbleCount: 8
+    minimumBubblesOnScreen: 8
+    maximumBubblesOnScreen: 14
+    spawnInterval: 0.2
+    inhaleCorrectBubbleChance: 0.35
+    exhaleCorrectBubbleChance: 0.35
+    ratioTolerance: 0.05
+    finalPhaseThreshold: 0.55
+    finalPhaseCorrectChanceReduction: 0.1
+    finalBubbleLifetimeMin: 2
+    finalBubbleLifetimeMax: 4
+    bubbleLifetimeMin: 4
+    bubbleLifetimeMax: 6
     bubbleScaleMin: 0.85
+    bubbleScaleMax: 1.1
+  hardSettings:
+    initialBubbleCount: 15
+    minimumBubblesOnScreen: 10
+    maximumBubblesOnScreen: 17
+    spawnInterval: 0.11
+    inhaleCorrectBubbleChance: 0.3
+    exhaleCorrectBubbleChance: 0.3
+    ratioTolerance: 0.05
+    finalPhaseThreshold: 0.5
+    finalPhaseCorrectChanceReduction: 0.05
+    finalBubbleLifetimeMin: 1
+    finalBubbleLifetimeMax: 3
+    bubbleLifetimeMin: 2
+    bubbleLifetimeMax: 4
+    bubbleScaleMin: 0.75
     bubbleScaleMax: 1.1
 --- !u!1 &1983796622
 GameObject:
