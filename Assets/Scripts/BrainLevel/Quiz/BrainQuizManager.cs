@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BrainQuizManager : MonoBehaviour
 {
@@ -143,6 +144,7 @@ public class BrainQuizManager : MonoBehaviour
 
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverOverlay;
+    [SerializeField] private GameObject gameOverPanel;
 
     [Header("Success")]
     [SerializeField] private GameObject quizSuccessOverlay;
@@ -1147,10 +1149,12 @@ public class BrainQuizManager : MonoBehaviour
             hintAlreadyUsed ||
             remainingHints > 0;
 
+        // При победа не изключваме бутона,
+        // ако все още има останали хинтове.
         bool buttonEnabled =
             canUseHint &&
             !isGameOver &&
-            !isQuizCompleted;
+            (!isQuizCompleted || remainingHints > 0);
 
         hintButton.interactable =
             buttonEnabled;
@@ -1334,9 +1338,7 @@ public class BrainQuizManager : MonoBehaviour
 
             if (difficultySelector != null)
             {
-                difficultySelector.SetLocked(
-                    true
-                );
+                difficultySelector.SetLocked(true);
             }
         }
     }
@@ -1368,9 +1370,7 @@ public class BrainQuizManager : MonoBehaviour
 
         if (exitConfirmationOverlay != null)
         {
-            exitConfirmationOverlay.SetActive(
-                true
-            );
+            exitConfirmationOverlay.SetActive(true);
         }
     }
 
@@ -1378,10 +1378,13 @@ public class BrainQuizManager : MonoBehaviour
     {
         if (exitConfirmationOverlay != null)
         {
-            exitConfirmationOverlay.SetActive(
-                false
-            );
+            exitConfirmationOverlay.SetActive(false);
         }
+    }
+
+    public void ExitToBodyMap()
+    {
+        SceneManager.LoadScene("BodyMap");
     }
 
     // =========================
@@ -1416,6 +1419,12 @@ public class BrainQuizManager : MonoBehaviour
         if (exitConfirmationOverlay != null)
             exitConfirmationOverlay.SetActive(false);
 
+        if (gameOverOverlay != null)
+            gameOverOverlay.SetActive(false);
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
+
         if (quizSuccessOverlay != null)
             quizSuccessOverlay.SetActive(true);
 
@@ -1446,8 +1455,20 @@ public class BrainQuizManager : MonoBehaviour
         if (hintOverlay != null)
             hintOverlay.SetActive(false);
 
+        if (infoOverlay != null)
+            infoOverlay.SetActive(false);
+
+        if (settingsOverlay != null)
+            settingsOverlay.SetActive(false);
+
+        if (exitConfirmationOverlay != null)
+            exitConfirmationOverlay.SetActive(false);
+
         if (gameOverOverlay != null)
             gameOverOverlay.SetActive(true);
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
     }
 
     // =========================
@@ -1535,6 +1556,9 @@ public class BrainQuizManager : MonoBehaviour
 
         if (gameOverOverlay != null)
             gameOverOverlay.SetActive(false);
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
 
         if (quizSuccessOverlay != null)
             quizSuccessOverlay.SetActive(false);

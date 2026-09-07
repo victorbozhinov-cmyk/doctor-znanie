@@ -10,6 +10,8 @@ public class BrainLevelNavigation : MonoBehaviour
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject puzzlePanel;
     [SerializeField] private GameObject minigamePanel;
+    [SerializeField] private GameObject quizPanel;
+    [SerializeField] private GameObject finishPanel;
 
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverOverlay;
@@ -21,8 +23,29 @@ public class BrainLevelNavigation : MonoBehaviour
     [Header("Scenes")]
     [SerializeField] private string bodyMapSceneName = "BodyMap";
 
+    private const string BrainRetryFromQuizKey =
+        "BrainRetryFromQuiz";
+
     private void Start()
     {
+        bool retryFromQuiz =
+            PlayerPrefs.GetInt(
+                BrainRetryFromQuizKey,
+                0
+            ) == 1;
+
+        if (retryFromQuiz)
+        {
+            PlayerPrefs.SetInt(
+                BrainRetryFromQuizKey,
+                0
+            );
+
+            PlayerPrefs.Save();
+
+            ShowStartPanelOnly();
+        }
+
         if (gameOverOverlay != null)
         {
             gameOverOverlay.SetActive(false);
@@ -36,11 +59,6 @@ public class BrainLevelNavigation : MonoBehaviour
         if (puzzleSuccessOverlay != null)
         {
             puzzleSuccessOverlay.SetActive(false);
-        }
-
-        if (minigamePanel != null)
-        {
-            minigamePanel.SetActive(false);
         }
     }
 
@@ -63,6 +81,16 @@ public class BrainLevelNavigation : MonoBehaviour
         if (minigamePanel != null)
         {
             minigamePanel.SetActive(false);
+        }
+
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(false);
+        }
+
+        if (finishPanel != null)
+        {
+            finishPanel.SetActive(false);
         }
 
         if (puzzleManager != null)
@@ -89,11 +117,9 @@ public class BrainLevelNavigation : MonoBehaviour
     }
 
     // -------------------------
-    // RETRY
+    // RETRY PUZZLE
     // -------------------------
 
-    // Не започва пъзела веднага.
-    // Връща играча на StartPanel.
     public void RetryPuzzle()
     {
         if (puzzleManager != null)
@@ -117,6 +143,16 @@ public class BrainLevelNavigation : MonoBehaviour
             puzzleSuccessOverlay.SetActive(false);
         }
 
+        if (finishPanel != null)
+        {
+            finishPanel.SetActive(false);
+        }
+
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(false);
+        }
+
         if (minigamePanel != null)
         {
             minigamePanel.SetActive(false);
@@ -130,6 +166,71 @@ public class BrainLevelNavigation : MonoBehaviour
         if (startPanel != null)
         {
             startPanel.SetActive(true);
+        }
+    }
+
+    // -------------------------
+    // RETRY FROM QUIZ
+    // -------------------------
+
+    public void RetryBrainLevel()
+    {
+        PlayerPrefs.SetInt(
+            BrainRetryFromQuizKey,
+            1
+        );
+
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
+    }
+
+    // -------------------------
+    // SHOW START PANEL
+    // -------------------------
+
+    private void ShowStartPanelOnly()
+    {
+        if (startPanel != null)
+        {
+            startPanel.SetActive(true);
+        }
+
+        if (puzzlePanel != null)
+        {
+            puzzlePanel.SetActive(false);
+        }
+
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(false);
+        }
+
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(false);
+        }
+
+        if (finishPanel != null)
+        {
+            finishPanel.SetActive(false);
+        }
+
+        if (gameOverOverlay != null)
+        {
+            gameOverOverlay.SetActive(false);
+        }
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
+
+        if (puzzleSuccessOverlay != null)
+        {
+            puzzleSuccessOverlay.SetActive(false);
         }
     }
 
@@ -161,9 +262,66 @@ public class BrainLevelNavigation : MonoBehaviour
             puzzlePanel.SetActive(false);
         }
 
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(false);
+        }
+
+        if (finishPanel != null)
+        {
+            finishPanel.SetActive(false);
+        }
+
         if (minigamePanel != null)
         {
             minigamePanel.SetActive(true);
+        }
+    }
+
+    // -------------------------
+    // QUIZ -> FINISH PANEL
+    // -------------------------
+
+    public void OpenFinishPanel()
+    {
+        if (startPanel != null)
+        {
+            startPanel.SetActive(false);
+        }
+
+        if (puzzlePanel != null)
+        {
+            puzzlePanel.SetActive(false);
+        }
+
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(false);
+        }
+
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(false);
+        }
+
+        if (gameOverOverlay != null)
+        {
+            gameOverOverlay.SetActive(false);
+        }
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
+
+        if (puzzleSuccessOverlay != null)
+        {
+            puzzleSuccessOverlay.SetActive(false);
+        }
+
+        if (finishPanel != null)
+        {
+            finishPanel.SetActive(true);
         }
     }
 
@@ -173,6 +331,8 @@ public class BrainLevelNavigation : MonoBehaviour
 
     public void ExitToBodyMap()
     {
-        SceneManager.LoadScene(bodyMapSceneName);
+        SceneManager.LoadScene(
+            bodyMapSceneName
+        );
     }
 }
