@@ -184,7 +184,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0436\u0434\u0430 \u043A\u0440\u044A\u0432"
+  m_text: "\u0413\u043B\u0430\u0432\u0435\u043D \u043C\u043E\u0437\u044A\u043A, \u0431\u0435\u043B\u0438
+    \u0434\u0440\u043E\u0431\u043E\u0432\u0435 \u0438 \u043D\u0435\u0440\u0432\u0438"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
   m_sharedMaterial: {fileID: 8267595522679244694, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
@@ -211,7 +212,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
+  m_fontSize: 40.55
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -383,7 +384,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0432\u0435\u043D\u0430"
+  m_text: "\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0436\u0434\u0430 \u043A\u0440\u044A\u0432"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
   m_sharedMaterial: {fileID: 8267595522679244694, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
@@ -3960,6 +3961,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1589381475}
   - {fileID: 619725939}
   - {fileID: 1073963916}
   - {fileID: 2096805185}
@@ -6678,7 +6680,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u043F\u0440\u0435\u0447\u0438\u0441\u0442\u0432\u0430 \u0432\u044A\u0437\u0434\u0443\u0445\u0430"
+  m_text: "\u0413\u043B\u0430\u0432\u0435\u043D \u043C\u043E\u0437\u044A\u043A, \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u0435\u043D
+    \u043C\u043E\u0437\u044A\u043A \u0438 \u043D\u0435\u0440\u0432\u0438"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
   m_sharedMaterial: {fileID: 8267595522679244694, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
@@ -6705,7 +6708,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
+  m_fontSize: 41.95
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6766,7 +6769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &409878487
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7885,7 +7888,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u043F\u0440\u0435\u0447\u0438\u0441\u0442\u0432\u0430 \u043A\u0440\u044A\u0432\u0442\u0430"
+  m_text: "\u0413\u0440\u044A\u0431\u043D\u0430\u0447\u0435\u043D \u043C\u043E\u0437\u044A\u043A,
+    \u043C\u0443\u0441\u043A\u0443\u043B\u0438 \u0438 \u043A\u0440\u044A\u0432\u043E\u043D\u043E\u0441\u043D\u0438
+    \u0441\u044A\u0434\u043E\u0432\u0435"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
   m_sharedMaterial: {fileID: 8267595522679244694, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
@@ -7912,7 +7917,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
+  m_fontSize: 36.7
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9488,8 +9493,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041A\u0430\u043A\u0432\u0430 \u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u0442\u0430
-    \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E?"
+  m_text: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0442\u0430,
+    \u043A\u043E\u044F\u0442\u043E \u0432\u043A\u043B\u044E\u0447\u0432\u0430 \u0433\u043B\u0430\u0432\u043D\u0438\u044F
+    \u043C\u043E\u0437\u044A\u043A, \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F
+    \u043C\u043E\u0437\u044A\u043A \u0438 \u043D\u0435\u0440\u0432\u0438\u0442\u0435?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1876689b143ec3346b69146719e595e1, type: 2}
   m_sharedMaterial: {fileID: 9052717171860025988, guid: 1876689b143ec3346b69146719e595e1, type: 2}
@@ -9516,7 +9523,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 54.75
   m_fontSizeBase: 78
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9776,7 +9783,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0438\u0437\u043F\u043E\u043C\u043F\u0432\u0430 \u043A\u0440\u044A\u0432"
+  m_text: "\u0413\u043B\u0430\u0432\u0435\u043D \u043C\u043E\u0437\u044A\u043A, \u0441\u044A\u0440\u0446\u0435
+    \u0438 \u043D\u0435\u0440\u0432\u0438"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
   m_sharedMaterial: {fileID: 8267595522679244694, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
@@ -9803,7 +9811,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
+  m_fontSize: 45.2
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13134,6 +13142,110 @@ MonoBehaviour:
     hint: "\u0413\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A
       \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0438\u0440\u0430 \u0440\u0435\u0444\u043B\u0435\u043A\u0441\u0438\u0442\u0435
       \u043D\u0438"
+  - questionType: 3
+    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430
+      \u0441\u0438\u0441\u0442\u0435\u043C\u0430\u0442\u0430, \u043A\u043E\u044F\u0442\u043E
+      \u0432\u043A\u043B\u044E\u0447\u0432\u0430 \u0433\u043B\u0430\u0432\u043D\u0438\u044F
+      \u043C\u043E\u0437\u044A\u043A, \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F
+      \u043C\u043E\u0437\u044A\u043A \u0438 \u043D\u0435\u0440\u0432\u0438\u0442\u0435?"
+    answerA: 
+    answerB: 
+    answerV: 
+    answerG: 
+    correctAnswerIndex: 3
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: "\u043D\u0435\u0440\u0432\u043D\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430"
+    hint: "\u0422\u044F \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0432\u0430, \u043A\u043E\u043E\u0440\u0434\u0438\u043D\u0438\u0440\u0430
+      \u0438 \u0441\u0432\u044A\u0440\u0437\u0432\u0430 \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438\u0442\u0435
+      \u0447\u0430\u0441\u0442\u0438 \u043D\u0430 \u0442\u044F\u043B\u043E\u0442\u043E
+      \u0447\u0440\u0435\u0437 \u0441\u0438\u0433\u043D\u0430\u043B\u0438"
+  - questionType: 3
+    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430\u0442
+      \u0431\u044A\u0440\u0437\u0438\u0442\u0435 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u043D\u0438
+      \u0440\u0435\u0430\u043A\u0446\u0438\u0438 \u043D\u0430 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u0430?"
+    answerA: 
+    answerB: 
+    answerV: 
+    answerG: 
+    correctAnswerIndex: 3
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: "\u0440\u0435\u0444\u043B\u0435\u043A\u0441\u0438"
+    hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u043A\u0430\u043A \u0441\u0435
+      \u043D\u0430\u0440\u0438\u0447\u0430 \u0440\u0435\u0430\u043A\u0446\u0438\u044F\u0442\u0430,
+      \u043F\u0440\u0438 \u043A\u043E\u044F\u0442\u043E \u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440
+      \u0432\u0435\u0434\u043D\u0430\u0433\u0430 \u043E\u0442\u0434\u0440\u044A\u043F\u0432\u0430\u0448
+      \u0440\u044A\u043A\u0430\u0442\u0430 \u0441\u0438 \u043E\u0442 \u043D\u0435\u0449\u043E
+      \u0433\u043E\u0440\u0435\u0449\u043E"
+  - questionType: 3
+    question: "\u041A\u043E\u043B\u043A\u043E \u043F\u043E\u043B\u0443\u043A\u044A\u043B\u0431\u0430
+      \u0438\u043C\u0430 \u043A\u0440\u0430\u0439\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A?"
+    answerA: 
+    answerB: 
+    answerV: 
+    answerG: 
+    correctAnswerIndex: 3
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: "\u0434\u0432\u0435"
+    hint: "\u0422\u043E\u0439 \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0432 \u043C\u0438\u0441\u043B\u0435\u043D\u0435\u0442\u043E,
+      \u043F\u0430\u043C\u0435\u0442\u0442\u0430, \u0440\u0435\u0447\u0442\u0430
+      \u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0432\u0430\u043D\u0435\u0442\u043E
+      \u043D\u0430 \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F \u043E\u0442
+      \u043E\u0447\u0438\u0442\u0435 \u0438 \u0443\u0448\u0438\u0442\u0435"
+  - questionType: 3
+    question: "\u041A\u043E\u044F \u0447\u0430\u0441\u0442 \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430
+      \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0432 \u0440\u0435\u0433\u0443\u043B\u0438\u0440\u0430\u043D\u0435\u0442\u043E
+      \u043D\u0430 \u0434\u0438\u0448\u0430\u043D\u0435\u0442\u043E \u0438 \u0432
+      \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F\u0442\u0430 \u043F\u0440\u0438
+      \u0434\u044A\u0432\u0447\u0435\u043D\u0435?"
+    answerA: 
+    answerB: 
+    answerV: 
+    answerG: 
+    correctAnswerIndex: 3
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: "\u043C\u043E\u0441\u0442"
+    hint: "\u0422\u0430\u0437\u0438 \u0447\u0430\u0441\u0442 \u0443\u0447\u0430\u0441\u0442\u0432\u0430
+      \u0438 \u0432 \u0441\u0432\u044A\u0440\u0437\u0432\u0430\u043D\u0435\u0442\u043E
+      \u043D\u0430 \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438 \u043E\u0431\u043B\u0430\u0441\u0442\u0438
+      \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430"
+  - questionType: 3
+    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430
+      \u0441\u0438\u043B\u043D\u043E \u043D\u0430\u0433\u044A\u043D\u0430\u0442\u0438\u044F\u0442
+      \u0432\u044A\u043D\u0448\u0435\u043D \u0441\u043B\u043E\u0439 \u043D\u0430
+      \u043A\u0440\u0430\u0439\u043D\u0438\u044F \u043C\u043E\u0437\u044A\u043A?"
+    answerA: 
+    answerB: 
+    answerV: 
+    answerG: 
+    correctAnswerIndex: 3
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: "\u043A\u043E\u0440\u0430"
+    hint: "\u0422\u043E\u0432\u0430 \u0435 \u0432\u044A\u043D\u0448\u043D\u0430\u0442\u0430
+      \u043D\u0430\u0433\u044A\u043D\u0430\u0442\u0430 \u0447\u0430\u0441\u0442 \u043D\u0430
+      \u043A\u0440\u0430\u0439\u043D\u0438\u044F \u043C\u043E\u0437\u044A\u043A,
+      \u043A\u044A\u0434\u0435\u0442\u043E \u0441\u0435 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0432\u0430
+      \u0433\u043E\u043B\u044F\u043C\u0430 \u0447\u0430\u0441\u0442 \u043E\u0442
+      \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F\u0442\u0430"
   multipleQuestionUI: {fileID: 1340015962}
   questionImageUI: {fileID: 245511814}
   imageAnswerUI: {fileID: 409878486}
@@ -13953,8 +14065,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041A\u0430\u043A\u0432\u0430 \u0435 \u0444\u0443\u043D\u043A\u0446\u0438\u044F\u0442\u0430
-    \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E?"
+  m_text: "\u041A\u043E\u0438 \u0447\u0430\u0441\u0442\u0438 \u0438\u0437\u0433\u0440\u0430\u0436\u0434\u0430\u0442
+    \u043D\u0435\u0440\u0432\u043D\u0430\u0442\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1876689b143ec3346b69146719e595e1, type: 2}
   m_sharedMaterial: {fileID: 9052717171860025988, guid: 1876689b143ec3346b69146719e595e1, type: 2}
@@ -23687,7 +23799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1340015963
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27468,6 +27580,81 @@ MonoBehaviour:
     infoPanelRoot: {fileID: 436483110}
     infoTimeText: {fileID: 873422575}
   screenFlash: {fileID: 2107514473}
+--- !u!1 &1589381474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1589381475}
+  - component: {fileID: 1589381477}
+  - component: {fileID: 1589381476}
+  m_Layer: 5
+  m_Name: QuestionPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1589381475
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589381474}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 282991799}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.9375, y: 163.08533}
+  m_SizeDelta: {x: 1184, y: 481.2701}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1589381476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589381474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5bae1c8433296054c8b35cb39c59924a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1589381477
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589381474}
+  m_CullTransparentMesh: 1
 --- !u!1 &1591596712
 GameObject:
   m_ObjectHideFlags: 0
@@ -28084,7 +28271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u043A\u0430\u043C\u0435\u0440\u0430\n"
+  m_text: "\u0440\u0430\u0437\u0433\u0440\u0430\u0436\u0434\u0430 \u0445\u0440\u0430\u043D\u0430\u0442\u0430"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
   m_sharedMaterial: {fileID: 8267595522679244694, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
@@ -29122,7 +29309,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u043F\u0440\u0435\u0434\u0441\u044A\u0440\u0434\u0438\u0435\n"
+  m_text: "\u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0432\u0430 \u0438 \u043A\u043E\u043E\u0440\u0434\u0438\u043D\u0438\u0440\u0430
+    \u0440\u0430\u0431\u043E\u0442\u0430\u0442\u0430 \u043D\u0430 \u0442\u044F\u043B\u043E\u0442\u043E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
   m_sharedMaterial: {fileID: 8267595522679244694, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
@@ -29149,7 +29337,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
+  m_fontSize: 34.45
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -30303,8 +30491,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
+      - m_Target: {fileID: 797219774}
+        m_TargetAssemblyTypeName: BrainQuizManager, Assembly-CSharp
         m_MethodName: CheckWrittenAnswer
         m_Mode: 1
         m_Arguments:
@@ -34828,8 +35016,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041A\u043E\u0435 \u043E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u0435
-    \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E \u043B\u0438\u043F\u0441\u0432\u0430?"
+  m_text: "\u041A\u0430\u043A\u0432\u0430 \u0435 \u043E\u0441\u043D\u043E\u0432\u043D\u0430\u0442\u0430
+    \u0440\u043E\u043B\u044F \u043D\u0430 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u0430\u0442\u0430
+    \u0441\u0438\u0441\u0442\u0435\u043C\u0430?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1876689b143ec3346b69146719e595e1, type: 2}
   m_sharedMaterial: {fileID: 9052717171860025988, guid: 1876689b143ec3346b69146719e595e1, type: 2}
@@ -34856,7 +35045,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 63
   m_fontSizeBase: 78
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -35651,7 +35840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0430\u0440\u0442\u0435\u0440\u0438\u044F\n"
+  m_text: "\u043F\u0440\u0435\u043D\u0430\u0441\u044F \u043A\u0438\u0441\u043B\u043E\u0440\u043E\u0434"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
   m_sharedMaterial: {fileID: 8267595522679244694, guid: 9e2807e6e418f184cbeb582eb911b346, type: 2}
@@ -37578,7 +37767,7 @@ GameObject:
   - component: {fileID: 2096805187}
   - component: {fileID: 2096805186}
   m_Layer: 5
-  m_Name: HeartAcessory
+  m_Name: BrainAcessory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37600,8 +37789,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 421, y: 170.18005}
-  m_SizeDelta: {x: 285.9083, y: 301.23}
+  m_AnchoredPosition: {x: 404.375, y: 168.27667}
+  m_SizeDelta: {x: 248.1583, y: 296.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2096805186
 MonoBehaviour:
@@ -37623,7 +37812,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a8620de3e569204469ff27b190f058f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15dda09e57765e84d9e77774c56ead13, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
