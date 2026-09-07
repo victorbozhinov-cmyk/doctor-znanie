@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -175,12 +176,22 @@ public class HeartQuizManager : MonoBehaviour
     private bool isHintOpen = false;
     private bool isInfoOpen = false;
     private bool isSettingsOpen = false;
+    private bool isExitOpen = false;
+
+    // Ако Info е отворено от Welcome,
+    // тук пазим какво трябва да стане
+    // след неговото затваряне.
+    private Action infoClosedCallback;
 
     private Vector3 originalHintButtonScale;
 
     private Vector2 originalHintImageSize;
     private Vector2 originalHintImagePosition;
     private Vector3 originalHintImageScale;
+
+    // =========================
+    // UNITY
+    // =========================
 
     private void Start()
     {
@@ -235,7 +246,8 @@ public class HeartQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen)
         {
             return;
         }
@@ -248,9 +260,7 @@ public class HeartQuizManager : MonoBehaviour
         }
 
         HeartQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         if (currentQuestion.questionType !=
             HeartQuizQuestionType.Written)
@@ -385,7 +395,7 @@ public class HeartQuizManager : MonoBehaviour
              i--)
         {
             int randomIndex =
-                Random.Range(
+                UnityEngine.Random.Range(
                     0,
                     i + 1
                 );
@@ -423,36 +433,42 @@ public class HeartQuizManager : MonoBehaviour
         }
 
         HeartQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         HideAllQuestionPanels();
 
         switch (currentQuestion.questionType)
         {
             case HeartQuizQuestionType.MultipleChoice:
+
                 ShowMultipleChoiceQuestion(
                     currentQuestion
                 );
+
                 break;
 
             case HeartQuizQuestionType.QuestionImage:
+
                 ShowQuestionImageQuestion(
                     currentQuestion
                 );
+
                 break;
 
             case HeartQuizQuestionType.ImageAnswers:
+
                 ShowImageAnswersQuestion(
                     currentQuestion
                 );
+
                 break;
 
             case HeartQuizQuestionType.Written:
+
                 ShowWrittenQuestion(
                     currentQuestion
                 );
+
                 break;
         }
 
@@ -585,8 +601,7 @@ public class HeartQuizManager : MonoBehaviour
         if (targetImage == null)
             return;
 
-        targetImage.sprite =
-            sprite;
+        targetImage.sprite = sprite;
 
         targetImage.enabled =
             sprite != null;
@@ -637,7 +652,8 @@ public class HeartQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen)
         {
             return;
         }
@@ -659,9 +675,7 @@ public class HeartQuizManager : MonoBehaviour
         }
 
         HeartQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         if (currentQuestion.questionType !=
             HeartQuizQuestionType.Written)
@@ -794,7 +808,8 @@ public class HeartQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen)
         {
             return;
         }
@@ -807,9 +822,7 @@ public class HeartQuizManager : MonoBehaviour
         }
 
         HeartQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         if (selectedIndex ==
             currentQuestion.correctAnswerIndex)
@@ -885,13 +898,6 @@ public class HeartQuizManager : MonoBehaviour
 
     private void PlayWrongSoundIfNotGameOver()
     {
-        // Ако това е последният живот,
-        // директно след грешката ще се появи
-        // Game Over панелът.
-        //
-        // Затова не пускаме Wrong звук,
-        // който веднага би бил прекъснат
-        // от Game Over звука.
         if (currentLives <= 1)
         {
             return;
@@ -1007,9 +1013,7 @@ public class HeartQuizManager : MonoBehaviour
         if (!isGameOver &&
             !isQuizCompleted)
         {
-            SetAnswerButtonsInteractable(
-                true
-            );
+            SetAnswerButtonsInteractable(true);
 
             if (writtenInputField != null)
             {
@@ -1023,8 +1027,7 @@ public class HeartQuizManager : MonoBehaviour
                     true;
             }
 
-            isProcessingWrongAnswer =
-                false;
+            isProcessingWrongAnswer = false;
         }
     }
 
@@ -1069,7 +1072,8 @@ public class HeartQuizManager : MonoBehaviour
             isProcessingWrongAnswer ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen)
         {
             return;
         }
@@ -1097,9 +1101,7 @@ public class HeartQuizManager : MonoBehaviour
         }
 
         HeartQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         if (hintText != null)
         {
@@ -1294,9 +1296,9 @@ public class HeartQuizManager : MonoBehaviour
             remainingHints;
     }
 
-    // =========================
+    // =========================================================
     // INFO
-    // =========================
+    // =========================================================
 
     public void OpenInfoPanel()
     {
@@ -1304,31 +1306,78 @@ public class HeartQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen)
         {
             return;
         }
 
-        if (infoOverlay != null)
+        // Нормално отваряне по време на игра.
+        infoClosedCallback = null;
+
+        OpenInfoOverlay();
+    }
+
+    // Използва се само от Welcome Controller-а.
+    public void OpenInfoPanelFromWelcome(
+        Action onInfoClosed)
+    {
+        if (isInfoOpen)
         {
-            isInfoOpen = true;
-            infoOverlay.SetActive(true);
+            return;
         }
+
+        infoClosedCallback = onInfoClosed;
+
+        OpenInfoOverlay();
+    }
+
+    private void OpenInfoOverlay()
+    {
+        if (infoOverlay == null)
+        {
+            Debug.LogWarning(
+                "InfoOverlay не е зададен " +
+                "в HeartQuizManager!"
+            );
+
+            return;
+        }
+
+        isInfoOpen = true;
+
+        infoOverlay.SetActive(true);
+        infoOverlay.transform.SetAsLastSibling();
     }
 
     public void CloseInfoPanel()
     {
-        if (infoOverlay != null)
+        if (!isInfoOpen)
         {
-            infoOverlay.SetActive(false);
+            return;
         }
 
-        isInfoOpen = false;
+        CloseAnimatedOverlay(
+            infoOverlay,
+            FinishClosingInfoPanel
+        );
     }
 
-    // =========================
+    private void FinishClosingInfoPanel()
+    {
+        isInfoOpen = false;
+
+        Action callback =
+            infoClosedCallback;
+
+        infoClosedCallback = null;
+
+        callback?.Invoke();
+    }
+
+    // =========================================================
     // SETTINGS
-    // =========================
+    // =========================================================
 
     public void OpenSettingsPanel()
     {
@@ -1336,39 +1385,52 @@ public class HeartQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen)
         {
             return;
         }
 
-        if (settingsOverlay != null)
+        if (settingsOverlay == null)
         {
-            isSettingsOpen = true;
+            Debug.LogWarning(
+                "SettingsOverlay не е зададен " +
+                "в HeartQuizManager!"
+            );
 
-            settingsOverlay.SetActive(true);
+            return;
+        }
 
-            if (difficultySelector != null)
-            {
-                difficultySelector.SetLocked(
-                    true
-                );
-            }
+        isSettingsOpen = true;
+
+        settingsOverlay.SetActive(true);
+        settingsOverlay.transform.SetAsLastSibling();
+
+        if (difficultySelector != null)
+        {
+            difficultySelector.SetLocked(true);
         }
     }
 
     public void CloseSettingsPanel()
     {
-        if (settingsOverlay != null)
+        if (!isSettingsOpen)
         {
-            settingsOverlay.SetActive(false);
+            return;
         }
 
-        isSettingsOpen = false;
+        CloseAnimatedOverlay(
+            settingsOverlay,
+            () =>
+            {
+                isSettingsOpen = false;
+            }
+        );
     }
 
-    // =========================
+    // =========================================================
     // EXIT
-    // =========================
+    // =========================================================
 
     public void OpenExitConfirmation()
     {
@@ -1376,27 +1438,83 @@ public class HeartQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen)
         {
             return;
         }
 
-        if (exitConfirmationOverlay != null)
+        if (exitConfirmationOverlay == null)
         {
-            exitConfirmationOverlay.SetActive(
-                true
+            Debug.LogWarning(
+                "ExitConfirmationOverlay не е зададен " +
+                "в HeartQuizManager!"
             );
+
+            return;
         }
+
+        isExitOpen = true;
+
+        exitConfirmationOverlay.SetActive(true);
+        exitConfirmationOverlay.transform.SetAsLastSibling();
     }
 
     public void CloseExitConfirmation()
     {
-        if (exitConfirmationOverlay != null)
+        if (!isExitOpen)
         {
-            exitConfirmationOverlay.SetActive(
-                false
-            );
+            return;
         }
+
+        CloseAnimatedOverlay(
+            exitConfirmationOverlay,
+            () =>
+            {
+                isExitOpen = false;
+            }
+        );
+    }
+
+    // =========================================================
+    // POPUP CLOSE ANIMATION
+    // =========================================================
+
+    private void CloseAnimatedOverlay(
+        GameObject overlay,
+        Action onClosed)
+    {
+        if (overlay == null)
+        {
+            onClosed?.Invoke();
+            return;
+        }
+
+        UIPopupAnimation animation =
+            overlay.GetComponentInChildren
+                <UIPopupAnimation>(true);
+
+        if (animation == null ||
+            !animation.isActiveAndEnabled)
+        {
+            overlay.SetActive(false);
+
+            onClosed?.Invoke();
+
+            return;
+        }
+
+        animation.PlayClose(
+            () =>
+            {
+                if (overlay != null)
+                {
+                    overlay.SetActive(false);
+                }
+
+                onClosed?.Invoke();
+            }
+        );
     }
 
     // =========================
@@ -1411,6 +1529,12 @@ public class HeartQuizManager : MonoBehaviour
 
         isQuizCompleted = true;
         isChangingQuestion = false;
+
+        isInfoOpen = false;
+        isSettingsOpen = false;
+        isExitOpen = false;
+
+        infoClosedCallback = null;
 
         SetAnswerButtonsInteractable(false);
 
@@ -1447,6 +1571,12 @@ public class HeartQuizManager : MonoBehaviour
         isGameOver = true;
         isProcessingWrongAnswer = false;
 
+        isInfoOpen = false;
+        isSettingsOpen = false;
+        isExitOpen = false;
+
+        infoClosedCallback = null;
+
         SetAnswerButtonsInteractable(false);
 
         if (writtenInputField != null)
@@ -1460,6 +1590,15 @@ public class HeartQuizManager : MonoBehaviour
 
         if (hintOverlay != null)
             hintOverlay.SetActive(false);
+
+        if (infoOverlay != null)
+            infoOverlay.SetActive(false);
+
+        if (settingsOverlay != null)
+            settingsOverlay.SetActive(false);
+
+        if (exitConfirmationOverlay != null)
+            exitConfirmationOverlay.SetActive(false);
 
         if (gameOverOverlay != null)
             gameOverOverlay.SetActive(true);
@@ -1539,6 +1678,12 @@ public class HeartQuizManager : MonoBehaviour
 
     private void HideOverlays()
     {
+        isInfoOpen = false;
+        isSettingsOpen = false;
+        isExitOpen = false;
+
+        infoClosedCallback = null;
+
         if (infoOverlay != null)
             infoOverlay.SetActive(false);
 

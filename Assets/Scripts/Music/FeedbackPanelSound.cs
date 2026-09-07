@@ -5,7 +5,8 @@ public class FeedbackPanelSound : MonoBehaviour
     public enum FeedbackType
     {
         Success,
-        GameOver
+        GameOver,
+        Victory
     }
 
     [Header("Feedback Type")]
@@ -14,36 +15,11 @@ public class FeedbackPanelSound : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayFeedback();
+        PlayFeedbackSound();
     }
 
-    private void PlayFeedback()
+    private void PlayFeedbackSound()
     {
-        // =============================================
-        // BACKGROUND MUSIC
-        // =============================================
-
-        // Всеки Success / Game Over панел
-        // преминава към Lobby / Main Menu музиката.
-        //
-        // След това Feedback SFX автоматично
-        // ще я duck-не за продължителността си.
-        if (MusicManager.Instance != null)
-        {
-            MusicManager.Instance.PlayLobbyMusic();
-        }
-        else
-        {
-            Debug.LogWarning(
-                "MusicManager не е намерен. " +
-                "Стартирай играта през Bootstrap."
-            );
-        }
-
-        // =============================================
-        // FEEDBACK SOUND
-        // =============================================
-
         if (GameFeedbackSoundManager.Instance == null)
         {
             Debug.LogWarning(
@@ -69,6 +45,14 @@ public class FeedbackPanelSound : MonoBehaviour
                 GameFeedbackSoundManager
                     .Instance
                     .PlayGameOver();
+
+                break;
+
+            case FeedbackType.Victory:
+
+                GameFeedbackSoundManager
+                    .Instance
+                    .PlayVictory();
 
                 break;
         }

@@ -533,12 +533,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameFeedbackSoundManager
   successClip: {fileID: 8300000, guid: 62af21364fc551542acda5d9df7f985c, type: 3}
   gameOverClip: {fileID: 8300000, guid: 521646043c00c514fa6667606841d8f1, type: 3}
+  victoryClip: {fileID: 8300000, guid: 08ad1473fe921414287332ffe736f136, type: 3}
   correctClip: {fileID: 8300000, guid: 81a074dc6018aeb4a8a4687bf9d28036, type: 3}
   wrongClip: {fileID: 8300000, guid: 75b6fce5b696dbf4d921f5a9524c4ab8, type: 3}
   successVolume: 0.8
   gameOverVolume: 0.8
+  victoryVolume: 0.8
   correctVolume: 0.75
   wrongVolume: 0.75
+  successCrossfadeDuration: 1.25
+  gameOverCrossfadeDuration: 1.25
+  victoryCrossfadeDuration: 1.25
 --- !u!82 &878951528
 AudioSource:
   m_ObjectHideFlags: 0
