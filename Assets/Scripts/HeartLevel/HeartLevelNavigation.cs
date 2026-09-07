@@ -3,6 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class HeartLevelNavigation : MonoBehaviour
 {
+    private enum InfoReturnTarget
+    {
+        Gameplay,
+        PuzzleWelcome
+    }
+
     [Header("Exit Confirmation")]
     [SerializeField] private GameObject exitConfirmationOverlay;
     [SerializeField] private UIPopupAnimation exitConfirmationAnimation;
@@ -11,27 +17,33 @@ public class HeartLevelNavigation : MonoBehaviour
     [SerializeField] private GameObject infoOverlay;
     [SerializeField] private UIPopupAnimation infoPanelAnimation;
 
-    // =========================
-    // Body Map
-    // =========================
+    [Header("Puzzle Welcome")]
+    [SerializeField] private PuzzleWelcomeController puzzleWelcomeController;
+
+    private InfoReturnTarget infoReturnTarget =
+        InfoReturnTarget.Gameplay;
+
+    // =========================================================
+    // BODY MAP
+    // =========================================================
 
     public void BackToBodyMap()
     {
         SceneManager.LoadScene("BodyMap");
     }
 
-    // =========================
-    // Settings
-    // =========================
+    // =========================================================
+    // SETTINGS
+    // =========================================================
 
     public void OpenSettings()
     {
         SettingsNavigation.OpenSettings();
     }
 
-    // =========================
-    // Exit Panel
-    // =========================
+    // =========================================================
+    // EXIT PANEL
+    // =========================================================
 
     public void OpenExitConfirmation()
     {
@@ -72,11 +84,47 @@ public class HeartLevelNavigation : MonoBehaviour
         SceneManager.LoadScene("BodyMap");
     }
 
-    // =========================
-    // Info Panel
-    // =========================
+    // =========================================================
+    // NORMAL INFO
+    // =========================================================
 
     public void OpenInfoPanel()
+    {
+        infoReturnTarget =
+            InfoReturnTarget.Gameplay;
+
+        ShowInfoPanel();
+    }
+
+    // =========================================================
+    // INFO FROM PUZZLE WELCOME
+    // =========================================================
+
+    public void OpenInfoFromPuzzleWelcome()
+    {
+        if (puzzleWelcomeController == null)
+        {
+            Debug.LogError(
+                "PuzzleWelcomeController не е свързан " +
+                "в HeartLevelNavigation."
+            );
+
+            return;
+        }
+
+        infoReturnTarget =
+            InfoReturnTarget.PuzzleWelcome;
+
+        puzzleWelcomeController.HideWelcomeForInfo(
+            ShowInfoPanel
+        );
+    }
+
+    // =========================================================
+    // SHOW INFO
+    // =========================================================
+
+    private void ShowInfoPanel()
     {
         if (infoOverlay == null)
         {
@@ -88,7 +136,17 @@ public class HeartLevelNavigation : MonoBehaviour
         }
 
         infoOverlay.SetActive(true);
+        infoOverlay.transform.SetAsLastSibling();
+
+        if (infoPanelAnimation != null)
+        {
+            infoPanelAnimation.PlayOpen();
+        }
     }
+
+    // =========================================================
+    // CLOSE INFO
+    // =========================================================
 
     public void CloseInfoPanel()
     {
@@ -100,12 +158,33 @@ public class HeartLevelNavigation : MonoBehaviour
         if (infoPanelAnimation != null)
         {
             infoPanelAnimation.PlayClose(
-                () => infoOverlay.SetActive(false)
+                FinishClosingInfoPanel
             );
         }
         else
         {
+            FinishClosingInfoPanel();
+        }
+    }
+
+    private void FinishClosingInfoPanel()
+    {
+        if (infoOverlay != null)
+        {
             infoOverlay.SetActive(false);
         }
+
+        if (infoReturnTarget ==
+            InfoReturnTarget.PuzzleWelcome)
+        {
+            if (puzzleWelcomeController != null)
+            {
+                puzzleWelcomeController
+                    .ShowWelcomeAfterInfo();
+            }
+        }
+
+        infoReturnTarget =
+            InfoReturnTarget.Gameplay;
     }
 }

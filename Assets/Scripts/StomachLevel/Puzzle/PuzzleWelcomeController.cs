@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PuzzleWelcomeController : MonoBehaviour
 {
@@ -6,13 +8,17 @@ public class PuzzleWelcomeController : MonoBehaviour
     [SerializeField] private GameObject puzzleWelcomeOverlay;
     [SerializeField] private UIPopupAnimation welcomePanelAnimation;
 
+    [Header("Welcome Start")]
+    [SerializeField] private bool showWelcomeOnAwake = true;
+
     [Header("Info Button")]
     [SerializeField] private UIButtonIdlePulse infoButtonPulse;
 
-    [Header("How To Play Panel")]
-    [SerializeField] private GameObject infoPanel;
+    [Header("Puzzle Start Event")]
+    [SerializeField] private UnityEvent onPuzzleStarted;
 
     private bool puzzleStarted;
+    private bool switchingPanels;
 
     // =========================================================
     // UNITY
@@ -21,75 +27,130 @@ public class PuzzleWelcomeController : MonoBehaviour
     private void Awake()
     {
         puzzleStarted = false;
+        switchingPanels = false;
 
-        if (puzzleWelcomeOverlay != null)
+        if (showWelcomeOnAwake)
         {
-            puzzleWelcomeOverlay.SetActive(true);
+            ShowWelcome();
         }
-
-        if (infoPanel != null)
+        else if (puzzleWelcomeOverlay != null)
         {
-            infoPanel.SetActive(false);
+            puzzleWelcomeOverlay.SetActive(false);
         }
     }
 
     // =========================================================
-    // HOW TO PLAY
+    // SHOW WELCOME
     // =========================================================
 
-    public void OpenHowToPlay()
+    public void ShowWelcome()
     {
-        if (puzzleStarted)
+        puzzleStarted = false;
+        switchingPanels = false;
+
+        if (puzzleWelcomeOverlay == null)
+        {
+            Debug.LogWarning(
+                "Puzzle Welcome Overlay не е зададен!"
+            );
+
             return;
+        }
+
+        puzzleWelcomeOverlay.SetActive(true);
+        puzzleWelcomeOverlay.transform.SetAsLastSibling();
+
+        if (welcomePanelAnimation != null)
+        {
+            welcomePanelAnimation.PlayOpen();
+        }
+
+        if (infoButtonPulse != null)
+        {
+            infoButtonPulse.SetPulseEnabled(true);
+        }
+    }
+
+    // =========================================================
+    // HIDE FOR INFO
+    // =========================================================
+
+    public void HideWelcomeForInfo(
+        Action onWelcomeHidden)
+    {
+        if (puzzleStarted || switchingPanels)
+        {
+            return;
+        }
+
+        switchingPanels = true;
 
         if (infoButtonPulse != null)
         {
             infoButtonPulse.SetPulseEnabled(false);
         }
 
-        if (infoPanel == null)
+        if (welcomePanelAnimation != null)
         {
-            Debug.LogWarning(
-                "Info Panel не е зададен в PuzzleWelcomeController!"
-            );
-
-            return;
-        }
-
-        // Поставяме InfoPanel над Welcome Overlay.
-        infoPanel.transform.SetAsLastSibling();
-
-        infoPanel.SetActive(true);
-
-        UIPopupAnimation animation =
-            infoPanel.GetComponentInChildren<UIPopupAnimation>(true);
-
-        if (animation != null)
-        {
-            animation.PlayOpen();
-        }
-    }
-
-    public void CloseHowToPlay()
-    {
-        if (infoPanel == null)
-            return;
-
-        UIPopupAnimation animation =
-            infoPanel.GetComponentInChildren<UIPopupAnimation>(true);
-
-        if (animation != null)
-        {
-            animation.PlayClose(
+            welcomePanelAnimation.PlayClose(
                 () =>
                 {
-                    infoPanel.SetActive(false);
+                    FinishHidingForInfo(
+                        onWelcomeHidden
+                    );
                 }
             );
         }
         else
         {
-            infoPanel.SetActive(false);
+            FinishHidingForInfo(
+                onWelcomeHidden
+            );
+        }
+    }
+
+    private void FinishHidingForInfo(
+        Action onWelcomeHidden)
+    {
+        if (puzzleWelcomeOverlay != null)
+        {
+            puzzleWelcomeOverlay.SetActive(false);
+        }
+
+        switchingPanels = false;
+
+        onWelcomeHidden?.Invoke();
+    }
+
+    // =========================================================
+    // RETURN FROM INFO
+    // =========================================================
+
+    public void ShowWelcomeAfterInfo()
+    {
+        if (puzzleStarted)
+        {
+            return;
+        }
+
+        switchingPanels = false;
+
+        if (puzzleWelcomeOverlay == null)
+        {
+            return;
+        }
+
+        puzzleWelcomeOverlay.SetActive(true);
+        puzzleWelcomeOverlay.transform.SetAsLastSibling();
+
+        if (welcomePanelAnimation != null)
+        {
+            welcomePanelAnimation.PlayOpen();
+        }
+
+        if (infoButtonPulse != null)
+        {
+            infoButtonPulse.SetPulseEnabled(true);
         }
     }
 
@@ -99,10 +160,13 @@ public class PuzzleWelcomeController : MonoBehaviour
 
     public void StartPuzzle()
     {
-        if (puzzleStarted)
+        if (puzzleStarted || switchingPanels)
+        {
             return;
+        }
 
         puzzleStarted = true;
+        switchingPanels = true;
 
         if (infoButtonPulse != null)
         {
@@ -121,6 +185,10 @@ public class PuzzleWelcomeController : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // FINISH START
+    // =========================================================
+
     private void FinishStartingPuzzle()
     {
         if (puzzleWelcomeOverlay != null)
@@ -128,6 +196,8 @@ public class PuzzleWelcomeController : MonoBehaviour
             puzzleWelcomeOverlay.SetActive(false);
         }
 
-        Debug.Log("Пъзелът започна.");
+        switchingPanels = false;
+
+        onPuzzleStarted?.Invoke();
     }
 }

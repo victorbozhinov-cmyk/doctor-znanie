@@ -10,12 +10,15 @@ public class GameFeedbackSoundManager : MonoBehaviour
         private set;
     }
 
-    [Header("Success / Game Over")]
+    [Header("Success / Game Over / Victory")]
     [SerializeField]
     private AudioClip successClip;
 
     [SerializeField]
     private AudioClip gameOverClip;
+
+    [SerializeField]
+    private AudioClip victoryClip;
 
     [Header("Correct / Wrong Answer")]
     [SerializeField]
@@ -35,13 +38,17 @@ public class GameFeedbackSoundManager : MonoBehaviour
 
     [Range(0f, 1f)]
     [SerializeField]
+    private float victoryVolume = 0.8f;
+
+    [Range(0f, 1f)]
+    [SerializeField]
     private float correctVolume = 0.75f;
 
     [Range(0f, 1f)]
     [SerializeField]
     private float wrongVolume = 0.75f;
 
-    [Header("Success / Game Over Crossfade")]
+    [Header("Panel Crossfade")]
     [Tooltip(
         "Колко секунди преди края на Success звука " +
         "той започва да затихва, а Lobby музиката да се усилва."
@@ -55,6 +62,13 @@ public class GameFeedbackSoundManager : MonoBehaviour
     )]
     [SerializeField]
     private float gameOverCrossfadeDuration = 1.25f;
+
+    [Tooltip(
+        "Колко секунди преди края на Victory звука " +
+        "той започва да затихва, а Lobby музиката да се усилва."
+    )]
+    [SerializeField]
+    private float victoryCrossfadeDuration = 1.25f;
 
     private AudioSource audioSource;
 
@@ -83,7 +97,7 @@ public class GameFeedbackSoundManager : MonoBehaviour
     }
 
     // =====================================================
-    // SUCCESS / GAME OVER
+    // SUCCESS / GAME OVER / VICTORY
     // =====================================================
 
     public void PlaySuccess()
@@ -101,6 +115,15 @@ public class GameFeedbackSoundManager : MonoBehaviour
             gameOverClip,
             gameOverVolume,
             gameOverCrossfadeDuration
+        );
+    }
+
+    public void PlayVictory()
+    {
+        PlayPanelFeedback(
+            victoryClip,
+            victoryVolume,
+            victoryCrossfadeDuration
         );
     }
 
@@ -131,7 +154,7 @@ public class GameFeedbackSoundManager : MonoBehaviour
         audioSource.Stop();
 
         // Lobby музиката започва веднага,
-        // но е напълно без звук.
+        // но е напълно заглушена.
         if (MusicManager.Instance != null)
         {
             MusicManager.Instance
@@ -171,10 +194,10 @@ public class GameFeedbackSoundManager : MonoBehaviour
                 clip.length - fadeDuration
             );
 
-        // =============================================
+        // =================================================
         // Feedback звукът свири сам.
-        // Lobby музиката през това време е на 0%.
-        // =============================================
+        // Lobby музиката е на 0%.
+        // =================================================
 
         float timer = 0f;
 
@@ -186,12 +209,12 @@ public class GameFeedbackSoundManager : MonoBehaviour
             yield return null;
         }
 
-        // =============================================
+        // =================================================
         // CROSSFADE
         //
         // Feedback: 100% -> 0%
         // Lobby:       0% -> нормална сила
-        // =============================================
+        // =================================================
 
         if (MusicManager.Instance != null)
         {
@@ -272,7 +295,7 @@ public class GameFeedbackSoundManager : MonoBehaviour
             return;
         }
 
-        // Correct / Wrong НЕ сменят музиката.
+        // Correct / Wrong не сменят музиката.
         // Само я намаляват леко.
         if (MusicManager.Instance != null)
         {
