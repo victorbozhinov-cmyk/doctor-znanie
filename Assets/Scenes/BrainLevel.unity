@@ -3369,9 +3369,9 @@ GameObject:
   - component: {fileID: 197836785}
   - component: {fileID: 197836781}
   - component: {fileID: 197836780}
-  - component: {fileID: 197836784}
   - component: {fileID: 197836783}
   - component: {fileID: 197836782}
+  - component: {fileID: 197836787}
   m_Layer: 5
   m_Name: AnswerGHitbox
   m_TagString: Untagged
@@ -3490,20 +3490,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &197836784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197836779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 3
-  quizManager: {fileID: 0}
 --- !u!222 &197836785
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3533,6 +3519,20 @@ RectTransform:
   m_AnchoredPosition: {x: 291.49, y: -303.73}
   m_SizeDelta: {x: 580.22, y: 139.6767}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &197836787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197836779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 3
+  quizManager: {fileID: 797219774}
 --- !u!1 &205676036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3759,7 +3759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &245511815
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3772,6 +3772,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 789009724}
   - {fileID: 1982893076}
   - {fileID: 725301242}
   - {fileID: 420168547}
@@ -4394,9 +4395,9 @@ GameObject:
   - component: {fileID: 319460329}
   - component: {fileID: 319460328}
   - component: {fileID: 319460330}
-  - component: {fileID: 319460327}
   - component: {fileID: 319460326}
   - component: {fileID: 319460325}
+  - component: {fileID: 319460331}
   m_Layer: 5
   m_Name: AnswerBHitbox
   m_TagString: Untagged
@@ -4462,20 +4463,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &319460327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319460323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 1
-  quizManager: {fileID: 0}
 --- !u!114 &319460328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4558,6 +4545,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &319460331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319460323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 1
+  quizManager: {fileID: 797219774}
 --- !u!1 &323947311
 GameObject:
   m_ObjectHideFlags: 0
@@ -5472,8 +5473,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
+      - m_Target: {fileID: 797219774}
+        m_TargetAssemblyTypeName: BrainQuizManager, Assembly-CSharp
         m_MethodName: CloseHint
         m_Mode: 1
         m_Arguments:
@@ -6743,7 +6744,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 92.621826, y: 6.174988, z: 61.747986, w: 24.698715}
+  m_margin: {x: 92.621826, y: 6.174988, z: 31.75409, w: 24.698715}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6910,9 +6911,9 @@ GameObject:
   - component: {fileID: 420168552}
   - component: {fileID: 420168551}
   - component: {fileID: 420168553}
-  - component: {fileID: 420168550}
   - component: {fileID: 420168549}
   - component: {fileID: 420168548}
+  - component: {fileID: 420168554}
   m_Layer: 5
   m_Name: AnswerAHitbox
   m_TagString: Untagged
@@ -6978,20 +6979,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &420168550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 420168546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 0
-  quizManager: {fileID: 0}
 --- !u!114 &420168551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7074,6 +7061,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &420168554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420168546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 0
+  quizManager: {fileID: 797219774}
 --- !u!1 &421699313
 GameObject:
   m_ObjectHideFlags: 0
@@ -10779,9 +10780,9 @@ GameObject:
   - component: {fileID: 694230830}
   - component: {fileID: 694230829}
   - component: {fileID: 694230831}
-  - component: {fileID: 694230828}
   - component: {fileID: 694230827}
   - component: {fileID: 694230826}
+  - component: {fileID: 694230832}
   m_Layer: 5
   m_Name: AnswerVHitbox
   m_TagString: Untagged
@@ -10847,20 +10848,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &694230828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694230824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 2
-  quizManager: {fileID: 0}
 --- !u!114 &694230829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10943,6 +10930,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &694230832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694230824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 2
+  quizManager: {fileID: 797219774}
 --- !u!1 &694778236
 GameObject:
   m_ObjectHideFlags: 0
@@ -11772,8 +11773,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 378.54, y: 158}
-  m_SizeDelta: {x: 406.13, y: 343.71}
+  m_AnchoredPosition: {x: 355.6389, y: 145.17926}
+  m_SizeDelta: {x: 380.38, y: 290.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &725301243
 CanvasRenderer:
@@ -11803,7 +11804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 05e85ce47dbc28d4ca2fc1bc39bffab0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf9b40621231fba46909000d0e704bf3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -12352,6 +12353,81 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &789009723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 789009724}
+  - component: {fileID: 789009726}
+  - component: {fileID: 789009725}
+  m_Layer: 5
+  m_Name: QuestionPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &789009724
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789009723}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 245511815}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.9375, y: 157.58533}
+  m_SizeDelta: {x: 1184, y: 492.2701}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &789009725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789009723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5bae1c8433296054c8b35cb39c59924a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &789009726
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789009723}
+  m_CullTransparentMesh: 1
 --- !u!1 &793625532
 GameObject:
   m_ObjectHideFlags: 0
@@ -12675,15 +12751,298 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d14411ca94f3b0419354b66ddb8d095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrainQuizManager
-  questions: []
+  questions:
+  - questionType: 0
+    question: "\u041A\u043E\u0438 \u0447\u0430\u0441\u0442\u0438 \u0438\u0437\u0433\u0440\u0430\u0436\u0434\u0430\u0442
+      \u043D\u0435\u0440\u0432\u043D\u0430\u0442\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430?"
+    answerA: "\u0413\u043B\u0430\u0432\u0435\u043D \u043C\u043E\u0437\u044A\u043A,
+      \u0441\u044A\u0440\u0446\u0435 \u0438 \u043D\u0435\u0440\u0432\u0438"
+    answerB: "\u0413\u043B\u0430\u0432\u0435\u043D \u043C\u043E\u0437\u044A\u043A,
+      \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u0435\u043D \u043C\u043E\u0437\u044A\u043A
+      \u0438 \u043D\u0435\u0440\u0432\u0438"
+    answerV: "\u0413\u0440\u044A\u0431\u043D\u0430\u0447\u0435\u043D \u043C\u043E\u0437\u044A\u043A,
+      \u043C\u0443\u0441\u043A\u0443\u043B\u0438 \u0438 \u043A\u0440\u044A\u0432\u043E\u043D\u043E\u0441\u043D\u0438
+      \u0441\u044A\u0434\u043E\u0432\u0435"
+    answerG: "\u0413\u043B\u0430\u0432\u0435\u043D \u043C\u043E\u0437\u044A\u043A,
+      \u0431\u0435\u043B\u0438 \u0434\u0440\u043E\u0431\u043E\u0432\u0435 \u0438
+      \u043D\u0435\u0440\u0432\u0438"
+    correctAnswerIndex: 1
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0414\u0432\u0435 \u043E\u0442 \u0447\u0430\u0441\u0442\u0438\u0442\u0435
+      \u0441\u0430 \u0434\u043E\u0431\u0440\u0435 \u0437\u0430\u0449\u0438\u0442\u0435\u043D\u0438
+      \u0432 \u0447\u0435\u0440\u0435\u043F\u0430 \u0438 \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F
+      \u0441\u0442\u044A\u043B\u0431, \u0430 \u0442\u0440\u0435\u0442\u0430\u0442\u0430
+      \u0441\u0435 \u0440\u0430\u0437\u043A\u043B\u043E\u043D\u044F\u0432\u0430 \u0438\u0437
+      \u0442\u044F\u043B\u043E\u0442\u043E"
+  - questionType: 0
+    question: "\u041A\u043E\u0438 \u0447\u0430\u0441\u0442\u0438 \u043E\u0431\u0440\u0430\u0437\u0443\u0432\u0430\u0442
+      \u0446\u0435\u043D\u0442\u0440\u0430\u043B\u043D\u0430\u0442\u0430 \u043D\u0435\u0440\u0432\u043D\u0430
+      \u0441\u0438\u0441\u0442\u0435\u043C\u0430?"
+    answerA: "\u0413\u043B\u0430\u0432\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A
+      \u0438 \u043D\u0435\u0440\u0432\u0438\u0442\u0435"
+    answerB: "\u041D\u0435\u0440\u0432\u0438\u0442\u0435 \u0438 \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F\u0442
+      \u043C\u043E\u0437\u044A\u043A"
+    answerV: "\u0413\u043B\u0430\u0432\u043D\u0438\u044F\u0442 \u0438 \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F\u0442
+      \u043C\u043E\u0437\u044A\u043A"
+    answerG: "\u041C\u043E\u0437\u044A\u043A\u044A\u0442 \u0438 \u043C\u0443\u0441\u043A\u0443\u043B\u0438\u0442\u0435"
+    correctAnswerIndex: 2
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u041D\u0435\u0440\u0432\u0438\u0442\u0435 \u0441\u0432\u044A\u0440\u0437\u0432\u0430\u0442
+      \u0442\u0430\u0437\u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u0441
+      \u043E\u0441\u0442\u0430\u043D\u0430\u043B\u0430\u0442\u0430 \u0447\u0430\u0441\u0442
+      \u043E\u0442 \u0442\u044F\u043B\u043E\u0442\u043E"
+  - questionType: 0
+    question: "\u041A\u0430\u043A \u0441\u0435 \u043D\u0430\u0440\u0438\u0447\u0430\u0442
+      \u043E\u0441\u043D\u043E\u0432\u043D\u0438\u0442\u0435 \u043A\u043B\u0435\u0442\u043A\u0438
+      \u043D\u0430 \u043D\u0435\u0440\u0432\u043D\u0430\u0442\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430?"
+    answerA: "\u043D\u0435\u0444\u0440\u043E\u043D\u0438"
+    answerB: "\u043D\u0435\u0432\u0440\u043E\u043D\u0438"
+    answerV: "\u0435\u0440\u0438\u0442\u0440\u043E\u0446\u0438\u0442\u0438"
+    answerG: "\u0442\u0440\u043E\u043C\u0431\u043E\u0446\u0438\u0442\u0438"
+    correctAnswerIndex: 1
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0422\u0435\u0437\u0438 \u043A\u043B\u0435\u0442\u043A\u0438 \u043F\u0440\u0438\u0435\u043C\u0430\u0442
+      \u0438 \u043F\u0440\u0435\u0434\u0430\u0432\u0430\u0442 \u043D\u0435\u0440\u0432\u043D\u0438
+      \u0441\u0438\u0433\u043D\u0430\u043B\u0438"
+  - questionType: 0
+    question: "\u041A\u0430\u043A\u0432\u0430 \u0435 \u0435\u0434\u043D\u0430 \u043E\u0442
+      \u043E\u0441\u043D\u043E\u0432\u043D\u0438\u0442\u0435 \u0437\u0430\u0434\u0430\u0447\u0438
+      \u043D\u0430 \u043D\u0435\u0440\u0432\u0438\u0442\u0435?"
+    answerA: "\u0434\u0430 \u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0436\u0434\u0430\u0442
+      \u043A\u0440\u044A\u0432"
+    answerB: "\u0434\u0430 \u0441\u043C\u0438\u043B\u0430\u0442 \u0445\u0440\u0430\u043D\u0430\u0442\u0430"
+    answerV: "\u0434\u0430 \u043F\u0440\u0435\u043D\u0430\u0441\u044F\u0442 \u043D\u0435\u0440\u0432\u043D\u0438
+      \u0441\u0438\u0433\u043D\u0430\u043B\u0438"
+    answerG: "\u0434\u0430 \u043F\u0440\u0435\u0447\u0438\u0441\u0442\u0432\u0430\u0442
+      \u0432\u044A\u0437\u0434\u0443\u0445\u0430"
+    correctAnswerIndex: 2
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0422\u0435 \u0441\u0430 \u043A\u0430\u0442\u043E \u043A\u043E\u043C\u0443\u043D\u0438\u043A\u0430\u0446\u0438\u043E\u043D\u043D\u0438
+      \u043B\u0438\u043D\u0438\u0438 \u043C\u0435\u0436\u0434\u0443 \u043C\u043E\u0437\u044A\u043A\u0430
+      \u0438 \u0442\u044F\u043B\u043E\u0442\u043E"
+  - questionType: 0
+    question: "\u041A\u043E\u044F \u0435 \u043D\u0430\u0439-\u0433\u043E\u043B\u044F\u043C\u0430\u0442\u0430
+      \u0447\u0430\u0441\u0442 \u043D\u0430 \u0433\u043B\u0430\u0432\u043D\u0438\u044F
+      \u043C\u043E\u0437\u044A\u043A?"
+    answerA: "\u043C\u0430\u043B\u043A\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerB: "\u0441\u0440\u0435\u0434\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerV: "\u043A\u0440\u0430\u0439\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerG: "\u043C\u043E\u0441\u0442\u044A\u0442"
+    correctAnswerIndex: 2
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0422\u0430\u0437\u0438 \u0447\u0430\u0441\u0442 \u0438\u043C\u0430 \u0434\u0432\u0435
+      \u043F\u043E\u043B\u0443\u043A\u044A\u043B\u0431\u0430 \u0438 \u0441\u0438\u043B\u043D\u043E
+      \u043D\u0430\u0433\u044A\u043D\u0430\u0442\u0430 \u043A\u043E\u0440\u0430"
+  - questionType: 0
+    question: "\u0427\u0443\u0432\u0430\u0448 \u0432\u043D\u0435\u0437\u0430\u043F\u0435\u043D
+      \u0441\u0438\u043B\u0435\u043D \u0437\u0432\u0443\u043A \u0438 \u0431\u044A\u0440\u0437\u043E
+      \u0441\u0435 \u043E\u0431\u0440\u044A\u0449\u0430\u0448 \u043A\u044A\u043C
+      \u043D\u0435\u0433\u043E. \u041A\u043E\u044F \u0447\u0430\u0441\u0442 \u043D\u0430
+      \u043C\u043E\u0437\u044A\u043A\u0430 \u0443\u0447\u0430\u0441\u0442\u0432\u0430
+      \u0432 \u0442\u0430\u0437\u0438 \u0440\u0435\u0430\u043A\u0446\u0438\u044F?"
+    answerA: "\u0441\u0440\u0435\u0434\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerB: "\u043C\u0430\u043B\u043A\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerV: "\u043C\u0435\u0436\u0434\u0438\u043D\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerG: "\u043F\u0440\u043E\u0434\u044A\u043B\u0433\u043E\u0432\u0430\u0442\u0438\u044F\u0442
+      \u043C\u043E\u0437\u044A\u043A"
+    correctAnswerIndex: 0
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u0437\u0430 \u043C\u043E\u0437\u044A\u0447\u043D\u0430\u0442\u0430
+      \u0447\u0430\u0441\u0442, \u043A\u043E\u044F\u0442\u043E \u043F\u043E\u043C\u0430\u0433\u0430
+      \u043F\u0440\u0438 \u0431\u044A\u0440\u0437\u043E \u043E\u0440\u0438\u0435\u043D\u0442\u0438\u0440\u0430\u043D\u0435
+      \u043A\u044A\u043C \u0441\u0432\u0435\u0442\u043B\u0438\u043D\u043D\u0438 \u0438
+      \u0437\u0432\u0443\u043A\u043E\u0432\u0438 \u0441\u0438\u0433\u043D\u0430\u043B\u0438"
+  - questionType: 0
+    question: "\u041A\u043E\u044F \u0447\u0430\u0441\u0442 \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430
+      \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0432 \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0430
+      \u043D\u0430 \u0436\u0430\u0436\u0434\u0430\u0442\u0430 \u0438 \u0432\u043E\u0434\u043D\u0438\u044F
+      \u0431\u0430\u043B\u0430\u043D\u0441, \u0441\u0432\u044A\u0440\u0437\u0430\u043D
+      \u0441 \u0431\u044A\u0431\u0440\u0435\u0446\u0438\u0442\u0435?"
+    answerA: "\u043C\u0435\u0436\u0434\u0438\u043D\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerB: "\u0441\u0440\u0435\u0434\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerV: "\u043C\u0430\u043B\u043A\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerG: "\u043C\u043E\u0441\u0442\u044A\u0442"
+    correctAnswerIndex: 0
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0421\u044A\u0449\u0430\u0442\u0430 \u043C\u043E\u0437\u044A\u0447\u043D\u0430
+      \u0447\u0430\u0441\u0442 \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0438
+      \u0432 \u0440\u0435\u0433\u0443\u043B\u0438\u0440\u0430\u043D\u0435\u0442\u043E
+      \u043D\u0430 \u0442\u0435\u043B\u0435\u0441\u043D\u0430\u0442\u0430 \u0442\u0435\u043C\u043F\u0435\u0440\u0430\u0442\u0443\u0440\u0430"
+  - questionType: 0
+    question: "\u041A\u043E\u044F \u0447\u0430\u0441\u0442 \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430
+      \u043A\u043E\u043E\u0440\u0434\u0438\u043D\u0438\u0440\u0430 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F\u0442\u0430
+      \u043D\u0430 \u043C\u0443\u0441\u043A\u0443\u043B\u0438\u0442\u0435?"
+    answerA: "\u043F\u0440\u043E\u0434\u044A\u043B\u0433\u043E\u0432\u0430\u0442\u0438\u044F\u0442
+      \u043C\u043E\u0437\u044A\u043A"
+    answerB: "\u0441\u0440\u0435\u0434\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerV: "\u043C\u0430\u043B\u043A\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    answerG: "\u043C\u0435\u0436\u0434\u0438\u043D\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A"
+    correctAnswerIndex: 2
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u0437\u0430 \u0447\u0430\u0441\u0442\u0442\u0430
+      \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430, \u043A\u043E\u044F\u0442\u043E
+      \u043E\u0442\u0433\u043E\u0432\u0430\u0440\u044F \u0435\u0434\u043D\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E
+      \u0437\u0430 \u043A\u043E\u043E\u0440\u0434\u0438\u043D\u0430\u0446\u0438\u044F\u0442\u0430
+      \u043D\u0430 \u043C\u0443\u0441\u043A\u0443\u043B\u0438\u0442\u0435 \u0438
+      \u0437\u0430 \u0440\u0430\u0432\u043D\u043E\u0432\u0435\u0441\u0438\u0435\u0442\u043E"
+  - questionType: 0
+    question: "\u041A\u043E\u044F \u0434\u0432\u043E\u0439\u043A\u0430 \u201E\u043E\u0440\u0433\u0430\u043D
+      \u2013 \u0447\u0430\u0441\u0442 \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430\u201C
+      \u0435 \u043F\u0440\u0430\u0432\u0438\u043B\u043D\u0430?"
+    answerA: "\u0421\u044A\u0440\u0446\u0435 \u2013 \u041C\u0430\u043B\u044A\u043A
+      \u043C\u043E\u0437\u044A\u043A"
+    answerB: "\u0411\u0435\u043B\u0438 \u0434\u0440\u043E\u0431\u043E\u0432\u0435
+      \u2013 \u041C\u043E\u0441\u0442"
+    answerV: "\u041A\u043E\u0436\u0430 \u2013 \u0421\u0440\u0435\u0434\u0435\u043D
+      \u043C\u043E\u0437\u044A\u043A"
+    answerG: "\u041A\u0440\u0430\u043A\u0430 \u2013 \u041F\u0440\u043E\u0434\u044A\u043B\u0433\u043E\u0432\u0430\u0442
+      \u043C\u043E\u0437\u044A\u043A"
+    correctAnswerIndex: 1
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0421\u044A\u0440\u0446\u0435\u0442\u043E \u043D\u0435 \u0441\u0435 \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0432\u0430
+      \u043E\u0442 \u043C\u0430\u043B\u043A\u0438\u044F \u043C\u043E\u0437\u044A\u043A"
+  - questionType: 0
+    question: "\u0412 \u043A\u0430\u043A\u0432\u043E \u0443\u0447\u0430\u0441\u0442\u0432\u0430
+      \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A
+      \u043E\u0441\u0432\u0435\u043D \u0432 \u043F\u0440\u0435\u043D\u0430\u0441\u044F\u043D\u0435\u0442\u043E
+      \u043D\u0430 \u043D\u0435\u0440\u0432\u043D\u0438 \u0441\u0438\u0433\u043D\u0430\u043B\u0438?"
+    answerA: "\u0432 \u043E\u0431\u0440\u0430\u0437\u0443\u0432\u0430\u043D\u0435\u0442\u043E
+      \u043D\u0430 \u043A\u0440\u044A\u0432"
+    answerB: "\u0432 \u0431\u044A\u0440\u0437\u0438 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u043D\u0438
+      \u0440\u0435\u0430\u043A\u0446\u0438\u0438 \u2013 \u0440\u0435\u0444\u043B\u0435\u043A\u0441\u0438"
+    answerV: "\u0432 \u0441\u043C\u0438\u043B\u0430\u043D\u0435\u0442\u043E \u043D\u0430
+      \u0445\u0440\u0430\u043D\u0430\u0442\u0430"
+    answerG: "\u0432 \u043F\u0440\u0435\u0447\u0438\u0441\u0442\u0432\u0430\u043D\u0435\u0442\u043E
+      \u043D\u0430 \u0432\u044A\u0437\u0434\u0443\u0445\u0430"
+    correctAnswerIndex: 1
+    questionImage: {fileID: 0}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0413\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A
+      \u043F\u043E\u043C\u0430\u0433\u0430 \u043D\u0430 \u0442\u044F\u043B\u043E\u0442\u043E
+      \u0434\u0430 \u0440\u0435\u0430\u0433\u0438\u0440\u0430 \u0431\u044A\u0440\u0437\u043E,
+      \u043E\u0449\u0435 \u043F\u0440\u0435\u0434\u0438 \u0434\u0430 \u0441\u0438
+      \u043E\u0441\u044A\u0437\u043D\u0430\u043B \u043D\u0430\u043F\u044A\u043B\u043D\u043E
+      \u043A\u0430\u043A\u0432\u043E \u0441\u0435 \u0435 \u0441\u043B\u0443\u0447\u0438\u043B\u043E"
+  - questionType: 1
+    question: "\u041A\u0430\u043A\u0432\u0430 \u0435 \u043E\u0441\u043D\u043E\u0432\u043D\u0430\u0442\u0430
+      \u0440\u043E\u043B\u044F \u043D\u0430 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u0430\u0442\u0430
+      \u0441\u0438\u0441\u0442\u0435\u043C\u0430?"
+    answerA: "\u043F\u0440\u0435\u043D\u0430\u0441\u044F \u043A\u0438\u0441\u043B\u043E\u0440\u043E\u0434"
+    answerB: "\u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0432\u0430 \u0438 \u043A\u043E\u043E\u0440\u0434\u0438\u043D\u0438\u0440\u0430
+      \u0440\u0430\u0431\u043E\u0442\u0430\u0442\u0430 \u043D\u0430 \u0442\u044F\u043B\u043E\u0442\u043E"
+    answerV: "\u0440\u0430\u0437\u0433\u0440\u0430\u0436\u0434\u0430 \u0445\u0440\u0430\u043D\u0430\u0442\u0430"
+    answerG: "\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0436\u0434\u0430 \u043A\u0440\u044A\u0432"
+    correctAnswerIndex: 1
+    questionImage: {fileID: 21300000, guid: bf9b40621231fba46909000d0e704bf3, type: 3}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0422\u044F \u0438\u0437\u043F\u0440\u0430\u0449\u0430 \u0441\u0438\u0433\u043D\u0430\u043B\u0438
+      \u043C\u0435\u0436\u0434\u0443 \u043C\u043E\u0437\u044A\u043A\u0430 \u0438
+      \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438\u0442\u0435 \u0447\u0430\u0441\u0442\u0438
+      \u043D\u0430 \u0442\u044F\u043B\u043E\u0442\u043E"
+  - questionType: 1
+    question: "\u041A\u043E\u044F \u0447\u0430\u0441\u0442 \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430
+      \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0432 \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u0442\u043E
+      \u043D\u0430 \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u0438\u0442\u0435 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u043D\u0438
+      \u0434\u0435\u0439\u043D\u043E\u0441\u0442\u0438?"
+    answerA: "\u043A\u0440\u0430\u0435\u043D \u043C\u043E\u0437\u044A\u043A"
+    answerB: "\u043C\u0430\u043B\u044A\u043A \u043C\u043E\u0437\u044A\u043A"
+    answerV: "\u0441\u0440\u0435\u0434\u0435\u043D \u043C\u043E\u0437\u044A\u043A"
+    answerG: "\u043F\u0440\u043E\u0434\u044A\u043B\u0433\u043E\u0432\u0430\u0442
+      \u043C\u043E\u0437\u044A\u043A"
+    correctAnswerIndex: 3
+    questionImage: {fileID: 21300000, guid: 0edad39a4154f8b47a9326bfdaf90266, type: 3}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0422\u0430\u0437\u0438 \u0447\u0430\u0441\u0442 \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0438\u0440\u0430
+      \u0436\u0438\u0437\u043D\u0435\u043D\u043E\u0432\u0430\u0436\u043D\u0438 \u043F\u0440\u043E\u0446\u0435\u0441\u0438,
+      \u043A\u043E\u0438\u0442\u043E \u043F\u0440\u043E\u0434\u044A\u043B\u0436\u0430\u0432\u0430\u0442
+      \u0434\u043E\u0440\u0438 \u043A\u043E\u0433\u0430\u0442\u043E \u043D\u0435
+      \u043C\u0438\u0441\u043B\u0438\u043C \u0437\u0430 \u0442\u044F\u0445"
+  - questionType: 1
+    question: "\u041A\u043E\u044F \u0447\u0430\u0441\u0442 \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430
+      \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0432 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F\u0442\u0430
+      \u043D\u0430 \u0447\u0435\u043B\u044E\u0441\u0442\u0442\u0430 \u043F\u0440\u0438
+      \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u0430\u0442\u0430 \u0434\u0435\u0439\u043D\u043E\u0441\u0442?"
+    answerA: "\u043C\u043E\u0441\u0442"
+    answerB: "\u043C\u0430\u043B\u044A\u043A \u043C\u043E\u0437\u044A\u043A"
+    answerV: "\u0441\u0440\u0435\u0434\u0435\u043D \u043C\u043E\u0437\u044A\u043A"
+    answerG: "\u043F\u0440\u043E\u0434\u044A\u043B\u0433\u043E\u0432\u0430\u0442
+      \u043C\u043E\u0437\u044A\u043A"
+    correctAnswerIndex: 0
+    questionImage: {fileID: 21300000, guid: f1fc768b814dff14796f8620d3cb712b, type: 3}
+    answerAImage: {fileID: 0}
+    answerBImage: {fileID: 0}
+    answerVImage: {fileID: 0}
+    answerGImage: {fileID: 0}
+    correctWrittenAnswer: 
+    hint: "\u0418\u043C\u0435\u0442\u043E \u043D\u0430 \u0442\u0430\u0437\u0438 \u0447\u0430\u0441\u0442
+      \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u0432\u0430, \u0447\u0435 \u0442\u044F
+      \u0441\u0432\u044A\u0440\u0437\u0432\u0430 \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438
+      \u043E\u0431\u043B\u0430\u0441\u0442\u0438 \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430"
   multipleQuestionUI: {fileID: 1340015962}
   questionImageUI: {fileID: 245511814}
   imageAnswerUI: {fileID: 409878486}
   writtenAnswerUI: {fileID: 282991798}
-  multipleQuestionPulse: {fileID: 0}
-  questionImagePulse: {fileID: 0}
-  imageAnswerPulse: {fileID: 0}
-  writtenAnswerPulse: {fileID: 0}
+  multipleQuestionPulse: {fileID: 1340015964}
+  questionImagePulse: {fileID: 245511816}
+  imageAnswerPulse: {fileID: 409878488}
+  writtenAnswerPulse: {fileID: 282991800}
   questionText: {fileID: 828000958}
   answerAText: {fileID: 644271136}
   answerBText: {fileID: 408247896}
@@ -12693,49 +13052,52 @@ MonoBehaviour:
   answerBButton: {fileID: 319460330}
   answerVButton: {fileID: 2075773970}
   answerGButton: {fileID: 1110251217}
-  questionImageText: {fileID: 0}
-  questionImage: {fileID: 0}
-  questionImageAnswerAText: {fileID: 0}
-  questionImageAnswerBText: {fileID: 0}
-  questionImageAnswerVText: {fileID: 0}
-  questionImageAnswerGText: {fileID: 0}
-  questionImageAnswerAButton: {fileID: 0}
-  questionImageAnswerBButton: {fileID: 0}
-  questionImageAnswerVButton: {fileID: 0}
-  questionImageAnswerGButton: {fileID: 0}
-  imageAnswersQuestionText: {fileID: 0}
-  imageAnswerAImage: {fileID: 0}
-  imageAnswerBImage: {fileID: 0}
-  imageAnswerVImage: {fileID: 0}
-  imageAnswerGImage: {fileID: 0}
-  imageAnswerAButton: {fileID: 0}
-  imageAnswerBButton: {fileID: 0}
-  imageAnswerVButton: {fileID: 0}
-  imageAnswerGButton: {fileID: 0}
-  writtenQuestionText: {fileID: 0}
-  writtenInputField: {fileID: 0}
-  writtenCheckButton: {fileID: 0}
-  writtenCheckFeedback: {fileID: 0}
-  questionCounterText: {fileID: 0}
-  hintCounterText: {fileID: 0}
-  questionCounterPulse: {fileID: 0}
-  hintCounterPulse: {fileID: 0}
-  lifeHearts: []
-  hintOverlay: {fileID: 0}
-  hintText: {fileID: 0}
-  hintButton: {fileID: 0}
-  hintButtonImage: {fileID: 0}
-  activeHintSprite: {fileID: 0}
-  disabledHintSprite: {fileID: 0}
-  hintHoverEffect: {fileID: 0}
-  hintButtonIdlePulse: {fileID: 0}
-  infoOverlay: {fileID: 0}
-  settingsOverlay: {fileID: 0}
-  difficultySelector: {fileID: 0}
-  exitConfirmationOverlay: {fileID: 0}
-  gameOverOverlay: {fileID: 0}
-  quizSuccessOverlay: {fileID: 0}
-  quizSuccessPanel: {fileID: 0}
+  questionImageText: {fileID: 1982893078}
+  questionImage: {fileID: 725301244}
+  questionImageAnswerAText: {fileID: 2010468472}
+  questionImageAnswerBText: {fileID: 1701248370}
+  questionImageAnswerVText: {fileID: 1643014252}
+  questionImageAnswerGText: {fileID: 33441249}
+  questionImageAnswerAButton: {fileID: 420168553}
+  questionImageAnswerBButton: {fileID: 1458347494}
+  questionImageAnswerVButton: {fileID: 694230831}
+  questionImageAnswerGButton: {fileID: 197836780}
+  imageAnswersQuestionText: {fileID: 893890844}
+  imageAnswerAImage: {fileID: 186757561}
+  imageAnswerBImage: {fileID: 2062094658}
+  imageAnswerVImage: {fileID: 1935549991}
+  imageAnswerGImage: {fileID: 174692062}
+  imageAnswerAButton: {fileID: 1937163812}
+  imageAnswerBButton: {fileID: 972238693}
+  imageAnswerVButton: {fileID: 2021943060}
+  imageAnswerGButton: {fileID: 1974385624}
+  writtenQuestionText: {fileID: 619725941}
+  writtenInputField: {fileID: 2040715050}
+  writtenCheckButton: {fileID: 1778031430}
+  writtenCheckFeedback: {fileID: 2040715046}
+  questionCounterText: {fileID: 1335151415}
+  hintCounterText: {fileID: 1519449897}
+  questionCounterPulse: {fileID: 1335151414}
+  hintCounterPulse: {fileID: 1519449894}
+  lifeHearts:
+  - {fileID: 1194035157}
+  - {fileID: 77739623}
+  - {fileID: 1083206467}
+  hintOverlay: {fileID: 1904989392}
+  hintText: {fileID: 1813494820}
+  hintButton: {fileID: 967307357}
+  hintButtonImage: {fileID: 172914513}
+  activeHintSprite: {fileID: 21300000, guid: 94ae798447fea174fbf0ebc6d60294c2, type: 3}
+  disabledHintSprite: {fileID: 21300000, guid: cd584cfb7fa694b4ebbf9d4b43816dff, type: 3}
+  hintHoverEffect: {fileID: 967307356}
+  hintButtonIdlePulse: {fileID: 172914510}
+  infoOverlay: {fileID: 1241927965}
+  settingsOverlay: {fileID: 1983893061}
+  difficultySelector: {fileID: 2108847212}
+  exitConfirmationOverlay: {fileID: 1520669644}
+  gameOverOverlay: {fileID: 970726060}
+  quizSuccessOverlay: {fileID: 1990391096}
+  quizSuccessPanel: {fileID: 691844829}
   nextQuestionDelay: 0.8
   wrongAnswerLockDuration: 0.6
 --- !u!1 &798137871
@@ -16557,7 +16919,6 @@ GameObject:
   - component: {fileID: 967307355}
   - component: {fileID: 967307354}
   - component: {fileID: 967307357}
-  - component: {fileID: 967307353}
   - component: {fileID: 967307356}
   - component: {fileID: 967307352}
   m_Layer: 5
@@ -16608,20 +16969,6 @@ MonoBehaviour:
   shakeDistance: 12
   shakeDuration: 0.3
   wrongHoldDuration: 0.25
---- !u!114 &967307353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967307350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 0
-  quizManager: {fileID: 0}
 --- !u!114 &967307354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16720,8 +17067,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartQuizManager, Assembly-CSharp
+      - m_Target: {fileID: 797219774}
+        m_TargetAssemblyTypeName: BrainQuizManager, Assembly-CSharp
         m_MethodName: OpenHint
         m_Mode: 1
         m_Arguments:
@@ -16833,9 +17180,9 @@ GameObject:
   - component: {fileID: 972238692}
   - component: {fileID: 972238691}
   - component: {fileID: 972238693}
-  - component: {fileID: 972238690}
   - component: {fileID: 972238689}
   - component: {fileID: 972238688}
+  - component: {fileID: 972238694}
   m_Layer: 5
   m_Name: AnswerBHitbox
   m_TagString: Untagged
@@ -16900,20 +17247,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &972238690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972238686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 1
-  quizManager: {fileID: 0}
 --- !u!114 &972238691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16996,6 +17329,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &972238694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972238686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 1
+  quizManager: {fileID: 797219774}
 --- !u!1 &977705782
 GameObject:
   m_ObjectHideFlags: 0
@@ -19176,9 +19523,9 @@ GameObject:
   - component: {fileID: 1110251222}
   - component: {fileID: 1110251218}
   - component: {fileID: 1110251217}
-  - component: {fileID: 1110251221}
   - component: {fileID: 1110251220}
   - component: {fileID: 1110251219}
+  - component: {fileID: 1110251224}
   m_Layer: 5
   m_Name: AnswerGHitbox
   m_TagString: Untagged
@@ -19297,20 +19644,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &1110251221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110251216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 3
-  quizManager: {fileID: 0}
 --- !u!222 &1110251222
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19340,6 +19673,20 @@ RectTransform:
   m_AnchoredPosition: {x: 291.49, y: -303.73}
   m_SizeDelta: {x: 580.22, y: 139.6767}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1110251224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110251216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 3
+  quizManager: {fileID: 797219774}
 --- !u!1 &1123340417
 GameObject:
   m_ObjectHideFlags: 0
@@ -20321,9 +20668,9 @@ GameObject:
   - component: {fileID: 1201289235}
   - component: {fileID: 1201289234}
   - component: {fileID: 1201289236}
-  - component: {fileID: 1201289233}
   - component: {fileID: 1201289232}
   - component: {fileID: 1201289231}
+  - component: {fileID: 1201289237}
   m_Layer: 5
   m_Name: AnswerAHitbox
   m_TagString: Untagged
@@ -20389,20 +20736,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &1201289233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201289229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 0
-  quizManager: {fileID: 0}
 --- !u!114 &1201289234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20485,6 +20818,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1201289237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201289229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 0
+  quizManager: {fileID: 797219774}
 --- !u!1 &1202614721
 GameObject:
   m_ObjectHideFlags: 0
@@ -23241,7 +23588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1340015963
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25530,9 +25877,9 @@ GameObject:
   - component: {fileID: 1458347493}
   - component: {fileID: 1458347492}
   - component: {fileID: 1458347494}
-  - component: {fileID: 1458347491}
   - component: {fileID: 1458347490}
   - component: {fileID: 1458347489}
+  - component: {fileID: 1458347495}
   m_Layer: 5
   m_Name: AnswerBHitbox
   m_TagString: Untagged
@@ -25598,20 +25945,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &1458347491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458347487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 1
-  quizManager: {fileID: 0}
 --- !u!114 &1458347492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25694,6 +26027,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1458347495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458347487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 1
+  quizManager: {fileID: 797219774}
 --- !u!1 &1472677055
 GameObject:
   m_ObjectHideFlags: 0
@@ -30395,8 +30742,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14.1175, y: -26.8235}
-  m_SizeDelta: {x: 792.9424, y: 194.0002}
+  m_AnchoredPosition: {x: -14.118233, y: -30.198502}
+  m_SizeDelta: {x: 792.94, y: 239.7502}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1813494819
 CanvasRenderer:
@@ -30457,7 +30804,7 @@ MonoBehaviour:
   m_fontSizeBase: 68
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 48
+  m_fontSizeMin: 24
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
@@ -30492,7 +30839,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 36.706116, y: 0, z: 42.35266, w: -0.000030517578}
+  m_margin: {x: 54.20981, y: 15.315735, z: 46.728638, w: -0.000030517578}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -33145,9 +33492,9 @@ GameObject:
   - component: {fileID: 1937163811}
   - component: {fileID: 1937163810}
   - component: {fileID: 1937163812}
-  - component: {fileID: 1937163809}
   - component: {fileID: 1937163808}
   - component: {fileID: 1937163807}
+  - component: {fileID: 1937163813}
   m_Layer: 5
   m_Name: AnswerAHitbox
   m_TagString: Untagged
@@ -33212,20 +33559,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &1937163809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937163805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 0
-  quizManager: {fileID: 0}
 --- !u!114 &1937163810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33308,6 +33641,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1937163813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937163805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 0
+  quizManager: {fileID: 797219774}
 --- !u!1 &1942404474
 GameObject:
   m_ObjectHideFlags: 0
@@ -33999,9 +34346,9 @@ GameObject:
   - component: {fileID: 1974385629}
   - component: {fileID: 1974385625}
   - component: {fileID: 1974385624}
-  - component: {fileID: 1974385628}
   - component: {fileID: 1974385627}
   - component: {fileID: 1974385626}
+  - component: {fileID: 1974385631}
   m_Layer: 5
   m_Name: AnswerGHitbox
   m_TagString: Untagged
@@ -34120,20 +34467,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &1974385628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974385623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 3
-  quizManager: {fileID: 0}
 --- !u!222 &1974385629
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34162,6 +34495,20 @@ RectTransform:
   m_AnchoredPosition: {x: 418.94562, y: -0.22511292}
   m_SizeDelta: {x: 247.8671, y: 312.5926}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1974385631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974385623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 3
+  quizManager: {fileID: 797219774}
 --- !u!1 &1977378244
 GameObject:
   m_ObjectHideFlags: 0
@@ -35499,9 +35846,9 @@ GameObject:
   - component: {fileID: 2021943059}
   - component: {fileID: 2021943058}
   - component: {fileID: 2021943060}
-  - component: {fileID: 2021943057}
   - component: {fileID: 2021943056}
   - component: {fileID: 2021943055}
+  - component: {fileID: 2021943061}
   m_Layer: 5
   m_Name: AnswerVHitbox
   m_TagString: Untagged
@@ -35566,20 +35913,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &2021943057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021943053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 2
-  quizManager: {fileID: 0}
 --- !u!114 &2021943058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35662,6 +35995,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2021943061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021943053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 2
+  quizManager: {fileID: 797219774}
 --- !u!1 &2028358800
 GameObject:
   m_ObjectHideFlags: 0
@@ -36818,9 +37165,9 @@ GameObject:
   - component: {fileID: 2075773969}
   - component: {fileID: 2075773968}
   - component: {fileID: 2075773970}
-  - component: {fileID: 2075773967}
   - component: {fileID: 2075773966}
   - component: {fileID: 2075773965}
+  - component: {fileID: 2075773971}
   m_Layer: 5
   m_Name: AnswerVHitbox
   m_TagString: Untagged
@@ -36886,20 +37233,6 @@ MonoBehaviour:
   pressedScale: 1
   speed: 12
   disableWhenNotInteractable: 0
---- !u!114 &2075773967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075773963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e60cc3d0c4afde409d05a7cd9af6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeartQuizAnswerButton
-  answerIndex: 2
-  quizManager: {fileID: 0}
 --- !u!114 &2075773968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36982,6 +37315,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2075773971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075773963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd9dc60233ebb43b74149aca77751c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainQuizAnswerButton
+  answerIndex: 2
+  quizManager: {fileID: 797219774}
 --- !u!1 &2080164988
 GameObject:
   m_ObjectHideFlags: 0
@@ -37247,6 +37594,17 @@ MonoBehaviour:
   fadeInDuration: 0.08
   holdDuration: 0.05
   fadeOutDuration: 0.25
+--- !u!114 &2108847212 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8112820559975315700, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
+  m_PrefabInstance: {fileID: 706938024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106ac9f2be86d5948b2ff4b3d1d09fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultySelector
 --- !u!1 &2115160708
 GameObject:
   m_ObjectHideFlags: 0
