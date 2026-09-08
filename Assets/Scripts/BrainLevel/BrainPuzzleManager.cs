@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -35,6 +36,9 @@ public class BrainPuzzleManager : MonoBehaviour
     [SerializeField] private GameObject exitConfirmationOverlay;
     [SerializeField] private GameObject puzzleSuccessOverlay;
 
+    [Header("Puzzle Welcome")]
+    [SerializeField] private PuzzleWelcomeController puzzleWelcomeController;
+
     [Header("Difficulty")]
     [SerializeField] private DifficultySelector difficultySelector;
 
@@ -54,6 +58,9 @@ public class BrainPuzzleManager : MonoBehaviour
 
     private bool puzzleCompleted;
     private bool gameOver;
+
+    private bool infoOpenedFromWelcome;
+    private bool menuTransitionInProgress;
 
     public bool IsPuzzleCompleted => puzzleCompleted;
     public bool IsGameOver => gameOver;
@@ -76,22 +83,30 @@ public class BrainPuzzleManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // UNITY
+    // =========================================================
+
     private void Start()
     {
-        StartPuzzle();
+        PreparePuzzle();
     }
 
-    // Стартира реално пъзела.
+    // =========================================================
+    // START PUZZLE
+    // =========================================================
+
     public void StartPuzzle()
     {
         puzzleCompleted = false;
         gameOver = false;
 
+        infoOpenedFromWelcome = false;
+        menuTransitionInProgress = false;
+
         currentIndex = 0;
 
-        CloseInfo();
-        CloseSettings();
-        CloseExitConfirmation();
+        CloseAllMenusImmediately();
         HidePuzzleSuccess();
 
         LockDifficulty();
@@ -101,22 +116,26 @@ public class BrainPuzzleManager : MonoBehaviour
         CreateLabelOrder();
 
         ResetCurrentLabel();
-
         ShowCurrentLabel();
+
+        Debug.Log("Brain Puzzle започна.");
     }
 
-    // Подготвя пъзела за нов опит,
-    // но НЕ стартира новия рунд.
+    // =========================================================
+    // PREPARE PUZZLE
+    // =========================================================
+
     public void PreparePuzzle()
     {
         puzzleCompleted = false;
         gameOver = false;
 
+        infoOpenedFromWelcome = false;
+        menuTransitionInProgress = false;
+
         currentIndex = 0;
 
-        CloseInfo();
-        CloseSettings();
-        CloseExitConfirmation();
+        CloseAllMenusImmediately();
         HidePuzzleSuccess();
 
         LockDifficulty();
@@ -131,75 +150,202 @@ public class BrainPuzzleManager : MonoBehaviour
 
         if (currentLabel != null)
         {
-            currentLabel.SetActive(true);
+            currentLabel.SetActive(false);
         }
+
+        Debug.Log(
+            "Brain Puzzle е подготвен и чака Welcome панела."
+        );
     }
 
-    // Използва се от бутона "Опитай пак".
-    // След това Navigation връща играча на StartPanel.
+    // =========================================================
+    // RESET PUZZLE
+    // =========================================================
+
     public void ResetPuzzle()
     {
         PreparePuzzle();
     }
 
-    // -------------------------
-    // INFO PANEL
-    // -------------------------
+    // =========================================================
+    // INFO FROM WELCOME
+    // =========================================================
+
+    public void OpenInfoFromWelcome()
+    {
+        if (menuTransitionInProgress)
+        {
+            return;
+        }
+
+        if (puzzleWelcomeController == null)
+        {
+            Debug.LogError(
+                "PuzzleWelcomeController не е свързан " +
+                "в BrainPuzzleManager."
+            );
+
+            return;
+        }
+
+        menuTransitionInProgress = true;
+        infoOpenedFromWelcome = true;
+
+        puzzleWelcomeController.HideWelcomeForInfo(
+            () =>
+            {
+                OpenInfoOverlay();
+
+                menuTransitionInProgress = false;
+            }
+        );
+    }
+
+    // =========================================================
+    // NORMAL INFO
+    // =========================================================
 
     public void OpenInfo()
     {
-        if (infoOverlay != null)
+        if (menuTransitionInProgress)
         {
-            infoOverlay.SetActive(true);
+            return;
         }
+
+        infoOpenedFromWelcome = false;
+
+        OpenInfoOverlay();
+    }
+
+    private void OpenInfoOverlay()
+    {
+        if (infoOverlay == null)
+        {
+            Debug.LogWarning(
+                "InfoOverlay не е свързан."
+            );
+
+            return;
+        }
+
+        infoOverlay.SetActive(true);
+        infoOverlay.transform.SetAsLastSibling();
     }
 
     public void CloseInfo()
     {
-        if (infoOverlay != null)
+        if (menuTransitionInProgress)
         {
-            infoOverlay.SetActive(false);
+            return;
         }
+
+        if (infoOverlay == null)
+        {
+            return;
+        }
+
+        menuTransitionInProgress = true;
+
+        CloseOverlayAnimated(
+            infoOverlay,
+            () =>
+            {
+                bool shouldReturnToWelcome =
+                    infoOpenedFromWelcome;
+
+                infoOpenedFromWelcome = false;
+                menuTransitionInProgress = false;
+
+                if (shouldReturnToWelcome &&
+                    puzzleWelcomeController != null)
+                {
+                    puzzleWelcomeController
+                        .ShowWelcomeAfterInfo();
+                }
+            }
+        );
     }
 
-    // -------------------------
-    // SETTINGS PANEL
-    // -------------------------
+    // =========================================================
+    // SETTINGS
+    // =========================================================
 
     public void OpenSettings()
     {
+        if (menuTransitionInProgress)
+        {
+            return;
+        }
+
         if (settingsOverlay != null)
         {
             settingsOverlay.SetActive(true);
+            settingsOverlay.transform.SetAsLastSibling();
         }
     }
 
     public void CloseSettings()
     {
-        if (settingsOverlay != null)
+        if (menuTransitionInProgress)
         {
-            settingsOverlay.SetActive(false);
+            return;
         }
+
+        if (settingsOverlay == null)
+        {
+            return;
+        }
+
+        menuTransitionInProgress = true;
+
+        CloseOverlayAnimated(
+            settingsOverlay,
+            () =>
+            {
+                menuTransitionInProgress = false;
+            }
+        );
     }
 
-    // -------------------------
+    // =========================================================
     // EXIT CONFIRMATION
-    // -------------------------
+    // =========================================================
 
     public void OpenExitConfirmation()
     {
+        if (menuTransitionInProgress)
+        {
+            return;
+        }
+
         if (exitConfirmationOverlay != null)
         {
             exitConfirmationOverlay.SetActive(true);
+            exitConfirmationOverlay.transform.SetAsLastSibling();
         }
     }
 
     public void CloseExitConfirmation()
     {
-        if (exitConfirmationOverlay != null)
+        if (menuTransitionInProgress)
         {
-            exitConfirmationOverlay.SetActive(false);
+            return;
         }
+
+        if (exitConfirmationOverlay == null)
+        {
+            return;
+        }
+
+        menuTransitionInProgress = true;
+
+        CloseOverlayAnimated(
+            exitConfirmationOverlay,
+            () =>
+            {
+                menuTransitionInProgress = false;
+            }
+        );
     }
 
     public void ExitToBodyMap()
@@ -207,15 +353,77 @@ public class BrainPuzzleManager : MonoBehaviour
         SceneManager.LoadScene("BodyMap");
     }
 
-    // -------------------------
+    // =========================================================
+    // CLOSE OVERLAY WITH ANIMATION
+    // =========================================================
+
+    private void CloseOverlayAnimated(
+        GameObject overlay,
+        Action onClosed)
+    {
+        if (overlay == null)
+        {
+            onClosed?.Invoke();
+            return;
+        }
+
+        UIPopupAnimation animation =
+            overlay.GetComponentInChildren
+                <UIPopupAnimation>(true);
+
+        if (animation != null &&
+            animation.isActiveAndEnabled)
+        {
+            animation.PlayClose(
+                () =>
+                {
+                    overlay.SetActive(false);
+                    onClosed?.Invoke();
+                }
+            );
+        }
+        else
+        {
+            overlay.SetActive(false);
+            onClosed?.Invoke();
+        }
+    }
+
+    // =========================================================
+    // IMMEDIATE MENU CLEANUP
+    // =========================================================
+
+    private void CloseAllMenusImmediately()
+    {
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (exitConfirmationOverlay != null)
+        {
+            exitConfirmationOverlay.SetActive(false);
+        }
+
+        infoOpenedFromWelcome = false;
+        menuTransitionInProgress = false;
+    }
+
+    // =========================================================
     // PUZZLE SUCCESS
-    // -------------------------
+    // =========================================================
 
     public void ShowPuzzleSuccess()
     {
         if (puzzleSuccessOverlay != null)
         {
             puzzleSuccessOverlay.SetActive(true);
+            puzzleSuccessOverlay.transform.SetAsLastSibling();
         }
     }
 
@@ -227,9 +435,9 @@ public class BrainPuzzleManager : MonoBehaviour
         }
     }
 
-    // -------------------------
+    // =========================================================
     // DIFFICULTY
-    // -------------------------
+    // =========================================================
 
     private void LockDifficulty()
     {
@@ -246,6 +454,10 @@ public class BrainPuzzleManager : MonoBehaviour
             difficultySelector.SetLocked(false);
         }
     }
+
+    // =========================================================
+    // CURRENT LABEL RESET
+    // =========================================================
 
     private void ResetCurrentLabel()
     {
@@ -270,9 +482,14 @@ public class BrainPuzzleManager : MonoBehaviour
         if (rectTransform != null)
         {
             rectTransform.localScale = Vector3.one;
-            rectTransform.localRotation = Quaternion.identity;
+            rectTransform.localRotation =
+                Quaternion.identity;
         }
     }
+
+    // =========================================================
+    // DROP ZONES
+    // =========================================================
 
     private void ResetDropZones()
     {
@@ -292,6 +509,10 @@ public class BrainPuzzleManager : MonoBehaviour
             dropZone.ResetZone();
         }
     }
+
+    // =========================================================
+    // LIVES
+    // =========================================================
 
     private void SetupLives()
     {
@@ -363,20 +584,42 @@ public class BrainPuzzleManager : MonoBehaviour
         if (rect != null)
         {
             rect.localScale = Vector3.one;
-            rect.localRotation = Quaternion.identity;
+            rect.localRotation =
+                Quaternion.identity;
         }
     }
+
+    // =========================================================
+    // LABEL ORDER
+    // =========================================================
 
     private void CreateLabelOrder()
     {
         labelOrder.Clear();
 
-        labelOrder.Add(BrainPartType.Forebrain);
-        labelOrder.Add(BrainPartType.Diencephalon);
-        labelOrder.Add(BrainPartType.Midbrain);
-        labelOrder.Add(BrainPartType.Cerebellum);
-        labelOrder.Add(BrainPartType.Pons);
-        labelOrder.Add(BrainPartType.Medulla);
+        labelOrder.Add(
+            BrainPartType.Forebrain
+        );
+
+        labelOrder.Add(
+            BrainPartType.Diencephalon
+        );
+
+        labelOrder.Add(
+            BrainPartType.Midbrain
+        );
+
+        labelOrder.Add(
+            BrainPartType.Cerebellum
+        );
+
+        labelOrder.Add(
+            BrainPartType.Pons
+        );
+
+        labelOrder.Add(
+            BrainPartType.Medulla
+        );
 
         if (shuffleOrder)
         {
@@ -386,10 +629,12 @@ public class BrainPuzzleManager : MonoBehaviour
 
     private void ShuffleLabels()
     {
-        for (int i = 0; i < labelOrder.Count; i++)
+        for (int i = 0;
+             i < labelOrder.Count;
+             i++)
         {
             int randomIndex =
-                Random.Range(
+                UnityEngine.Random.Range(
                     i,
                     labelOrder.Count
                 );
@@ -404,6 +649,10 @@ public class BrainPuzzleManager : MonoBehaviour
                 temporary;
         }
     }
+
+    // =========================================================
+    // SHOW CURRENT LABEL
+    // =========================================================
 
     private void ShowCurrentLabel()
     {
@@ -440,12 +689,35 @@ public class BrainPuzzleManager : MonoBehaviour
 
     private void HideAllLabelImages()
     {
-        SetLabelActive(forebrainText, false);
-        SetLabelActive(diencephalonText, false);
-        SetLabelActive(midbrainText, false);
-        SetLabelActive(cerebellumText, false);
-        SetLabelActive(ponsText, false);
-        SetLabelActive(medullaText, false);
+        SetLabelActive(
+            forebrainText,
+            false
+        );
+
+        SetLabelActive(
+            diencephalonText,
+            false
+        );
+
+        SetLabelActive(
+            midbrainText,
+            false
+        );
+
+        SetLabelActive(
+            cerebellumText,
+            false
+        );
+
+        SetLabelActive(
+            ponsText,
+            false
+        );
+
+        SetLabelActive(
+            medullaText,
+            false
+        );
     }
 
     private void SetLabelActive(
@@ -486,6 +758,10 @@ public class BrainPuzzleManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // CORRECT PLACEMENT
+    // =========================================================
+
     public void HandleCorrectPlacement(
         BrainPuzzleDropZone dropZone)
     {
@@ -505,7 +781,8 @@ public class BrainPuzzleManager : MonoBehaviour
             return;
         }
 
-        if (dropZone.AcceptedPart != CurrentPart)
+        if (dropZone.AcceptedPart !=
+            CurrentPart)
         {
             Debug.LogWarning(
                 "HandleCorrectPlacement е извикан " +
@@ -518,7 +795,8 @@ public class BrainPuzzleManager : MonoBehaviour
 
         currentIndex++;
 
-        if (currentIndex >= labelOrder.Count)
+        if (currentIndex >=
+            labelOrder.Count)
         {
             CompletePuzzle();
             return;
@@ -526,6 +804,10 @@ public class BrainPuzzleManager : MonoBehaviour
 
         ShowCurrentLabel();
     }
+
+    // =========================================================
+    // WRONG PLACEMENT
+    // =========================================================
 
     public void HandleWrongPlacement()
     {
@@ -548,7 +830,9 @@ public class BrainPuzzleManager : MonoBehaviour
         }
 
         GameObject heartToLose =
-            GetHeartForLife(currentLives);
+            GetHeartForLife(
+                currentLives
+            );
 
         currentLives--;
 
@@ -561,7 +845,8 @@ public class BrainPuzzleManager : MonoBehaviour
 
             if (heartAnimation != null)
             {
-                heartAnimation.PlayLoseAnimation();
+                heartAnimation
+                    .PlayLoseAnimation();
             }
             else
             {
@@ -594,13 +879,15 @@ public class BrainPuzzleManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // GAME OVER
+    // =========================================================
+
     private void TriggerGameOver()
     {
         gameOver = true;
 
-        CloseInfo();
-        CloseSettings();
-        CloseExitConfirmation();
+        CloseAllMenusImmediately();
         HidePuzzleSuccess();
 
         HideAllLabelImages();
@@ -617,13 +904,15 @@ public class BrainPuzzleManager : MonoBehaviour
         onGameOver?.Invoke();
     }
 
+    // =========================================================
+    // COMPLETE PUZZLE
+    // =========================================================
+
     private void CompletePuzzle()
     {
         puzzleCompleted = true;
 
-        CloseInfo();
-        CloseSettings();
-        CloseExitConfirmation();
+        CloseAllMenusImmediately();
 
         HideAllLabelImages();
 
@@ -640,6 +929,10 @@ public class BrainPuzzleManager : MonoBehaviour
 
         onPuzzleCompleted?.Invoke();
     }
+
+    // =========================================================
+    // HIDE CURRENT LABEL
+    // =========================================================
 
     public void HideCurrentLabel()
     {

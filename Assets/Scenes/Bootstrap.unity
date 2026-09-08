@@ -772,6 +772,8 @@ MonoBehaviour:
   quizMusicVolume: 0.3
   heartMinigameMusic: {fileID: 8300000, guid: bc9c56c07c6cfd74bbd19dea2c758d62, type: 3}
   heartMinigameMusicVolume: 0.3
+  stomachMinigameMusic: {fileID: 8300000, guid: 25fcae03256e75b43af98561c06dd997, type: 3}
+  stomachMinigameMusicVolume: 0.3
   videoDuckedVolumeMultiplier: 0.25
   feedbackDuckedVolumeMultiplier: 0.6
   volumeFadeDuration: 0.4

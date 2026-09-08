@@ -46,6 +46,10 @@ public class BrainMinigameManager : MonoBehaviour
         public float passiveTensionPerActiveOrderPerSecond = 0f;
     }
 
+    // =========================================================
+    // DIFFICULTY
+    // =========================================================
+
     [Header("Difficulty Settings")]
     [SerializeField]
     private DifficultySettings easySettings =
@@ -95,9 +99,17 @@ public class BrainMinigameManager : MonoBehaviour
             passiveTensionPerActiveOrderPerSecond = 0.5f
         };
 
+    // =========================================================
+    // STATIONS
+    // =========================================================
+
     [Header("Stations")]
     [SerializeField]
     private BrainOrganStation[] stations;
+
+    // =========================================================
+    // ROUND UI
+    // =========================================================
 
     [Header("Optional Round UI")]
     [SerializeField]
@@ -109,6 +121,10 @@ public class BrainMinigameManager : MonoBehaviour
 
     [SerializeField]
     private float roundTimerPulseStartTime = 10f;
+
+    // =========================================================
+    // TENSION
+    // =========================================================
 
     [Header("Optional Tension UI")]
     [SerializeField]
@@ -132,8 +148,18 @@ public class BrainMinigameManager : MonoBehaviour
 
     [Header("Tension Brain Animation")]
     [SerializeField]
-    private BrainTensionStateAnimation
-        tensionStateAnimation;
+    private BrainTensionStateAnimation tensionStateAnimation;
+
+    // =========================================================
+    // WELCOME
+    // =========================================================
+
+    [Header("Welcome")]
+    [SerializeField]
+    private GameObject welcomeOverlay;
+
+    [SerializeField]
+    private UIPopupAnimation welcomePanelAnimation;
 
     // =========================================================
     // PAUSE
@@ -148,7 +174,13 @@ public class BrainMinigameManager : MonoBehaviour
     private GameObject pausePanel;
 
     [SerializeField]
+    private WorldPopupAnimation pausePopupAnimation;
+
+    [SerializeField]
     private GameObject infoPanel;
+
+    [SerializeField]
+    private WorldPopupAnimation infoPopupAnimation;
 
     // =========================================================
     // SETTINGS
@@ -165,7 +197,7 @@ public class BrainMinigameManager : MonoBehaviour
     private DifficultySelector difficultySelector;
 
     // =========================================================
-    // EXIT CONFIRMATION
+    // EXIT
     // =========================================================
 
     [Header("Exit Confirmation")]
@@ -186,6 +218,10 @@ public class BrainMinigameManager : MonoBehaviour
     [SerializeField]
     private GameObject gameOverObject;
 
+    // =========================================================
+    // INTERNAL
+    // =========================================================
+
     private DifficultySettings currentSettings;
 
     private readonly List<BrainOrganStation>
@@ -202,10 +238,14 @@ public class BrainMinigameManager : MonoBehaviour
     private bool roundRunning = false;
     private bool isPaused = false;
 
+    private bool minigameStarted = false;
+    private bool welcomeTransitionInProgress = false;
+    private bool menuTransitionInProgress = false;
+    private bool infoOpenedFromWelcome = false;
+
     private Coroutine spawnCoroutine;
 
     private int currentTensionBrainState = 0;
-
     private int lastRoundTimerPulseSecond = -1;
 
     public float NervousTension =>
@@ -225,13 +265,14 @@ public class BrainMinigameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        HidePauseWorld();
-
-        StartRound();
+        PrepareForWelcome();
     }
 
     private void Update()
     {
+        if (!minigameStarted)
+            return;
+
         if (!roundRunning)
             return;
 
@@ -247,6 +288,208 @@ public class BrainMinigameManager : MonoBehaviour
     }
 
     // =========================================================
+    // WELCOME PREPARATION
+    // =========================================================
+
+    public void PrepareForWelcome()
+    {
+        Time.timeScale = 1f;
+
+        minigameStarted = false;
+        roundRunning = false;
+        isPaused = false;
+
+        welcomeTransitionInProgress = false;
+        menuTransitionInProgress = false;
+        infoOpenedFromWelcome = false;
+
+        if (spawnCoroutine != null)
+        {
+            StopCoroutine(spawnCoroutine);
+            spawnCoroutine = null;
+        }
+
+        StopAllOrders();
+
+        currentSettings =
+            GetCurrentDifficultySettings();
+
+        remainingRoundTime =
+            currentSettings.roundDuration;
+
+        nervousTension = 0f;
+
+        currentTensionBrainState = 0;
+        lastRoundTimerPulseSecond = -1;
+
+        activeStations.Clear();
+        recentStations.Clear();
+
+        if (roundTimerPulse != null)
+        {
+            roundTimerPulse.ResetAnimation();
+        }
+
+        HidePauseWorld();
+
+        if (successObject != null)
+        {
+            successObject.SetActive(false);
+        }
+
+        if (gameOverObject != null)
+        {
+            gameOverObject.SetActive(false);
+        }
+
+        UpdateRoundTimeUI();
+        UpdateTensionUI();
+
+        ShowWelcome();
+
+        Debug.Log(
+            "Brain Minigame чака Welcome панела."
+        );
+    }
+
+    private void ShowWelcome()
+    {
+        if (welcomeOverlay == null)
+        {
+            Debug.LogError(
+                "Minigame Welcome Overlay не е свързан " +
+                "в BrainMinigameManager."
+            );
+
+            return;
+        }
+
+        welcomeOverlay.SetActive(true);
+        welcomeOverlay.transform.SetAsLastSibling();
+
+        if (welcomePanelAnimation != null)
+        {
+            welcomePanelAnimation.PlayOpen();
+        }
+    }
+
+    public void ShowWelcomeAfterInfo()
+    {
+        if (minigameStarted)
+        {
+            return;
+        }
+
+        welcomeTransitionInProgress = false;
+        menuTransitionInProgress = false;
+
+        ShowWelcome();
+    }
+
+    // =========================================================
+    // START FROM WELCOME
+    // =========================================================
+
+    public void StartMinigameFromWelcome()
+    {
+        if (minigameStarted ||
+            welcomeTransitionInProgress)
+        {
+            return;
+        }
+
+        welcomeTransitionInProgress = true;
+
+        if (welcomePanelAnimation != null)
+        {
+            welcomePanelAnimation.PlayClose(
+                FinishStartingFromWelcome
+            );
+        }
+        else
+        {
+            FinishStartingFromWelcome();
+        }
+    }
+
+    private void FinishStartingFromWelcome()
+    {
+        if (welcomeOverlay != null)
+        {
+            welcomeOverlay.SetActive(false);
+        }
+
+        welcomeTransitionInProgress = false;
+
+        minigameStarted = true;
+
+        StartRound();
+    }
+
+    // =========================================================
+    // INFO FROM WELCOME
+    // =========================================================
+
+    public void OpenInfoFromWelcome()
+    {
+        if (minigameStarted ||
+            welcomeTransitionInProgress ||
+            menuTransitionInProgress)
+        {
+            return;
+        }
+
+        infoOpenedFromWelcome = true;
+        welcomeTransitionInProgress = true;
+
+        if (welcomePanelAnimation != null)
+        {
+            welcomePanelAnimation.PlayClose(
+                FinishOpeningInfoFromWelcome
+            );
+        }
+        else
+        {
+            FinishOpeningInfoFromWelcome();
+        }
+    }
+
+    private void FinishOpeningInfoFromWelcome()
+    {
+        if (welcomeOverlay != null)
+        {
+            welcomeOverlay.SetActive(false);
+        }
+
+        welcomeTransitionInProgress = false;
+
+        if (pauseWorld != null)
+        {
+            pauseWorld.SetActive(true);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+
+        if (settingsOverlay != null)
+        {
+            settingsOverlay.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
+        }
+
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(true);
+        }
+    }
+
+    // =========================================================
     // ROUND
     // =========================================================
 
@@ -259,9 +502,7 @@ public class BrainMinigameManager : MonoBehaviour
             currentSettings.roundDuration;
 
         nervousTension = 0f;
-
         currentTensionBrainState = 0;
-
         lastRoundTimerPulseSecond = -1;
 
         if (roundTimerPulse != null)
@@ -271,6 +512,7 @@ public class BrainMinigameManager : MonoBehaviour
 
         roundRunning = true;
         isPaused = false;
+        minigameStarted = true;
 
         activeStations.Clear();
         recentStations.Clear();
@@ -297,13 +539,16 @@ public class BrainMinigameManager : MonoBehaviour
 
         spawnCoroutine =
             StartCoroutine(
-                SpawnOrdersRoutine());
+                SpawnOrdersRoutine()
+            );
 
         Debug.Log(
             "Brain minigame started. Difficulty: " +
             PlayerPrefs.GetInt(
                 "Difficulty",
-                1));
+                1
+            )
+        );
     }
 
     // =========================================================
@@ -312,11 +557,13 @@ public class BrainMinigameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if (!roundRunning)
+        if (!minigameStarted ||
+            !roundRunning ||
+            isPaused ||
+            menuTransitionInProgress)
+        {
             return;
-
-        if (isPaused)
-            return;
+        }
 
         isPaused = true;
 
@@ -330,35 +577,76 @@ public class BrainMinigameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         Debug.Log(
-            "Brain minigame paused.");
+            "Brain minigame paused."
+        );
     }
 
     public void ResumeGame()
     {
-        if (!roundRunning)
+        if (!roundRunning ||
+            !isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
-        if (!isPaused)
-            return;
+        menuTransitionInProgress = true;
 
+        if (pausePopupAnimation != null)
+        {
+            pausePopupAnimation.PlayClose(
+                FinishResumingGame
+            );
+        }
+        else
+        {
+            FinishResumingGame();
+        }
+    }
+
+    private void FinishResumingGame()
+    {
         HidePauseWorld();
 
         isPaused = false;
+        menuTransitionInProgress = false;
+
         Time.timeScale = 1f;
 
         Debug.Log(
-            "Brain minigame resumed.");
+            "Brain minigame resumed."
+        );
     }
 
     // =========================================================
-    // INFO
+    // INFO FROM PAUSE
     // =========================================================
 
     public void OpenInfoPanel()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
+        infoOpenedFromWelcome = false;
+        menuTransitionInProgress = true;
+
+        if (pausePopupAnimation != null)
+        {
+            pausePopupAnimation.PlayClose(
+                FinishOpeningInfoFromPause
+            );
+        }
+        else
+        {
+            FinishOpeningInfoFromPause();
+        }
+    }
+
+    private void FinishOpeningInfoFromPause()
+    {
         if (pausePanel != null)
         {
             pausePanel.SetActive(false);
@@ -368,22 +656,71 @@ public class BrainMinigameManager : MonoBehaviour
         {
             infoPanel.SetActive(true);
         }
+
+        menuTransitionInProgress = false;
     }
 
     public void CloseInfoPanel()
     {
-        if (!isPaused)
+        if (menuTransitionInProgress)
+        {
             return;
+        }
 
+        if (!isPaused &&
+            !infoOpenedFromWelcome)
+        {
+            return;
+        }
+
+        menuTransitionInProgress = true;
+
+        if (infoPopupAnimation != null)
+        {
+            infoPopupAnimation.PlayClose(
+                FinishClosingInfo
+            );
+        }
+        else
+        {
+            FinishClosingInfo();
+        }
+    }
+
+    private void FinishClosingInfo()
+    {
         if (infoPanel != null)
         {
             infoPanel.SetActive(false);
+        }
+
+        if (infoOpenedFromWelcome)
+        {
+            infoOpenedFromWelcome = false;
+
+            if (pauseWorld != null)
+            {
+                pauseWorld.SetActive(false);
+            }
+
+            menuTransitionInProgress = false;
+
+            ShowWelcomeAfterInfo();
+
+            return;
+        }
+
+        if (pauseWorld != null)
+        {
+            pauseWorld.SetActive(true);
         }
 
         if (pausePanel != null)
         {
             pausePanel.SetActive(true);
         }
+
+        menuTransitionInProgress = false;
     }
 
     // =========================================================
@@ -392,9 +729,33 @@ public class BrainMinigameManager : MonoBehaviour
 
     public void OpenSettingsPanel()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
+        menuTransitionInProgress = true;
+
+        if (difficultySelector != null)
+        {
+            difficultySelector.SetLocked(true);
+        }
+
+        if (pausePopupAnimation != null)
+        {
+            pausePopupAnimation.PlayClose(
+                FinishOpeningSettings
+            );
+        }
+        else
+        {
+            FinishOpeningSettings();
+        }
+    }
+
+    private void FinishOpeningSettings()
+    {
         if (pausePanel != null)
         {
             pausePanel.SetActive(false);
@@ -410,31 +771,35 @@ public class BrainMinigameManager : MonoBehaviour
             exitConfirmationPanel.SetActive(false);
         }
 
-        if (difficultySelector != null)
-        {
-            difficultySelector.SetLocked(true);
-        }
-
         if (settingsOverlay != null)
         {
             settingsOverlay.SetActive(true);
+            settingsOverlay.transform.SetAsLastSibling();
         }
+
+        menuTransitionInProgress = false;
     }
 
     public void CloseSettingsPanel()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
+
+        menuTransitionInProgress = true;
 
         if (settingsPopupAnimation != null)
         {
             settingsPopupAnimation.PlayClose(
-                FinishClosingSettings);
-
-            return;
+                FinishClosingSettings
+            );
         }
-
-        FinishClosingSettings();
+        else
+        {
+            FinishClosingSettings();
+        }
     }
 
     private void FinishClosingSettings()
@@ -442,11 +807,6 @@ public class BrainMinigameManager : MonoBehaviour
         if (settingsOverlay != null)
         {
             settingsOverlay.SetActive(false);
-        }
-
-        if (infoPanel != null)
-        {
-            infoPanel.SetActive(false);
         }
 
         if (pauseWorld != null)
@@ -458,17 +818,38 @@ public class BrainMinigameManager : MonoBehaviour
         {
             pausePanel.SetActive(true);
         }
+
+        menuTransitionInProgress = false;
     }
 
     // =========================================================
-    // EXIT CONFIRMATION
+    // EXIT
     // =========================================================
 
     public void OpenExitConfirmation()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
+        menuTransitionInProgress = true;
+
+        if (pausePopupAnimation != null)
+        {
+            pausePopupAnimation.PlayClose(
+                FinishOpeningExit
+            );
+        }
+        else
+        {
+            FinishOpeningExit();
+        }
+    }
+
+    private void FinishOpeningExit()
+    {
         if (pausePanel != null)
         {
             pausePanel.SetActive(false);
@@ -487,23 +868,32 @@ public class BrainMinigameManager : MonoBehaviour
         if (exitConfirmationPanel != null)
         {
             exitConfirmationPanel.SetActive(true);
+            exitConfirmationPanel.transform.SetAsLastSibling();
         }
+
+        menuTransitionInProgress = false;
     }
 
     public void CloseExitConfirmation()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
+
+        menuTransitionInProgress = true;
 
         if (exitPopupAnimation != null)
         {
             exitPopupAnimation.PlayClose(
-                FinishClosingExitConfirmation);
-
-            return;
+                FinishClosingExitConfirmation
+            );
         }
-
-        FinishClosingExitConfirmation();
+        else
+        {
+            FinishClosingExitConfirmation();
+        }
     }
 
     private void FinishClosingExitConfirmation()
@@ -522,6 +912,8 @@ public class BrainMinigameManager : MonoBehaviour
         {
             pausePanel.SetActive(true);
         }
+
+        menuTransitionInProgress = false;
     }
 
     public void ExitToBodyMap()
@@ -532,7 +924,7 @@ public class BrainMinigameManager : MonoBehaviour
     }
 
     // =========================================================
-    // PAUSE PANEL HELPERS
+    // PAUSE HELPERS
     // =========================================================
 
     private void ShowMainPausePanel()
@@ -626,16 +1018,18 @@ public class BrainMinigameManager : MonoBehaviour
     {
         BrainMinigameDropZone[] dropZones =
             FindObjectsByType<BrainMinigameDropZone>(
-                FindObjectsSortMode.None);
+                FindObjectsSortMode.None
+            );
 
-        foreach (BrainMinigameDropZone dropZone in
-                 dropZones)
+        foreach (BrainMinigameDropZone dropZone
+                 in dropZones)
         {
             if (dropZone == null)
                 continue;
 
             dropZone.SetProcessingDuration(
-                currentSettings.brainProcessingTime);
+                currentSettings.brainProcessingTime
+            );
 
             dropZone.WrongProblemDelivered -=
                 HandleWrongBrainZone;
@@ -656,7 +1050,8 @@ public class BrainMinigameManager : MonoBehaviour
             float delay =
                 Random.Range(
                     currentSettings.minSpawnDelay,
-                    currentSettings.maxSpawnDelay);
+                    currentSettings.maxSpawnDelay
+                );
 
             yield return new WaitForSeconds(delay);
 
@@ -745,10 +1140,13 @@ public class BrainMinigameManager : MonoBehaviour
             available[
                 Random.Range(
                     0,
-                    available.Count)];
+                    available.Count
+                )
+            ];
 
         selected.StartManagedOrder(
-            currentSettings.orderDuration);
+            currentSettings.orderDuration
+        );
 
         activeStations.Add(selected);
 
@@ -756,7 +1154,8 @@ public class BrainMinigameManager : MonoBehaviour
 
         Debug.Log(
             "New brain order: " +
-            selected.gameObject.name);
+            selected.gameObject.name
+        );
     }
 
     private bool HasActiveOrderForSameBrainZone(
@@ -798,7 +1197,8 @@ public class BrainMinigameManager : MonoBehaviour
             return false;
 
         return recentStations.Contains(
-            station);
+            station
+        );
     }
 
     private void RegisterRecentStation(
@@ -811,7 +1211,8 @@ public class BrainMinigameManager : MonoBehaviour
             Mathf.Max(
                 0,
                 currentSettings
-                    .recentOrderBlockCount);
+                    .recentOrderBlockCount
+            );
 
         if (maxRecent == 0)
         {
@@ -839,7 +1240,8 @@ public class BrainMinigameManager : MonoBehaviour
 
         Debug.Log(
             station.gameObject.name +
-            " completed.");
+            " completed."
+        );
 
         TryFillAvailableOrderSlots();
     }
@@ -850,11 +1252,13 @@ public class BrainMinigameManager : MonoBehaviour
         activeStations.Remove(station);
 
         AddTension(
-            currentSettings.failedOrderTension);
+            currentSettings.failedOrderTension
+        );
 
         Debug.Log(
             station.gameObject.name +
-            " failed.");
+            " failed."
+        );
 
         TryFillAvailableOrderSlots();
     }
@@ -862,13 +1266,15 @@ public class BrainMinigameManager : MonoBehaviour
     private void HandleWrongBrainZone()
     {
         AddTension(
-            currentSettings.wrongBrainZoneTension);
+            currentSettings.wrongBrainZoneTension
+        );
     }
 
     private void HandleWrongCommandDelivered()
     {
         AddTension(
-            currentSettings.wrongBrainZoneTension);
+            currentSettings.wrongBrainZoneTension
+        );
     }
 
     private void TryFillAvailableOrderSlots()
@@ -910,7 +1316,8 @@ public class BrainMinigameManager : MonoBehaviour
             Time.deltaTime;
 
         AddTension(
-            tensionToAdd);
+            tensionToAdd
+        );
     }
 
     // =========================================================
@@ -931,7 +1338,8 @@ public class BrainMinigameManager : MonoBehaviour
             Mathf.Clamp(
                 nervousTension,
                 0f,
-                100f);
+                100f
+            );
 
         UpdateTensionUI();
 
@@ -946,14 +1354,16 @@ public class BrainMinigameManager : MonoBehaviour
         if (tensionFillMask != null)
         {
             tensionFillMask.SetFill(
-                nervousTension / 100f);
+                nervousTension / 100f
+            );
         }
 
         if (tensionText != null)
         {
             tensionText.text =
                 Mathf.RoundToInt(
-                    nervousTension) +
+                    nervousTension
+                ) +
                 "%";
         }
 
@@ -1048,7 +1458,8 @@ public class BrainMinigameManager : MonoBehaviour
 
         int currentSecond =
             Mathf.CeilToInt(
-                remainingRoundTime);
+                remainingRoundTime
+            );
 
         if (currentSecond <= 0)
             return;
@@ -1072,7 +1483,8 @@ public class BrainMinigameManager : MonoBehaviour
 
         int totalSeconds =
             Mathf.CeilToInt(
-                remainingRoundTime);
+                remainingRoundTime
+            );
 
         int minutes =
             totalSeconds / 60;
@@ -1094,6 +1506,7 @@ public class BrainMinigameManager : MonoBehaviour
             return;
 
         roundRunning = false;
+        minigameStarted = false;
         isPaused = false;
 
         if (spawnCoroutine != null)
@@ -1113,7 +1526,8 @@ public class BrainMinigameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         Debug.Log(
-            "Brain minigame survived successfully.");
+            "Brain minigame survived successfully."
+        );
     }
 
     private void LoseRound()
@@ -1122,6 +1536,7 @@ public class BrainMinigameManager : MonoBehaviour
             return;
 
         roundRunning = false;
+        minigameStarted = false;
         isPaused = false;
 
         Time.timeScale = 1f;
@@ -1142,7 +1557,8 @@ public class BrainMinigameManager : MonoBehaviour
 
         Debug.Log(
             "Brain minigame lost. " +
-            "Nervous tension reached 100%.");
+            "Nervous tension reached 100%."
+        );
     }
 
     private void StopAllOrders()
@@ -1171,7 +1587,8 @@ public class BrainMinigameManager : MonoBehaviour
         int difficulty =
             PlayerPrefs.GetInt(
                 "Difficulty",
-                1);
+                1
+            );
 
         switch (difficulty)
         {
@@ -1196,8 +1613,7 @@ public class BrainMinigameManager : MonoBehaviour
 
         if (stations != null)
         {
-            foreach (BrainOrganStation station in
-                     stations)
+            foreach (BrainOrganStation station in stations)
             {
                 if (station == null)
                     continue;

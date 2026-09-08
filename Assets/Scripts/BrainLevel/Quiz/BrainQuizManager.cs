@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -177,12 +178,21 @@ public class BrainQuizManager : MonoBehaviour
     private bool isHintOpen = false;
     private bool isInfoOpen = false;
     private bool isSettingsOpen = false;
+    private bool isExitOpen = false;
+
+    private bool menuTransitionInProgress = false;
+
+    private Action infoClosedCallback;
 
     private Vector3 originalHintButtonScale;
 
     private Vector2 originalHintImageSize;
     private Vector2 originalHintImagePosition;
     private Vector3 originalHintImageScale;
+
+    // =========================
+    // UNITY
+    // =========================
 
     private void Start()
     {
@@ -236,7 +246,9 @@ public class BrainQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen ||
+            menuTransitionInProgress)
         {
             return;
         }
@@ -382,7 +394,7 @@ public class BrainQuizManager : MonoBehaviour
              i--)
         {
             int randomIndex =
-                Random.Range(
+                UnityEngine.Random.Range(
                     0,
                     i + 1
                 );
@@ -420,9 +432,7 @@ public class BrainQuizManager : MonoBehaviour
         }
 
         BrainQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         HideAllQuestionPanels();
 
@@ -582,12 +592,8 @@ public class BrainQuizManager : MonoBehaviour
         if (targetImage == null)
             return;
 
-        targetImage.sprite =
-            sprite;
-
-        targetImage.enabled =
-            sprite != null;
-
+        targetImage.sprite = sprite;
+        targetImage.enabled = sprite != null;
         targetImage.preserveAspect = true;
     }
 
@@ -634,7 +640,9 @@ public class BrainQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen ||
+            menuTransitionInProgress)
         {
             return;
         }
@@ -656,9 +664,7 @@ public class BrainQuizManager : MonoBehaviour
         }
 
         BrainQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         if (currentQuestion.questionType !=
             BrainQuizQuestionType.Written)
@@ -791,7 +797,9 @@ public class BrainQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen ||
+            menuTransitionInProgress)
         {
             return;
         }
@@ -804,9 +812,7 @@ public class BrainQuizManager : MonoBehaviour
         }
 
         BrainQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         if (selectedIndex ==
             currentQuestion.correctAnswerIndex)
@@ -1056,7 +1062,9 @@ public class BrainQuizManager : MonoBehaviour
             isProcessingWrongAnswer ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen ||
+            menuTransitionInProgress)
         {
             return;
         }
@@ -1084,9 +1092,7 @@ public class BrainQuizManager : MonoBehaviour
         }
 
         BrainQuizQuestion currentQuestion =
-            selectedQuestions[
-                currentQuestionIndex
-            ];
+            selectedQuestions[currentQuestionIndex];
 
         if (hintText != null)
         {
@@ -1149,8 +1155,6 @@ public class BrainQuizManager : MonoBehaviour
             hintAlreadyUsed ||
             remainingHints > 0;
 
-        // При победа не изключваме бутона,
-        // ако все още има останали хинтове.
         bool buttonEnabled =
             canUseHint &&
             !isGameOver &&
@@ -1293,26 +1297,78 @@ public class BrainQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen ||
+            menuTransitionInProgress)
         {
             return;
         }
 
-        if (infoOverlay != null)
+        infoClosedCallback = null;
+
+        OpenInfoOverlay();
+    }
+
+    public void OpenInfoPanelFromWelcome(
+        Action onInfoClosed)
+    {
+        if (isInfoOpen ||
+            menuTransitionInProgress)
         {
-            isInfoOpen = true;
-            infoOverlay.SetActive(true);
+            return;
         }
+
+        infoClosedCallback =
+            onInfoClosed;
+
+        OpenInfoOverlay();
+    }
+
+    private void OpenInfoOverlay()
+    {
+        if (infoOverlay == null)
+        {
+            Debug.LogWarning(
+                "InfoOverlay не е зададен " +
+                "в BrainQuizManager!"
+            );
+
+            return;
+        }
+
+        isInfoOpen = true;
+
+        infoOverlay.SetActive(true);
+        infoOverlay.transform.SetAsLastSibling();
     }
 
     public void CloseInfoPanel()
     {
-        if (infoOverlay != null)
+        if (!isInfoOpen ||
+            menuTransitionInProgress)
         {
-            infoOverlay.SetActive(false);
+            return;
         }
 
+        menuTransitionInProgress = true;
+
+        CloseOverlayAnimated(
+            infoOverlay,
+            FinishClosingInfoPanel
+        );
+    }
+
+    private void FinishClosingInfoPanel()
+    {
         isInfoOpen = false;
+        menuTransitionInProgress = false;
+
+        Action callback =
+            infoClosedCallback;
+
+        infoClosedCallback = null;
+
+        callback?.Invoke();
     }
 
     // =========================
@@ -1325,32 +1381,47 @@ public class BrainQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen ||
+            menuTransitionInProgress)
         {
             return;
         }
 
-        if (settingsOverlay != null)
+        if (settingsOverlay == null)
         {
-            isSettingsOpen = true;
+            return;
+        }
 
-            settingsOverlay.SetActive(true);
+        isSettingsOpen = true;
 
-            if (difficultySelector != null)
-            {
-                difficultySelector.SetLocked(true);
-            }
+        settingsOverlay.SetActive(true);
+        settingsOverlay.transform.SetAsLastSibling();
+
+        if (difficultySelector != null)
+        {
+            difficultySelector.SetLocked(true);
         }
     }
 
     public void CloseSettingsPanel()
     {
-        if (settingsOverlay != null)
+        if (!isSettingsOpen ||
+            menuTransitionInProgress)
         {
-            settingsOverlay.SetActive(false);
+            return;
         }
 
-        isSettingsOpen = false;
+        menuTransitionInProgress = true;
+
+        CloseOverlayAnimated(
+            settingsOverlay,
+            () =>
+            {
+                isSettingsOpen = false;
+                menuTransitionInProgress = false;
+            }
+        );
     }
 
     // =========================
@@ -1363,28 +1434,123 @@ public class BrainQuizManager : MonoBehaviour
             isQuizCompleted ||
             isHintOpen ||
             isInfoOpen ||
-            isSettingsOpen)
+            isSettingsOpen ||
+            isExitOpen ||
+            menuTransitionInProgress)
         {
             return;
         }
 
-        if (exitConfirmationOverlay != null)
+        if (exitConfirmationOverlay == null)
         {
-            exitConfirmationOverlay.SetActive(true);
+            return;
         }
+
+        isExitOpen = true;
+
+        exitConfirmationOverlay.SetActive(true);
+        exitConfirmationOverlay.transform.SetAsLastSibling();
     }
 
     public void CloseExitConfirmation()
     {
-        if (exitConfirmationOverlay != null)
+        if (!isExitOpen ||
+            menuTransitionInProgress)
         {
-            exitConfirmationOverlay.SetActive(false);
+            return;
         }
+
+        menuTransitionInProgress = true;
+
+        CloseOverlayAnimated(
+            exitConfirmationOverlay,
+            () =>
+            {
+                isExitOpen = false;
+                menuTransitionInProgress = false;
+            }
+        );
     }
 
     public void ExitToBodyMap()
     {
         SceneManager.LoadScene("BodyMap");
+    }
+
+    // =========================
+    // CLOSE ANIMATIONS
+    // =========================
+
+    private void CloseOverlayAnimated(
+        GameObject overlay,
+        Action onClosed)
+    {
+        if (overlay == null)
+        {
+            onClosed?.Invoke();
+            return;
+        }
+
+        UIPopupAnimation uiPopup =
+            overlay.GetComponentInChildren<
+                UIPopupAnimation
+            >(true);
+
+        if (uiPopup != null &&
+            uiPopup.isActiveAndEnabled)
+        {
+            uiPopup.PlayClose(
+                () =>
+                {
+                    overlay.SetActive(false);
+                    onClosed?.Invoke();
+                }
+            );
+
+            return;
+        }
+
+        PauseUIPopupAnimation pausePopup =
+            overlay.GetComponentInChildren<
+                PauseUIPopupAnimation
+            >(true);
+
+        if (pausePopup != null &&
+            pausePopup.isActiveAndEnabled)
+        {
+            pausePopup.PlayClose(
+                () =>
+                {
+                    overlay.SetActive(false);
+                    onClosed?.Invoke();
+                }
+            );
+
+            return;
+        }
+
+        WorldPopupAnimation worldPopup =
+            overlay.GetComponentInChildren<
+                WorldPopupAnimation
+            >(true);
+
+        if (worldPopup != null &&
+            worldPopup.isActiveAndEnabled)
+        {
+            worldPopup.PlayClose(
+                () =>
+                {
+                    overlay.SetActive(false);
+                    onClosed?.Invoke();
+                }
+            );
+
+            return;
+        }
+
+        overlay.SetActive(false);
+
+        onClosed?.Invoke();
     }
 
     // =========================
@@ -1399,6 +1565,13 @@ public class BrainQuizManager : MonoBehaviour
 
         isQuizCompleted = true;
         isChangingQuestion = false;
+
+        isInfoOpen = false;
+        isSettingsOpen = false;
+        isExitOpen = false;
+
+        menuTransitionInProgress = false;
+        infoClosedCallback = null;
 
         SetAnswerButtonsInteractable(false);
 
@@ -1440,6 +1613,13 @@ public class BrainQuizManager : MonoBehaviour
 
         isGameOver = true;
         isProcessingWrongAnswer = false;
+
+        isInfoOpen = false;
+        isSettingsOpen = false;
+        isExitOpen = false;
+
+        menuTransitionInProgress = false;
+        infoClosedCallback = null;
 
         SetAnswerButtonsInteractable(false);
 
@@ -1545,6 +1725,13 @@ public class BrainQuizManager : MonoBehaviour
 
     private void HideOverlays()
     {
+        isInfoOpen = false;
+        isSettingsOpen = false;
+        isExitOpen = false;
+
+        menuTransitionInProgress = false;
+        infoClosedCallback = null;
+
         if (infoOverlay != null)
             infoOverlay.SetActive(false);
 

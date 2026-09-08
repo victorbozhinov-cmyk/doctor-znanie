@@ -325,7 +325,6 @@ public class StomachQuizManager : MonoBehaviour
 
         switch (difficulty)
         {
-            // ЛЕСНО = 6
             case 0:
 
                 AddQuestions(multiple, 3);
@@ -335,7 +334,6 @@ public class StomachQuizManager : MonoBehaviour
 
                 break;
 
-            // ТРУДНО = 10
             case 2:
 
                 AddQuestions(multiple, 4);
@@ -345,7 +343,6 @@ public class StomachQuizManager : MonoBehaviour
 
                 break;
 
-            // СРЕДНО = 8
             default:
 
                 AddQuestions(multiple, 3);
@@ -792,6 +789,8 @@ public class StomachQuizManager : MonoBehaviour
             writtenCheckFeedback.PlayCorrect();
         }
 
+        PlayCorrectSound();
+
         StartCoroutine(
             GoToNextQuestionAfterDelay()
         );
@@ -819,6 +818,8 @@ public class StomachQuizManager : MonoBehaviour
         {
             writtenCheckFeedback.PlayWrong();
         }
+
+        PlayWrongSoundIfNotGameOver();
 
         LoseLife();
 
@@ -879,6 +880,8 @@ public class StomachQuizManager : MonoBehaviour
             feedback.PlayCorrect();
         }
 
+        PlayCorrectSound();
+
         StartCoroutine(
             GoToNextQuestionAfterDelay()
         );
@@ -896,6 +899,8 @@ public class StomachQuizManager : MonoBehaviour
             feedback.PlayWrong();
         }
 
+        PlayWrongSoundIfNotGameOver();
+
         LoseLife();
 
         if (!isGameOver)
@@ -903,6 +908,39 @@ public class StomachQuizManager : MonoBehaviour
             StartCoroutine(
                 UnlockAfterWrongAnswer()
             );
+        }
+    }
+
+    // =========================================================
+    // QUIZ AUDIO
+    // =========================================================
+
+    private void PlayCorrectSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayCorrect();
+        }
+    }
+
+    private void PlayWrongSoundIfNotGameOver()
+    {
+        // Ако това е последният живот,
+        // не пускаме Wrong звук.
+        // Веднага след това ще се отвори Game Over
+        // и ще се чуе Game Over звукът.
+        if (currentLives <= 1)
+        {
+            return;
+        }
+
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
         }
     }
 

@@ -54,6 +54,9 @@ public class GastricJuiceTimingGame : MonoBehaviour
     [Header("Juice Drop Effect")]
     [SerializeField] private StomachJuiceDropEffect juiceDropEffect;
 
+    [Header("Audio")]
+    [SerializeField] private StomachMinigameAudio minigameAudio;
+
     // =========================================================
     // DIFFICULTY SETTINGS
     // =========================================================
@@ -269,10 +272,6 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
         isRunning = false;
 
-        // ВАЖНО:
-        // Не StopTimer(), а PauseTimer().
-        // Така при грешка запазваме
-        // оставащото време.
         if (taskTimer != null)
         {
             taskTimer.PauseTimer();
@@ -307,6 +306,12 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
             case JuiceZone.Green:
 
+                if (minigameAudio != null)
+                {
+                    minigameAudio
+                        .PlayGreenZoneHit();
+                }
+
                 StartCoroutine(
                     ShowSuccessFeedback(
                         "Точното количество стомашни сокове!"
@@ -338,9 +343,6 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
             default:
 
-                // Ако по някаква причина индикаторът
-                // не е в нито една зона,
-                // продължаваме със същото оставащо време.
                 ResumeTimingWithRemainingTime();
                 break;
         }
@@ -377,15 +379,12 @@ public class GastricJuiceTimingGame : MonoBehaviour
     {
         HideJuicePanel();
 
-        // Стомахът се раздразва.
         if (stateCardController != null)
         {
             stateCardController
                 .ShowIrritated();
         }
 
-        // TotalTimer също не върви,
-        // докато гледаме задължителния feedback.
         if (totalTimer != null)
         {
             totalTimer.PauseTimer();
@@ -432,25 +431,10 @@ public class GastricJuiceTimingGame : MonoBehaviour
             totalTimer.ResumeTimer();
         }
 
-        // ---------------------------------------------
-        // TIMEOUT
-        // ---------------------------------------------
-        //
-        // Таймерът вече е стигнал 0,
-        // затова трябва нов пълен опит.
-
         if (restartWithFullTime)
         {
             StartTiming();
         }
-
-        // ---------------------------------------------
-        // ОБИКНОВЕНА ГРЕШКА
-        // ---------------------------------------------
-        //
-        // Yellow / Orange / Red:
-        // продължаваме със същото оставащо време.
-
         else
         {
             ResumeTimingWithRemainingTime();
@@ -466,8 +450,6 @@ public class GastricJuiceTimingGame : MonoBehaviour
     {
         HideJuicePanel();
 
-        // При успех задачата вече е приключила,
-        // така че тук наистина спираме TaskTimer.
         if (taskTimer != null)
         {
             taskTimer.StopTimer();
@@ -526,6 +508,12 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
         if (juiceDropEffect != null)
         {
+            if (minigameAudio != null)
+            {
+                minigameAudio
+                    .PlayStomachAcids();
+            }
+
             juiceDropEffect
                 .PlayJuiceDropEffect();
 
@@ -592,8 +580,6 @@ public class GastricJuiceTimingGame : MonoBehaviour
 
     private void ResumeTimingWithRemainingTime()
     {
-        // Индикаторът започва ново движение
-        // отляво, но TaskTimer НЕ се нулира.
         SetIndicatorToLeft();
 
         if (taskTimer != null)
