@@ -27,6 +27,23 @@ public class PeristalsisCheckpointLayout : MonoBehaviour
     [SerializeField] private bool generateOnStart = true;
     [SerializeField] private bool enableTestKey = true;
 
+    // =========================================================
+    // UNITY
+    // =========================================================
+
+    private void Awake()
+    {
+        // ВАЖНО:
+        // Този script е върху gameplay обект,
+        // който се инициализира още при отварянето
+        // на MiniGamePanel.
+        //
+        // Така checkpoint-ите се скриват независимо
+        // дали PeristalsisDragController вече е
+        // стигнал до Awake/OnEnable.
+        HideAllCheckpoints();
+    }
+
     private void Start()
     {
         if (generateOnStart)
@@ -36,19 +53,29 @@ public class PeristalsisCheckpointLayout : MonoBehaviour
         else
         {
             ResetMarker();
+            HideAllCheckpoints();
         }
     }
 
     private void Update()
     {
-        if (!enableTestKey || Keyboard.current == null)
+        if (!enableTestKey ||
+            Keyboard.current == null)
+        {
             return;
+        }
 
-        if (Keyboard.current.rKey.wasPressedThisFrame)
+        if (Keyboard.current
+            .rKey
+            .wasPressedThisFrame)
         {
             GenerateNewWaveLayout();
         }
     }
+
+    // =========================================================
+    // GENERATE WAVE
+    // =========================================================
 
     public void GenerateNewWaveLayout()
     {
@@ -78,10 +105,23 @@ public class PeristalsisCheckpointLayout : MonoBehaviour
 
         ResetMarker();
 
+        // ВАЖНО:
+        // Генерирането на позиции НЕ означава,
+        // че checkpoint-ите трябва да се виждат.
+        //
+        // Те ще бъдат показани един по един
+        // от PeristalsisDragController чак
+        // когато започне самото влачене.
+        HideAllCheckpoints();
+
         Debug.Log(
             "Генерирани са нови позиции за перисталтичната вълна."
         );
     }
+
+    // =========================================================
+    // RESET MARKER
+    // =========================================================
 
     public void ResetMarker()
     {
@@ -92,23 +132,24 @@ public class PeristalsisCheckpointLayout : MonoBehaviour
         }
 
         RectTransform markerParent =
-            draggableMarker.parent as RectTransform;
+            draggableMarker.parent
+                as RectTransform;
 
         if (markerParent == null)
         {
             return;
         }
 
-        // Вземаме реалната позиция на StartPoint в света.
         Vector3 startWorldPosition =
-            startPoint.TransformPoint(Vector3.zero);
-
-        // Преобразуваме я към координатите
-        // на текущия parent на marker-а.
-        Vector3 localPosition =
-            markerParent.InverseTransformPoint(
-                startWorldPosition
+            startPoint.TransformPoint(
+                Vector3.zero
             );
+
+        Vector3 localPosition =
+            markerParent
+                .InverseTransformPoint(
+                    startWorldPosition
+                );
 
         draggableMarker.anchoredPosition =
             new Vector2(
@@ -116,6 +157,10 @@ public class PeristalsisCheckpointLayout : MonoBehaviour
                 localPosition.y
             );
     }
+
+    // =========================================================
+    // CHECKPOINT POSITION
+    // =========================================================
 
     private void PlaceCheckpointInsideArea(
         RectTransform checkpoint,
@@ -127,40 +172,55 @@ public class PeristalsisCheckpointLayout : MonoBehaviour
             return;
         }
 
-        Rect areaRect = spawnArea.rect;
+        Rect areaRect =
+            spawnArea.rect;
 
         float checkpointHalfWidth =
-            checkpoint.rect.width * 0.5f;
+            checkpoint.rect.width *
+            0.5f;
 
         float checkpointHalfHeight =
-            checkpoint.rect.height * 0.5f;
+            checkpoint.rect.height *
+            0.5f;
 
         float paddingX =
-            checkpointHalfWidth + edgePadding;
+            checkpointHalfWidth +
+            edgePadding;
 
         float paddingY =
-            checkpointHalfHeight + edgePadding;
+            checkpointHalfHeight +
+            edgePadding;
 
         float minX =
-            areaRect.xMin + paddingX;
+            areaRect.xMin +
+            paddingX;
 
         float maxX =
-            areaRect.xMax - paddingX;
+            areaRect.xMax -
+            paddingX;
 
         float minY =
-            areaRect.yMin + paddingY;
+            areaRect.yMin +
+            paddingY;
 
         float maxY =
-            areaRect.yMax - paddingY;
+            areaRect.yMax -
+            paddingY;
 
         float randomX =
             minX <= maxX
-                ? Random.Range(minX, maxX)
+                ? Random.Range(
+                    minX,
+                    maxX
+                )
                 : 0f;
 
         float randomY =
             minY <= maxY
-                ? Random.Range(minY, maxY)
+                ? Random.Range(
+                    minY,
+                    maxY
+                )
                 : 0f;
 
         Vector3 localPoint =
@@ -176,14 +236,48 @@ public class PeristalsisCheckpointLayout : MonoBehaviour
             );
 
         Vector3 gameplayLocalPoint =
-            gameplayArea.InverseTransformPoint(
-                worldPoint
-            );
+            gameplayArea
+                .InverseTransformPoint(
+                    worldPoint
+                );
 
         checkpoint.anchoredPosition =
             new Vector2(
                 gameplayLocalPoint.x,
                 gameplayLocalPoint.y
             );
+    }
+
+    // =========================================================
+    // CHECKPOINT VISIBILITY
+    // =========================================================
+
+    private void HideAllCheckpoints()
+    {
+        SetCheckpointActive(
+            topCheckpoint,
+            false
+        );
+
+        SetCheckpointActive(
+            middleCheckpoint,
+            false
+        );
+
+        SetCheckpointActive(
+            bottomCheckpoint,
+            false
+        );
+    }
+
+    private void SetCheckpointActive(
+        RectTransform checkpoint,
+        bool active)
+    {
+        if (checkpoint != null)
+        {
+            checkpoint.gameObject
+                .SetActive(active);
+        }
     }
 }

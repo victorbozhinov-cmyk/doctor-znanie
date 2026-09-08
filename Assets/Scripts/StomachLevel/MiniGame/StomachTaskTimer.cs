@@ -7,8 +7,6 @@ public class StomachTaskTimer : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image timerFill;
 
-    // Целият визуален контейнер на таймера.
-    // Тук ще сложим TaskTimerBG.
     [SerializeField] private RectTransform pulseTarget;
 
     [Header("Warning Pulse")]
@@ -21,6 +19,9 @@ public class StomachTaskTimer : MonoBehaviour
     [SerializeField]
     private float warningPulseSpeed = 4f;
 
+    [Header("Audio")]
+    [SerializeField] private StomachMinigameAudio minigameAudio;
+
     [Header("Test Settings")]
     [SerializeField] private float testDuration = 5f;
     [SerializeField] private bool startOnPlayForTesting = false;
@@ -31,48 +32,61 @@ public class StomachTaskTimer : MonoBehaviour
     private bool isRunning;
     private bool isPaused;
 
+    private bool warningPulseActive;
+
     private Vector3 normalPulseScale;
+
+    private bool isInitialized;
 
     public event Action TimerExpired;
 
-    public float RemainingTime => remainingTime;
-    public bool IsRunning => isRunning;
+    public float RemainingTime =>
+        remainingTime;
+
+    public bool IsRunning =>
+        isRunning;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Awake()
     {
-        // Ако случайно не е зададен Pulse Target,
-        // използваме Fill-а като резервен вариант.
-        if (pulseTarget == null && timerFill != null)
-        {
-            pulseTarget = timerFill.rectTransform;
-        }
-
-        if (pulseTarget != null)
-        {
-            normalPulseScale =
-                pulseTarget.localScale;
-        }
+        EnsureInitialized();
     }
 
     private void Start()
     {
+        EnsureInitialized();
+
         if (startOnPlayForTesting)
         {
-            StartTimer(testDuration);
+            StartTimer(
+                testDuration
+            );
         }
         else
         {
             SetFill(1f);
-            ResetPulse();
+            StopWarningPulse();
         }
+    }
+
+    private void OnDisable()
+    {
+        StopWarningPulse();
     }
 
     private void Update()
     {
-        if (!isRunning || isPaused)
+        if (!isRunning ||
+            isPaused)
+        {
             return;
+        }
 
-        remainingTime -= Time.deltaTime;
+        remainingTime -=
+            Time.deltaTime;
 
         if (remainingTime <= 0f)
         {
@@ -80,7 +94,8 @@ public class StomachTaskTimer : MonoBehaviour
             isRunning = false;
 
             SetFill(0f);
-            ResetPulse();
+
+            StopWarningPulse();
 
             TimerExpired?.Invoke();
 
@@ -88,9 +103,12 @@ public class StomachTaskTimer : MonoBehaviour
         }
 
         float normalizedTime =
-            remainingTime / duration;
+            remainingTime /
+            duration;
 
-        SetFill(normalizedTime);
+        SetFill(
+            normalizedTime
+        );
 
         UpdateWarningPulse(
             normalizedTime
@@ -98,37 +116,84 @@ public class StomachTaskTimer : MonoBehaviour
     }
 
     // =========================================================
+    // INITIALIZATION
+    // =========================================================
+
+    private void EnsureInitialized()
+    {
+        if (isInitialized)
+            return;
+
+        if (pulseTarget == null &&
+            timerFill != null)
+        {
+            pulseTarget =
+                timerFill.rectTransform;
+        }
+
+        if (pulseTarget != null)
+        {
+            normalPulseScale =
+                pulseTarget.localScale;
+        }
+        else
+        {
+            normalPulseScale =
+                Vector3.one;
+        }
+
+        isInitialized = true;
+    }
+
+    // =========================================================
     // TIMER CONTROL
     // =========================================================
 
-    public void StartTimer(float seconds)
+    public void StartTimer(
+        float seconds)
     {
-        duration =
-            Mathf.Max(seconds, 0.01f);
+        EnsureInitialized();
 
-        remainingTime = duration;
+        duration =
+            Mathf.Max(
+                seconds,
+                0.01f
+            );
+
+        remainingTime =
+            duration;
 
         isRunning = true;
         isPaused = false;
 
         SetFill(1f);
-        ResetPulse();
+
+        StopWarningPulse();
     }
 
     public void StopTimer()
     {
-        isRunning = false;
+        EnsureInitialized();
 
-        ResetPulse();
+        isRunning = false;
+        isPaused = false;
+
+        StopWarningPulse();
     }
 
     public void PauseTimer()
     {
+        EnsureInitialized();
+
         isPaused = true;
+
+        StopWarningPulse();
     }
 
     public void ResumeTimer()
     {
+        EnsureInitialized();
+
         if (remainingTime > 0f)
         {
             isPaused = false;
@@ -137,25 +202,32 @@ public class StomachTaskTimer : MonoBehaviour
 
     public void ResetTimer()
     {
+        EnsureInitialized();
+
         isRunning = false;
         isPaused = false;
 
-        remainingTime = duration;
+        remainingTime =
+            duration;
 
         SetFill(1f);
-        ResetPulse();
+
+        StopWarningPulse();
     }
 
     // =========================================================
     // FILL
     // =========================================================
 
-    private void SetFill(float amount)
+    private void SetFill(
+        float amount)
     {
         if (timerFill != null)
         {
             timerFill.fillAmount =
-                Mathf.Clamp01(amount);
+                Mathf.Clamp01(
+                    amount
+                );
         }
     }
 
@@ -169,17 +241,23 @@ public class StomachTaskTimer : MonoBehaviour
         if (pulseTarget == null)
             return;
 
-        if (normalizedTime > warningThreshold)
+        if (normalizedTime >
+            warningThreshold)
         {
-            ResetPulse();
+            StopWarningPulse();
+
             return;
         }
 
+        StartWarningPulse();
+
         float pulse =
-            (Mathf.Sin(
-                Time.time *
-                warningPulseSpeed
-            ) + 1f) * 0.5f;
+            (
+                Mathf.Sin(
+                    Time.time *
+                    warningPulseSpeed
+                ) + 1f
+            ) * 0.5f;
 
         float scale =
             Mathf.Lerp(
@@ -189,15 +267,42 @@ public class StomachTaskTimer : MonoBehaviour
             );
 
         pulseTarget.localScale =
-            normalPulseScale * scale;
+            normalPulseScale *
+            scale;
     }
 
-    private void ResetPulse()
+    private void StartWarningPulse()
     {
+        if (warningPulseActive)
+        {
+            return;
+        }
+
+        warningPulseActive = true;
+
+        if (minigameAudio != null)
+        {
+            minigameAudio
+                .StartFastTicking();
+        }
+    }
+
+    private void StopWarningPulse()
+    {
+        EnsureInitialized();
+
+        warningPulseActive = false;
+
         if (pulseTarget != null)
         {
             pulseTarget.localScale =
                 normalPulseScale;
+        }
+
+        if (minigameAudio != null)
+        {
+            minigameAudio
+                .StopFastTicking();
         }
     }
 }

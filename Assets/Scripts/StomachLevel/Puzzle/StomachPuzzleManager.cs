@@ -36,6 +36,12 @@ public class StomachPuzzleManager : MonoBehaviour
     )]
     [SerializeField] private float feedbackDuration = 1f;
 
+    [Tooltip(
+        "Кратко изчакване след Correct звука, " +
+        "преди да се отвори Success Panel."
+    )]
+    [SerializeField] private float correctSuccessDelay = 0.8f;
+
     [Header("Puzzle Completed")]
     [SerializeField] private UnityEvent onPuzzleCompleted;
 
@@ -66,14 +72,20 @@ public class StomachPuzzleManager : MonoBehaviour
         if (!AreAllZonesFilled())
         {
             feedbackCoroutine =
-                StartCoroutine(ShowIncompleteFeedback());
+                StartCoroutine(
+                    ShowIncompleteFeedback()
+                );
 
             return;
         }
 
         if (IsPuzzleCorrect())
         {
-            CompletePuzzle();
+            feedbackCoroutine =
+                StartCoroutine(
+                    CompletePuzzleSequence()
+                );
+
             return;
         }
 
@@ -82,7 +94,8 @@ public class StomachPuzzleManager : MonoBehaviour
 
     private bool AreAllZonesFilled()
     {
-        if (dropZones == null || dropZones.Length == 0)
+        if (dropZones == null ||
+            dropZones.Length == 0)
         {
             Debug.LogError(
                 "Няма добавени DropZone полета " +
@@ -94,7 +107,8 @@ public class StomachPuzzleManager : MonoBehaviour
 
         foreach (DropZone zone in dropZones)
         {
-            if (zone == null || !zone.IsOccupied)
+            if (zone == null ||
+                !zone.IsOccupied)
             {
                 return false;
             }
@@ -107,7 +121,8 @@ public class StomachPuzzleManager : MonoBehaviour
     {
         foreach (DropZone zone in dropZones)
         {
-            if (zone == null || !zone.IsCorrect())
+            if (zone == null ||
+                !zone.IsCorrect())
             {
                 return false;
             }
@@ -116,15 +131,22 @@ public class StomachPuzzleManager : MonoBehaviour
         return true;
     }
 
+    // =========================================================
+    // WRONG ANSWER
+    // =========================================================
+
     private void HandleWrongAnswer()
     {
         feedbackCoroutine =
-            StartCoroutine(WrongAnswerSequence());
+            StartCoroutine(
+                WrongAnswerSequence()
+            );
     }
 
     private IEnumerator WrongAnswerSequence()
     {
         isChecking = true;
+
         LockCards();
 
         remainingAttempts--;
@@ -136,17 +158,11 @@ public class StomachPuzzleManager : MonoBehaviour
 
         UpdateAttemptsText();
 
-        /*
-        * След намаляването индексът на изгубеното
-        * сърце е равен на remainingAttempts.
-        *
-        * 3 → 2: Heart3, индекс 2
-        * 2 → 1: Heart2, индекс 1
-        * 1 → 0: Heart1, индекс 0
-        */
-        int lostHeartIndex = remainingAttempts;
+        int lostHeartIndex =
+            remainingAttempts;
 
-        bool heartAnimationFinished = true;
+        bool heartAnimationFinished =
+            true;
 
         if (
             hearts != null &&
@@ -159,17 +175,20 @@ public class StomachPuzzleManager : MonoBehaviour
                 hearts[lostHeartIndex];
 
             UILifeHeartAnimation heartAnimation =
-                lostHeart.GetComponent<UILifeHeartAnimation>();
+                lostHeart.GetComponent
+                    <UILifeHeartAnimation>();
 
             if (
                 heartAnimation != null &&
                 lostHeart.activeSelf
             )
             {
-                heartAnimationFinished = false;
+                heartAnimationFinished =
+                    false;
 
                 heartAnimation.PlayLoseAnimation(
-                    () => heartAnimationFinished = true
+                    () =>
+                        heartAnimationFinished = true
                 );
             }
             else
@@ -193,29 +212,19 @@ public class StomachPuzzleManager : MonoBehaviour
             maximumAttempts
         );
 
-        // ======================================
-        // НЯМА ПОВЕЧЕ ОПИТИ
-        // ======================================
-
         if (remainingAttempts <= 0)
         {
-            /*
-            * Изчакваме последното сърце да завърши
-            * анимацията си и директно показваме
-            * Game Over, без WrongFeedback.
-            */
             while (!heartAnimationFinished)
             {
                 yield return null;
             }
 
             ShowGameOverAfterHeartAnimation();
+
             yield break;
         }
 
-        // ======================================
-        // ИМА ОЩЕ ОПИТИ
-        // ======================================
+        PlayWrongSound();
 
         OpenAnimatedPanel(
             wrongFeedback,
@@ -230,27 +239,30 @@ public class StomachPuzzleManager : MonoBehaviour
             wrongFeedback
         );
 
-        /*
-        * Изчакваме и анимацията на сърцето,
-        * ако все още не е приключила.
-        */
         while (!heartAnimationFinished)
         {
             yield return null;
         }
 
         ReturnAllCardsHome();
+
         UnlockCards();
 
         isChecking = false;
         feedbackCoroutine = null;
     }
 
+    // =========================================================
+    // INCOMPLETE
+    // =========================================================
+
     private IEnumerator ShowIncompleteFeedback()
     {
         isChecking = true;
 
-        Debug.Log("Първо постави всички карти.");
+        Debug.Log(
+            "Първо постави всички карти."
+        );
 
         OpenAnimatedPanel(
             incompleteFeedback,
@@ -269,27 +281,89 @@ public class StomachPuzzleManager : MonoBehaviour
         feedbackCoroutine = null;
     }
 
-    private void CompletePuzzle()
+    // =========================================================
+    // CORRECT / SUCCESS
+    // =========================================================
+
+    private IEnumerator CompletePuzzleSequence()
     {
         puzzleFinished = true;
-        isChecking = false;
+        isChecking = true;
 
         LockCards();
+
         HideAllFeedbackImmediately();
+
+        PlayCorrectSound();
+
+        if (correctSuccessDelay > 0f)
+        {
+            yield return new WaitForSecondsRealtime(
+                correctSuccessDelay
+            );
+        }
 
         OpenAnimatedPanel(
             successPanel,
             "Success Panel"
         );
 
-        Debug.Log("Пъзелът е преминат успешно!");
+        Debug.Log(
+            "Пъзелът е преминат успешно!"
+        );
 
         onPuzzleCompleted?.Invoke();
+
+        isChecking = false;
+        feedbackCoroutine = null;
     }
+
+    // =========================================================
+    // AUDIO
+    // =========================================================
+
+    private void PlayCorrectSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayCorrect();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    private void PlayWrongSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    // =========================================================
+    // CONTINUE TO MINIGAME
+    // =========================================================
 
     public void ContinueToMinigame()
     {
-        if (!puzzleFinished || isChecking)
+        if (!puzzleFinished ||
+            isChecking)
         {
             return;
         }
@@ -304,7 +378,9 @@ public class StomachPuzzleManager : MonoBehaviour
     {
         isChecking = true;
 
-        yield return CloseAnimatedPanel(successPanel);
+        yield return CloseAnimatedPanel(
+            successPanel
+        );
 
         if (puzzlePanel != null)
         {
@@ -330,11 +406,34 @@ public class StomachPuzzleManager : MonoBehaviour
             );
         }
 
+        // =====================================================
+        // STOMACH MINIGAME MUSIC
+        // =====================================================
+
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .PlayStomachMinigameMusic();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "MusicManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+
         isChecking = false;
         feedbackCoroutine = null;
 
-        Debug.Log("Преминаване към минииграта.");
+        Debug.Log(
+            "Преминаване към минииграта."
+        );
     }
+
+    // =========================================================
+    // GAME OVER
+    // =========================================================
 
     private void ShowGameOverAfterHeartAnimation()
     {
@@ -355,6 +454,10 @@ public class StomachPuzzleManager : MonoBehaviour
         );
     }
 
+    // =========================================================
+    // RESTART
+    // =========================================================
+
     public void RestartPuzzle()
     {
         if (isChecking)
@@ -364,27 +467,37 @@ public class StomachPuzzleManager : MonoBehaviour
 
         if (feedbackCoroutine != null)
         {
-            StopCoroutine(feedbackCoroutine);
+            StopCoroutine(
+                feedbackCoroutine
+            );
+
             feedbackCoroutine = null;
         }
 
         feedbackCoroutine =
-            StartCoroutine(RestartPuzzleSequence());
+            StartCoroutine(
+                RestartPuzzleSequence()
+            );
     }
 
     private IEnumerator RestartPuzzleSequence()
     {
         isChecking = true;
 
-        yield return CloseAnimatedPanel(gameOverPanel);
+        yield return CloseAnimatedPanel(
+            gameOverPanel
+        );
 
         puzzleFinished = false;
 
         HideAllFeedbackImmediately();
+
         ReturnAllCardsHome();
 
         LoadAttemptsFromDifficulty();
+
         ResetHeartsForCurrentDifficulty();
+
         UpdateAttemptsText();
 
         UnlockCards();
@@ -392,8 +505,14 @@ public class StomachPuzzleManager : MonoBehaviour
         isChecking = false;
         feedbackCoroutine = null;
 
-        Debug.Log("Пъзелът е рестартиран.");
+        Debug.Log(
+            "Пъзелът е рестартиран."
+        );
     }
+
+    // =========================================================
+    // HEARTS
+    // =========================================================
 
     private void ResetHeartsForCurrentDifficulty()
     {
@@ -402,9 +521,12 @@ public class StomachPuzzleManager : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < hearts.Length; i++)
+        for (int i = 0;
+             i < hearts.Length;
+             i++)
         {
-            GameObject heart = hearts[i];
+            GameObject heart =
+                hearts[i];
 
             if (heart == null)
             {
@@ -429,16 +551,17 @@ public class StomachPuzzleManager : MonoBehaviour
                 );
             }
 
-            /*
-             * Лесно: показваме Heart1, 2 и 3.
-             * Средно: показваме Heart1 и Heart2.
-             * Трудно: показваме само Heart1.
-             */
-            heart.SetActive(i < maximumAttempts);
+            heart.SetActive(
+                i < maximumAttempts
+            );
         }
 
         Canvas.ForceUpdateCanvases();
     }
+
+    // =========================================================
+    // ATTEMPTS
+    // =========================================================
 
     private void UpdateAttemptsText()
     {
@@ -453,6 +576,10 @@ public class StomachPuzzleManager : MonoBehaviour
             "/" +
             maximumAttempts;
     }
+
+    // =========================================================
+    // CARDS
+    // =========================================================
 
     private void ReturnAllCardsHome()
     {
@@ -502,22 +629,27 @@ public class StomachPuzzleManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // DIFFICULTY
+    // =========================================================
+
     private void LoadAttemptsFromDifficulty()
     {
         int difficulty =
-            DifficultySelector.GetSavedDifficulty();
+            DifficultySelector
+                .GetSavedDifficulty();
 
         switch (difficulty)
         {
-            case 0: // Лесно
+            case 0:
                 maximumAttempts = 3;
                 break;
 
-            case 1: // Средно
+            case 1:
                 maximumAttempts = 2;
                 break;
 
-            case 2: // Трудно
+            case 2:
                 maximumAttempts = 1;
                 break;
 
@@ -526,12 +658,13 @@ public class StomachPuzzleManager : MonoBehaviour
                 break;
         }
 
-        remainingAttempts = maximumAttempts;
+        remainingAttempts =
+            maximumAttempts;
     }
 
-    // ==========================================
+    // =========================================================
     // PANEL ANIMATIONS
-    // ==========================================
+    // =========================================================
 
     private void OpenAnimatedPanel(
         GameObject panel,
@@ -548,14 +681,11 @@ public class StomachPuzzleManager : MonoBehaviour
             return;
         }
 
-        bool wasAlreadyActive = panel.activeSelf;
+        bool wasAlreadyActive =
+            panel.activeSelf;
 
         panel.SetActive(true);
 
-        /*
-         * При първо активиране OnEnable()
-         * стартира UIPopupAnimation автоматично.
-         */
         if (wasAlreadyActive)
         {
             UIPopupAnimation animation =
@@ -569,7 +699,8 @@ public class StomachPuzzleManager : MonoBehaviour
         GameObject panel
     )
     {
-        if (panel == null || !panel.activeSelf)
+        if (panel == null ||
+            !panel.activeSelf)
         {
             yield break;
         }
@@ -621,13 +752,26 @@ public class StomachPuzzleManager : MonoBehaviour
 
     private void HideAllFeedbackImmediately()
     {
-        HideImmediately(incompleteFeedback);
-        HideImmediately(wrongFeedback);
-        HideImmediately(successPanel);
-        HideImmediately(gameOverPanel);
+        HideImmediately(
+            incompleteFeedback
+        );
+
+        HideImmediately(
+            wrongFeedback
+        );
+
+        HideImmediately(
+            successPanel
+        );
+
+        HideImmediately(
+            gameOverPanel
+        );
     }
 
-    private void HideImmediately(GameObject panel)
+    private void HideImmediately(
+        GameObject panel
+    )
     {
         if (panel != null)
         {
