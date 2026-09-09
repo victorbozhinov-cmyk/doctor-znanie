@@ -183,6 +183,10 @@ public class LiverQuizManager : MonoBehaviour
     private Vector2 originalHintImagePosition;
     private Vector3 originalHintImageScale;
 
+    // =========================
+    // UNITY
+    // =========================
+
     private void Start()
     {
         SaveHintButtonOriginalValues();
@@ -227,7 +231,8 @@ public class LiverQuizManager : MonoBehaviour
         }
     }
 
-    private void OnWrittenInputSubmit(string submittedText)
+    private void OnWrittenInputSubmit(
+        string submittedText)
     {
         if (isChangingQuestion ||
             isProcessingWrongAnswer ||
@@ -241,7 +246,8 @@ public class LiverQuizManager : MonoBehaviour
         }
 
         if (currentQuestionIndex < 0 ||
-            currentQuestionIndex >= selectedQuestions.Count)
+            currentQuestionIndex >=
+            selectedQuestions.Count)
         {
             return;
         }
@@ -293,7 +299,10 @@ public class LiverQuizManager : MonoBehaviour
         Shuffle(written);
 
         int difficulty =
-            PlayerPrefs.GetInt("Difficulty", 1);
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
         switch (difficulty)
         {
@@ -330,13 +339,15 @@ public class LiverQuizManager : MonoBehaviour
         );
     }
 
-    private List<LiverQuizQuestion> GetQuestionsOfType(
-        LiverQuizQuestionType type)
+    private List<LiverQuizQuestion>
+        GetQuestionsOfType(
+            LiverQuizQuestionType type)
     {
         List<LiverQuizQuestion> result =
             new List<LiverQuizQuestion>();
 
-        foreach (LiverQuizQuestion question in questions)
+        foreach (LiverQuizQuestion question
+                 in questions)
         {
             if (question != null &&
                 question.questionType == type)
@@ -352,10 +363,11 @@ public class LiverQuizManager : MonoBehaviour
         List<LiverQuizQuestion> source,
         int amount)
     {
-        int count = Mathf.Min(
-            amount,
-            source.Count
-        );
+        int count =
+            Mathf.Min(
+                amount,
+                source.Count
+            );
 
         for (int i = 0; i < count; i++)
         {
@@ -376,7 +388,8 @@ public class LiverQuizManager : MonoBehaviour
         }
     }
 
-    private void Shuffle<T>(List<T> list)
+    private void Shuffle<T>(
+        List<T> list)
     {
         for (int i = list.Count - 1;
              i > 0;
@@ -482,19 +495,24 @@ public class LiverQuizManager : MonoBehaviour
             multipleQuestionPulse.Play();
 
         if (questionText != null)
-            questionText.text = question.question;
+            questionText.text =
+                question.question;
 
         if (answerAText != null)
-            answerAText.text = question.answerA;
+            answerAText.text =
+                question.answerA;
 
         if (answerBText != null)
-            answerBText.text = question.answerB;
+            answerBText.text =
+                question.answerB;
 
         if (answerVText != null)
-            answerVText.text = question.answerV;
+            answerVText.text =
+                question.answerV;
 
         if (answerGText != null)
-            answerGText.text = question.answerG;
+            answerGText.text =
+                question.answerG;
     }
 
     private void ShowQuestionImageQuestion(
@@ -581,12 +599,14 @@ public class LiverQuizManager : MonoBehaviour
         if (targetImage == null)
             return;
 
-        targetImage.sprite = sprite;
+        targetImage.sprite =
+            sprite;
 
         targetImage.enabled =
             sprite != null;
 
-        targetImage.preserveAspect = true;
+        targetImage.preserveAspect =
+            true;
     }
 
     // =========================
@@ -615,12 +635,14 @@ public class LiverQuizManager : MonoBehaviour
         if (writtenInputField != null)
         {
             writtenInputField.text = "";
-            writtenInputField.interactable = true;
+            writtenInputField.interactable =
+                true;
         }
 
         if (writtenCheckButton != null)
         {
-            writtenCheckButton.interactable = true;
+            writtenCheckButton.interactable =
+                true;
         }
     }
 
@@ -669,10 +691,12 @@ public class LiverQuizManager : MonoBehaviour
 
         string correctAnswer =
             NormalizeWrittenAnswer(
-                currentQuestion.correctWrittenAnswer
+                currentQuestion
+                    .correctWrittenAnswer
             );
 
-        if (string.IsNullOrEmpty(playerAnswer))
+        if (string.IsNullOrEmpty(
+                playerAnswer))
         {
             Debug.Log(
                 "Играчът не е въвел отговор."
@@ -712,22 +736,30 @@ public class LiverQuizManager : MonoBehaviour
 
         isChangingQuestion = true;
 
-        SetAnswerButtonsInteractable(false);
+        SetAnswerButtonsInteractable(
+            false
+        );
 
         if (writtenInputField != null)
         {
-            writtenInputField.interactable = false;
+            writtenInputField.interactable =
+                false;
         }
 
         if (writtenCheckButton != null)
         {
-            writtenCheckButton.interactable = false;
+            writtenCheckButton.interactable =
+                false;
         }
 
         if (writtenCheckFeedback != null)
         {
-            writtenCheckFeedback.PlayCorrect();
+            writtenCheckFeedback
+                .PlayCorrect();
         }
+
+        // Correct звукът е веднага.
+        PlayCorrectSound();
 
         StartCoroutine(
             GoToNextQuestionAfterDelay()
@@ -742,22 +774,30 @@ public class LiverQuizManager : MonoBehaviour
 
         isProcessingWrongAnswer = true;
 
-        SetAnswerButtonsInteractable(false);
+        SetAnswerButtonsInteractable(
+            false
+        );
 
         if (writtenInputField != null)
         {
-            writtenInputField.interactable = false;
+            writtenInputField.interactable =
+                false;
         }
 
         if (writtenCheckButton != null)
         {
-            writtenCheckButton.interactable = false;
+            writtenCheckButton.interactable =
+                false;
         }
 
         if (writtenCheckFeedback != null)
         {
-            writtenCheckFeedback.PlayWrong();
+            writtenCheckFeedback
+                .PlayWrong();
         }
+
+        // Wrong няма при последния живот.
+        PlayWrongSoundIfNotGameOver();
 
         LoseLife();
 
@@ -801,27 +841,38 @@ public class LiverQuizManager : MonoBehaviour
         if (selectedIndex ==
             currentQuestion.correctAnswerIndex)
         {
-            HandleCorrectAnswer(feedback);
+            HandleCorrectAnswer(
+                feedback
+            );
         }
         else
         {
-            HandleWrongAnswer(feedback);
+            HandleWrongAnswer(
+                feedback
+            );
         }
     }
 
     private void HandleCorrectAnswer(
         QuizAnswerFeedback feedback)
     {
-        Debug.Log("Верен отговор!");
+        Debug.Log(
+            "Верен отговор!"
+        );
 
         isChangingQuestion = true;
 
-        SetAnswerButtonsInteractable(false);
+        SetAnswerButtonsInteractable(
+            false
+        );
 
         if (feedback != null)
         {
             feedback.PlayCorrect();
         }
+
+        // Correct звукът е веднага.
+        PlayCorrectSound();
 
         StartCoroutine(
             GoToNextQuestionAfterDelay()
@@ -831,16 +882,23 @@ public class LiverQuizManager : MonoBehaviour
     private void HandleWrongAnswer(
         QuizAnswerFeedback feedback)
     {
-        Debug.Log("Грешен отговор!");
+        Debug.Log(
+            "Грешен отговор!"
+        );
 
         isProcessingWrongAnswer = true;
 
-        SetAnswerButtonsInteractable(false);
+        SetAnswerButtonsInteractable(
+            false
+        );
 
         if (feedback != null)
         {
             feedback.PlayWrong();
         }
+
+        // Wrong няма при последния живот.
+        PlayWrongSoundIfNotGameOver();
 
         LoseLife();
 
@@ -852,7 +910,62 @@ public class LiverQuizManager : MonoBehaviour
         }
     }
 
-    private IEnumerator GoToNextQuestionAfterDelay()
+    // =========================
+    // ANSWER SOUNDS
+    // =========================
+
+    private void PlayCorrectSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayCorrect();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    private void PlayWrongSoundIfNotGameOver()
+    {
+        /*
+         * Проверяваме живота ПРЕДИ LoseLife().
+         *
+         * Ако е останал само 1 живот,
+         * следва Game Over и Wrong звук
+         * не трябва да се застъпва с него.
+         */
+        if (currentLives <= 1)
+        {
+            return;
+        }
+
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    // =========================
+    // QUESTION FLOW
+    // =========================
+
+    private IEnumerator
+        GoToNextQuestionAfterDelay()
     {
         yield return new WaitForSeconds(
             nextQuestionDelay
@@ -869,7 +982,9 @@ public class LiverQuizManager : MonoBehaviour
 
         ShowQuestion();
 
-        SetAnswerButtonsInteractable(true);
+        SetAnswerButtonsInteractable(
+            true
+        );
 
         isChangingQuestion = false;
     }
@@ -927,7 +1042,8 @@ public class LiverQuizManager : MonoBehaviour
         currentLives--;
 
         if (heartIndex >= 0 &&
-            heartIndex < lifeHearts.Length &&
+            heartIndex <
+                lifeHearts.Length &&
             lifeHearts[heartIndex] != null)
         {
             lifeHearts[heartIndex]
@@ -945,7 +1061,8 @@ public class LiverQuizManager : MonoBehaviour
         }
     }
 
-    private IEnumerator UnlockAfterWrongAnswer()
+    private IEnumerator
+        UnlockAfterWrongAnswer()
     {
         yield return new WaitForSeconds(
             wrongAnswerLockDuration
@@ -960,17 +1077,18 @@ public class LiverQuizManager : MonoBehaviour
 
             if (writtenInputField != null)
             {
-                writtenInputField.interactable =
-                    true;
+                writtenInputField
+                    .interactable = true;
             }
 
             if (writtenCheckButton != null)
             {
-                writtenCheckButton.interactable =
-                    true;
+                writtenCheckButton
+                    .interactable = true;
             }
 
-            isProcessingWrongAnswer = false;
+            isProcessingWrongAnswer =
+                false;
         }
     }
 
@@ -1001,7 +1119,8 @@ public class LiverQuizManager : MonoBehaviour
                 break;
         }
 
-        remainingHints = maxHints;
+        remainingHints =
+            maxHints;
 
         UpdateHintButton();
         UpdateHintCounter();
@@ -1043,7 +1162,9 @@ public class LiverQuizManager : MonoBehaviour
         }
 
         LiverQuizQuestion currentQuestion =
-            selectedQuestions[currentQuestionIndex];
+            selectedQuestions[
+                currentQuestionIndex
+            ];
 
         if (hintText != null)
         {
@@ -1183,8 +1304,11 @@ public class LiverQuizManager : MonoBehaviour
 
         if (selectedQuestions.Count <= 0)
         {
-            questionCounterText.text = "0/0";
+            questionCounterText.text =
+                "0/0";
+
             lastShownQuestion = 0;
+
             return;
         }
 
@@ -1197,7 +1321,8 @@ public class LiverQuizManager : MonoBehaviour
 
         bool valueChanged =
             lastShownQuestion >= 0 &&
-            shownQuestion != lastShownQuestion;
+            shownQuestion !=
+                lastShownQuestion;
 
         questionCounterText.text =
             shownQuestion +
@@ -1221,7 +1346,8 @@ public class LiverQuizManager : MonoBehaviour
 
         bool valueChanged =
             lastShownHintCount >= 0 &&
-            remainingHints != lastShownHintCount;
+            remainingHints !=
+                lastShownHintCount;
 
         hintCounterText.text =
             remainingHints +
@@ -1293,9 +1419,8 @@ public class LiverQuizManager : MonoBehaviour
 
             if (difficultySelector != null)
             {
-                difficultySelector.SetLocked(
-                    true
-                );
+                difficultySelector
+                    .SetLocked(true);
             }
         }
     }
@@ -1304,7 +1429,9 @@ public class LiverQuizManager : MonoBehaviour
     {
         if (settingsOverlay != null)
         {
-            settingsOverlay.SetActive(false);
+            settingsOverlay.SetActive(
+                false
+            );
         }
 
         isSettingsOpen = false;
@@ -1327,9 +1454,8 @@ public class LiverQuizManager : MonoBehaviour
 
         if (exitConfirmationOverlay != null)
         {
-            exitConfirmationOverlay.SetActive(
-                true
-            );
+            exitConfirmationOverlay
+                .SetActive(true);
         }
     }
 
@@ -1337,9 +1463,8 @@ public class LiverQuizManager : MonoBehaviour
     {
         if (exitConfirmationOverlay != null)
         {
-            exitConfirmationOverlay.SetActive(
-                false
-            );
+            exitConfirmationOverlay
+                .SetActive(false);
         }
     }
 
@@ -1356,7 +1481,9 @@ public class LiverQuizManager : MonoBehaviour
         isQuizCompleted = true;
         isChangingQuestion = false;
 
-        SetAnswerButtonsInteractable(false);
+        SetAnswerButtonsInteractable(
+            false
+        );
 
         UpdateHintButton();
         UpdateHintCounter();
@@ -1391,13 +1518,17 @@ public class LiverQuizManager : MonoBehaviour
         isGameOver = true;
         isProcessingWrongAnswer = false;
 
-        SetAnswerButtonsInteractable(false);
+        SetAnswerButtonsInteractable(
+            false
+        );
 
         if (writtenInputField != null)
-            writtenInputField.interactable = false;
+            writtenInputField.interactable =
+                false;
 
         if (writtenCheckButton != null)
-            writtenCheckButton.interactable = false;
+            writtenCheckButton.interactable =
+                false;
 
         UpdateHintButton();
         UpdateHintCounter();
