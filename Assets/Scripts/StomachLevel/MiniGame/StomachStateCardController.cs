@@ -24,6 +24,9 @@ public class StomachStateCardController : MonoBehaviour
     [Header("Irritation Animation")]
     [SerializeField] private StomachIrritationAnimation irritationAnimation;
 
+    [Header("Audio")]
+    [SerializeField] private StomachMinigameAudio minigameAudio;
+
     private GameObject currentPermanentCard;
     private Coroutine irritatedCoroutine;
 
@@ -42,10 +45,6 @@ public class StomachStateCardController : MonoBehaviour
 
     private void Start()
     {
-        // ВАЖНО:
-        // Началната карта вече НЕ се показва автоматично.
-        // Тя ще се покаже чак след затваряне
-        // на WelcomePanel.
         HideAllCards();
 
         currentPermanentCard = null;
@@ -177,6 +176,12 @@ public class StomachStateCardController : MonoBehaviour
         if (currentPermanentCard == null)
             return;
 
+        if (minigameAudio != null)
+        {
+            minigameAudio
+                .PlayStomachGrowl();
+        }
+
         if (irritationAnimation != null)
         {
             irritationAnimation
@@ -238,6 +243,12 @@ public class StomachStateCardController : MonoBehaviour
 
     private void PlayPanelChangeAnimation()
     {
+        if (minigameAudio != null)
+        {
+            minigameAudio
+                .PlayCardPop();
+        }
+
         if (statePanelAnimation != null)
         {
             statePanelAnimation

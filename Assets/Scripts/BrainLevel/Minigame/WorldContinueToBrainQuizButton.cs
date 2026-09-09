@@ -14,19 +14,29 @@ public class WorldContinueToBrainQuizButton : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (brainMinigameWorld != null)
-        {
-            brainMinigameWorld.SetActive(false);
-        }
+        // Минииграта при победа спира времето.
+        // Връщаме го преди да преминем към куиза.
+        Time.timeScale = 1f;
 
         if (successOverlay != null)
         {
             successOverlay.SetActive(false);
         }
 
+        if (brainMinigameWorld != null)
+        {
+            brainMinigameWorld.SetActive(false);
+        }
+
         if (quizPanel != null)
         {
             quizPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError(
+                "QuizPanel не е свързан в WorldContinueToBrainQuizButton."
+            );
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -31,12 +32,19 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private GameObject minigamePanel;
 
     // =====================================================
+    // WELCOME
+    // =====================================================
+
+    [Header("Welcome")]
+    [SerializeField] private GameObject welcomeOverlay;
+    [SerializeField] private UIPopupAnimation welcomePanelAnimation;
+
+    // =====================================================
     // AUDIO
     // =====================================================
 
     [Header("Audio")]
-    [SerializeField]
-    private HeartMinigameAudio minigameAudio;
+    [SerializeField] private HeartMinigameAudio minigameAudio;
 
     // =====================================================
     // PAUSE
@@ -68,6 +76,12 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private GameObject exitConfirmationOverlay;
 
     private bool isPaused;
+    private bool menuTransitionInProgress;
+
+    public bool IsPaused
+    {
+        get { return isPaused; }
+    }
 
     // =====================================================
     // UI
@@ -234,6 +248,21 @@ public class HeartMinigameManager : MonoBehaviour
     private bool isGameOver;
     private bool isMinigameWon;
 
+    private bool minigameStarted;
+    private bool welcomeIsClosing;
+    private bool infoOpenedFromWelcome;
+
+    private int startingBPM;
+
+    // =====================================================
+    // AWAKE
+    // =====================================================
+
+    private void Awake()
+    {
+        startingBPM = currentBPM;
+    }
+
     // =====================================================
     // START
     // =====================================================
@@ -243,6 +272,11 @@ public class HeartMinigameManager : MonoBehaviour
         isGameOver = false;
         isMinigameWon = false;
         isPaused = false;
+
+        minigameStarted = false;
+        welcomeIsClosing = false;
+        infoOpenedFromWelcome = false;
+        menuTransitionInProgress = false;
 
         if (pauseOverlay != null)
             pauseOverlay.SetActive(false);
@@ -301,6 +335,9 @@ public class HeartMinigameManager : MonoBehaviour
 
     private void Update()
     {
+        if (!minigameStarted)
+            return;
+
         if (isGameOver || isMinigameWon)
             return;
 
@@ -332,6 +369,269 @@ public class HeartMinigameManager : MonoBehaviour
 
         UpdateEvents();
         UpdatePulseDrift();
+    }
+
+    // =====================================================
+    // OVERLAY HELPERS
+    // =====================================================
+
+    private void ShowOverlay(GameObject overlay)
+    {
+        if (overlay == null)
+            return;
+
+        overlay.SetActive(true);
+        overlay.transform.SetAsLastSibling();
+    }
+
+    private void CloseOverlay(
+        GameObject overlay,
+        Action onClosed = null
+    )
+    {
+        if (overlay == null)
+        {
+            onClosed?.Invoke();
+            return;
+        }
+
+        UIPopupAnimation animation =
+            overlay.GetComponentInChildren<UIPopupAnimation>(true);
+
+        if (animation != null)
+        {
+            animation.PlayClose(
+                () =>
+                {
+                    overlay.SetActive(false);
+                    onClosed?.Invoke();
+                }
+            );
+        }
+        else
+        {
+            overlay.SetActive(false);
+            onClosed?.Invoke();
+        }
+    }
+
+    // =====================================================
+    // WELCOME
+    // =====================================================
+
+    public void PrepareForWelcome()
+    {
+        minigameStarted = false;
+        welcomeIsClosing = false;
+        infoOpenedFromWelcome = false;
+        menuTransitionInProgress = false;
+
+        isGameOver = false;
+        isMinigameWon = false;
+        isPaused = false;
+
+        currentBPM = startingBPM;
+
+        criticalImmediateLossUsed = false;
+
+        SetDifficultyValues();
+
+        remainingTime = gameDuration;
+
+        driftTimer = 0f;
+        eventTimer = 0f;
+
+        lastDriftTime = -999f;
+        lastEventTime = -999f;
+        lastEventIndex = -1;
+
+        if (pauseOverlay != null)
+            pauseOverlay.SetActive(false);
+
+        if (settingsOverlay != null)
+            settingsOverlay.SetActive(false);
+
+        if (infoOverlay != null)
+            infoOverlay.SetActive(false);
+
+        if (exitConfirmationOverlay != null)
+            exitConfirmationOverlay.SetActive(false);
+
+        if (gameOverOverlay != null)
+            gameOverOverlay.SetActive(false);
+
+        if (minigameSuccessOverlay != null)
+            minigameSuccessOverlay.SetActive(false);
+
+        ResetDangerCountdown();
+        HideAllEventCards();
+
+        UpdateTimerUI();
+        UpdatePulseUI();
+        UpdatePulseState();
+
+        if (welcomeOverlay != null)
+        {
+            ShowOverlay(welcomeOverlay);
+
+            if (welcomePanelAnimation != null)
+            {
+                welcomePanelAnimation.PlayOpen();
+            }
+        }
+    }
+
+    // =====================================================
+    // START FROM WELCOME
+    // =====================================================
+
+    public void StartMinigameFromWelcome()
+    {
+        if (minigameStarted ||
+            welcomeIsClosing)
+        {
+            return;
+        }
+
+        welcomeIsClosing = true;
+
+        if (welcomePanelAnimation != null)
+        {
+            welcomePanelAnimation.PlayClose(
+                BeginMinigameAfterWelcome
+            );
+        }
+        else
+        {
+            BeginMinigameAfterWelcome();
+        }
+    }
+
+    private void BeginMinigameAfterWelcome()
+    {
+        if (welcomeOverlay != null)
+        {
+            welcomeOverlay.SetActive(false);
+        }
+
+        welcomeIsClosing = false;
+        minigameStarted = true;
+        infoOpenedFromWelcome = false;
+
+        remainingTime = gameDuration;
+
+        driftTimer = 0f;
+        eventTimer = 0f;
+
+        lastDriftTime = -999f;
+        lastEventTime = -999f;
+        lastEventIndex = -1;
+
+        criticalImmediateLossUsed = false;
+
+        ResetDangerCountdown();
+        HideAllEventCards();
+
+        UpdateTimerUI();
+
+        Debug.Log("HEART MINIGAME STARTED");
+    }
+
+    // =====================================================
+    // INFO FROM WELCOME
+    // =====================================================
+
+    public void OpenInfoFromWelcome()
+    {
+        if (minigameStarted ||
+            welcomeIsClosing ||
+            menuTransitionInProgress)
+        {
+            return;
+        }
+
+        infoOpenedFromWelcome = true;
+        welcomeIsClosing = true;
+
+        if (welcomePanelAnimation != null)
+        {
+            welcomePanelAnimation.PlayClose(
+                OpenInfoAfterWelcomeClosed
+            );
+        }
+        else
+        {
+            OpenInfoAfterWelcomeClosed();
+        }
+    }
+
+    private void OpenInfoAfterWelcomeClosed()
+    {
+        if (welcomeOverlay != null)
+        {
+            welcomeOverlay.SetActive(false);
+        }
+
+        welcomeIsClosing = false;
+
+        ShowOverlay(infoOverlay);
+    }
+
+    public void ShowWelcomeAfterInfo()
+    {
+        if (minigameStarted)
+            return;
+
+        welcomeIsClosing = false;
+
+        if (welcomeOverlay == null)
+            return;
+
+        ShowOverlay(welcomeOverlay);
+
+        if (welcomePanelAnimation != null)
+        {
+            welcomePanelAnimation.PlayOpen();
+        }
+    }
+
+    // =====================================================
+    // CLOSE INFO
+    // =====================================================
+
+    public void CloseInfo()
+    {
+        if (menuTransitionInProgress)
+            return;
+
+        menuTransitionInProgress = true;
+
+        CloseOverlay(
+            infoOverlay,
+            () =>
+            {
+                if (infoOpenedFromWelcome)
+                {
+                    infoOpenedFromWelcome = false;
+                    menuTransitionInProgress = false;
+
+                    ShowWelcomeAfterInfo();
+
+                    return;
+                }
+
+                if (isPaused)
+                {
+                    ShowOverlay(pauseOverlay);
+                }
+
+                menuTransitionInProgress = false;
+
+                Debug.Log(
+                    "INFO CLOSED"
+                );
+            }
+        );
     }
 
     // =====================================================
@@ -371,25 +671,6 @@ public class HeartMinigameManager : MonoBehaviour
                 gameDuration = mediumGameDuration;
                 break;
         }
-
-        Debug.Log(
-            "Difficulty: " +
-            difficulty +
-            " | Game duration: " +
-            gameDuration +
-            " sec." +
-            " | Danger countdown: " +
-            dangerDuration +
-            " sec." +
-            " | Drift: " +
-            driftAmount +
-            " BPM every " +
-            driftInterval +
-            " sec." +
-            " | Event every " +
-            eventInterval +
-            " sec."
-        );
     }
 
     // =====================================================
@@ -448,32 +729,20 @@ public class HeartMinigameManager : MonoBehaviour
         ResetDangerCountdown();
         HideAllEventCards();
 
-        // Спираме ECG monitor звука.
         if (minigameAudio != null)
         {
             minigameAudio.StopECG();
         }
 
-        // Heart Minigame музиката се заменя
-        // с Lobby / Main Menu музиката.
         if (MusicManager.Instance != null)
         {
             MusicManager.Instance.PlayLobbyMusic();
         }
 
-        // FeedbackPanelSound на този overlay
-        // пуска Success звука.
-        //
-        // Той автоматично duck-ва Lobby музиката,
-        // докато Success звукът приключи.
         if (minigameSuccessOverlay != null)
         {
             minigameSuccessOverlay.SetActive(true);
         }
-
-        Debug.Log(
-            "MINIGAME SUCCESS! Timer reached 00:00."
-        );
     }
 
     // =====================================================
@@ -505,7 +774,7 @@ public class HeartMinigameManager : MonoBehaviour
         do
         {
             eventIndex =
-                Random.Range(0, 10);
+                UnityEngine.Random.Range(0, 10);
         }
         while (eventIndex == lastEventIndex);
 
@@ -630,7 +899,8 @@ public class HeartMinigameManager : MonoBehaviour
         string eventName
     )
     {
-        if (isGameOver ||
+        if (!minigameStarted ||
+            isGameOver ||
             isMinigameWon ||
             isPaused)
         {
@@ -680,7 +950,7 @@ public class HeartMinigameManager : MonoBehaviour
         lastDriftTime = Time.time;
 
         int direction =
-            Random.value < 0.5f
+            UnityEngine.Random.value < 0.5f
                 ? -1
                 : 1;
 
@@ -689,14 +959,6 @@ public class HeartMinigameManager : MonoBehaviour
 
         UpdatePulseUI();
         UpdatePulseState();
-
-        Debug.Log(
-            "Pulse drift: " +
-            (direction > 0 ? "+" : "-") +
-            driftAmount +
-            " BPM | Current BPM: " +
-            currentBPM
-        );
     }
 
     // =====================================================
@@ -709,28 +971,19 @@ public class HeartMinigameManager : MonoBehaviour
             return;
 
         if (
-            Keyboard.current
-                .downArrowKey
-                .wasPressedThisFrame
-            ||
-            Keyboard.current
-                .sKey
-                .wasPressedThisFrame
+            Keyboard.current.downArrowKey.wasPressedThisFrame ||
+            Keyboard.current.sKey.wasPressedThisFrame
         )
         {
             DecreasePulse();
 
-            UISoundManager
-                .Instance
-                ?.PlayClick();
+            UISoundManager.Instance?.PlayClick();
 
             if (decreaseButtonHitbox != null)
             {
                 if (decreaseAnimation != null)
                 {
-                    StopCoroutine(
-                        decreaseAnimation
-                    );
+                    StopCoroutine(decreaseAnimation);
                 }
 
                 decreaseAnimation =
@@ -743,28 +996,19 @@ public class HeartMinigameManager : MonoBehaviour
         }
 
         if (
-            Keyboard.current
-                .upArrowKey
-                .wasPressedThisFrame
-            ||
-            Keyboard.current
-                .wKey
-                .wasPressedThisFrame
+            Keyboard.current.upArrowKey.wasPressedThisFrame ||
+            Keyboard.current.wKey.wasPressedThisFrame
         )
         {
             IncreasePulse();
 
-            UISoundManager
-                .Instance
-                ?.PlayClick();
+            UISoundManager.Instance?.PlayClick();
 
             if (increaseButtonHitbox != null)
             {
                 if (increaseAnimation != null)
                 {
-                    StopCoroutine(
-                        increaseAnimation
-                    );
+                    StopCoroutine(increaseAnimation);
                 }
 
                 increaseAnimation =
@@ -784,23 +1028,15 @@ public class HeartMinigameManager : MonoBehaviour
     private void UpdateDangerCountdown()
     {
         bool needsCountdown =
-            currentPulseState ==
-                PulseState.DangerLow
-            ||
-            currentPulseState ==
-                PulseState.DangerHigh
-            ||
+            currentPulseState == PulseState.DangerLow ||
+            currentPulseState == PulseState.DangerHigh ||
             (
-                currentPulseState ==
-                    PulseState.CriticalLow
-                &&
+                currentPulseState == PulseState.CriticalLow &&
                 criticalImmediateLossUsed
             )
             ||
             (
-                currentPulseState ==
-                    PulseState.CriticalHigh
-                &&
+                currentPulseState == PulseState.CriticalHigh &&
                 criticalImmediateLossUsed
             );
 
@@ -820,23 +1056,16 @@ public class HeartMinigameManager : MonoBehaviour
 
         float progress =
             Mathf.Clamp01(
-                dangerTimer /
-                dangerDuration
+                dangerTimer / dangerDuration
             );
 
         bool isLow =
-            currentPulseState ==
-                PulseState.DangerLow
-            ||
-            currentPulseState ==
-                PulseState.CriticalLow;
+            currentPulseState == PulseState.DangerLow ||
+            currentPulseState == PulseState.CriticalLow;
 
         bool isHigh =
-            currentPulseState ==
-                PulseState.DangerHigh
-            ||
-            currentPulseState ==
-                PulseState.CriticalHigh;
+            currentPulseState == PulseState.DangerHigh ||
+            currentPulseState == PulseState.CriticalHigh;
 
         if (isLow)
         {
@@ -899,14 +1128,11 @@ public class HeartMinigameManager : MonoBehaviour
 
     private void LoseLife()
     {
-        if (heartLives == null)
-        {
-            Debug.LogWarning(
-                "HeartMinigameLives reference is missing!"
-            );
-
+        if (!minigameStarted)
             return;
-        }
+
+        if (heartLives == null)
+            return;
 
         if (!heartLives.HasLives ||
             isGameOver ||
@@ -928,11 +1154,6 @@ public class HeartMinigameManager : MonoBehaviour
                 }
             }
         );
-
-        Debug.Log(
-            "Life lost. Remaining: " +
-            heartLives.CurrentLives
-        );
     }
 
     // =====================================================
@@ -949,14 +1170,11 @@ public class HeartMinigameManager : MonoBehaviour
         ResetDangerCountdown();
         HideAllEventCards();
 
-        // Спираме ECG monitor звука.
         if (minigameAudio != null)
         {
             minigameAudio.StopECG();
         }
 
-        // Heart Minigame музиката се заменя
-        // с Lobby / Main Menu музиката.
         if (MusicManager.Instance != null)
         {
             MusicManager.Instance.PlayLobbyMusic();
@@ -974,15 +1192,10 @@ public class HeartMinigameManager : MonoBehaviour
         if (heartDead != null)
             heartDead.SetActive(true);
 
-        // FeedbackPanelSound на GameOverOverlay
-        // пуска Game Over звука и автоматично
-        // duck-ва Lobby музиката за неговата дължина.
         if (gameOverOverlay != null)
         {
             gameOverOverlay.SetActive(true);
         }
-
-        Debug.Log("GAME OVER!");
     }
 
     // =====================================================
@@ -993,26 +1206,22 @@ public class HeartMinigameManager : MonoBehaviour
         RectTransform button
     )
     {
-        Vector3 originalScale =
-            Vector3.one;
+        Vector3 originalScale = Vector3.one;
 
         Vector3 pressedScale =
-            originalScale *
-            keyboardPressedScale;
+            originalScale * keyboardPressedScale;
 
         float timer = 0f;
 
         while (timer < keyboardPressDuration)
         {
-            timer +=
-                Time.unscaledDeltaTime;
+            timer += Time.unscaledDeltaTime;
 
             button.localScale =
                 Vector3.Lerp(
                     originalScale,
                     pressedScale,
-                    timer /
-                    keyboardPressDuration
+                    timer / keyboardPressDuration
                 );
 
             yield return null;
@@ -1022,22 +1231,19 @@ public class HeartMinigameManager : MonoBehaviour
 
         while (timer < keyboardPressDuration)
         {
-            timer +=
-                Time.unscaledDeltaTime;
+            timer += Time.unscaledDeltaTime;
 
             button.localScale =
                 Vector3.Lerp(
                     pressedScale,
                     originalScale,
-                    timer /
-                    keyboardPressDuration
+                    timer / keyboardPressDuration
                 );
 
             yield return null;
         }
 
-        button.localScale =
-            originalScale;
+        button.localScale = originalScale;
     }
 
     // =====================================================
@@ -1054,16 +1260,12 @@ public class HeartMinigameManager : MonoBehaviour
 
         if (ecgLine != null)
         {
-            ecgLine.SetBPM(
-                currentBPM
-            );
+            ecgLine.SetBPM(currentBPM);
         }
 
         if (heartBeatAnimation != null)
         {
-            heartBeatAnimation.SetBPM(
-                currentBPM
-            );
+            heartBeatAnimation.SetBPM(currentBPM);
         }
     }
 
@@ -1076,26 +1278,20 @@ public class HeartMinigameManager : MonoBehaviour
         PulseState previousState =
             currentPulseState;
 
-        if (
-            currentBPM >= 70 &&
-            currentBPM <= 100
-        )
+        if (currentBPM >= 70 &&
+            currentBPM <= 100)
         {
             currentPulseState =
                 PulseState.Normal;
         }
-        else if (
-            currentBPM >= 40 &&
-            currentBPM < 70
-        )
+        else if (currentBPM >= 40 &&
+                 currentBPM < 70)
         {
             currentPulseState =
                 PulseState.DangerLow;
         }
-        else if (
-            currentBPM > 100 &&
-            currentBPM <= 130
-        )
+        else if (currentBPM > 100 &&
+                 currentBPM <= 130)
         {
             currentPulseState =
                 PulseState.DangerHigh;
@@ -1117,36 +1313,26 @@ public class HeartMinigameManager : MonoBehaviour
         bool enteredCritical =
             stateChanged &&
             (
-                currentPulseState ==
-                    PulseState.CriticalLow
-                ||
-                currentPulseState ==
-                    PulseState.CriticalHigh
+                currentPulseState == PulseState.CriticalLow ||
+                currentPulseState == PulseState.CriticalHigh
             );
 
-        HandleCriticalState(
-            previousState
-        );
+        HandleCriticalState(previousState);
 
         UpdateHeartVisual();
 
-        if (
-            stateChanged &&
+        if (stateChanged &&
             !isGameOver &&
             !isMinigameWon &&
-            heartStateTransitionAnimation != null
-        )
+            heartStateTransitionAnimation != null)
         {
-            heartStateTransitionAnimation
-                .PlayStateChange();
+            heartStateTransitionAnimation.PlayStateChange();
         }
 
-        if (
-            enteredCritical &&
+        if (enteredCritical &&
             !isGameOver &&
             !isMinigameWon &&
-            criticalHeartShake != null
-        )
+            criticalHeartShake != null)
         {
             criticalHeartShake.PlayShake();
         }
@@ -1157,34 +1343,23 @@ public class HeartMinigameManager : MonoBehaviour
     )
     {
         bool isCritical =
-            currentPulseState ==
-                PulseState.CriticalLow
-            ||
-            currentPulseState ==
-                PulseState.CriticalHigh;
+            currentPulseState == PulseState.CriticalLow ||
+            currentPulseState == PulseState.CriticalHigh;
 
         bool wasCritical =
-            previousState ==
-                PulseState.CriticalLow
-            ||
-            previousState ==
-                PulseState.CriticalHigh;
+            previousState == PulseState.CriticalLow ||
+            previousState == PulseState.CriticalHigh;
 
         if (!isCritical)
         {
-            criticalImmediateLossUsed =
-                false;
-
+            criticalImmediateLossUsed = false;
             return;
         }
 
-        if (
-            !wasCritical &&
-            !criticalImmediateLossUsed
-        )
+        if (!wasCritical &&
+            !criticalImmediateLossUsed)
         {
-            criticalImmediateLossUsed =
-                true;
+            criticalImmediateLossUsed = true;
 
             ResetDangerCountdown();
             LoseLife();
@@ -1251,7 +1426,8 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void DecreasePulse()
     {
-        if (isGameOver ||
+        if (!minigameStarted ||
+            isGameOver ||
             isMinigameWon ||
             isPaused)
         {
@@ -1266,7 +1442,8 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void IncreasePulse()
     {
-        if (isGameOver ||
+        if (!minigameStarted ||
+            isGameOver ||
             isMinigameWon ||
             isPaused)
         {
@@ -1285,13 +1462,17 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void OpenPauseMenu()
     {
-        if (isGameOver || isMinigameWon)
+        if (!minigameStarted ||
+            isGameOver ||
+            isMinigameWon ||
+            isPaused ||
+            menuTransitionInProgress)
+        {
             return;
-
-        if (isPaused)
-            return;
+        }
 
         isPaused = true;
+        infoOpenedFromWelcome = false;
 
         if (settingsOverlay != null)
             settingsOverlay.SetActive(false);
@@ -1302,32 +1483,31 @@ public class HeartMinigameManager : MonoBehaviour
         if (exitConfirmationOverlay != null)
             exitConfirmationOverlay.SetActive(false);
 
-        if (pauseOverlay != null)
-            pauseOverlay.SetActive(true);
-
-        Debug.Log("MINIGAME PAUSED");
+        ShowOverlay(pauseOverlay);
     }
 
     public void ResumeGame()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
-        if (settingsOverlay != null)
-            settingsOverlay.SetActive(false);
+        menuTransitionInProgress = true;
 
-        if (infoOverlay != null)
-            infoOverlay.SetActive(false);
+        CloseOverlay(
+            pauseOverlay,
+            () =>
+            {
+                isPaused = false;
+                menuTransitionInProgress = false;
 
-        if (exitConfirmationOverlay != null)
-            exitConfirmationOverlay.SetActive(false);
-
-        if (pauseOverlay != null)
-            pauseOverlay.SetActive(false);
-
-        isPaused = false;
-
-        Debug.Log("MINIGAME RESUMED");
+                Debug.Log(
+                    "MINIGAME RESUMED"
+                );
+            }
+        );
     }
 
     // =====================================================
@@ -1336,42 +1516,50 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void OpenSettingsFromPause()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
+
+        menuTransitionInProgress = true;
 
         if (difficultySelector != null)
+        {
             difficultySelector.SetLocked(true);
+        }
 
-        if (infoOverlay != null)
-            infoOverlay.SetActive(false);
-
-        if (exitConfirmationOverlay != null)
-            exitConfirmationOverlay.SetActive(false);
-
-        if (pauseOverlay != null)
-            pauseOverlay.SetActive(false);
-
-        if (settingsOverlay != null)
-            settingsOverlay.SetActive(true);
-
-        Debug.Log(
-            "SETTINGS OPENED FROM PAUSE"
+        CloseOverlay(
+            pauseOverlay,
+            () =>
+            {
+                ShowOverlay(settingsOverlay);
+                menuTransitionInProgress = false;
+            }
         );
     }
 
     public void CloseSettingsToPause()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
-        if (settingsOverlay != null)
-            settingsOverlay.SetActive(false);
+        menuTransitionInProgress = true;
 
-        if (pauseOverlay != null)
-            pauseOverlay.SetActive(true);
+        CloseOverlay(
+            settingsOverlay,
+            () =>
+            {
+                ShowOverlay(pauseOverlay);
+                menuTransitionInProgress = false;
 
-        Debug.Log(
-            "RETURNED TO PAUSE FROM SETTINGS"
+                Debug.Log(
+                    "RETURNED TO PAUSE FROM SETTINGS"
+                );
+            }
         );
     }
 
@@ -1381,40 +1569,37 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void OpenInfoFromPause()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
-        if (settingsOverlay != null)
-            settingsOverlay.SetActive(false);
+        infoOpenedFromWelcome = false;
+        menuTransitionInProgress = true;
 
-        if (exitConfirmationOverlay != null)
-            exitConfirmationOverlay.SetActive(false);
+        CloseOverlay(
+            pauseOverlay,
+            () =>
+            {
+                ShowOverlay(infoOverlay);
+                menuTransitionInProgress = false;
 
-        if (pauseOverlay != null)
-            pauseOverlay.SetActive(false);
-
-        if (infoOverlay != null)
-            infoOverlay.SetActive(true);
-
-        Debug.Log(
-            "INFO OPENED FROM PAUSE"
+                Debug.Log(
+                    "INFO OPENED FROM PAUSE"
+                );
+            }
         );
     }
 
     public void CloseInfoToPause()
     {
-        if (!isPaused)
-            return;
+        CloseInfo();
+    }
 
-        if (infoOverlay != null)
-            infoOverlay.SetActive(false);
-
-        if (pauseOverlay != null)
-            pauseOverlay.SetActive(true);
-
-        Debug.Log(
-            "RETURNED TO PAUSE FROM INFO"
-        );
+    public void ReturnToPauseAfterInfo()
+    {
+        CloseInfo();
     }
 
     // =====================================================
@@ -1423,47 +1608,55 @@ public class HeartMinigameManager : MonoBehaviour
 
     public void OpenExitConfirmationFromPause()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
-        if (settingsOverlay != null)
-            settingsOverlay.SetActive(false);
+        menuTransitionInProgress = true;
 
-        if (infoOverlay != null)
-            infoOverlay.SetActive(false);
+        CloseOverlay(
+            pauseOverlay,
+            () =>
+            {
+                ShowOverlay(exitConfirmationOverlay);
+                menuTransitionInProgress = false;
 
-        if (pauseOverlay != null)
-            pauseOverlay.SetActive(false);
-
-        if (exitConfirmationOverlay != null)
-            exitConfirmationOverlay.SetActive(true);
-
-        Debug.Log(
-            "EXIT CONFIRMATION OPENED"
+                Debug.Log(
+                    "EXIT CONFIRMATION OPENED"
+                );
+            }
         );
     }
 
     public void CloseExitConfirmationToPause()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            menuTransitionInProgress)
+        {
             return;
+        }
 
-        if (exitConfirmationOverlay != null)
-            exitConfirmationOverlay.SetActive(false);
+        menuTransitionInProgress = true;
 
-        if (pauseOverlay != null)
-            pauseOverlay.SetActive(true);
+        CloseOverlay(
+            exitConfirmationOverlay,
+            () =>
+            {
+                ShowOverlay(pauseOverlay);
+                menuTransitionInProgress = false;
 
-        Debug.Log(
-            "RETURNED TO PAUSE FROM EXIT CONFIRMATION"
+                Debug.Log(
+                    "RETURNED TO PAUSE FROM EXIT CONFIRMATION"
+                );
+            }
         );
     }
 
     public void ExitToBodyMap()
     {
-        SceneManager.LoadScene(
-            "BodyMap"
-        );
+        SceneManager.LoadScene("BodyMap");
     }
 
     // =====================================================
@@ -1473,9 +1666,7 @@ public class HeartMinigameManager : MonoBehaviour
     public void RetryLevel()
     {
         SceneManager.LoadScene(
-            SceneManager
-                .GetActiveScene()
-                .name
+            SceneManager.GetActiveScene().name
         );
     }
 }

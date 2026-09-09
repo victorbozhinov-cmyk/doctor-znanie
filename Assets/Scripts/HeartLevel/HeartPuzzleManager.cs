@@ -12,28 +12,41 @@ public class HeartPuzzleManager : MonoBehaviour
         public Sprite labelSprite;
     }
 
+    // =========================================================
+    // CURRENT LABEL
+    // =========================================================
+
     [Header("Current Label")]
-    [SerializeField]
-    private Image currentLabelImage;
+    [SerializeField] private Image currentLabelImage;
+    [SerializeField] private HeartPuzzleDraggableLabel currentLabel;
+    [SerializeField] private UILabelChangeAnimation labelChangeAnimation;
 
-    [SerializeField]
-    private HeartPuzzleDraggableLabel currentLabel;
-
-    [SerializeField]
-    private UILabelChangeAnimation labelChangeAnimation;
+    // =========================================================
+    // LABEL DATA
+    // =========================================================
 
     [Header("Label Data")]
     [SerializeField]
     private List<LabelData> labels =
         new List<LabelData>();
 
+    // =========================================================
+    // LIVES
+    // =========================================================
+
     [Header("Lives")]
-    [SerializeField]
-    private HeartPuzzleLives puzzleLives;
+    [SerializeField] private HeartPuzzleLives puzzleLives;
+
+    // =========================================================
+    // SUCCESS
+    // =========================================================
 
     [Header("Puzzle Success")]
-    [SerializeField]
-    private GameObject puzzleSuccessOverlay;
+    [SerializeField] private GameObject puzzleSuccessOverlay;
+
+    // =========================================================
+    // INTERNAL
+    // =========================================================
 
     private readonly List<LabelData> remainingLabels =
         new List<LabelData>();
@@ -43,29 +56,53 @@ public class HeartPuzzleManager : MonoBehaviour
 
     private int correctlyPlacedCount;
 
-    private bool puzzleStopped;
+    private bool puzzleStarted;
+    private bool puzzleStopped = true;
     private bool isChangingLabel;
 
-    private void Start()
+    // =========================================================
+    // PREPARE FOR WELCOME
+    // =========================================================
+
+    public void PrepareForWelcome()
     {
-        // Ако пъзелът е активен още при старта,
-        // например при директно тестване на HeartLevel,
-        // го стартираме веднага.
-        //
-        // Ако PuzzlePanel е скрит заради Start/Video,
-        // навигацията ще извика StartPuzzle()
-        // след активирането му.
-        if (currentLabel != null &&
-            currentLabel.gameObject.activeInHierarchy)
+        puzzleStarted = false;
+        puzzleStopped = true;
+        isChangingLabel = false;
+
+        correctlyPlacedCount = 0;
+
+        HideSuccessOverlay();
+        ClearPlacedLabels();
+
+        remainingLabels.Clear();
+
+        if (puzzleLives != null)
         {
-            StartPuzzle();
+            puzzleLives.ResetLives();
         }
+
+        if (currentLabel != null)
+        {
+            currentLabel.enabled = false;
+            currentLabel.gameObject.SetActive(false);
+        }
+
+        Debug.Log(
+            "Heart Puzzle е подготвен и чака Welcome."
+        );
     }
+
+    // =========================================================
+    // START PUZZLE
+    // =========================================================
 
     public void StartPuzzle()
     {
+        puzzleStarted = true;
         puzzleStopped = false;
         isChangingLabel = false;
+
         correctlyPlacedCount = 0;
 
         HideSuccessOverlay();
@@ -74,6 +111,11 @@ public class HeartPuzzleManager : MonoBehaviour
         remainingLabels.Clear();
         remainingLabels.AddRange(labels);
 
+        if (puzzleLives != null)
+        {
+            puzzleLives.ResetLives();
+        }
+
         if (currentLabel != null)
         {
             currentLabel.gameObject.SetActive(true);
@@ -81,21 +123,27 @@ public class HeartPuzzleManager : MonoBehaviour
         }
 
         ShowNextRandomLabel();
+
+        Debug.Log("Heart Puzzle започна.");
     }
+
+    // =========================================================
+    // RESTART
+    // =========================================================
 
     public void RestartPuzzle()
     {
-        if (puzzleLives != null)
-        {
-            puzzleLives.ResetLives();
-        }
-
         StartPuzzle();
     }
 
+    // =========================================================
+    // NEXT LABEL
+    // =========================================================
+
     private void ShowNextRandomLabel()
     {
-        if (puzzleStopped ||
+        if (!puzzleStarted ||
+            puzzleStopped ||
             isChangingLabel)
         {
             return;
@@ -111,7 +159,8 @@ public class HeartPuzzleManager : MonoBehaviour
             currentLabel == null)
         {
             Debug.LogError(
-                "Current Label Image или Current Label не е свързан."
+                "Current Label Image или Current Label " +
+                "не е свързан."
             );
 
             return;
@@ -159,7 +208,8 @@ public class HeartPuzzleManager : MonoBehaviour
 
     private void FinishLabelChange()
     {
-        if (puzzleStopped ||
+        if (!puzzleStarted ||
+            puzzleStopped ||
             currentLabel == null)
         {
             isChangingLabel = false;
@@ -170,10 +220,15 @@ public class HeartPuzzleManager : MonoBehaviour
         isChangingLabel = false;
     }
 
+    // =========================================================
+    // CORRECT PLACEMENT
+    // =========================================================
+
     public void HandleCorrectPlacement(
         HeartPuzzleDropZone correctZone)
     {
-        if (puzzleStopped ||
+        if (!puzzleStarted ||
+            puzzleStopped ||
             isChangingLabel)
         {
             return;
@@ -199,9 +254,14 @@ public class HeartPuzzleManager : MonoBehaviour
         ShowNextRandomLabel();
     }
 
+    // =========================================================
+    // WRONG PLACEMENT
+    // =========================================================
+
     public void HandleWrongPlacement()
     {
-        if (puzzleStopped ||
+        if (!puzzleStarted ||
+            puzzleStopped ||
             isChangingLabel)
         {
             return;
@@ -210,7 +270,8 @@ public class HeartPuzzleManager : MonoBehaviour
         if (puzzleLives == null)
         {
             Debug.LogError(
-                "HeartPuzzleLives не е свързан в HeartPuzzleManager!"
+                "HeartPuzzleLives не е свързан " +
+                "в HeartPuzzleManager!"
             );
 
             return;
@@ -220,13 +281,14 @@ public class HeartPuzzleManager : MonoBehaviour
 
         if (puzzleLives.IsGameOver)
         {
-            // Спираме логиката,
-            // но не изключваме CurrentLabel,
-            // за да може червеният feedback
-            // да приключи нормално.
+            puzzleStarted = false;
             puzzleStopped = true;
         }
     }
+
+    // =========================================================
+    // CREATE PLACED LABEL
+    // =========================================================
 
     private void CreatePlacedLabel(
         HeartPuzzleDropZone correctZone)
@@ -295,10 +357,13 @@ public class HeartPuzzleManager : MonoBehaviour
         placedLabels.Add(placedLabel);
     }
 
+    // =========================================================
+    // CLEAR LABELS
+    // =========================================================
+
     private void ClearPlacedLabels()
     {
-        foreach (GameObject placedLabel
-                 in placedLabels)
+        foreach (GameObject placedLabel in placedLabels)
         {
             if (placedLabel != null)
             {
@@ -309,8 +374,13 @@ public class HeartPuzzleManager : MonoBehaviour
         placedLabels.Clear();
     }
 
+    // =========================================================
+    // COMPLETE
+    // =========================================================
+
     private void CompletePuzzle()
     {
+        puzzleStarted = false;
         puzzleStopped = true;
         isChangingLabel = false;
 
@@ -320,7 +390,9 @@ public class HeartPuzzleManager : MonoBehaviour
             currentLabel.gameObject.SetActive(false);
         }
 
-        Debug.Log("Пъзелът е завършен!");
+        Debug.Log(
+            "Пъзелът е завършен!"
+        );
 
         if (puzzleSuccessOverlay == null)
         {
@@ -335,6 +407,10 @@ public class HeartPuzzleManager : MonoBehaviour
         puzzleSuccessOverlay.SetActive(true);
         puzzleSuccessOverlay.transform.SetAsLastSibling();
     }
+
+    // =========================================================
+    // SUCCESS OVERLAY
+    // =========================================================
 
     private void HideSuccessOverlay()
     {

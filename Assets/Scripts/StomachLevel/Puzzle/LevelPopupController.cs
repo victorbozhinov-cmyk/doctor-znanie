@@ -8,8 +8,13 @@ public class LevelPopupController : MonoBehaviour
     [SerializeField] private GameObject exitConfirmPanel;
     [SerializeField] private GameObject levelSettingsPanel;
 
+    [Header("Puzzle Welcome")]
+    [SerializeField] private PuzzleWelcomeController puzzleWelcomeController;
+
     [Header("Navigation")]
     [SerializeField] private string bodyMapSceneName = "BodyMap";
+
+    private bool infoOpenedFromPuzzleWelcome = false;
 
     private void Start()
     {
@@ -24,15 +29,82 @@ public class LevelPopupController : MonoBehaviour
 
     public void OpenInfoPanel()
     {
+        infoOpenedFromPuzzleWelcome = false;
+
         HideImmediately(exitConfirmPanel);
         HideImmediately(levelSettingsPanel);
 
         OpenPanel(infoPanel, "InfoPanel");
     }
 
+    public void OpenInfoFromPuzzleWelcome()
+    {
+        if (puzzleWelcomeController == null)
+        {
+            Debug.LogWarning(
+                "PuzzleWelcomeController не е свързан " +
+                "в LevelPopupController."
+            );
+
+            return;
+        }
+
+        infoOpenedFromPuzzleWelcome = true;
+
+        puzzleWelcomeController.HideWelcomeForInfo(
+            () =>
+            {
+                HideImmediately(exitConfirmPanel);
+                HideImmediately(levelSettingsPanel);
+
+                OpenPanel(
+                    infoPanel,
+                    "InfoPanel"
+                );
+            }
+        );
+    }
+
     public void CloseInfoPanel()
     {
-        ClosePanel(infoPanel);
+        if (infoPanel == null ||
+            !infoPanel.activeSelf)
+        {
+            return;
+        }
+
+        UIPopupAnimation animation =
+            FindAnimation(infoPanel);
+
+        if (animation != null)
+        {
+            animation.PlayClose(
+                FinishClosingInfoPanel
+            );
+        }
+        else
+        {
+            FinishClosingInfoPanel();
+        }
+    }
+
+    private void FinishClosingInfoPanel()
+    {
+        if (infoPanel != null)
+        {
+            infoPanel.SetActive(false);
+        }
+
+        if (infoOpenedFromPuzzleWelcome)
+        {
+            infoOpenedFromPuzzleWelcome = false;
+
+            if (puzzleWelcomeController != null)
+            {
+                puzzleWelcomeController
+                    .ShowWelcomeAfterInfo();
+            }
+        }
     }
 
     // =========================
@@ -108,17 +180,11 @@ public class LevelPopupController : MonoBehaviour
             return;
         }
 
-        bool wasAlreadyActive = panel.activeSelf;
+        bool wasAlreadyActive =
+            panel.activeSelf;
 
         panel.SetActive(true);
 
-        /*
-         * При активиране на панела OnEnable() на
-         * UIPopupAnimation автоматично пуска PlayOpen().
-         *
-         * Ако панелът вече е бил активен, пускаме
-         * анимацията ръчно.
-         */
         if (wasAlreadyActive)
         {
             UIPopupAnimation animation =
@@ -130,7 +196,8 @@ public class LevelPopupController : MonoBehaviour
 
     private void ClosePanel(GameObject panel)
     {
-        if (panel == null || !panel.activeSelf)
+        if (panel == null ||
+            !panel.activeSelf)
         {
             return;
         }

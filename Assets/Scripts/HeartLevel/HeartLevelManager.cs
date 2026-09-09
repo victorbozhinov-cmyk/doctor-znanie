@@ -3,7 +3,6 @@ using UnityEngine;
 public class HeartLevelManager : MonoBehaviour
 {
     [Header("Level Panels")]
-
     [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject videoPanel;
     [SerializeField] private GameObject puzzlePanel;
@@ -11,54 +10,177 @@ public class HeartLevelManager : MonoBehaviour
     [SerializeField] private GameObject quizPanel;
     [SerializeField] private GameObject finishPanel;
 
+    [Header("Puzzle")]
+    [SerializeField] private HeartPuzzleManager puzzleManager;
+
+    [Header("Minigame")]
+    [SerializeField] private HeartMinigameManager minigameManager;
+
+    // =========================================================
+    // START
+    // =========================================================
+
     private void Start()
     {
         ShowStartPanel();
     }
 
+    // =========================================================
+    // START PANEL
+    // =========================================================
+
     public void ShowStartPanel()
     {
         HideAllPanels();
-        startPanel.SetActive(true);
+
+        if (startPanel != null)
+        {
+            startPanel.SetActive(true);
+        }
     }
+
+    // =========================================================
+    // VIDEO PANEL
+    // =========================================================
 
     public void ShowVideoPanel()
     {
         HideAllPanels();
-        videoPanel.SetActive(true);
+
+        if (videoPanel != null)
+        {
+            videoPanel.SetActive(true);
+        }
     }
+
+    // =========================================================
+    // PUZZLE PANEL
+    // =========================================================
 
     public void ShowPuzzlePanel()
     {
         HideAllPanels();
+
+        if (puzzlePanel == null)
+        {
+            Debug.LogError(
+                "Puzzle Panel не е свързан."
+            );
+
+            return;
+        }
+
+        /*
+         * Активираме PuzzlePanel.
+         *
+         * PuzzleWelcomeController сам ще покаже
+         * Welcome Overlay-а чрез Awake().
+         */
         puzzlePanel.SetActive(true);
+
+        /*
+         * Пъзелът остава спрян,
+         * докато Welcome бутонът не извика
+         * HeartPuzzleManager.StartPuzzle().
+         */
+        if (puzzleManager != null)
+        {
+            puzzleManager.PrepareForWelcome();
+        }
+        else
+        {
+            Debug.LogError(
+                "HeartPuzzleManager не е свързан."
+            );
+        }
+
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayPuzzleMusic();
+        }
     }
+
+    // =========================================================
+    // MINIGAME PANEL
+    // =========================================================
 
     public void ShowMiniGamePanel()
     {
         HideAllPanels();
+
+        if (miniGamePanel == null)
+        {
+            Debug.LogError(
+                "Minigame Panel не е свързан."
+            );
+
+            return;
+        }
+
         miniGamePanel.SetActive(true);
+
+        if (minigameManager != null)
+        {
+            minigameManager.PrepareForWelcome();
+        }
+        else
+        {
+            Debug.LogError(
+                "HeartMinigameManager не е свързан."
+            );
+        }
     }
+
+    // =========================================================
+    // QUIZ PANEL
+    // =========================================================
 
     public void ShowQuizPanel()
     {
         HideAllPanels();
-        quizPanel.SetActive(true);
+
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(true);
+        }
     }
+
+    // =========================================================
+    // FINISH PANEL
+    // =========================================================
 
     public void ShowFinishPanel()
     {
         HideAllPanels();
-        finishPanel.SetActive(true);
+
+        if (finishPanel != null)
+        {
+            finishPanel.SetActive(true);
+        }
     }
+
+    // =========================================================
+    // HIDE ALL
+    // =========================================================
 
     private void HideAllPanels()
     {
-        startPanel.SetActive(false);
-        videoPanel.SetActive(false);
-        puzzlePanel.SetActive(false);
-        miniGamePanel.SetActive(false);
-        quizPanel.SetActive(false);
-        finishPanel.SetActive(false);
+        if (startPanel != null)
+            startPanel.SetActive(false);
+
+        if (videoPanel != null)
+            videoPanel.SetActive(false);
+
+        if (puzzlePanel != null)
+            puzzlePanel.SetActive(false);
+
+        if (miniGamePanel != null)
+            miniGamePanel.SetActive(false);
+
+        if (quizPanel != null)
+            quizPanel.SetActive(false);
+
+        if (finishPanel != null)
+            finishPanel.SetActive(false);
     }
 }

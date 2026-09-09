@@ -8,6 +8,7 @@ public class BrainLevelNavigation : MonoBehaviour
 
     [Header("Main Panels")]
     [SerializeField] private GameObject startPanel;
+    [SerializeField] private GameObject videoPanel;
     [SerializeField] private GameObject puzzlePanel;
     [SerializeField] private GameObject minigamePanel;
     [SerializeField] private GameObject quizPanel;
@@ -25,6 +26,10 @@ public class BrainLevelNavigation : MonoBehaviour
 
     private const string BrainRetryFromQuizKey =
         "BrainRetryFromQuiz";
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Start()
     {
@@ -62,20 +67,25 @@ public class BrainLevelNavigation : MonoBehaviour
         }
     }
 
-    // -------------------------
-    // START PANEL -> PUZZLE
-    // -------------------------
+    // =========================================================
+    // START PANEL -> VIDEO
+    // =========================================================
 
-    public void StartBrainPuzzle()
+    public void StartLevel()
     {
         if (startPanel != null)
         {
             startPanel.SetActive(false);
         }
 
+        if (videoPanel != null)
+        {
+            videoPanel.SetActive(true);
+        }
+
         if (puzzlePanel != null)
         {
-            puzzlePanel.SetActive(true);
+            puzzlePanel.SetActive(false);
         }
 
         if (minigamePanel != null)
@@ -93,15 +103,66 @@ public class BrainLevelNavigation : MonoBehaviour
             finishPanel.SetActive(false);
         }
 
-        if (puzzleManager != null)
-        {
-            puzzleManager.StartPuzzle();
-        }
+        Debug.Log(
+            "Brain Level: StartPanel -> VideoPanel"
+        );
     }
 
-    // -------------------------
+    // =========================================================
+    // VIDEO -> PUZZLE WELCOME
+    // =========================================================
+
+    public void ContinueFromVideoToPuzzle()
+    {
+        if (videoPanel != null)
+        {
+            videoPanel.SetActive(false);
+        }
+
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(false);
+        }
+
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(false);
+        }
+
+        if (finishPanel != null)
+        {
+            finishPanel.SetActive(false);
+        }
+
+        if (puzzlePanel != null)
+        {
+            /*
+             * Само активираме PuzzlePanel.
+             *
+             * BrainPuzzleManager ще е подготвен,
+             * а PuzzleWelcomeController ще покаже
+             * Welcome Overlay-а.
+             *
+             * Реалният пъзел НЕ стартира тук.
+             */
+            puzzlePanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError(
+                "PuzzlePanel не е свързан " +
+                "в BrainLevelNavigation."
+            );
+        }
+
+        Debug.Log(
+            "Brain Level: Video -> Puzzle Welcome"
+        );
+    }
+
+    // =========================================================
     // GAME OVER
-    // -------------------------
+    // =========================================================
 
     public void ShowGameOver()
     {
@@ -116,9 +177,9 @@ public class BrainLevelNavigation : MonoBehaviour
         }
     }
 
-    // -------------------------
+    // =========================================================
     // RETRY PUZZLE
-    // -------------------------
+    // =========================================================
 
     public void RetryPuzzle()
     {
@@ -163,15 +224,20 @@ public class BrainLevelNavigation : MonoBehaviour
             puzzlePanel.SetActive(false);
         }
 
+        if (videoPanel != null)
+        {
+            videoPanel.SetActive(false);
+        }
+
         if (startPanel != null)
         {
             startPanel.SetActive(true);
         }
     }
 
-    // -------------------------
+    // =========================================================
     // RETRY FROM QUIZ
-    // -------------------------
+    // =========================================================
 
     public void RetryBrainLevel()
     {
@@ -187,15 +253,20 @@ public class BrainLevelNavigation : MonoBehaviour
         );
     }
 
-    // -------------------------
+    // =========================================================
     // SHOW START PANEL
-    // -------------------------
+    // =========================================================
 
     private void ShowStartPanelOnly()
     {
         if (startPanel != null)
         {
             startPanel.SetActive(true);
+        }
+
+        if (videoPanel != null)
+        {
+            videoPanel.SetActive(false);
         }
 
         if (puzzlePanel != null)
@@ -234,9 +305,9 @@ public class BrainLevelNavigation : MonoBehaviour
         }
     }
 
-    // -------------------------
+    // =========================================================
     // PUZZLE SUCCESS
-    // -------------------------
+    // =========================================================
 
     public void ShowPuzzleSuccess()
     {
@@ -246,9 +317,9 @@ public class BrainLevelNavigation : MonoBehaviour
         }
     }
 
-    // -------------------------
+    // =========================================================
     // PUZZLE -> MINIGAME
-    // -------------------------
+    // =========================================================
 
     public void OpenMinigame()
     {
@@ -260,6 +331,11 @@ public class BrainLevelNavigation : MonoBehaviour
         if (puzzlePanel != null)
         {
             puzzlePanel.SetActive(false);
+        }
+
+        if (videoPanel != null)
+        {
+            videoPanel.SetActive(false);
         }
 
         if (quizPanel != null)
@@ -278,15 +354,20 @@ public class BrainLevelNavigation : MonoBehaviour
         }
     }
 
-    // -------------------------
-    // QUIZ -> FINISH PANEL
-    // -------------------------
+    // =========================================================
+    // QUIZ -> FINISH
+    // =========================================================
 
     public void OpenFinishPanel()
     {
         if (startPanel != null)
         {
             startPanel.SetActive(false);
+        }
+
+        if (videoPanel != null)
+        {
+            videoPanel.SetActive(false);
         }
 
         if (puzzlePanel != null)
@@ -325,9 +406,9 @@ public class BrainLevelNavigation : MonoBehaviour
         }
     }
 
-    // -------------------------
+    // =========================================================
     // EXIT
-    // -------------------------
+    // =========================================================
 
     public void ExitToBodyMap()
     {
