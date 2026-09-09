@@ -59,6 +59,10 @@ public class BrainOrganStation : MonoBehaviour
     [SerializeField]
     private ScreenFlash screenFlash;
 
+    [Header("Audio")]
+    [SerializeField]
+    private BrainMinigameAudio minigameAudio;
+
     private BrainTokenCarrier playerCarrier;
 
     private bool playerInside = false;
@@ -104,6 +108,16 @@ public class BrainOrganStation : MonoBehaviour
             }
 
             return brainDropZone;
+        }
+    }
+
+    private void Awake()
+    {
+        if (minigameAudio == null)
+        {
+            minigameAudio =
+                FindFirstObjectByType<
+                    BrainMinigameAudio>();
         }
     }
 
@@ -155,6 +169,10 @@ public class BrainOrganStation : MonoBehaviour
         TryInteract();
     }
 
+    // =========================================================
+    // PREPARE
+    // =========================================================
+
     public void PrepareForManager()
     {
         orderActive = false;
@@ -195,7 +213,8 @@ public class BrainOrganStation : MonoBehaviour
         int selectedIndex =
             UnityEngine.Random.Range(
                 0,
-                totalVariants);
+                totalVariants
+            );
 
         if (selectedIndex == 0)
         {
@@ -205,7 +224,8 @@ public class BrainOrganStation : MonoBehaviour
         {
             AdditionalProblemVariant variant =
                 additionalProblemVariants[
-                    selectedIndex - 1];
+                    selectedIndex - 1
+                ];
 
             if (variant == null)
             {
@@ -250,13 +270,19 @@ public class BrainOrganStation : MonoBehaviour
         selectedProblemTokenType =
             BrainTokenType.None;
 
-        selectedProblemTokenSprite = null;
+        selectedProblemTokenSprite =
+            null;
 
         selectedCommandTokenType =
             BrainTokenType.None;
 
-        selectedBrainDropZone = null;
+        selectedBrainDropZone =
+            null;
     }
+
+    // =========================================================
+    // ORDER
+    // =========================================================
 
     public void StartManagedOrder(
         float orderDuration)
@@ -287,25 +313,36 @@ public class BrainOrganStation : MonoBehaviour
         {
             orderUI.StartOrder(
                 selectedProblemTokenType,
-                orderDuration);
+                orderDuration
+            );
         }
 
         Debug.Log(
             gameObject.name +
             " started managed order: " +
-            selectedProblemTokenType);
+            selectedProblemTokenType
+        );
     }
+
+    // =========================================================
+    // INTERACTION
+    // =========================================================
 
     private void TryInteract()
     {
         if (playerCarrier.IsCarryingToken)
         {
             TryReceiveCommandToken();
+
             return;
         }
 
         TryGiveProblemToken();
     }
+
+    // =========================================================
+    // GIVE PROBLEM
+    // =========================================================
 
     private void TryGiveProblemToken()
     {
@@ -323,11 +360,16 @@ public class BrainOrganStation : MonoBehaviour
         }
 
         if (selectedProblemTokenSprite == null)
+        {
             return;
+        }
 
+        // PickUpToken() автоматично
+        // пуска POP.
         playerCarrier.PickUpToken(
             selectedProblemTokenSprite,
-            selectedProblemTokenType);
+            selectedProblemTokenType
+        );
 
         problemTokenVisual.SetActive(false);
 
@@ -337,10 +379,20 @@ public class BrainOrganStation : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // RECEIVE COMMAND
+    // =========================================================
+
     private void TryReceiveCommandToken()
     {
         if (!playerCarrier.IsCarryingToken)
+        {
             return;
+        }
+
+        // =====================================================
+        // WRONG ORGAN STATION
+        // =====================================================
 
         if (playerCarrier.CurrentTokenType !=
             selectedCommandTokenType)
@@ -348,6 +400,12 @@ public class BrainOrganStation : MonoBehaviour
             if (screenFlash != null)
             {
                 screenFlash.PlayRedFlash();
+
+                if (minigameAudio != null)
+                {
+                    minigameAudio
+                        .PlayWrongStation();
+                }
             }
 
             WrongCommandDelivered?.Invoke();
@@ -355,6 +413,11 @@ public class BrainOrganStation : MonoBehaviour
             return;
         }
 
+        // =====================================================
+        // CORRECT ORGAN STATION
+        // =====================================================
+
+        // DropToken() автоматично пуска POP.
         playerCarrier.DropToken();
 
         orderCompleted = true;
@@ -368,12 +431,23 @@ public class BrainOrganStation : MonoBehaviour
         if (screenFlash != null)
         {
             screenFlash.PlayGreenFlash();
+
+            // Глобалният Correct звук.
+            if (minigameAudio != null)
+            {
+                minigameAudio
+                    .PlayCorrect();
+            }
         }
 
         variantPrepared = false;
 
         OrderCompleted?.Invoke(this);
     }
+
+    // =========================================================
+    // ORDER FAILURE
+    // =========================================================
 
     private void HandleOrderFailed()
     {
@@ -401,6 +475,7 @@ public class BrainOrganStation : MonoBehaviour
             !orderFailed)
         {
             variantPrepared = false;
+
             return;
         }
 
@@ -418,6 +493,10 @@ public class BrainOrganStation : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // CLEAR TOKENS
+    // =========================================================
+
     private void ClearOrderTokens()
     {
         if (problemTokenVisual != null)
@@ -427,7 +506,8 @@ public class BrainOrganStation : MonoBehaviour
 
         if (selectedBrainDropZone != null)
         {
-            selectedBrainDropZone.ClearCommandToken();
+            selectedBrainDropZone
+                .ClearCommandToken();
         }
 
         BrainTokenCarrier carrier =
@@ -437,15 +517,25 @@ public class BrainOrganStation : MonoBehaviour
         if (carrier != null &&
             carrier.IsCarryingToken)
         {
-            if (carrier.CurrentTokenType ==
+            if (
+                carrier.CurrentTokenType ==
                     selectedProblemTokenType ||
                 carrier.CurrentTokenType ==
-                    selectedCommandTokenType)
+                    selectedCommandTokenType
+            )
             {
-                carrier.DropToken();
+                /*
+                 * Автоматично изчистване,
+                 * затова НЯМА token pop.
+                 */
+                carrier.DropToken(false);
             }
         }
     }
+
+    // =========================================================
+    // TRIGGERS
+    // =========================================================
 
     private void OnTriggerEnter2D(
         Collider2D other)

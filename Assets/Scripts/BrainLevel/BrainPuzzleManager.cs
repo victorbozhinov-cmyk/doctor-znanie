@@ -759,6 +759,26 @@ public class BrainPuzzleManager : MonoBehaviour
     }
 
     // =========================================================
+    // CORRECT DROP SOUND
+    // =========================================================
+
+    public void PlayCorrectDropSound()
+    {
+        if (puzzleCompleted ||
+            gameOver)
+        {
+            return;
+        }
+
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayCorrect();
+        }
+    }
+
+    // =========================================================
     // CORRECT PLACEMENT
     // =========================================================
 
@@ -817,10 +837,35 @@ public class BrainPuzzleManager : MonoBehaviour
             return;
         }
 
+        PlayWrongSoundIfNotGameOver();
+
         LoseLife();
 
         onWrongPlacement?.Invoke();
     }
+
+    // =========================================================
+    // WRONG SOUND
+    // =========================================================
+
+    private void PlayWrongSoundIfNotGameOver()
+    {
+        if (currentLives <= 1)
+        {
+            return;
+        }
+
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
+        }
+    }
+
+    // =========================================================
+    // LOSE LIFE
+    // =========================================================
 
     private void LoseLife()
     {

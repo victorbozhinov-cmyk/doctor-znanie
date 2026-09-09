@@ -28,7 +28,6 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
     [SerializeField] private Color correctColor =
         new Color(0.15f, 1f, 0.3f, 1f);
 
-    // По-ярко неоново червено при грешка.
     [SerializeField] private Color wrongColor =
         new Color(1f, 0.22f, 0.28f, 1f);
 
@@ -311,9 +310,9 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
         {
             dropZone =
                 objectUnderPointer
-                .GetComponentInParent<
-                    BrainPuzzleDropZone
-                >();
+                    .GetComponentInParent<
+                        BrainPuzzleDropZone
+                    >();
         }
 
         // Извън зона.
@@ -323,9 +322,23 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
             return;
         }
 
-        // Правилна зона.
+        // =====================================================
+        // ПРАВИЛНА ЗОНА
+        // =====================================================
+
         if (dropZone.Accepts(CurrentPart))
         {
+            /*
+             * Correct звукът се пуска
+             * ВЕДНАГА при правилния drop,
+             * преди всички placement анимации.
+             */
+            if (puzzleManager != null)
+            {
+                puzzleManager
+                    .PlayCorrectDropSound();
+            }
+
             dropZone.ShowCorrectFeedback();
 
             SnapToDropZone(
@@ -342,7 +355,10 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
             return;
         }
 
-        // Грешна зона.
+        // =====================================================
+        // ГРЕШНА ЗОНА
+        // =====================================================
+
         dropZone.ShowWrongFeedback();
 
         SnapToDropZone(

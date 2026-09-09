@@ -545,7 +545,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2980223203468482409, guid: d28ed7520ee7a59498ed145e9b164f82, type: 3}
+  m_Sprite: {fileID: 6750035600561526594, guid: e97cb76dc2189634abfcc3daba23be17, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -725,6 +725,7 @@ GameObject:
   - component: {fileID: 41258290}
   - component: {fileID: 41258289}
   - component: {fileID: 41258288}
+  - component: {fileID: 41258291}
   m_Layer: 0
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -883,6 +884,62 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 15.634395, y: 2.915756}
   m_EdgeRadius: 0
+--- !u!114 &41258291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41258284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 66230984}
+        m_TargetAssemblyTypeName: BrainLevelNavigation, Assembly-CSharp
+        m_MethodName: OpenQuiz
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &43635837
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,6 +1446,7 @@ MonoBehaviour:
   gameOverOverlay: {fileID: 970726060}
   gameOverPanel: {fileID: 58074729}
   puzzleSuccessOverlay: {fileID: 737731898}
+  minigameSuccessOverlay: {fileID: 1155540453}
   bodyMapSceneName: BodyMap
 --- !u!1 &73519178
 GameObject:
@@ -5050,6 +5108,7 @@ MonoBehaviour:
   orderUI: {fileID: 1226075468}
   orderSpawnAnimation: {fileID: 2028358804}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!1 &319460323
 GameObject:
   m_ObjectHideFlags: 0
@@ -5870,6 +5929,7 @@ MonoBehaviour:
   orderUI: {fileID: 798137873}
   orderSpawnAnimation: {fileID: 804790413}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!70 &346141090
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -6545,6 +6605,7 @@ MonoBehaviour:
   processingIndicator: {fileID: 997925608}
   processingFill: {fileID: 1942404475}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!58 &368583061
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7382,6 +7443,7 @@ MonoBehaviour:
   processingIndicator: {fileID: 1907696313}
   processingFill: {fileID: 883393847}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!58 &413992907
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10808,6 +10870,7 @@ MonoBehaviour:
   orderUI: {fileID: 1047181915}
   orderSpawnAnimation: {fileID: 1279904494}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!70 &656021835
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -12583,6 +12646,7 @@ GameObject:
   - component: {fileID: 737731901}
   - component: {fileID: 737731900}
   - component: {fileID: 737731899}
+  - component: {fileID: 737731903}
   m_Layer: 5
   m_Name: PuzzleSuccessOverlay
   m_TagString: Untagged
@@ -12660,6 +12724,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &737731903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737731898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 0
 --- !u!1 &744243105
 GameObject:
   m_ObjectHideFlags: 0
@@ -15252,6 +15329,7 @@ MonoBehaviour:
   orderUI: {fileID: 484111678}
   orderSpawnAnimation: {fileID: 2036265556}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!70 &845581141
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -15998,6 +16076,7 @@ MonoBehaviour:
   orderUI: {fileID: 1574052467}
   orderSpawnAnimation: {fileID: 2134582429}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!70 &867586216
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -18137,7 +18216,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6192969085761049417, guid: 93ffe543d7026d74fab6f721507b5596, type: 3}
+  m_Sprite: {fileID: -8017089484148629547, guid: 541e95778d26efe49af5de50f8a2731a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18171,8 +18250,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.1, y: -249.7}
-  m_SizeDelta: {x: 298.5, y: 108.3}
+  m_AnchoredPosition: {x: -254.5, y: -338.3}
+  m_SizeDelta: {x: 441.3, y: 149.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &960161020
 GameObject:
@@ -18395,6 +18474,7 @@ GameObject:
   - component: {fileID: 970726063}
   - component: {fileID: 970726062}
   - component: {fileID: 970726061}
+  - component: {fileID: 970726065}
   m_Layer: 5
   m_Name: GameOverOverlay
   m_TagString: Untagged
@@ -18472,6 +18552,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &970726065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970726060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 1
 --- !u!1 &972238686
 GameObject:
   m_ObjectHideFlags: 0
@@ -18744,6 +18837,7 @@ MonoBehaviour:
   orderUI: {fileID: 914068442}
   orderSpawnAnimation: {fileID: 1349317020}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!70 &987974945
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -19137,6 +19231,7 @@ MonoBehaviour:
   processingIndicator: {fileID: 812751659}
   processingFill: {fileID: 1359466513}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!1 &1018529882
 GameObject:
   m_ObjectHideFlags: 0
@@ -19714,6 +19809,7 @@ MonoBehaviour:
   orderUI: {fileID: 865964629}
   orderSpawnAnimation: {fileID: 2117390573}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!1 &1056944089
 GameObject:
   m_ObjectHideFlags: 0
@@ -21265,6 +21361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1155540454}
   - component: {fileID: 1155540455}
+  - component: {fileID: 1155540456}
   m_Layer: 0
   m_Name: BrainMinigameSuccessOverlay
   m_TagString: Untagged
@@ -21348,6 +21445,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &1155540456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155540453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 0
 --- !u!1 &1159728893
 GameObject:
   m_ObjectHideFlags: 0
@@ -21906,6 +22016,7 @@ Transform:
   - {fileID: 1503229631}
   - {fileID: 1858905421}
   - {fileID: 1155540454}
+  - {fileID: 1879366414}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1196997838
@@ -25279,6 +25390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrainTokenCarrier
   carriedTokenRenderer: {fileID: 110505729}
+  minigameAudio: {fileID: 0}
 --- !u!1 &1340015962
 GameObject:
   m_ObjectHideFlags: 0
@@ -27913,6 +28025,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1503229631}
+  - component: {fileID: 1503229632}
   m_Layer: 0
   m_Name: BrainGameOverWorld
   m_TagString: Untagged
@@ -27937,6 +28050,19 @@ Transform:
   - {fileID: 1711371827}
   m_Father: {fileID: 1196589196}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1503229632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503229630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 1
 --- !u!1 &1508989304
 GameObject:
   m_ObjectHideFlags: 0
@@ -29605,6 +29731,7 @@ MonoBehaviour:
   orderUI: {fileID: 1518722035}
   orderSpawnAnimation: {fileID: 364005101}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!70 &1637633536
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -31380,6 +31507,7 @@ MonoBehaviour:
   processingIndicator: {fileID: 1667155688}
   processingFill: {fileID: 680915960}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!58 &1725484206
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -31477,6 +31605,7 @@ MonoBehaviour:
   orderUI: {fileID: 484324350}
   orderSpawnAnimation: {fileID: 177506444}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!70 &1731726328
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -31885,6 +32014,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763832083}
+  - component: {fileID: 1763832084}
   m_Layer: 5
   m_Name: QuizPanel
   m_TagString: Untagged
@@ -31927,6 +32057,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1763832084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763832082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6743f7cf3d10252448a07fc0a945d6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuizMusicTrigger
 --- !u!1 &1768542432
 GameObject:
   m_ObjectHideFlags: 0
@@ -31936,6 +32078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1768542433}
+  - component: {fileID: 1768542434}
   m_Layer: 5
   m_Name: FinishPanel
   m_TagString: Untagged
@@ -31963,6 +32106,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1768542434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768542432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 2
 --- !u!1 &1778031425
 GameObject:
   m_ObjectHideFlags: 0
@@ -32385,8 +32541,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 333.9, y: -249.9}
-  m_SizeDelta: {x: 331.4, y: 106.9}
+  m_AnchoredPosition: {x: 274.3, y: -334.8}
+  m_SizeDelta: {x: 448.8, y: 152.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1795533438
 MonoBehaviour:
@@ -32480,7 +32636,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7084421139078367212, guid: 323cce18d05b6e345a61f7edc8eb2b17, type: 3}
+  m_Sprite: {fileID: 56612076285971252, guid: 6e78f3715b9abf24ea5cb70a93c611da, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -32507,6 +32663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1805733784}
+  - component: {fileID: 1805733785}
   m_Layer: 5
   m_Name: PuzzlePanel
   m_TagString: Untagged
@@ -32545,6 +32702,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1805733785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805733783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0151148a9ece3242b10ffd590d4a259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzleMusicTrigger
 --- !u!1 &1809758894
 GameObject:
   m_ObjectHideFlags: 0
@@ -33230,6 +33399,7 @@ MonoBehaviour:
   orderUI: {fileID: 326063393}
   orderSpawnAnimation: {fileID: 122743438}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!70 &1853788373
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -33831,6 +34001,152 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865366720}
   m_CullTransparentMesh: 1
+--- !u!1 &1879366413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1879366414}
+  - component: {fileID: 1879366416}
+  - component: {fileID: 1879366415}
+  m_Layer: 0
+  m_Name: BrainMinigameAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1879366414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879366413}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1196589196}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1879366415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879366413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6656fda75622bc94ca53287ba101b4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainMinigameAudio
+  tokenPopClip: {fileID: 8300000, guid: 3be9d380b8bf7a0419ddbd125c9d471f, type: 3}
+  tokenPopVolume: 0.4
+  wrongStationClip: {fileID: 8300000, guid: e95c7a49070f2074ab625365133b2ae4, type: 3}
+  wrongStationVolume: 0.55
+--- !u!82 &1879366416
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879366413}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1881047967
 GameObject:
   m_ObjectHideFlags: 0
@@ -37307,6 +37623,7 @@ GameObject:
   - component: {fileID: 1990391100}
   - component: {fileID: 1990391099}
   - component: {fileID: 1990391098}
+  - component: {fileID: 1990391101}
   m_Layer: 5
   m_Name: QuizSuccessOverlay
   m_TagString: Untagged
@@ -37384,6 +37701,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990391096}
   m_CullTransparentMesh: 1
+--- !u!114 &1990391101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990391096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 0
 --- !u!1 &1993387098
 GameObject:
   m_ObjectHideFlags: 0
@@ -39430,6 +39760,7 @@ MonoBehaviour:
   processingIndicator: {fileID: 1159728893}
   processingFill: {fileID: 2068172358}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!58 &2061692657
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -40538,6 +40869,7 @@ MonoBehaviour:
   processingIndicator: {fileID: 1631934653}
   processingFill: {fileID: 63653455}
   screenFlash: {fileID: 2107514473}
+  minigameAudio: {fileID: 0}
 --- !u!58 &2119934140
 CircleCollider2D:
   m_ObjectHideFlags: 0
