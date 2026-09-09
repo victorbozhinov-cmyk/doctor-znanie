@@ -46,6 +46,10 @@ public class BrainMinigameDropZone : MonoBehaviour
     [SerializeField]
     private ScreenFlash screenFlash;
 
+    [Header("Audio")]
+    [SerializeField]
+    private BrainMinigameAudio minigameAudio;
+
     private BrainTokenCarrier playerCarrier;
 
     private bool playerInside = false;
@@ -73,6 +77,13 @@ public class BrainMinigameDropZone : MonoBehaviour
 
     private void Awake()
     {
+        if (minigameAudio == null)
+        {
+            minigameAudio =
+                FindFirstObjectByType<
+                    BrainMinigameAudio>();
+        }
+
         if (commandTokenVisual != null)
         {
             commandTokenVisual.SetActive(false);
@@ -122,7 +133,8 @@ public class BrainMinigameDropZone : MonoBehaviour
         processingDuration =
             Mathf.Max(
                 0f,
-                duration);
+                duration
+            );
     }
 
     private void TryInteract()
@@ -135,6 +147,10 @@ public class BrainMinigameDropZone : MonoBehaviour
 
         TryPickUpCommandToken();
     }
+
+    // =========================================================
+    // DELIVER PROBLEM
+    // =========================================================
 
     private void TryDeliverProblemToken()
     {
@@ -149,13 +165,24 @@ public class BrainMinigameDropZone : MonoBehaviour
 
         TokenResponse response =
             FindResponseForProblem(
-                playerCarrier.CurrentTokenType);
+                playerCarrier.CurrentTokenType
+            );
+
+        // =====================================================
+        // WRONG BRAIN ZONE
+        // =====================================================
 
         if (response == null)
         {
             if (screenFlash != null)
             {
                 screenFlash.PlayRedFlash();
+
+                if (minigameAudio != null)
+                {
+                    minigameAudio
+                        .PlayWrongStation();
+                }
             }
 
             WrongProblemDelivered?.Invoke();
@@ -163,6 +190,11 @@ public class BrainMinigameDropZone : MonoBehaviour
             return;
         }
 
+        // =====================================================
+        // CORRECT BRAIN ZONE
+        // =====================================================
+
+        // DropToken() автоматично пуска POP.
         playerCarrier.DropToken();
 
         activeCommandTokenType =
@@ -173,8 +205,13 @@ public class BrainMinigameDropZone : MonoBehaviour
 
         processingCoroutine =
             StartCoroutine(
-                ProcessProblemRoutine());
+                ProcessProblemRoutine()
+            );
     }
+
+    // =========================================================
+    // PROCESSING
+    // =========================================================
 
     private IEnumerator
         ProcessProblemRoutine()
@@ -195,14 +232,18 @@ public class BrainMinigameDropZone : MonoBehaviour
             while (elapsed <
                    processingDuration)
             {
-                elapsed += Time.deltaTime;
+                elapsed +=
+                    Time.deltaTime;
 
                 float progress =
                     Mathf.Clamp01(
                         elapsed /
-                        processingDuration);
+                        processingDuration
+                    );
 
-                SetProcessingFill(progress);
+                SetProcessingFill(
+                    progress
+                );
 
                 yield return null;
             }
@@ -225,7 +266,9 @@ public class BrainMinigameDropZone : MonoBehaviour
         }
 
         if (activeCommandTokenSprite == null)
+        {
             yield break;
+        }
 
         if (commandTokenVisual != null)
         {
@@ -297,6 +340,10 @@ public class BrainMinigameDropZone : MonoBehaviour
             position;
     }
 
+    // =========================================================
+    // PICK UP COMMAND
+    // =========================================================
+
     private void TryPickUpCommandToken()
     {
         if (processing)
@@ -317,17 +364,24 @@ public class BrainMinigameDropZone : MonoBehaviour
             return;
         }
 
+        // PickUpToken() автоматично пуска POP.
         playerCarrier.PickUpToken(
             activeCommandTokenSprite,
-            activeCommandTokenType);
+            activeCommandTokenType
+        );
 
         commandTokenVisual.SetActive(false);
 
         activeCommandTokenType =
             BrainTokenType.None;
 
-        activeCommandTokenSprite = null;
+        activeCommandTokenSprite =
+            null;
     }
+
+    // =========================================================
+    // RESPONSE
+    // =========================================================
 
     private TokenResponse
         FindResponseForProblem(
@@ -352,12 +406,17 @@ public class BrainMinigameDropZone : MonoBehaviour
         return null;
     }
 
+    // =========================================================
+    // CLEAR
+    // =========================================================
+
     public void ClearCommandToken()
     {
         if (processingCoroutine != null)
         {
             StopCoroutine(
-                processingCoroutine);
+                processingCoroutine
+            );
 
             processingCoroutine = null;
         }
@@ -379,8 +438,13 @@ public class BrainMinigameDropZone : MonoBehaviour
         activeCommandTokenType =
             BrainTokenType.None;
 
-        activeCommandTokenSprite = null;
+        activeCommandTokenSprite =
+            null;
     }
+
+    // =========================================================
+    // TRIGGERS
+    // =========================================================
 
     private void OnTriggerEnter2D(
         Collider2D other)

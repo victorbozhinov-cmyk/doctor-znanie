@@ -18,8 +18,11 @@ public class BrainLevelNavigation : MonoBehaviour
     [SerializeField] private GameObject gameOverOverlay;
     [SerializeField] private GameObject gameOverPanel;
 
-    [Header("Success")]
+    [Header("Puzzle Success")]
     [SerializeField] private GameObject puzzleSuccessOverlay;
+
+    [Header("Minigame Success")]
+    [SerializeField] private GameObject minigameSuccessOverlay;
 
     [Header("Scenes")]
     [SerializeField] private string bodyMapSceneName = "BodyMap";
@@ -65,6 +68,11 @@ public class BrainLevelNavigation : MonoBehaviour
         {
             puzzleSuccessOverlay.SetActive(false);
         }
+
+        if (minigameSuccessOverlay != null)
+        {
+            minigameSuccessOverlay.SetActive(false);
+        }
     }
 
     // =========================================================
@@ -73,6 +81,8 @@ public class BrainLevelNavigation : MonoBehaviour
 
     public void StartLevel()
     {
+        Time.timeScale = 1f;
+
         if (startPanel != null)
         {
             startPanel.SetActive(false);
@@ -109,11 +119,13 @@ public class BrainLevelNavigation : MonoBehaviour
     }
 
     // =========================================================
-    // VIDEO -> PUZZLE WELCOME
+    // VIDEO -> PUZZLE
     // =========================================================
 
     public void ContinueFromVideoToPuzzle()
     {
+        Time.timeScale = 1f;
+
         if (videoPanel != null)
         {
             videoPanel.SetActive(false);
@@ -136,15 +148,6 @@ public class BrainLevelNavigation : MonoBehaviour
 
         if (puzzlePanel != null)
         {
-            /*
-             * Само активираме PuzzlePanel.
-             *
-             * BrainPuzzleManager ще е подготвен,
-             * а PuzzleWelcomeController ще покаже
-             * Welcome Overlay-а.
-             *
-             * Реалният пъзел НЕ стартира тук.
-             */
             puzzlePanel.SetActive(true);
         }
         else
@@ -183,6 +186,8 @@ public class BrainLevelNavigation : MonoBehaviour
 
     public void RetryPuzzle()
     {
+        Time.timeScale = 1f;
+
         if (puzzleManager != null)
         {
             puzzleManager.ResetPuzzle();
@@ -202,6 +207,11 @@ public class BrainLevelNavigation : MonoBehaviour
         if (puzzleSuccessOverlay != null)
         {
             puzzleSuccessOverlay.SetActive(false);
+        }
+
+        if (minigameSuccessOverlay != null)
+        {
+            minigameSuccessOverlay.SetActive(false);
         }
 
         if (finishPanel != null)
@@ -241,6 +251,8 @@ public class BrainLevelNavigation : MonoBehaviour
 
     public void RetryBrainLevel()
     {
+        Time.timeScale = 1f;
+
         PlayerPrefs.SetInt(
             BrainRetryFromQuizKey,
             1
@@ -259,6 +271,8 @@ public class BrainLevelNavigation : MonoBehaviour
 
     private void ShowStartPanelOnly()
     {
+        Time.timeScale = 1f;
+
         if (startPanel != null)
         {
             startPanel.SetActive(true);
@@ -303,6 +317,11 @@ public class BrainLevelNavigation : MonoBehaviour
         {
             puzzleSuccessOverlay.SetActive(false);
         }
+
+        if (minigameSuccessOverlay != null)
+        {
+            minigameSuccessOverlay.SetActive(false);
+        }
     }
 
     // =========================================================
@@ -323,6 +342,8 @@ public class BrainLevelNavigation : MonoBehaviour
 
     public void OpenMinigame()
     {
+        Time.timeScale = 1f;
+
         if (puzzleSuccessOverlay != null)
         {
             puzzleSuccessOverlay.SetActive(false);
@@ -348,10 +369,90 @@ public class BrainLevelNavigation : MonoBehaviour
             finishPanel.SetActive(false);
         }
 
+        if (minigameSuccessOverlay != null)
+        {
+            minigameSuccessOverlay.SetActive(false);
+        }
+
         if (minigamePanel != null)
         {
             minigamePanel.SetActive(true);
         }
+
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .PlayBrainMinigameMusic();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "MusicManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+
+        Debug.Log(
+            "Brain Level: Puzzle -> Minigame"
+        );
+    }
+
+    // =========================================================
+    // MINIGAME -> QUIZ
+    // =========================================================
+
+    public void OpenQuiz()
+    {
+        // BrainMinigameManager задава
+        // Time.timeScale = 0 при победа.
+        Time.timeScale = 1f;
+
+        if (minigameSuccessOverlay != null)
+        {
+            minigameSuccessOverlay.SetActive(false);
+        }
+
+        if (startPanel != null)
+        {
+            startPanel.SetActive(false);
+        }
+
+        if (videoPanel != null)
+        {
+            videoPanel.SetActive(false);
+        }
+
+        if (puzzlePanel != null)
+        {
+            puzzlePanel.SetActive(false);
+        }
+
+        if (minigamePanel != null)
+        {
+            minigamePanel.SetActive(false);
+        }
+
+        if (finishPanel != null)
+        {
+            finishPanel.SetActive(false);
+        }
+
+        if (quizPanel != null)
+        {
+            quizPanel.SetActive(true);
+            quizPanel.transform.SetAsLastSibling();
+        }
+        else
+        {
+            Debug.LogError(
+                "QuizPanel не е свързан " +
+                "в BrainLevelNavigation."
+            );
+        }
+
+        Debug.Log(
+            "Brain Level: Minigame -> Quiz"
+        );
     }
 
     // =========================================================
@@ -360,6 +461,8 @@ public class BrainLevelNavigation : MonoBehaviour
 
     public void OpenFinishPanel()
     {
+        Time.timeScale = 1f;
+
         if (startPanel != null)
         {
             startPanel.SetActive(false);
@@ -400,6 +503,11 @@ public class BrainLevelNavigation : MonoBehaviour
             puzzleSuccessOverlay.SetActive(false);
         }
 
+        if (minigameSuccessOverlay != null)
+        {
+            minigameSuccessOverlay.SetActive(false);
+        }
+
         if (finishPanel != null)
         {
             finishPanel.SetActive(true);
@@ -412,6 +520,8 @@ public class BrainLevelNavigation : MonoBehaviour
 
     public void ExitToBodyMap()
     {
+        Time.timeScale = 1f;
+
         SceneManager.LoadScene(
             bodyMapSceneName
         );

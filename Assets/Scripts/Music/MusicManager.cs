@@ -62,6 +62,14 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private float stomachMinigameMusicVolume = 0.30f;
 
+    [Header("Brain Minigame Music")]
+    [SerializeField]
+    private AudioClip brainMinigameMusic;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float brainMinigameMusicVolume = 0.30f;
+
     [Header("Video Ducking")]
     [Range(0f, 1f)]
     [SerializeField]
@@ -236,6 +244,14 @@ public class MusicManager : MonoBehaviour
         PlayMusic(
             stomachMinigameMusic,
             stomachMinigameMusicVolume
+        );
+    }
+
+    public void PlayBrainMinigameMusic()
+    {
+        PlayMusic(
+            brainMinigameMusic,
+            brainMinigameMusicVolume
         );
     }
 
