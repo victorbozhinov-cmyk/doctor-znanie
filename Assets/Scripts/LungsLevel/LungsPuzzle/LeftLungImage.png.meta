@@ -1,0 +1,1014 @@
+fileFormatVersion: 2
+guid: 1489b81f2a90ca845ac87001470ff537
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5866624399193522861
+    second: LeftLungImage_0
+  - first:
+      213: -8639071221385533278
+    second: LeftLungImage_1
+  - first:
+      213: 5820032301685228391
+    second: LeftLungImage_2
+  - first:
+      213: 6912464554180873869
+    second: LeftLungImage_3
+  - first:
+      213: 6498432097739214245
+    second: LeftLungImage_4
+  - first:
+      213: 8076598489032944858
+    second: LeftLungImage_5
+  - first:
+      213: 5546439174388511727
+    second: LeftLungImage_6
+  - first:
+      213: -2120043224681188070
+    second: LeftLungImage_7
+  - first:
+      213: -7095765387271501550
+    second: LeftLungImage_8
+  - first:
+      213: -9154076923687720716
+    second: LeftLungImage_9
+  - first:
+      213: 1734191150935054902
+    second: LeftLungImage_10
+  - first:
+      213: 8507972281475362624
+    second: LeftLungImage_11
+  - first:
+      213: 8079367605417512584
+    second: LeftLungImage_12
+  - first:
+      213: -3137945385468055314
+    second: LeftLungImage_13
+  - first:
+      213: 6157470501933940503
+    second: LeftLungImage_14
+  - first:
+      213: 4346770239296728369
+    second: LeftLungImage_15
+  - first:
+      213: 7270236484048088205
+    second: LeftLungImage_16
+  - first:
+      213: 3834549125260381920
+    second: LeftLungImage_17
+  - first:
+      213: 701269239252266757
+    second: LeftLungImage_18
+  - first:
+      213: 1261359841185118588
+    second: LeftLungImage_19
+  - first:
+      213: -2640342702432486292
+    second: LeftLungImage_20
+  - first:
+      213: -3993554269786316401
+    second: LeftLungImage_21
+  - first:
+      213: 4215411918779233137
+    second: LeftLungImage_22
+  - first:
+      213: -3798434135591472901
+    second: LeftLungImage_23
+  - first:
+      213: 7263003269791240608
+    second: LeftLungImage_24
+  - first:
+      213: -3838972939972709973
+    second: LeftLungImage_25
+  - first:
+      213: -116521240952466066
+    second: LeftLungImage_26
+  - first:
+      213: 3372542597025106527
+    second: LeftLungImage_27
+  - first:
+      213: 5718829025412284122
+    second: LeftLungImage_28
+  - first:
+      213: 2510259027875492101
+    second: LeftLungImage_29
+  - first:
+      213: 7116241816325911650
+    second: LeftLungImage_30
+  - first:
+      213: 4363775283355482463
+    second: LeftLungImage_31
+  - first:
+      213: 9116608133321089366
+    second: LeftLungImage_32
+  - first:
+      213: -5714105340392338265
+    second: LeftLungImage_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LeftLungImage_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 982
+        width: 188
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da2c190fecf6a6150800000000000000
+      internalID: 5866624399193522861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_1
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 1217
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a8e304fe7adb1880800000000000000
+      internalID: -8639071221385533278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_2
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 0
+        width: 957
+        height: 1254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7634f33ea88e4c050800000000000000
+      internalID: 5820032301685228391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_3
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 1165
+        width: 134
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8e0e6263e10eef50800000000000000
+      internalID: 6912464554180873869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 749
+        width: 110
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ad0ebe00911f2a50800000000000000
+      internalID: 6498432097739214245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_5
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 945
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adce34cb887d51070800000000000000
+      internalID: 8076598489032944858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_6
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 871
+        width: 62
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe3fcb5fa09e8fc40800000000000000
+      internalID: 5546439174388511727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 939
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a15776c6be71492e0800000000000000
+      internalID: -2120043224681188070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_8
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 909
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2198b2aa9f6c68d90800000000000000
+      internalID: -7095765387271501550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_9
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 938
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f82efcc98f26f080800000000000000
+      internalID: -9154076923687720716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_10
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 827
+        width: 17
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63a1c14e9a5111810800000000000000
+      internalID: 1734191150935054902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_11
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 1004
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04f653c76b3621670800000000000000
+      internalID: 8507972281475362624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_12
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 1036
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88e85b2e70eaf1070800000000000000
+      internalID: 8079367605417512584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_13
+      rect:
+        serializedVersion: 2
+        x: 1069
+        y: 865
+        width: 162
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee0b9962c47c374d0800000000000000
+      internalID: -3137945385468055314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_14
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 779
+        width: 41
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71ff7be3ccab37550800000000000000
+      internalID: 6157470501933940503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_15
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 714
+        width: 31
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13d6581a084d25c30800000000000000
+      internalID: 4346770239296728369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 499
+        width: 87
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8c65c8109115e460800000000000000
+      internalID: 7270236484048088205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_17
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 634
+        width: 78
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ee0ee4fc1e073530800000000000000
+      internalID: 3834549125260381920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_18
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 616
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50f2a8958a86bb900800000000000000
+      internalID: 701269239252266757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_19
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 714
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7938c3b710418110800000000000000
+      internalID: 1261359841185118588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_20
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 682
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6c77302d4e9b5bd0800000000000000
+      internalID: -2640342702432486292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_21
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 586
+        width: 11
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f816426ec8b0498c0800000000000000
+      internalID: -3993554269786316401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_22
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 489
+        width: 45
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 173b8c05ec6208a30800000000000000
+      internalID: 4215411918779233137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_23
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 453
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf03a555740494bc0800000000000000
+      internalID: -3798434135591472901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 100
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a1586a2efe5bc460800000000000000
+      internalID: 7263003269791240608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_25
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 264
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba1f69a637a39bac0800000000000000
+      internalID: -3838972939972709973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_26
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 216
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e659d387c88026ef0800000000000000
+      internalID: -116521240952466066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_27
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 296
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5a0e8d9f9dadce20800000000000000
+      internalID: 3372542597025106527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_28
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 302
+        width: 51
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ade74eee2bc5d5f40800000000000000
+      internalID: 5718829025412284122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_29
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 23
+        width: 61
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5017cb2394b36d220800000000000000
+      internalID: 2510259027875492101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_30
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 403
+        width: 45
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 264f2ed7a38f1c260800000000000000
+      internalID: 7116241816325911650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_31
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 178
+        width: 38
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f59780cff7e3f8c30800000000000000
+      internalID: 4363775283355482463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_32
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 367
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6516a0f9bc2b48e70800000000000000
+      internalID: 9116608133321089366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftLungImage_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 108
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ac80c0b77b63b0b0800000000000000
+      internalID: -5714105340392338265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      LeftLungImage_0: 5866624399193522861
+      LeftLungImage_1: -8639071221385533278
+      LeftLungImage_10: 1734191150935054902
+      LeftLungImage_11: 8507972281475362624
+      LeftLungImage_12: 8079367605417512584
+      LeftLungImage_13: -3137945385468055314
+      LeftLungImage_14: 6157470501933940503
+      LeftLungImage_15: 4346770239296728369
+      LeftLungImage_16: 7270236484048088205
+      LeftLungImage_17: 3834549125260381920
+      LeftLungImage_18: 701269239252266757
+      LeftLungImage_19: 1261359841185118588
+      LeftLungImage_2: 5820032301685228391
+      LeftLungImage_20: -2640342702432486292
+      LeftLungImage_21: -3993554269786316401
+      LeftLungImage_22: 4215411918779233137
+      LeftLungImage_23: -3798434135591472901
+      LeftLungImage_24: 7263003269791240608
+      LeftLungImage_25: -3838972939972709973
+      LeftLungImage_26: -116521240952466066
+      LeftLungImage_27: 3372542597025106527
+      LeftLungImage_28: 5718829025412284122
+      LeftLungImage_29: 2510259027875492101
+      LeftLungImage_3: 6912464554180873869
+      LeftLungImage_30: 7116241816325911650
+      LeftLungImage_31: 4363775283355482463
+      LeftLungImage_32: 9116608133321089366
+      LeftLungImage_33: -5714105340392338265
+      LeftLungImage_4: 6498432097739214245
+      LeftLungImage_5: 8076598489032944858
+      LeftLungImage_6: 5546439174388511727
+      LeftLungImage_7: -2120043224681188070
+      LeftLungImage_8: -7095765387271501550
+      LeftLungImage_9: -9154076923687720716
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
