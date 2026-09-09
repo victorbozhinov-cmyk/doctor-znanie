@@ -516,9 +516,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 576295286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 37.444504, y: -50.028175}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &18139756
@@ -1719,6 +1719,7 @@ GameObject:
   - component: {fileID: 80668438}
   - component: {fileID: 80668440}
   - component: {fileID: 80668439}
+  - component: {fileID: 80668441}
   m_Layer: 5
   m_Name: FinalPanel
   m_TagString: Untagged
@@ -1784,6 +1785,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80668437}
   m_CullTransparentMesh: 1
+--- !u!114 &80668441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80668437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 2
 --- !u!1 &97494609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,6 +1810,7 @@ GameObject:
   - component: {fileID: 97494612}
   - component: {fileID: 97494611}
   - component: {fileID: 97494610}
+  - component: {fileID: 97494614}
   m_Layer: 5
   m_Name: QuizSuccessOverlay
   m_TagString: Untagged
@@ -1873,6 +1888,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &97494614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97494609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 0
 --- !u!1 &103324658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,24 +2002,13 @@ RectTransform:
   - {fileID: 200645186}
   - {fileID: 1406751046}
   - {fileID: 294719799}
-  - {fileID: 632314109}
-  - {fileID: 1569278602}
-  - {fileID: 518231942}
-  - {fileID: 1466968169}
-  - {fileID: 954398131}
+  - {fileID: 592905131}
   - {fileID: 831696685}
-  - {fileID: 1670858829}
-  - {fileID: 1818731370}
-  - {fileID: 825984138}
-  - {fileID: 1692461539}
-  - {fileID: 1172277829}
-  - {fileID: 898355139}
-  - {fileID: 170335198}
-  - {fileID: 1102601428}
-  - {fileID: 546575539}
   - {fileID: 606980734}
   - {fileID: 80668438}
+  - {fileID: 632314109}
   - {fileID: 997555783}
+  - {fileID: 546575539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3715,6 +3732,7 @@ GameObject:
   - component: {fileID: 200645188}
   - component: {fileID: 200645187}
   - component: {fileID: 200645189}
+  - component: {fileID: 200645190}
   m_Layer: 5
   m_Name: PuzzlePanel
   m_TagString: Untagged
@@ -3740,7 +3758,10 @@ RectTransform:
   - {fileID: 1823434961}
   - {fileID: 1805073506}
   - {fileID: 957162757}
-  - {fileID: 592905131}
+  - {fileID: 1569278602}
+  - {fileID: 954398131}
+  - {fileID: 518231942}
+  - {fileID: 1466968169}
   m_Father: {fileID: 103324662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3806,6 +3827,18 @@ MonoBehaviour:
   successPanel: {fileID: 518231941}
   totalCards: 8
   gameOverDelay: 2
+--- !u!114 &200645190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200645185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0151148a9ece3242b10ffd590d4a259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzleMusicTrigger
 --- !u!1 &210457622
 GameObject:
   m_ObjectHideFlags: 0
@@ -4181,9 +4214,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 576295286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 163.4445, y: -50.028175}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &292925832
@@ -5743,6 +5776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 518231942}
   - component: {fileID: 518231943}
+  - component: {fileID: 518231944}
   m_Layer: 5
   m_Name: SuccessPanelPuzzle
   m_TagString: Untagged
@@ -5757,19 +5791,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518231941}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 751242189}
   - {fileID: 1714735453}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 200645186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -10.5998535, y: 1.6999512}
+  m_SizeDelta: {x: 0, y: -3.4000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &518231943
 CanvasRenderer:
@@ -5779,6 +5813,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518231941}
   m_CullTransparentMesh: 1
+--- !u!114 &518231944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518231941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 0
 --- !u!1 &527935008
 GameObject:
   m_ObjectHideFlags: 0
@@ -6694,7 +6741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &592905131
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6702,7 +6749,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592905130}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6711,12 +6758,12 @@ RectTransform:
   - {fileID: 1308833219}
   - {fileID: 1935402954}
   - {fileID: 738841804}
-  m_Father: {fileID: 200645186}
+  m_Father: {fileID: 103324662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.8691406, y: 0}
-  m_SizeDelta: {x: 15.738, y: 0}
+  m_AnchoredPosition: {x: 2.730713, y: -1.6999512}
+  m_SizeDelta: {x: 15.738, y: 3.4000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &592905132
 MonoBehaviour:
@@ -6979,6 +7026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 606980734}
+  - component: {fileID: 606980735}
   m_Layer: 5
   m_Name: LiverQuizPanel
   m_TagString: Untagged
@@ -7021,6 +7069,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &606980735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606980733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6743f7cf3d10252448a07fc0a945d6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuizMusicTrigger
 --- !u!1 &613611473
 GameObject:
   m_ObjectHideFlags: 0
@@ -9483,7 +9543,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 103324662}
+    m_TransformParent: {fileID: 831696685}
     m_Modifications:
     - target: {fileID: 3807862788636559728, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_Interactable
@@ -9575,15 +9635,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585683000747400661, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5585683000747400661, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5585683000747400661, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5585683000747400661, guid: 2fbc7b7a8f5e94849ac082bfbb42b46e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9795,9 +9855,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 576295286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.4445, y: -50.028175}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &809150944
@@ -10693,6 +10753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 825984138}
   - component: {fileID: 825984139}
+  - component: {fileID: 825984140}
   m_Layer: 5
   m_Name: MinigameSuccessPanel
   m_TagString: Untagged
@@ -10707,14 +10768,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825984137}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1532946922}
   - {fileID: 1857296220}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 831696685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10729,6 +10790,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825984137}
   m_CullTransparentMesh: 1
+--- !u!114 &825984140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825984137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 0
 --- !u!1 &831696684
 GameObject:
   m_ObjectHideFlags: 0
@@ -10739,13 +10813,14 @@ GameObject:
   m_Component:
   - component: {fileID: 831696685}
   - component: {fileID: 831696686}
+  - component: {fileID: 831696687}
   m_Layer: 5
   m_Name: LiverMiniGameRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &831696685
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10768,6 +10843,14 @@ RectTransform:
   - {fileID: 141814550}
   - {fileID: 2066311951}
   - {fileID: 1946200594}
+  - {fileID: 1102601428}
+  - {fileID: 1670858829}
+  - {fileID: 825984138}
+  - {fileID: 1692461539}
+  - {fileID: 1172277829}
+  - {fileID: 898355139}
+  - {fileID: 170335198}
+  - {fileID: 1818731370}
   m_Father: {fileID: 103324662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10783,6 +10866,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831696684}
   m_CullTransparentMesh: 1
+--- !u!114 &831696687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831696684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841b1d98c173fbc41ae1ce8e7165b1bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiverMinigameMusicTrigger
 --- !u!1 &833900929
 GameObject:
   m_ObjectHideFlags: 0
@@ -11447,13 +11542,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898355136}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 598380439}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 831696685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11804,6 +11899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 954398131}
   - component: {fileID: 954398133}
+  - component: {fileID: 954398134}
   m_Layer: 5
   m_Name: GameOverPanelPuzzle
   m_TagString: Untagged
@@ -11818,19 +11914,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954398130}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1704188028}
   - {fileID: 1815023569}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 200645186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -10.5998535, y: 1.6999512}
+  m_SizeDelta: {x: 0, y: -3.4000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &954398133
 CanvasRenderer:
@@ -11840,6 +11936,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954398130}
   m_CullTransparentMesh: 1
+--- !u!114 &954398134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954398130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 1
 --- !u!1 &955565710
 GameObject:
   m_ObjectHideFlags: 0
@@ -13432,7 +13541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 598, y: 309}
+  m_AnchoredPosition: {x: 600, y: 309}
   m_SizeDelta: {x: 89.2595, y: 92.5594}
   m_Pivot: {x: 0.7811202, y: 0.50000006}
 --- !u!114 &1037088819
@@ -14112,7 +14221,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102601427}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14120,7 +14229,7 @@ RectTransform:
   - {fileID: 1307599706}
   - {fileID: 1521268156}
   - {fileID: 1329214887}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 831696685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15112,14 +15221,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172277828}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1690894203}
   - {fileID: 748414553}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 831696685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -18798,18 +18907,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1466968168}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 367580415}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 200645186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -10.5998535, y: 1.6999512}
+  m_SizeDelta: {x: 0, y: -3.4000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1466968170
 MonoBehaviour:
@@ -19782,18 +19891,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569278601}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1088916417}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 200645186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -10.5998535, y: 1.6999512}
+  m_SizeDelta: {x: 0, y: -3.4000244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1569278603
 MonoBehaviour:
@@ -19849,7 +19958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1583516998
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19954,12 +20063,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670858827}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 831696685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -20143,6 +20252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1692461539}
+  - component: {fileID: 1692461540}
   m_Layer: 5
   m_Name: GameOverPanelMinigame
   m_TagString: Untagged
@@ -20164,13 +20274,26 @@ RectTransform:
   m_Children:
   - {fileID: 1810810166}
   - {fileID: 144871995}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 831696685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1692461540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692461538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 1
 --- !u!1 &1697603023
 GameObject:
   m_ObjectHideFlags: 0
@@ -21460,6 +21583,7 @@ GameObject:
   - component: {fileID: 1769510808}
   - component: {fileID: 1769510807}
   - component: {fileID: 1769510806}
+  - component: {fileID: 1769510809}
   m_Layer: 5
   m_Name: GameOverPanel
   m_TagString: Untagged
@@ -21528,6 +21652,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1769510809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769510805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3bf279ca75aa2b4793fda43be5c08fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FeedbackPanelSound
+  feedbackType: 1
 --- !u!1 &1774217714
 GameObject:
   m_ObjectHideFlags: 0
@@ -22248,7 +22385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1818731370
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22256,7 +22393,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818731369}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22265,7 +22402,7 @@ RectTransform:
   - {fileID: 1747202045}
   - {fileID: 1150296671}
   - {fileID: 1768224206}
-  m_Father: {fileID: 103324662}
+  m_Father: {fileID: 831696685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

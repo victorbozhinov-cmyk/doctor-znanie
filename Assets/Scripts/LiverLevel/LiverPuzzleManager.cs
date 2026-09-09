@@ -5,17 +5,23 @@ using UnityEngine.SceneManagement;
 public class LiverPuzzleManager : MonoBehaviour
 {
     [Header("Lives")]
-    [SerializeField] private UILifeHeartAnimation[] heartAnimations;
+    [SerializeField]
+    private UILifeHeartAnimation[] heartAnimations;
 
     [Header("Panels")]
-    [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private GameObject successPanel;
+    [SerializeField]
+    private GameObject gameOverPanel;
+
+    [SerializeField]
+    private GameObject successPanel;
 
     [Header("Puzzle")]
-    [SerializeField] private int totalCards = 8;
+    [SerializeField]
+    private int totalCards = 8;
 
     [Header("Game Over")]
-    [SerializeField] private float gameOverDelay = 2f;
+    [SerializeField]
+    private float gameOverDelay = 2f;
 
     private int currentLives;
     private int maxLives;
@@ -24,6 +30,10 @@ public class LiverPuzzleManager : MonoBehaviour
 
     private bool puzzleCompleted = false;
     private bool gameOverStarted = false;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Start()
     {
@@ -44,10 +54,17 @@ public class LiverPuzzleManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // LIVES SETUP
+    // =========================================================
+
     private void SetupLivesFromDifficulty()
     {
         int difficulty =
-            PlayerPrefs.GetInt("Difficulty", 1);
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
         switch (difficulty)
         {
@@ -68,7 +85,8 @@ public class LiverPuzzleManager : MonoBehaviour
                 break;
         }
 
-        currentLives = maxLives;
+        currentLives =
+            maxLives;
 
         for (int i = 0;
              i < heartAnimations.Length;
@@ -78,10 +96,16 @@ public class LiverPuzzleManager : MonoBehaviour
             {
                 heartAnimations[i]
                     .gameObject
-                    .SetActive(i < maxLives);
+                    .SetActive(
+                        i < maxLives
+                    );
             }
         }
     }
+
+    // =========================================================
+    // WRONG PLACEMENT
+    // =========================================================
 
     public void LoseLife()
     {
@@ -92,14 +116,26 @@ public class LiverPuzzleManager : MonoBehaviour
             return;
         }
 
+        /*
+         * Wrong звукът се пуска веднага,
+         * но НЕ и ако това е последният живот.
+         *
+         * При последния живот следва
+         * Game Over feedback звукът.
+         */
+        PlayWrongSoundIfNotGameOver();
+
         int heartIndexToRemove =
             currentLives - 1;
 
         currentLives--;
 
         if (heartIndexToRemove >= 0 &&
-            heartIndexToRemove < heartAnimations.Length &&
-            heartAnimations[heartIndexToRemove] != null)
+            heartIndexToRemove <
+                heartAnimations.Length &&
+            heartAnimations[
+                heartIndexToRemove
+            ] != null)
         {
             heartAnimations[
                 heartIndexToRemove
@@ -116,10 +152,39 @@ public class LiverPuzzleManager : MonoBehaviour
         }
     }
 
+    private void PlayWrongSoundIfNotGameOver()
+    {
+        if (currentLives <= 1)
+        {
+            return;
+        }
+
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    // =========================================================
+    // GAME OVER
+    // =========================================================
+
     private IEnumerator ShowGameOverPanel()
     {
-        // Даваме време на последната грешна карта
-        // да завърши червеното сияние и разклащането.
+        /*
+         * Даваме време на последната
+         * грешна карта да завърши
+         * червеното сияние и разклащането.
+         */
         yield return new WaitForSeconds(
             gameOverDelay
         );
@@ -137,7 +202,10 @@ public class LiverPuzzleManager : MonoBehaviour
         }
     }
 
-    // Извиква се при всяка правилно поставена карта.
+    // =========================================================
+    // CORRECT PLACEMENT
+    // =========================================================
+
     public void RegisterCorrectCard()
     {
         if (puzzleCompleted ||
@@ -145,6 +213,15 @@ public class LiverPuzzleManager : MonoBehaviour
         {
             return;
         }
+
+        /*
+         * Correct звукът се пуска
+         * веднага при правилния drop.
+         *
+         * ВАЖНО:
+         * Пуска се и за последната карта.
+         */
+        PlayCorrectSound();
 
         correctCards++;
 
@@ -165,11 +242,40 @@ public class LiverPuzzleManager : MonoBehaviour
         }
     }
 
+    private void PlayCorrectSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayCorrect();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    // =========================================================
+    // SUCCESS
+    // =========================================================
+
     private IEnumerator ShowSuccessPanel()
     {
-        // Изчакваме да се види зелената анимация
-        // на последната поставена карта.
-        yield return new WaitForSeconds(0.5f);
+        /*
+         * Correct звукът вече е прозвучал
+         * веднага при drop-а.
+         *
+         * Изчакваме зелената анимация,
+         * след което Success Panel
+         * пуска глобалния Success звук.
+         */
+        yield return new WaitForSeconds(
+            0.5f
+        );
 
         if (successPanel != null)
         {
@@ -184,6 +290,10 @@ public class LiverPuzzleManager : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // PUBLIC
+    // =========================================================
+
     public int GetCurrentLives()
     {
         return currentLives;
@@ -191,13 +301,21 @@ public class LiverPuzzleManager : MonoBehaviour
 
     public void RetryLevel()
     {
+        Time.timeScale = 1f;
+
         SceneManager.LoadScene(
-            SceneManager.GetActiveScene().name
+            SceneManager
+                .GetActiveScene()
+                .name
         );
     }
 
     public void ExitToBodyMap()
     {
-        SceneManager.LoadScene("BodyMap");
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+            "BodyMap"
+        );
     }
 }

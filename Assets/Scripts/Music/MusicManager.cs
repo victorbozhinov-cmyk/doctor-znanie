@@ -14,6 +14,10 @@ public class MusicManager : MonoBehaviour
 
     private const string SettingsSceneName = "SettingsMenu";
 
+    // =========================================================
+    // LOBBY
+    // =========================================================
+
     [Header("Lobby Music")]
     [SerializeField]
     private AudioClip lobbyMusic;
@@ -21,6 +25,10 @@ public class MusicManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float lobbyMusicVolume = 0.35f;
+
+    // =========================================================
+    // INTRO / VIDEO
+    // =========================================================
 
     [Header("Intro / Lesson Music")]
     [SerializeField]
@@ -30,6 +38,10 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private float introMusicVolume = 0.30f;
 
+    // =========================================================
+    // PUZZLE
+    // =========================================================
+
     [Header("Puzzle Music")]
     [SerializeField]
     private AudioClip puzzleMusic;
@@ -37,6 +49,10 @@ public class MusicManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float puzzleMusicVolume = 0.30f;
+
+    // =========================================================
+    // QUIZ
+    // =========================================================
 
     [Header("Quiz Music")]
     [SerializeField]
@@ -46,6 +62,10 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private float quizMusicVolume = 0.30f;
 
+    // =========================================================
+    // HEART MINIGAME
+    // =========================================================
+
     [Header("Heart Minigame Music")]
     [SerializeField]
     private AudioClip heartMinigameMusic;
@@ -53,6 +73,10 @@ public class MusicManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float heartMinigameMusicVolume = 0.30f;
+
+    // =========================================================
+    // STOMACH MINIGAME
+    // =========================================================
 
     [Header("Stomach Minigame Music")]
     [SerializeField]
@@ -62,6 +86,10 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private float stomachMinigameMusicVolume = 0.30f;
 
+    // =========================================================
+    // BRAIN MINIGAME
+    // =========================================================
+
     [Header("Brain Minigame Music")]
     [SerializeField]
     private AudioClip brainMinigameMusic;
@@ -69,6 +97,22 @@ public class MusicManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float brainMinigameMusicVolume = 0.30f;
+
+    // =========================================================
+    // LIVER MINIGAME
+    // =========================================================
+
+    [Header("Liver Minigame Music")]
+    [SerializeField]
+    private AudioClip liverMinigameMusic;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float liverMinigameMusicVolume = 0.30f;
+
+    // =========================================================
+    // DUCKING
+    // =========================================================
 
     [Header("Video Ducking")]
     [Range(0f, 1f)]
@@ -80,9 +124,17 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private float feedbackDuckedVolumeMultiplier = 0.60f;
 
+    // =========================================================
+    // FADE
+    // =========================================================
+
     [Header("Volume Fade")]
     [SerializeField]
     private float volumeFadeDuration = 0.25f;
+
+    // =========================================================
+    // SCENES
+    // =========================================================
 
     [Header("Lobby Scenes")]
     [SerializeField]
@@ -106,6 +158,10 @@ public class MusicManager : MonoBehaviour
             "LungsLevel"
         };
 
+    // =========================================================
+    // INTERNAL
+    // =========================================================
+
     private AudioSource musicSource;
 
     private float currentBaseVolume;
@@ -117,6 +173,10 @@ public class MusicManager : MonoBehaviour
 
     private Coroutine volumeFadeCoroutine;
     private Coroutine feedbackDuckCoroutine;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Awake()
     {
@@ -169,6 +229,10 @@ public class MusicManager : MonoBehaviour
         );
     }
 
+    // =========================================================
+    // SCENE MUSIC
+    // =========================================================
+
     private void HandleSceneMusic(
         string sceneName)
     {
@@ -195,9 +259,9 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    // =========================
-    // Music Types
-    // =========================
+    // =========================================================
+    // MUSIC TYPES
+    // =========================================================
 
     public void PlayLobbyMusic()
     {
@@ -255,9 +319,17 @@ public class MusicManager : MonoBehaviour
         );
     }
 
-    // =========================
-    // Panel Transition
-    // =========================
+    public void PlayLiverMinigameMusic()
+    {
+        PlayMusic(
+            liverMinigameMusic,
+            liverMinigameMusicVolume
+        );
+    }
+
+    // =========================================================
+    // PANEL TRANSITION
+    // =========================================================
 
     public void PlayLobbyMusicMuted()
     {
@@ -304,9 +376,9 @@ public class MusicManager : MonoBehaviour
         );
     }
 
-    // =========================
-    // General Play
-    // =========================
+    // =========================================================
+    // GENERAL PLAY
+    // =========================================================
 
     private void PlayMusic(
         AudioClip clip,
@@ -324,7 +396,8 @@ public class MusicManager : MonoBehaviour
 
         ResetDucking();
 
-        currentBaseVolume = volume;
+        currentBaseVolume =
+            volume;
 
         StopVolumeFade();
 
@@ -337,18 +410,21 @@ public class MusicManager : MonoBehaviour
             return;
         }
 
-        musicSource.clip = clip;
+        musicSource.clip =
+            clip;
+
         musicSource.volume =
             currentBaseVolume;
 
-        musicSource.loop = true;
+        musicSource.loop =
+            true;
 
         musicSource.Play();
     }
 
-    // =========================
-    // Settings Menu
-    // =========================
+    // =========================================================
+    // SETTINGS MENU
+    // =========================================================
 
     private void RestoreNormalMusicVolume()
     {
@@ -364,9 +440,9 @@ public class MusicManager : MonoBehaviour
         );
     }
 
-    // =========================
-    // Video Ducking
-    // =========================
+    // =========================================================
+    // VIDEO DUCKING
+    // =========================================================
 
     public void DuckMusicForVideo()
     {
@@ -375,7 +451,8 @@ public class MusicManager : MonoBehaviour
             return;
         }
 
-        isVideoDucked = true;
+        isVideoDucked =
+            true;
 
         UpdateTargetVolume();
     }
@@ -387,14 +464,15 @@ public class MusicManager : MonoBehaviour
             return;
         }
 
-        isVideoDucked = false;
+        isVideoDucked =
+            false;
 
         UpdateTargetVolume();
     }
 
-    // =========================
-    // Correct / Wrong Ducking
-    // =========================
+    // =========================================================
+    // CORRECT / WRONG DUCKING
+    // =========================================================
 
     public void DuckMusicForFeedback(
         float duration)
@@ -417,7 +495,8 @@ public class MusicManager : MonoBehaviour
 
         if (!isFeedbackDucked)
         {
-            isFeedbackDucked = true;
+            isFeedbackDucked =
+                true;
 
             UpdateTargetVolume();
         }
@@ -440,16 +519,18 @@ public class MusicManager : MonoBehaviour
             yield return null;
         }
 
-        isFeedbackDucked = false;
+        isFeedbackDucked =
+            false;
 
-        feedbackDuckCoroutine = null;
+        feedbackDuckCoroutine =
+            null;
 
         UpdateTargetVolume();
     }
 
-    // =========================
-    // Volume
-    // =========================
+    // =========================================================
+    // VOLUME
+    // =========================================================
 
     private void UpdateTargetVolume()
     {
@@ -525,7 +606,8 @@ public class MusicManager : MonoBehaviour
             musicSource.volume =
                 targetVolume;
 
-            volumeFadeCoroutine = null;
+            volumeFadeCoroutine =
+                null;
 
             yield break;
         }
@@ -553,7 +635,8 @@ public class MusicManager : MonoBehaviour
         musicSource.volume =
             targetVolume;
 
-        volumeFadeCoroutine = null;
+        volumeFadeCoroutine =
+            null;
     }
 
     private void StopVolumeFade()
@@ -567,15 +650,20 @@ public class MusicManager : MonoBehaviour
             volumeFadeCoroutine
         );
 
-        volumeFadeCoroutine = null;
+        volumeFadeCoroutine =
+            null;
     }
 
     private void ResetDucking()
     {
-        isVideoDucked = false;
-        isFeedbackDucked = false;
+        isVideoDucked =
+            false;
 
-        feedbackDuckUntil = 0f;
+        isFeedbackDucked =
+            false;
+
+        feedbackDuckUntil =
+            0f;
 
         if (feedbackDuckCoroutine != null)
         {
@@ -583,9 +671,14 @@ public class MusicManager : MonoBehaviour
                 feedbackDuckCoroutine
             );
 
-            feedbackDuckCoroutine = null;
+            feedbackDuckCoroutine =
+                null;
         }
     }
+
+    // =========================================================
+    // STOP
+    // =========================================================
 
     public void StopMusic()
     {
@@ -598,6 +691,7 @@ public class MusicManager : MonoBehaviour
         }
 
         musicSource.Stop();
-        musicSource.clip = null;
+        musicSource.clip =
+            null;
     }
 }
