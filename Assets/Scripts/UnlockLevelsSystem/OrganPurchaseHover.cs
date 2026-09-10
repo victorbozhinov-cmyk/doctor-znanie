@@ -18,11 +18,6 @@ public class OrganPurchaseHover : MonoBehaviour
     {
         pointerOnOrgan = true;
 
-        if (purchaseController != null)
-        {
-            purchaseController.SetPointerOnOrgan(true);
-        }
-
         CancelClose();
 
         if (purchaseController != null)
@@ -34,49 +29,37 @@ public class OrganPurchaseHover : MonoBehaviour
     public void ExitOrgan()
     {
         pointerOnOrgan = false;
-
-        if (purchaseController != null)
-        {
-            purchaseController.SetPointerOnOrgan(false);
-        }
-
         StartCloseCheck();
     }
 
     public void EnterPanel()
     {
         pointerOnPanel = true;
-
         CancelClose();
     }
 
     public void ExitPanel()
     {
         pointerOnPanel = false;
-
         StartCloseCheck();
     }
 
     private void StartCloseCheck()
     {
         CancelClose();
-
-        closeRoutine = StartCoroutine(
-            CloseAfterDelay()
-        );
+        closeRoutine = StartCoroutine(CloseAfterDelay());
     }
 
     private IEnumerator CloseAfterDelay()
     {
-        yield return new WaitForSecondsRealtime(
-            closeDelay
-        );
+        yield return new WaitForSecondsRealtime(closeDelay);
 
-        if (!pointerOnOrgan &&
-            !pointerOnPanel &&
-            purchaseController != null)
+        if (!pointerOnOrgan && !pointerOnPanel)
         {
-            purchaseController.ClosePanel();
+            if (purchaseController != null)
+            {
+                purchaseController.ClosePanel();
+            }
         }
 
         closeRoutine = null;
@@ -84,12 +67,10 @@ public class OrganPurchaseHover : MonoBehaviour
 
     private void CancelClose()
     {
-        if (closeRoutine == null)
+        if (closeRoutine != null)
         {
-            return;
+            StopCoroutine(closeRoutine);
+            closeRoutine = null;
         }
-
-        StopCoroutine(closeRoutine);
-        closeRoutine = null;
     }
 }
