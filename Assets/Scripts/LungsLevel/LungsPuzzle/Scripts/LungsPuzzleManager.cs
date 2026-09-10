@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 public class LungsPuzzleManager : MonoBehaviour
 {
@@ -112,7 +113,8 @@ public class LungsPuzzleManager : MonoBehaviour
     // =====================================================
     // LABEL PLACED VISUALS
     // =====================================================
-
+    [Header("Progress")]
+    [SerializeField] private TMP_Text progressText;
     [Header("Label Placed Visuals")]
     [SerializeField] private GameObject noseLabelPlacedVisual;
     [SerializeField] private GameObject tracheaLabelPlacedVisual;
@@ -199,7 +201,7 @@ public class LungsPuzzleManager : MonoBehaviour
 
         currentIndex = 0;
         currentItem = null;
-
+        UpdateProgressUI();
         puzzleActive = true;
 
         ShowCurrentItem();
@@ -391,7 +393,14 @@ public class LungsPuzzleManager : MonoBehaviour
     // =====================================================
     // CURRENT ITEM
     // =====================================================
+    private void UpdateProgressUI()
+    {
+        if (progressText == null)
+            return;
 
+        progressText.text =
+            currentIndex + "/" + puzzleItems.Count;
+    }
     private void ShowCurrentItem()
     {
         if (!puzzleActive)
@@ -541,7 +550,7 @@ public class LungsPuzzleManager : MonoBehaviour
         onCorrectPlacement?.Invoke();
 
         currentIndex++;
-
+        UpdateProgressUI();
         ShowCurrentItem();
     }
 
