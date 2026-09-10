@@ -16,6 +16,25 @@ public class HeartLevelManager : MonoBehaviour
     [Header("Minigame")]
     [SerializeField] private HeartMinigameManager minigameManager;
 
+    private OrganVitaminRewardManager vitaminRewardManager;
+
+    // =========================================================
+    // AWAKE
+    // =========================================================
+
+    private void Awake()
+    {
+        vitaminRewardManager =
+            GetComponent<OrganVitaminRewardManager>();
+
+        if (vitaminRewardManager == null)
+        {
+            Debug.LogWarning(
+                "OrganVitaminRewardManager не е намерен на HeartLevelManager."
+            );
+        }
+    }
+
     // =========================================================
     // START
     // =========================================================
@@ -70,19 +89,8 @@ public class HeartLevelManager : MonoBehaviour
             return;
         }
 
-        /*
-         * Активираме PuzzlePanel.
-         *
-         * PuzzleWelcomeController сам ще покаже
-         * Welcome Overlay-а чрез Awake().
-         */
         puzzlePanel.SetActive(true);
 
-        /*
-         * Пъзелът остава спрян,
-         * докато Welcome бутонът не извика
-         * HeartPuzzleManager.StartPuzzle().
-         */
         if (puzzleManager != null)
         {
             puzzleManager.PrepareForWelcome();
@@ -152,6 +160,18 @@ public class HeartLevelManager : MonoBehaviour
     public void ShowFinishPanel()
     {
         HideAllPanels();
+
+        if (vitaminRewardManager != null)
+        {
+            int earnedVitamins =
+                vitaminRewardManager.TryGiveReward();
+
+            Debug.Log(
+                "HeartLevel reward: "
+                + earnedVitamins
+                + " витамина."
+            );
+        }
 
         if (finishPanel != null)
         {

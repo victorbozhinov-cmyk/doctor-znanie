@@ -9427,6 +9427,7 @@ GameObject:
   - component: {fileID: 603188608}
   - component: {fileID: 603188609}
   - component: {fileID: 603188610}
+  - component: {fileID: 603188611}
   m_Layer: 0
   m_Name: StomachLevelManager
   m_TagString: Untagged
@@ -9481,6 +9482,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StomachVideoPanelNavigation
   videoPanel: {fileID: 116469188}
   quizPanel: {fileID: 536751543}
+--- !u!114 &603188611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603188607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8b2178daf3fd24a892acd2d8915bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrganVitaminRewardManager
+  organType: 3
+  easyReward: 100
+  mediumReward: 130
+  hardReward: 150
 --- !u!1 &614979211
 GameObject:
   m_ObjectHideFlags: 0
@@ -14036,6 +14053,7 @@ GameObject:
   - component: {fileID: 911072517}
   - component: {fileID: 911072516}
   - component: {fileID: 911072515}
+  - component: {fileID: 911072519}
   m_Layer: 5
   m_Name: GoAheadButton
   m_TagString: Untagged
@@ -14122,9 +14140,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1370080293}
-        m_TargetAssemblyTypeName: StomachLevelNavigation, Assembly-CSharp
-        m_MethodName: BackToBodyMap
+      - m_Target: {fileID: 911072519}
+        m_TargetAssemblyTypeName: FinishLevelRewardButton, Assembly-CSharp
+        m_MethodName: ClaimRewardAndExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14172,6 +14190,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911072513}
   m_CullTransparentMesh: 1
+--- !u!114 &911072519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911072513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22926503e38d76c45b3829a370b30f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinishLevelRewardButton
+  vitaminRewardManager: {fileID: 603188611}
+  bodyMapSceneName: BodyMap
 --- !u!1 &918764044
 GameObject:
   m_ObjectHideFlags: 0

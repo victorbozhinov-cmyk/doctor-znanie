@@ -2168,7 +2168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1079334659
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2186,8 +2186,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -443.2815, y: -143.0813}
-  m_SizeDelta: {x: 722.5, y: 549.75}
+  m_AnchoredPosition: {x: -432.69946, y: -96.29401}
+  m_SizeDelta: {x: 785.75, y: 442.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079334660
 MonoBehaviour:
@@ -2674,14 +2674,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 424856825}
-  - {fileID: 377431159}
   - {fileID: 701789150}
   - {fileID: 646980644}
   - {fileID: 534109741}
   - {fileID: 1540770128}
   - {fileID: 1414159329}
   - {fileID: 1710840007}
+  - {fileID: 424856825}
+  - {fileID: 377431159}
   - {fileID: 1704131462}
   - {fileID: 2080212281}
   m_Father: {fileID: 1686138256}
@@ -3983,8 +3983,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 177.63232, y: -20.119507}
-  m_SizeDelta: {x: 328.7989, y: 347.1826}
+  m_AnchoredPosition: {x: 171.01831, y: -49.744507}
+  m_SizeDelta: {x: 342.03, y: 287.9326}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1710840008
 MonoBehaviour:
@@ -4361,6 +4361,7 @@ GameObject:
   - component: {fileID: 2053921584}
   - component: {fileID: 2053921583}
   - component: {fileID: 2053921582}
+  - component: {fileID: 2053921586}
   m_Layer: 5
   m_Name: UnlockButton
   m_TagString: Untagged
@@ -4384,7 +4385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 132.8117, y: -137.81775}
+  m_AnchoredPosition: {x: 136.6377, y: -149.29565}
   m_SizeDelta: {x: 1664.818, y: 475.9095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2053921582
@@ -4497,6 +4498,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053921580}
   m_CullTransparentMesh: 1
+--- !u!114 &2053921586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053921580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c420b8ef8560de47b333c10574a75df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrganPurchaseHoverArea
+  areaType: 1
+  hoverManager: {fileID: 377431166}
 --- !u!1 &2054101273
 GameObject:
   m_ObjectHideFlags: 0
