@@ -5087,8 +5087,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00097615, y: 0.0552}
-  m_SizeDelta: {x: 333.8683, y: 314.6707}
+  m_AnchoredPosition: {x: 0.00099874, y: -0.000010967}
+  m_SizeDelta: {x: 409.87, y: 206.6055}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &592411517
 MonoBehaviour:
@@ -5110,7 +5110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 75d6f2626fc1fb747beb48758d032c87, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cc57a509a2763f643a1faebb2e061048, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14324,6 +14324,8 @@ GameObject:
   - component: {fileID: 1530752529}
   - component: {fileID: 1530752531}
   - component: {fileID: 1530752530}
+  - component: {fileID: 1530752533}
+  - component: {fileID: 1530752532}
   m_Layer: 5
   m_Name: Life1
   m_TagString: Untagged
@@ -14388,6 +14390,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530752528}
   m_CullTransparentMesh: 1
+--- !u!114 &1530752532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530752528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618318eee6aca134291692dcf5f6147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UILifeHeartAnimation
+  pulseDuration: 0.12
+  pulseScale: 1.2
+  shakeDuration: 0.22
+  shakeStrength: 10
+  disappearDuration: 0.2
+  disappearScale: 0.4
+--- !u!225 &1530752533
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530752528}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1542394460
 GameObject:
   m_ObjectHideFlags: 0
@@ -14804,6 +14836,8 @@ GameObject:
   - component: {fileID: 1564486663}
   - component: {fileID: 1564486665}
   - component: {fileID: 1564486664}
+  - component: {fileID: 1564486667}
+  - component: {fileID: 1564486666}
   m_Layer: 5
   m_Name: Life3
   m_TagString: Untagged
@@ -14868,6 +14902,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564486662}
   m_CullTransparentMesh: 1
+--- !u!114 &1564486666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564486662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618318eee6aca134291692dcf5f6147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UILifeHeartAnimation
+  pulseDuration: 0.12
+  pulseScale: 1.2
+  shakeDuration: 0.22
+  shakeStrength: 10
+  disappearDuration: 0.2
+  disappearScale: 0.4
+--- !u!225 &1564486667
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564486662}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1569127388
 GameObject:
   m_ObjectHideFlags: 0
@@ -18522,6 +18586,8 @@ GameObject:
   - component: {fileID: 1795275473}
   - component: {fileID: 1795275475}
   - component: {fileID: 1795275474}
+  - component: {fileID: 1795275477}
+  - component: {fileID: 1795275476}
   m_Layer: 5
   m_Name: Life2
   m_TagString: Untagged
@@ -18586,6 +18652,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795275472}
   m_CullTransparentMesh: 1
+--- !u!114 &1795275476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795275472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618318eee6aca134291692dcf5f6147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UILifeHeartAnimation
+  pulseDuration: 0.12
+  pulseScale: 1.2
+  shakeDuration: 0.22
+  shakeStrength: 10
+  disappearDuration: 0.2
+  disappearScale: 0.4
+--- !u!225 &1795275477
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795275472}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1828205122
 GameObject:
   m_ObjectHideFlags: 0
@@ -21226,7 +21322,7 @@ MonoBehaviour:
   noseLabel: {fileID: 8596393419962155876, guid: 36ad2310d200f594e85af7390089c744, type: 3}
   tracheaLabel: {fileID: 21300000, guid: f85c8c5552cfe954b8f06f83057a10c8, type: 3}
   leftLungLabel: {fileID: 21300000, guid: 9ddde1d2f41368d4cbe211f71aa75441, type: 3}
-  rightLungLabel: {fileID: 21300000, guid: 75d6f2626fc1fb747beb48758d032c87, type: 3}
+  rightLungLabel: {fileID: 21300000, guid: cc57a509a2763f643a1faebb2e061048, type: 3}
   mainBronchiLabel: {fileID: 21300000, guid: 1c9bafc3fad0da445857f8e6d84bddce, type: 3}
   diaphragmLabel: {fileID: 21300000, guid: d8bf5a4dc204aec4588ef069f1670e0a, type: 3}
   noseLabelTarget: {fileID: 2096686764}
