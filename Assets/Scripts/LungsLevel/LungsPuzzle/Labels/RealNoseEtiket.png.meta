@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: ea64aaf7a812c97438fcd6b5033ac5d5
+guid: 36ad2310d200f594e85af7390089c744
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5264911659753230869
-    second: NoseEtiket_0
+      213: 8596393419962155876
+    second: RealNoseEtiket_0
   - first:
-      213: -3615567550125557919
-    second: NoseEtiket_1
+      213: 7327038590633305070
+    second: RealNoseEtiket_1
+  - first:
+      213: -4832278724332340926
+    second: RealNoseEtiket_2
+  - first:
+      213: -6030521437370474778
+    second: RealNoseEtiket_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,9 +55,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -116,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NoseEtiket_0
+      name: RealNoseEtiket_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 19
-        width: 1491
-        height: 985
+        x: 0
+        y: 33
+        width: 1524
+        height: 961
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,19 +137,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: beda89a7db64fe6b0800000000000000
-      internalID: -5264911659753230869
+      spriteID: 463895215468c4770800000000000000
+      internalID: 8596393419962155876
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NoseEtiket_1
+      name: RealNoseEtiket_1
       rect:
         serializedVersion: 2
-        x: 1087
-        y: 55
-        width: 15
+        x: 1334
+        y: 985
+        width: 9
         height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -153,8 +159,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1673651287ce2ddc0800000000000000
-      internalID: -3615567550125557919
+      spriteID: ee3e64227cedea560800000000000000
+      internalID: 7327038590633305070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealNoseEtiket_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 453
+        width: 10
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2493e7c4a1c40fcb0800000000000000
+      internalID: -4832278724332340926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RealNoseEtiket_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 390
+        width: 9
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ee972b24b84f4ca0800000000000000
+      internalID: -6030521437370474778
       vertices: []
       indices: 
       edges: []
@@ -163,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      NoseEtiket_0: -5264911659753230869
-      NoseEtiket_1: -3615567550125557919
+      RealNoseEtiket_0: 8596393419962155876
+      RealNoseEtiket_1: 7327038590633305070
+      RealNoseEtiket_2: -4832278724332340926
+      RealNoseEtiket_3: -6030521437370474778
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

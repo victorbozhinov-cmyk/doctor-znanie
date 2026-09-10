@@ -12,47 +12,34 @@ public class LungsPuzzleDraggable :
     private LungsPuzzleManager puzzleManager;
 
     private RectTransform rectTransform;
-
     private Canvas rootCanvas;
     private CanvasGroup canvasGroup;
 
     private Vector2 startAnchoredPosition;
 
     private bool startPositionSaved;
-
-    // =====================================================
-    // AWAKE
-    // =====================================================
+    private bool dragging;
 
     private void Awake()
     {
-        rectTransform =
-            GetComponent<RectTransform>();
+        rectTransform = GetComponent<RectTransform>();
 
-        rootCanvas =
-            GetComponentInParent<Canvas>();
+        rootCanvas = GetComponentInParent<Canvas>();
 
         if (rootCanvas != null)
         {
-            rootCanvas =
-                rootCanvas.rootCanvas;
+            rootCanvas = rootCanvas.rootCanvas;
         }
 
-        canvasGroup =
-            GetComponent<CanvasGroup>();
+        canvasGroup = GetComponent<CanvasGroup>();
 
         if (canvasGroup == null)
         {
-            canvasGroup =
-                gameObject.AddComponent<CanvasGroup>();
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
 
         SaveStartPosition();
     }
-
-    // =====================================================
-    // SAVE START POSITION
-    // =====================================================
 
     private void SaveStartPosition()
     {
@@ -65,13 +52,17 @@ public class LungsPuzzleDraggable :
         startPositionSaved = true;
     }
 
-    // =====================================================
-    // BEGIN DRAG
-    // =====================================================
-
     public void OnBeginDrag(
         PointerEventData eventData)
     {
+        if (puzzleManager == null)
+            return;
+
+        if (!puzzleManager.PuzzleActive)
+            return;
+
+        dragging = true;
+
         if (!startPositionSaved)
         {
             SaveStartPosition();
@@ -85,13 +76,18 @@ public class LungsPuzzleDraggable :
         transform.SetAsLastSibling();
     }
 
-    // =====================================================
-    // DRAG
-    // =====================================================
-
     public void OnDrag(
         PointerEventData eventData)
     {
+        if (!dragging)
+            return;
+
+        if (puzzleManager == null ||
+            !puzzleManager.PuzzleActive)
+        {
+            return;
+        }
+
         if (rectTransform == null)
             return;
 
@@ -100,27 +96,28 @@ public class LungsPuzzleDraggable :
         if (rootCanvas != null &&
             rootCanvas.scaleFactor > 0f)
         {
-            scaleFactor =
-                rootCanvas.scaleFactor;
+            scaleFactor = rootCanvas.scaleFactor;
         }
 
         rectTransform.anchoredPosition +=
             eventData.delta / scaleFactor;
     }
 
-    // =====================================================
-    // END DRAG
-    // =====================================================
-
     public void OnEndDrag(
         PointerEventData eventData)
     {
+        if (!dragging)
+            return;
+
+        dragging = false;
+
         if (canvasGroup != null)
         {
             canvasGroup.blocksRaycasts = true;
         }
 
-        if (puzzleManager == null)
+        if (puzzleManager == null ||
+            !puzzleManager.PuzzleActive)
         {
             ResetToStart();
             return;
@@ -128,10 +125,6 @@ public class LungsPuzzleDraggable :
 
         Camera eventCamera =
             eventData.pressEventCamera;
-
-        // ==========================================
-        // 1. ПРАВИЛНИЯТ TARGET
-        // ==========================================
 
         bool correct =
             puzzleManager.IsCorrectTarget(
@@ -142,15 +135,9 @@ public class LungsPuzzleDraggable :
         if (correct)
         {
             ResetToStart();
-
             puzzleManager.CorrectPlacement();
-
             return;
         }
-
-        // ==========================================
-        // 2. НЯКОЙ ДРУГ TARGET
-        // ==========================================
 
         bool overAnotherTarget =
             puzzleManager.IsOverAnyTarget(
@@ -161,27 +148,24 @@ public class LungsPuzzleDraggable :
         if (overAnotherTarget)
         {
             puzzleManager.WrongPlacement();
-
             ResetToStart();
-
             return;
         }
-
-        // ==========================================
-        // 3. ПРАЗНО ПРОСТРАНСТВО
-        // ==========================================
 
         puzzleManager.DroppedOnEmptySpace();
 
         ResetToStart();
     }
 
-    // =====================================================
-    // RESET
-    // =====================================================
-
     public void ResetToStart()
     {
+        dragging = false;
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.blocksRaycasts = true;
+        }
+
         if (rectTransform == null)
         {
             rectTransform =
