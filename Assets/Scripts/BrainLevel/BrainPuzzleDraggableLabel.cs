@@ -68,6 +68,8 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
 
     private Coroutine feedbackCoroutine;
 
+    private const string ThemeKey = "ColorTheme";
+
     private readonly List<Shadow> glowShadows =
         new List<Shadow>();
 
@@ -323,11 +325,30 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
         }
 
         // =====================================================
+        // ВЕЧЕ РЕШЕНА / ЗАКЛЮЧЕНА ЗОНА
+        // =====================================================
+        // Не се брои за грешка.
+        // Няма Wrong feedback.
+        // Не се губи живот.
+        // Етикетът просто се връща обратно.
+        // =====================================================
+
+        if (dropZone.IsSolved)
+        {
+            ReturnToStartAnimated();
+            return;
+        }
+
+        // =====================================================
         // ПРАВИЛНА ЗОНА
         // =====================================================
 
         if (dropZone.Accepts(CurrentPart))
         {
+            // Заключваме зоната веднага,
+            // още преди placement анимацията.
+            dropZone.MarkSolved();
+
             /*
              * Correct звукът се пуска
              * ВЕДНАГА при правилния drop,
@@ -420,11 +441,19 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
     {
         if (feedbackOutline != null)
         {
-            feedbackOutline.effectColor =
-                correctColor;
+            if (IsColorblindThemeActive())
+            {
+                feedbackOutline.enabled =
+                    false;
+            }
+            else
+            {
+                feedbackOutline.effectColor =
+                    correctColor;
 
-            feedbackOutline.enabled =
-                true;
+                feedbackOutline.enabled =
+                    true;
+            }
         }
 
         yield return ScaleRoutine(
@@ -502,11 +531,19 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
     {
         if (feedbackOutline != null)
         {
-            feedbackOutline.effectColor =
-                wrongColor;
+            if (IsColorblindThemeActive())
+            {
+                feedbackOutline.enabled =
+                    false;
+            }
+            else
+            {
+                feedbackOutline.effectColor =
+                    wrongColor;
 
-            feedbackOutline.enabled =
-                true;
+                feedbackOutline.enabled =
+                    true;
+            }
         }
 
         yield return new WaitForSeconds(
@@ -718,6 +755,19 @@ public class BrainPuzzleDraggableLabel : MonoBehaviour,
             hoverGlowColor,
             0f
         );
+    }
+
+    private bool IsColorblindThemeActive()
+    {
+        if (ColorThemeManager.Instance != null)
+        {
+            return ColorThemeManager.Instance.CurrentTheme == 1;
+        }
+
+        return PlayerPrefs.GetInt(
+            ThemeKey,
+            0
+        ) == 1;
     }
 
     private void SetHoverGlow(

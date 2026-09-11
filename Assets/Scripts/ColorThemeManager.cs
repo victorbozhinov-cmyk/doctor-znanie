@@ -16,6 +16,10 @@ public class ColorThemeManager : MonoBehaviour
 
     private const string ThemeKey = "ColorTheme";
 
+    // =========================================================
+    // ACCESSIBLE COLOR THEME
+    // =========================================================
+
     [Header("Accessible Color Theme")]
     [SerializeField]
     private Material accessibleColorMaterial;
@@ -24,18 +28,44 @@ public class ColorThemeManager : MonoBehaviour
     [Range(0f, 1f)]
     private float accessibleThemeStrength = 0.65f;
 
+    // =========================================================
+    // CANVAS RENDERING
+    // =========================================================
+
+    [Header("Canvas Rendering")]
+    [Tooltip(
+        "Колко след Near Clip Plane да стои UI Canvas-ът."
+    )]
     [SerializeField]
-    private float canvasPlaneDistance = 1f;
+    private float canvasNearClipOffset = 0.01f;
+
+    [Tooltip(
+        "Sorting Order на UI Canvas-ите при активен цветен режим."
+    )]
+    [SerializeField]
+    private int accessibleCanvasSortingOrder = 10000;
+
+    // =========================================================
+    // CANVAS STATE
+    // =========================================================
 
     private struct CanvasState
     {
         public RenderMode renderMode;
         public Camera worldCamera;
         public float planeDistance;
+
+        public bool overrideSorting;
+        public int sortingOrder;
+        public int sortingLayerID;
     }
 
     private readonly Dictionary<Canvas, CanvasState> canvasStates =
         new Dictionary<Canvas, CanvasState>();
+
+    // =========================================================
+    // AWAKE
+    // =========================================================
 
     private void Awake()
     {
@@ -63,6 +93,10 @@ public class ColorThemeManager : MonoBehaviour
             );
     }
 
+    // =========================================================
+    // ENABLE / DISABLE
+    // =========================================================
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -73,10 +107,18 @@ public class ColorThemeManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // =========================================================
+    // START
+    // =========================================================
+
     private void Start()
     {
         ApplyTheme();
     }
+
+    // =========================================================
+    // SCENE LOADED
+    // =========================================================
 
     private void OnSceneLoaded(
         Scene scene,
@@ -96,6 +138,10 @@ public class ColorThemeManager : MonoBehaviour
 
         ApplyTheme();
     }
+
+    // =========================================================
+    // PUBLIC THEME METHODS
+    // =========================================================
 
     public void SetDefaultTheme()
     {
@@ -132,6 +178,10 @@ public class ColorThemeManager : MonoBehaviour
         );
     }
 
+    // =========================================================
+    // APPLY THEME
+    // =========================================================
+
     private void ApplyTheme()
     {
         if (accessibleColorMaterial == null)
@@ -144,9 +194,9 @@ public class ColorThemeManager : MonoBehaviour
             return;
         }
 
-        // =========================
-        // ТЕМА 1 - НОРМАЛНА
-        // =========================
+        // =====================================================
+        // THEME 0 - NORMAL
+        // =====================================================
 
         if (CurrentTheme == 0)
         {
@@ -160,9 +210,9 @@ public class ColorThemeManager : MonoBehaviour
             return;
         }
 
-        // =========================
-        // ТЕМА 2 - COLORBLIND
-        // =========================
+        // =====================================================
+        // THEME 1 - COLORBLIND
+        // =====================================================
 
         accessibleColorMaterial.SetFloat(
             "_Strength",
@@ -187,6 +237,10 @@ public class ColorThemeManager : MonoBehaviour
         );
     }
 
+    // =========================================================
+    // CONVERT OVERLAY CANVASES
+    // =========================================================
+
     private void ConvertOverlayCanvases(
         Camera mainCamera
     )
@@ -209,6 +263,13 @@ public class ColorThemeManager : MonoBehaviour
                 continue;
             }
 
+            // Ако този Canvas вече е бил конвертиран,
+            // не го записваме и променяме втори път.
+            if (canvasStates.ContainsKey(canvas))
+            {
+                continue;
+            }
+
             if (
                 canvas.renderMode !=
                 RenderMode.ScreenSpaceOverlay
@@ -217,30 +278,40 @@ public class ColorThemeManager : MonoBehaviour
                 continue;
             }
 
-            if (
-                !canvasStates.ContainsKey(
-                    canvas
-                )
-            )
-            {
-                CanvasState state =
-                    new CanvasState
-                    {
-                        renderMode =
-                            canvas.renderMode,
+            // =================================================
+            // SAVE ORIGINAL STATE
+            // =================================================
 
-                        worldCamera =
-                            canvas.worldCamera,
+            CanvasState state =
+                new CanvasState
+                {
+                    renderMode =
+                        canvas.renderMode,
 
-                        planeDistance =
-                            canvas.planeDistance
-                    };
+                    worldCamera =
+                        canvas.worldCamera,
 
-                canvasStates.Add(
-                    canvas,
-                    state
-                );
-            }
+                    planeDistance =
+                        canvas.planeDistance,
+
+                    overrideSorting =
+                        canvas.overrideSorting,
+
+                    sortingOrder =
+                        canvas.sortingOrder,
+
+                    sortingLayerID =
+                        canvas.sortingLayerID
+                };
+
+            canvasStates.Add(
+                canvas,
+                state
+            );
+
+            // =================================================
+            // CONVERT TO SCREEN SPACE CAMERA
+            // =================================================
 
             canvas.renderMode =
                 RenderMode.ScreenSpaceCamera;
@@ -248,14 +319,30 @@ public class ColorThemeManager : MonoBehaviour
             canvas.worldCamera =
                 mainCamera;
 
+            // Поставяме Canvas-а максимално близо
+            // до камерата, но след Near Clip Plane.
             canvas.planeDistance =
+                mainCamera.nearClipPlane +
                 Mathf.Max(
-                    canvasPlaneDistance,
-                    mainCamera.nearClipPlane
-                    + 0.01f
+                    0.001f,
+                    canvasNearClipOffset
                 );
+
+            // =================================================
+            // FORCE UI ABOVE WORLD ELEMENTS
+            // =================================================
+
+            canvas.overrideSorting = true;
+
+            canvas.sortingOrder =
+                accessibleCanvasSortingOrder +
+                state.sortingOrder;
         }
     }
+
+    // =========================================================
+    // RESTORE CANVASES
+    // =========================================================
 
     private void RestoreCanvases()
     {
@@ -283,10 +370,23 @@ public class ColorThemeManager : MonoBehaviour
 
             canvas.planeDistance =
                 state.planeDistance;
+
+            canvas.overrideSorting =
+                state.overrideSorting;
+
+            canvas.sortingOrder =
+                state.sortingOrder;
+
+            canvas.sortingLayerID =
+                state.sortingLayerID;
         }
 
         canvasStates.Clear();
     }
+
+    // =========================================================
+    // CLEAR DESTROYED CANVASES
+    // =========================================================
 
     private void ClearDestroyedCanvases()
     {

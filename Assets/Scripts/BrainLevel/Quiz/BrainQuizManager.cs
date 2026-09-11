@@ -1005,10 +1005,23 @@ public class BrainQuizManager : MonoBehaviour
         {
             SetAnswerButtonsInteractable(true);
 
+            bool currentQuestionIsWritten =
+                currentQuestionIndex >= 0 &&
+                currentQuestionIndex < selectedQuestions.Count &&
+                selectedQuestions[currentQuestionIndex].questionType ==
+                    BrainQuizQuestionType.Written;
+
             if (writtenInputField != null)
             {
                 writtenInputField.interactable =
                     true;
+
+                if (currentQuestionIsWritten)
+                {
+                    writtenInputField.text = "";
+                    writtenInputField.Select();
+                    writtenInputField.ActivateInputField();
+                }
             }
 
             if (writtenCheckButton != null)

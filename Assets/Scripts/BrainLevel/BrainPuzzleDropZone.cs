@@ -30,8 +30,14 @@ public class BrainPuzzleDropZone : MonoBehaviour
 
     private bool solved;
 
+    private const string ThemeKey = "ColorTheme";
+
     public BrainPartType AcceptedPart => acceptedPart;
     public bool IsSolved => solved;
+
+    // =========================================================
+    // AWAKE
+    // =========================================================
 
     private void Awake()
     {
@@ -44,15 +50,17 @@ public class BrainPuzzleDropZone : MonoBehaviour
 
         outline.effectDistance = outlineDistance;
 
-        // Важно:
-        // не използваме alpha-та на самия slot,
+        // Не използваме alpha-та на самия slot,
         // за да остане feedback цветът ярък.
         outline.useGraphicAlpha = false;
-
         outline.enabled = false;
 
         SetupPlacedLabel();
     }
+
+    // =========================================================
+    // PLACED LABEL SETUP
+    // =========================================================
 
     private void SetupPlacedLabel()
     {
@@ -80,26 +88,29 @@ public class BrainPuzzleDropZone : MonoBehaviour
         if (placedRect != null)
         {
             placedRect.localScale = Vector3.one;
+            placedRect.localRotation = Quaternion.identity;
         }
 
         placedLabel.SetActive(false);
     }
 
+    // =========================================================
+    // ACCEPT CHECK
+    // =========================================================
+
     public bool Accepts(BrainPartType part)
     {
-        return !solved &&
-               part == acceptedPart;
+        if (solved)
+        {
+            return false;
+        }
+
+        return part == acceptedPart;
     }
 
-    public void ShowCorrectFeedback()
-    {
-        ShowFeedback(correctColor);
-    }
-
-    public void ShowWrongFeedback()
-    {
-        ShowFeedback(wrongColor);
-    }
+    // =========================================================
+    // SOLVED / LOCKED STATE
+    // =========================================================
 
     public void MarkSolved()
     {
@@ -108,6 +119,9 @@ public class BrainPuzzleDropZone : MonoBehaviour
 
     public void ShowPlacedLabel()
     {
+        // Зоната остава заключена.
+        solved = true;
+
         if (placedLabel == null)
         {
             Debug.LogWarning(
@@ -118,8 +132,6 @@ public class BrainPuzzleDropZone : MonoBehaviour
 
             return;
         }
-
-        solved = true;
 
         placedLabel.SetActive(true);
 
@@ -148,7 +160,66 @@ public class BrainPuzzleDropZone : MonoBehaviour
         if (placedRect != null)
         {
             placedRect.localScale = Vector3.one;
+            placedRect.localRotation = Quaternion.identity;
         }
+    }
+
+    // =========================================================
+    // FEEDBACK
+    // =========================================================
+
+    public void ShowCorrectFeedback()
+    {
+        // При достъпния цветен режим не показваме
+        // placement Outline feedback, защото може да
+        // създава визуални артефакти върху drop зоните.
+        if (IsColorblindThemeActive())
+        {
+            if (outline != null)
+            {
+                outline.enabled = false;
+            }
+
+            return;
+        }
+
+        ShowFeedback(correctColor);
+    }
+
+    public void ShowWrongFeedback()
+    {
+        // Решена зона не трябва да дава Wrong feedback.
+        if (solved)
+        {
+            return;
+        }
+
+        // При достъпния цветен режим не показваме
+        // placement Outline feedback.
+        if (IsColorblindThemeActive())
+        {
+            if (outline != null)
+            {
+                outline.enabled = false;
+            }
+
+            return;
+        }
+
+        ShowFeedback(wrongColor);
+    }
+
+    private bool IsColorblindThemeActive()
+    {
+        if (ColorThemeManager.Instance != null)
+        {
+            return ColorThemeManager.Instance.CurrentTheme == 1;
+        }
+
+        return PlayerPrefs.GetInt(
+            ThemeKey,
+            0
+        ) == 1;
     }
 
     private void ShowFeedback(Color color)
@@ -185,9 +256,19 @@ public class BrainPuzzleDropZone : MonoBehaviour
         feedbackCoroutine = null;
     }
 
+    // =========================================================
+    // RESET
+    // =========================================================
+
     public void ResetZone()
     {
         solved = false;
+
+        if (feedbackCoroutine != null)
+        {
+            StopCoroutine(feedbackCoroutine);
+            feedbackCoroutine = null;
+        }
 
         if (placedLabel != null)
         {
@@ -197,11 +278,14 @@ public class BrainPuzzleDropZone : MonoBehaviour
         if (placedCanvasGroup != null)
         {
             placedCanvasGroup.alpha = 0f;
+            placedCanvasGroup.blocksRaycasts = false;
+            placedCanvasGroup.interactable = false;
         }
 
         if (placedRect != null)
         {
             placedRect.localScale = Vector3.one;
+            placedRect.localRotation = Quaternion.identity;
         }
 
         if (outline != null)
@@ -209,6 +293,10 @@ public class BrainPuzzleDropZone : MonoBehaviour
             outline.enabled = false;
         }
     }
+
+    // =========================================================
+    // DISABLE
+    // =========================================================
 
     private void OnDisable()
     {

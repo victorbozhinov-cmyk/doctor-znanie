@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BrainPuzzleManager : MonoBehaviour
 {
@@ -516,27 +517,33 @@ public class BrainPuzzleManager : MonoBehaviour
 
     private void SetupLives()
     {
-        string difficulty =
-            PlayerPrefs.GetString(
+        // Difficulty се пази глобално като int:
+        // 0 = Easy, 1 = Medium, 2 = Hard.
+        int difficulty =
+            PlayerPrefs.GetInt(
                 "Difficulty",
-                "Medium"
+                1
             );
 
         switch (difficulty)
         {
-            case "Easy":
+            case 0:
                 currentLives = 3;
                 break;
 
-            case "Hard":
+            case 2:
                 currentLives = 1;
                 break;
 
-            case "Medium":
+            case 1:
             default:
                 currentLives = 2;
                 break;
         }
+
+        // Подреждаме сърцата винаги като:
+        // LifeHeart1, LifeHeart2, LifeHeart3.
+        EnsureHeartOrder();
 
         SetHeartActive(
             lifeHeart1,
@@ -552,6 +559,89 @@ public class BrainPuzzleManager : MonoBehaviour
             lifeHeart3,
             currentLives >= 3
         );
+
+        RebuildLivesLayout();
+
+        Debug.Log(
+            "Brain Puzzle Lives: " +
+            currentLives +
+            " | Difficulty: " +
+            difficulty
+        );
+    }
+
+    private void EnsureHeartOrder()
+    {
+        if (lifeHeart1 == null ||
+            lifeHeart2 == null ||
+            lifeHeart3 == null)
+        {
+            return;
+        }
+
+        Transform parent =
+            lifeHeart1.transform.parent;
+
+        if (lifeHeart2.transform.parent != parent ||
+            lifeHeart3.transform.parent != parent)
+        {
+            return;
+        }
+
+        int firstIndex =
+            Mathf.Min(
+                lifeHeart1.transform.GetSiblingIndex(),
+                lifeHeart2.transform.GetSiblingIndex(),
+                lifeHeart3.transform.GetSiblingIndex()
+            );
+
+        lifeHeart1.transform.SetSiblingIndex(
+            firstIndex
+        );
+
+        lifeHeart2.transform.SetSiblingIndex(
+            firstIndex + 1
+        );
+
+        lifeHeart3.transform.SetSiblingIndex(
+            firstIndex + 2
+        );
+    }
+
+    private void RebuildLivesLayout()
+    {
+        RectTransform livesParent = null;
+
+        if (lifeHeart1 != null)
+        {
+            livesParent =
+                lifeHeart1.transform.parent
+                    as RectTransform;
+        }
+        else if (lifeHeart2 != null)
+        {
+            livesParent =
+                lifeHeart2.transform.parent
+                    as RectTransform;
+        }
+        else if (lifeHeart3 != null)
+        {
+            livesParent =
+                lifeHeart3.transform.parent
+                    as RectTransform;
+        }
+
+        if (livesParent == null)
+        {
+            return;
+        }
+
+        Canvas.ForceUpdateCanvases();
+
+        LayoutRebuilder
+            .ForceRebuildLayoutImmediate(
+                livesParent
+            );
     }
 
     private void SetHeartActive(
