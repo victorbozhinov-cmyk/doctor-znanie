@@ -6127,6 +6127,57 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0000076293945, y: 39}
   m_SizeDelta: {x: 181.8954, y: 166.9021}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &405915424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405915426}
+  - component: {fileID: 405915425}
+  m_Layer: 0
+  m_Name: StomachScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &405915425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405915424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabf7923074754548981c3ac2f3c57f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StomachScoreManager
+  puzzleWeight: 0.3
+  minigameWeight: 0.3
+  quizWeight: 0.4
+  quizLivesWeight: 0.8
+  quizHintsWeight: 0.2
+  minigameBasePerformance: 0.5
+  perfectTimeThreshold: 0.5
+--- !u!4 &405915426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405915424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1441.8574, y: 869.19824, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &405935230
 GameObject:
   m_ObjectHideFlags: 0
@@ -14202,6 +14253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22926503e38d76c45b3829a370b30f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinishLevelRewardButton
+  levelOrgan: 1
   vitaminRewardManager: {fileID: 603188611}
   bodyMapSceneName: BodyMap
 --- !u!1 &918764044
@@ -33884,3 +33936,4 @@ SceneRoots:
   - {fileID: 265524703}
   - {fileID: 2013502619}
   - {fileID: 1082458482}
+  - {fileID: 405915426}

@@ -394,6 +394,50 @@ public class HeartPuzzleManager : MonoBehaviour
             "Пъзелът е завършен!"
         );
 
+        // =====================================================
+        // SCORE
+        // =====================================================
+
+        if (puzzleLives == null)
+        {
+            Debug.LogError(
+                "HeartPuzzleLives не е свързан. " +
+                "Puzzle score не може да бъде записан."
+            );
+        }
+        else if (HeartScoreManager.Instance == null)
+        {
+            Debug.LogError(
+                "HeartScoreManager.Instance липсва. " +
+                "Puzzle score не може да бъде записан."
+            );
+        }
+        else
+        {
+            int startingLives =
+                HeartScoreManager.Instance
+                    .GetStartingLivesForCurrentDifficulty();
+
+            int remainingLives =
+                puzzleLives.CurrentLives;
+
+            HeartScoreManager.Instance.SubmitPuzzleResult(
+                remainingLives,
+                startingLives
+            );
+
+            Debug.Log(
+                $"Heart Puzzle Score записан. " +
+                $"Животи: {remainingLives}/{startingLives} | " +
+                $"Performance: " +
+                $"{HeartScoreManager.Instance.PuzzlePerformance:P0}"
+            );
+        }
+
+        // =====================================================
+        // SUCCESS OVERLAY
+        // =====================================================
+
         if (puzzleSuccessOverlay == null)
         {
             Debug.LogError(

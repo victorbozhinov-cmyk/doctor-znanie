@@ -303,6 +303,36 @@ public class StomachPuzzleManager : MonoBehaviour
             );
         }
 
+        // =====================================================
+        // SCORE
+        // =====================================================
+
+        if (StomachScoreManager.Instance == null)
+        {
+            Debug.LogError(
+                "StomachScoreManager.Instance липсва. " +
+                "Puzzle score не може да бъде записан."
+            );
+        }
+        else
+        {
+            StomachScoreManager.Instance.SubmitPuzzleResult(
+                remainingAttempts,
+                maximumAttempts
+            );
+
+            Debug.Log(
+                $"Stomach Puzzle Score записан. " +
+                $"Животи: {remainingAttempts}/{maximumAttempts} | " +
+                $"Performance: " +
+                $"{StomachScoreManager.Instance.PuzzlePerformance:P0}"
+            );
+        }
+
+        // =====================================================
+        // SUCCESS
+        // =====================================================
+
         OpenAnimatedPanel(
             successPanel,
             "Success Panel"

@@ -211,10 +211,6 @@ public class StomachMinigameManager : MonoBehaviour
         CurrentState =
             GameState.WaitingForStart;
 
-        // ---------------------------------------------
-        // STOP GAMEPLAY
-        // ---------------------------------------------
-
         if (juiceGame != null)
         {
             juiceGame.StopAndHide();
@@ -237,10 +233,6 @@ public class StomachMinigameManager : MonoBehaviour
             markerPanel.SetActive(false);
         }
 
-        // ---------------------------------------------
-        // STOP SHOWCASE ANIMATIONS
-        // ---------------------------------------------
-
         if (juicesButtonShowcase != null)
         {
             juicesButtonShowcase
@@ -253,10 +245,6 @@ public class StomachMinigameManager : MonoBehaviour
                 .StopShowcaseImmediate();
         }
 
-        // ---------------------------------------------
-        // STOP TIMERS
-        // ---------------------------------------------
-
         if (taskTimer != null)
         {
             taskTimer.ResetTimer();
@@ -266,10 +254,6 @@ public class StomachMinigameManager : MonoBehaviour
         {
             totalTimer.PauseTimer();
         }
-
-        // ---------------------------------------------
-        // WELCOME PANEL
-        // ---------------------------------------------
 
         if (welcomePanel != null)
         {
@@ -301,8 +285,6 @@ public class StomachMinigameManager : MonoBehaviour
                 .GetComponentInChildren
                 <UIPopupAnimation>(true);
 
-        // Ако няма animation component,
-        // стартираме веднага.
         if (animation == null)
         {
             welcomePanel.SetActive(false);
@@ -312,8 +294,6 @@ public class StomachMinigameManager : MonoBehaviour
             return;
         }
 
-        // Първо изчакваме Welcome панелът
-        // напълно да се затвори.
         animation.PlayClose(
             () =>
             {
@@ -329,17 +309,12 @@ public class StomachMinigameManager : MonoBehaviour
         minigameStarted = true;
         welcomeIsClosing = false;
 
-        // ПЪРВО показваме началната
-        // Stomach State карта.
-        // Тук ще се пусне и нейната
-        // първа pop анимация.
         if (stateCardController != null)
         {
             stateCardController
                 .ShowStartingFoodCard();
         }
 
-        // СЛЕД ТОВА започва първата задача.
         BeginCurrentStage();
     }
 
@@ -457,9 +432,6 @@ public class StomachMinigameManager : MonoBehaviour
             "Добави стомашни сокове."
         );
 
-        // Тази showcase анимация вече
-        // може да започне, защото
-        // WelcomePanel е затворен.
         if (juicesButtonShowcase != null)
         {
             juicesButtonShowcase
@@ -471,7 +443,6 @@ public class StomachMinigameManager : MonoBehaviour
             taskTimer.ResetTimer();
         }
 
-        // Реалният старт на общия таймер.
         if (totalTimer != null)
         {
             totalTimer.ResumeTimer();
@@ -1311,6 +1282,49 @@ public class StomachMinigameManager : MonoBehaviour
             intestineButton.interactable =
                 false;
         }
+
+        // =====================================================
+        // SCORE
+        // =====================================================
+
+        if (totalTimer == null)
+        {
+            Debug.LogError(
+                "StomachMinigameTimer не е свързан. " +
+                "Minigame score не може да бъде записан."
+            );
+        }
+        else if (StomachScoreManager.Instance == null)
+        {
+            Debug.LogError(
+                "StomachScoreManager.Instance липсва. " +
+                "Minigame score не може да бъде записан."
+            );
+        }
+        else
+        {
+            float remainingTime =
+                totalTimer.RemainingTime;
+
+            float startingTime =
+                totalTimer.StartingTime;
+
+            StomachScoreManager.Instance.SubmitMinigameResult(
+                remainingTime,
+                startingTime
+            );
+
+            Debug.Log(
+                $"Stomach Minigame Score записан. " +
+                $"Време: {remainingTime:0.0}/{startingTime:0.0} | " +
+                $"Performance: " +
+                $"{StomachScoreManager.Instance.MinigamePerformance:P0}"
+            );
+        }
+
+        // =====================================================
+        // SUCCESS
+        // =====================================================
 
         if (successPanel != null)
         {

@@ -30,9 +30,17 @@ public class HeartPuzzleDropZone : MonoBehaviour
     private Outline outline;
     private Coroutine feedbackCoroutine;
 
+    private bool isOccupied;
+
     private const string ThemeKey = "ColorTheme";
 
     public HeartPartType AcceptedPart => acceptedPart;
+
+    public bool IsOccupied => isOccupied;
+
+    // =====================================================
+    // AWAKE
+    // =====================================================
 
     private void Awake()
     {
@@ -46,12 +54,50 @@ public class HeartPuzzleDropZone : MonoBehaviour
         outline.effectDistance = outlineDistance;
         outline.useGraphicAlpha = true;
         outline.enabled = false;
+
+        isOccupied = false;
     }
+
+    // =====================================================
+    // DROP CHECK
+    // =====================================================
 
     public bool Accepts(HeartPartType part)
     {
+        if (isOccupied)
+            return false;
+
         return part == acceptedPart;
     }
+
+    // =====================================================
+    // OCCUPIED STATE
+    // =====================================================
+
+    public void LockZone()
+    {
+        isOccupied = true;
+    }
+
+    public void ResetZone()
+    {
+        isOccupied = false;
+
+        if (feedbackCoroutine != null)
+        {
+            StopCoroutine(feedbackCoroutine);
+            feedbackCoroutine = null;
+        }
+
+        if (outline != null)
+        {
+            outline.enabled = false;
+        }
+    }
+
+    // =====================================================
+    // CORRECT FEEDBACK
+    // =====================================================
 
     public void ShowCorrectFeedback()
     {
@@ -69,8 +115,17 @@ public class HeartPuzzleDropZone : MonoBehaviour
         ShowFeedback(selectedColor);
     }
 
+    // =====================================================
+    // WRONG FEEDBACK
+    // =====================================================
+
     public void ShowWrongFeedback()
     {
+        // Ако зоната вече е решена,
+        // не показваме грешен feedback.
+        if (isOccupied)
+            return;
+
         Color selectedColor;
 
         if (IsColorblindThemeActive())
@@ -85,20 +140,26 @@ public class HeartPuzzleDropZone : MonoBehaviour
         ShowFeedback(selectedColor);
     }
 
+    // =====================================================
+    // THEME
+    // =====================================================
+
     private bool IsColorblindThemeActive()
     {
-        // Нормалният вариант:
-        // използваме глобалния manager.
         if (ColorThemeManager.Instance != null)
         {
             return ColorThemeManager.Instance.CurrentTheme == 1;
         }
 
-        // Резервен вариант:
-        // ако сцената е пусната директно без Bootstrap,
-        // четем запазената тема.
-        return PlayerPrefs.GetInt(ThemeKey, 0) == 1;
+        return PlayerPrefs.GetInt(
+            ThemeKey,
+            0
+        ) == 1;
     }
+
+    // =====================================================
+    // FEEDBACK
+    // =====================================================
 
     private void ShowFeedback(Color color)
     {
@@ -118,11 +179,17 @@ public class HeartPuzzleDropZone : MonoBehaviour
         outline.effectColor = color;
         outline.enabled = true;
 
-        yield return new WaitForSeconds(feedbackDuration);
+        yield return new WaitForSeconds(
+            feedbackDuration
+        );
 
         outline.enabled = false;
         feedbackCoroutine = null;
     }
+
+    // =====================================================
+    // DISABLE
+    // =====================================================
 
     private void OnDisable()
     {

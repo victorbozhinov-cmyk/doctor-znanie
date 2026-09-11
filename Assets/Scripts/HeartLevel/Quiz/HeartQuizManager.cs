@@ -178,9 +178,6 @@ public class HeartQuizManager : MonoBehaviour
     private bool isSettingsOpen = false;
     private bool isExitOpen = false;
 
-    // Ако Info е отворено от Welcome,
-    // тук пазим какво трябва да стане
-    // след неговото затваряне.
     private Action infoClosedCallback;
 
     private Vector3 originalHintButtonScale;
@@ -440,35 +437,19 @@ public class HeartQuizManager : MonoBehaviour
         switch (currentQuestion.questionType)
         {
             case HeartQuizQuestionType.MultipleChoice:
-
-                ShowMultipleChoiceQuestion(
-                    currentQuestion
-                );
-
+                ShowMultipleChoiceQuestion(currentQuestion);
                 break;
 
             case HeartQuizQuestionType.QuestionImage:
-
-                ShowQuestionImageQuestion(
-                    currentQuestion
-                );
-
+                ShowQuestionImageQuestion(currentQuestion);
                 break;
 
             case HeartQuizQuestionType.ImageAnswers:
-
-                ShowImageAnswersQuestion(
-                    currentQuestion
-                );
-
+                ShowImageAnswersQuestion(currentQuestion);
                 break;
 
             case HeartQuizQuestionType.Written:
-
-                ShowWrittenQuestion(
-                    currentQuestion
-                );
-
+                ShowWrittenQuestion(currentQuestion);
                 break;
         }
 
@@ -602,10 +583,7 @@ public class HeartQuizManager : MonoBehaviour
             return;
 
         targetImage.sprite = sprite;
-
-        targetImage.enabled =
-            sprite != null;
-
+        targetImage.enabled = sprite != null;
         targetImage.preserveAspect = true;
     }
 
@@ -1015,10 +993,23 @@ public class HeartQuizManager : MonoBehaviour
         {
             SetAnswerButtonsInteractable(true);
 
+            bool currentQuestionIsWritten =
+                currentQuestionIndex >= 0 &&
+                currentQuestionIndex < selectedQuestions.Count &&
+                selectedQuestions[currentQuestionIndex].questionType ==
+                    HeartQuizQuestionType.Written;
+
             if (writtenInputField != null)
             {
                 writtenInputField.interactable =
                     true;
+
+                if (currentQuestionIsWritten)
+                {
+                    writtenInputField.text = "";
+                    writtenInputField.Select();
+                    writtenInputField.ActivateInputField();
+                }
             }
 
             if (writtenCheckButton != null)
@@ -1312,13 +1303,11 @@ public class HeartQuizManager : MonoBehaviour
             return;
         }
 
-        // Нормално отваряне по време на игра.
         infoClosedCallback = null;
 
         OpenInfoOverlay();
     }
 
-    // Използва се само от Welcome Controller-а.
     public void OpenInfoPanelFromWelcome(
         Action onInfoClosed)
     {
@@ -1537,6 +1526,39 @@ public class HeartQuizManager : MonoBehaviour
         infoClosedCallback = null;
 
         SetAnswerButtonsInteractable(false);
+
+        // =====================================================
+        // SCORE
+        // =====================================================
+
+        if (HeartScoreManager.Instance == null)
+        {
+            Debug.LogError(
+                "HeartScoreManager.Instance липсва. " +
+                "Quiz score не може да бъде записан."
+            );
+        }
+        else
+        {
+            int startingLives =
+                HeartScoreManager.Instance
+                    .GetStartingLivesForCurrentDifficulty();
+
+            HeartScoreManager.Instance.SubmitQuizResult(
+                currentLives,
+                startingLives,
+                remainingHints,
+                maxHints
+            );
+
+            Debug.Log(
+                $"Heart Quiz Score записан. " +
+                $"Животи: {currentLives}/{startingLives} | " +
+                $"Хинтове: {remainingHints}/{maxHints} | " +
+                $"Performance: " +
+                $"{HeartScoreManager.Instance.QuizPerformance:P0}"
+            );
+        }
 
         UpdateHintButton();
         UpdateHintCounter();

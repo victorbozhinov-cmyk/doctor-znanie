@@ -101,6 +101,20 @@ public class HeartMinigameManager : MonoBehaviour
     [SerializeField] private float mediumGameDuration = 60f;
     [SerializeField] private float hardGameDuration = 70f;
 
+    [Header("Warning Pulse")]
+    [SerializeField] private RectTransform pulseTarget;
+
+    [SerializeField] private float warningTime = 10f;
+    [SerializeField] private float criticalTime = 5f;
+
+    [SerializeField] private float warningPulseScale = 1.05f;
+    [SerializeField] private float warningPulseUpDuration = 0.28f;
+    [SerializeField] private float warningPulseDownDuration = 0.28f;
+
+    [SerializeField] private float criticalPulseScale = 1.08f;
+    [SerializeField] private float criticalPulseUpDuration = 0.16f;
+    [SerializeField] private float criticalPulseDownDuration = 0.16f;
+
     [Header("Minigame Success")]
     [SerializeField] private GameObject minigameSuccessOverlay;
 
@@ -243,6 +257,9 @@ public class HeartMinigameManager : MonoBehaviour
     private float gameDuration;
     private float remainingTime;
 
+    private Vector3 normalPulseScale;
+    private Coroutine pulseCoroutine;
+
     private bool criticalImmediateLossUsed;
 
     private bool isGameOver;
@@ -261,6 +278,12 @@ public class HeartMinigameManager : MonoBehaviour
     private void Awake()
     {
         startingBPM = currentBPM;
+
+        if (pulseTarget != null)
+        {
+            normalPulseScale =
+                pulseTarget.localScale;
+        }
     }
 
     // =====================================================
@@ -302,6 +325,9 @@ public class HeartMinigameManager : MonoBehaviour
         SetDifficultyValues();
 
         remainingTime = gameDuration;
+
+        StopWarningPulse();
+        ResetPulseVisual();
 
         UpdateTimerUI();
 
@@ -438,6 +464,9 @@ public class HeartMinigameManager : MonoBehaviour
 
         remainingTime = gameDuration;
 
+        StopWarningPulse();
+        ResetPulseVisual();
+
         driftTimer = 0f;
         eventTimer = 0f;
 
@@ -519,6 +548,9 @@ public class HeartMinigameManager : MonoBehaviour
         infoOpenedFromWelcome = false;
 
         remainingTime = gameDuration;
+
+        StopWarningPulse();
+        ResetPulseVisual();
 
         driftTimer = 0f;
         eventTimer = 0f;
@@ -688,6 +720,9 @@ public class HeartMinigameManager : MonoBehaviour
         {
             remainingTime = 0f;
 
+            StopWarningPulse();
+            ResetPulseVisual();
+
             UpdateTimerUI();
             TriggerMinigameSuccess();
 
@@ -695,6 +730,7 @@ public class HeartMinigameManager : MonoBehaviour
         }
 
         UpdateTimerUI();
+        UpdateWarningPulseState();
     }
 
     private void UpdateTimerUI()
@@ -717,6 +753,157 @@ public class HeartMinigameManager : MonoBehaviour
             seconds.ToString("00");
     }
 
+    // =====================================================
+    // WARNING PULSE
+    // =====================================================
+
+    private void UpdateWarningPulseState()
+    {
+        if (pulseTarget == null)
+            return;
+
+        bool shouldPulse =
+            minigameStarted &&
+            !isGameOver &&
+            !isMinigameWon &&
+            !isPaused &&
+            remainingTime > 0f &&
+            remainingTime <= warningTime;
+
+        if (shouldPulse)
+        {
+            if (pulseCoroutine == null)
+            {
+                pulseCoroutine =
+                    StartCoroutine(
+                        WarningPulseLoop()
+                    );
+            }
+        }
+        else
+        {
+            StopWarningPulse();
+            ResetPulseVisual();
+        }
+    }
+
+    private IEnumerator WarningPulseLoop()
+    {
+        while (
+            minigameStarted &&
+            !isGameOver &&
+            !isMinigameWon &&
+            !isPaused &&
+            remainingTime > 0f &&
+            remainingTime <= warningTime
+        )
+        {
+            bool isCritical =
+                remainingTime <= criticalTime;
+
+            float targetScale =
+                isCritical
+                    ? criticalPulseScale
+                    : warningPulseScale;
+
+            float upDuration =
+                isCritical
+                    ? criticalPulseUpDuration
+                    : warningPulseUpDuration;
+
+            float downDuration =
+                isCritical
+                    ? criticalPulseDownDuration
+                    : warningPulseDownDuration;
+
+            yield return ScalePulseTo(
+                normalPulseScale *
+                targetScale,
+                upDuration
+            );
+
+            yield return ScalePulseTo(
+                normalPulseScale,
+                downDuration
+            );
+        }
+
+        ResetPulseVisual();
+        pulseCoroutine = null;
+    }
+
+    private IEnumerator ScalePulseTo(
+        Vector3 targetScale,
+        float duration
+    )
+    {
+        if (pulseTarget == null)
+            yield break;
+
+        Vector3 startScale =
+            pulseTarget.localScale;
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            if (
+                isPaused ||
+                isGameOver ||
+                isMinigameWon ||
+                !minigameStarted
+            )
+            {
+                yield break;
+            }
+
+            elapsed +=
+                Time.unscaledDeltaTime;
+
+            float t =
+                Mathf.Clamp01(
+                    elapsed / duration
+                );
+
+            t =
+                t * t *
+                (3f - 2f * t);
+
+            pulseTarget.localScale =
+                Vector3.Lerp(
+                    startScale,
+                    targetScale,
+                    t
+                );
+
+            yield return null;
+        }
+
+        pulseTarget.localScale =
+            targetScale;
+    }
+
+    private void StopWarningPulse()
+    {
+        if (pulseCoroutine != null)
+        {
+            StopCoroutine(
+                pulseCoroutine
+            );
+
+            pulseCoroutine = null;
+        }
+    }
+
+    private void ResetPulseVisual()
+    {
+        if (pulseTarget != null)
+        {
+            pulseTarget.localScale =
+                normalPulseScale;
+        }
+    }
+
     private void TriggerMinigameSuccess()
     {
         if (isGameOver || isMinigameWon)
@@ -725,9 +912,55 @@ public class HeartMinigameManager : MonoBehaviour
         isMinigameWon = true;
         remainingTime = 0f;
 
+        StopWarningPulse();
+        ResetPulseVisual();
+
         UpdateTimerUI();
         ResetDangerCountdown();
         HideAllEventCards();
+
+        // =====================================================
+        // SCORE
+        // =====================================================
+
+        if (heartLives == null)
+        {
+            Debug.LogError(
+                "HeartMinigameLives не е свързан. " +
+                "Minigame score не може да бъде записан."
+            );
+        }
+        else if (HeartScoreManager.Instance == null)
+        {
+            Debug.LogError(
+                "HeartScoreManager.Instance липсва. " +
+                "Minigame score не може да бъде записан."
+            );
+        }
+        else
+        {
+            int remainingLives =
+                heartLives.CurrentLives;
+
+            int startingLives =
+                heartLives.MaxLives;
+
+            HeartScoreManager.Instance.SubmitMinigameResult(
+                remainingLives,
+                startingLives
+            );
+
+            Debug.Log(
+                $"Heart Minigame Score записан. " +
+                $"Животи: {remainingLives}/{startingLives} | " +
+                $"Performance: " +
+                $"{HeartScoreManager.Instance.MinigamePerformance:P0}"
+            );
+        }
+
+        // =====================================================
+        // AUDIO
+        // =====================================================
 
         if (minigameAudio != null)
         {
@@ -738,6 +971,10 @@ public class HeartMinigameManager : MonoBehaviour
         {
             MusicManager.Instance.PlayLobbyMusic();
         }
+
+        // =====================================================
+        // SUCCESS
+        // =====================================================
 
         if (minigameSuccessOverlay != null)
         {
@@ -1167,6 +1404,9 @@ public class HeartMinigameManager : MonoBehaviour
 
         isGameOver = true;
 
+        StopWarningPulse();
+        ResetPulseVisual();
+
         ResetDangerCountdown();
         HideAllEventCards();
 
@@ -1474,6 +1714,9 @@ public class HeartMinigameManager : MonoBehaviour
         isPaused = true;
         infoOpenedFromWelcome = false;
 
+        StopWarningPulse();
+        ResetPulseVisual();
+
         if (settingsOverlay != null)
             settingsOverlay.SetActive(false);
 
@@ -1502,6 +1745,8 @@ public class HeartMinigameManager : MonoBehaviour
             {
                 isPaused = false;
                 menuTransitionInProgress = false;
+
+                UpdateWarningPulseState();
 
                 Debug.Log(
                     "MINIGAME RESUMED"

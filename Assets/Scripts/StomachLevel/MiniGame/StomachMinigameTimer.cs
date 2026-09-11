@@ -70,6 +70,9 @@ public class StomachMinigameTimer : MonoBehaviour
     public float RemainingTime =>
         remainingTime;
 
+    public float StartingTime =>
+        GetStartingTimeForDifficulty();
+
     public bool IsRunning =>
         isRunning;
 
@@ -102,12 +105,7 @@ public class StomachMinigameTimer : MonoBehaviour
         remainingTime =
             GetStartingTimeForDifficulty();
 
-        // ВАЖНО:
-        // Таймерът вече НЕ тръгва автоматично.
-        // StomachMinigameManager ще го стартира,
-        // когато WelcomePanel се затвори.
         isRunning = false;
-
         hasExpired = false;
 
         if (penaltyRect != null)
