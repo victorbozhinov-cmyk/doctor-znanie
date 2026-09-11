@@ -927,10 +927,6 @@ public class StomachQuizManager : MonoBehaviour
 
     private void PlayWrongSoundIfNotGameOver()
     {
-        // Ако това е последният живот,
-        // не пускаме Wrong звук.
-        // Веднага след това ще се отвори Game Over
-        // и ще се чуе Game Over звукът.
         if (currentLives <= 1)
         {
             return;
@@ -1495,6 +1491,39 @@ public class StomachQuizManager : MonoBehaviour
         isProcessingWrongAnswer = false;
 
         SetAnswerButtonsInteractable(false);
+
+        // =====================================================
+        // SCORE
+        // =====================================================
+
+        if (StomachScoreManager.Instance == null)
+        {
+            Debug.LogError(
+                "StomachScoreManager.Instance липсва. " +
+                "Quiz score не може да бъде записан."
+            );
+        }
+        else
+        {
+            int startingLives =
+                StomachScoreManager.Instance
+                    .GetStartingLivesForCurrentDifficulty();
+
+            StomachScoreManager.Instance.SubmitQuizResult(
+                currentLives,
+                startingLives,
+                remainingHints,
+                maxHints
+            );
+
+            Debug.Log(
+                $"Stomach Quiz Score записан. " +
+                $"Животи: {currentLives}/{startingLives} | " +
+                $"Хинтове: {remainingHints}/{maxHints} | " +
+                $"Performance: " +
+                $"{StomachScoreManager.Instance.QuizPerformance:P0}"
+            );
+        }
 
         UpdateHintButton();
         UpdateHintCounter();

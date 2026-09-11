@@ -46,11 +46,11 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
     [Header("Colorblind Theme Feedback")]
     [SerializeField]
     private Color colorblindCorrectColor =
-        new Color32(0, 114, 178, 255); // #0072B2
+        new Color32(0, 114, 178, 255);
 
     [SerializeField]
     private Color colorblindWrongColor =
-        new Color32(213, 94, 0, 255); // #D55E00
+        new Color32(213, 94, 0, 255);
 
     [Header("Feedback Settings")]
     [SerializeField]
@@ -93,11 +93,19 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
 
     public HeartPartType PartType => partType;
 
+    // =====================================================
+    // PART TYPE
+    // =====================================================
+
     public void SetPartType(
         HeartPartType newPartType)
     {
         partType = newPartType;
     }
+
+    // =====================================================
+    // AWAKE
+    // =====================================================
 
     private void Awake()
     {
@@ -168,6 +176,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         );
     }
 
+    // =====================================================
+    // HOVER GLOW
+    // =====================================================
+
     private void CreateHoverGlow()
     {
         Vector2[] directions =
@@ -197,6 +209,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
     }
 
+    // =====================================================
+    // FEEDBACK OUTLINE
+    // =====================================================
+
     private void CreateFeedbackOutline()
     {
         feedbackOutline =
@@ -218,6 +234,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             false;
     }
 
+    // =====================================================
+    // UPDATE
+    // =====================================================
+
     private void Update()
     {
         if (rectTransform == null ||
@@ -233,6 +253,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
                 scaleSpeed * Time.deltaTime
             );
     }
+
+    // =====================================================
+    // POINTER ENTER
+    // =====================================================
 
     public void OnPointerEnter(
         PointerEventData eventData)
@@ -253,6 +277,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         );
     }
 
+    // =====================================================
+    // POINTER EXIT
+    // =====================================================
+
     public void OnPointerExit(
         PointerEventData eventData)
     {
@@ -271,6 +299,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             0f
         );
     }
+
+    // =====================================================
+    // BEGIN DRAG
+    // =====================================================
 
     public void OnBeginDrag(
         PointerEventData eventData)
@@ -305,6 +337,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             false;
     }
 
+    // =====================================================
+    // DRAG
+    // =====================================================
+
     public void OnDrag(
         PointerEventData eventData)
     {
@@ -324,6 +360,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             eventData.delta /
             canvas.scaleFactor;
     }
+
+    // =====================================================
+    // END DRAG
+    // =====================================================
 
     public void OnEndDrag(
         PointerEventData eventData)
@@ -355,21 +395,42 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
                     >();
         }
 
-        // Пуснат извън зона:
-        // няма Correct/Wrong звук
-        // и етикетът просто се връща.
+        // =================================================
+        // ПУСНАТ ИЗВЪН DROP ZONE
+        // =================================================
+
         if (dropZone == null)
         {
             ReturnToStartAnimated();
             return;
         }
 
-        // =========================
+        // =================================================
+        // ЗОНАТА ВЕЧЕ Е ЗАЕТА
+        // =================================================
+        // Няма Wrong звук.
+        // Няма червен feedback.
+        // Не се губи живот.
+        // Етикетът просто се връща.
+        // =================================================
+
+        if (dropZone.IsOccupied)
+        {
+            ReturnToStartAnimated();
+            return;
+        }
+
+        // =================================================
         // ПРАВИЛЕН ОТГОВОР
-        // =========================
+        // =================================================
 
         if (dropZone.Accepts(partType))
         {
+            // Заключваме зоната веднага,
+            // за да не може друг етикет
+            // да бъде сложен в нея.
+            dropZone.LockZone();
+
             dropZone.ShowCorrectFeedback();
 
             if (GameFeedbackSoundManager.Instance != null)
@@ -393,9 +454,9 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             return;
         }
 
-        // =========================
+        // =================================================
         // ГРЕШЕН ОТГОВОР
-        // =========================
+        // =================================================
 
         dropZone.ShowWrongFeedback();
 
@@ -432,6 +493,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         );
     }
 
+    // =====================================================
+    // FEEDBACK COLORS
+    // =====================================================
+
     private Color GetCorrectFeedbackColor()
     {
         if (IsColorblindThemeActive())
@@ -452,6 +517,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         return wrongColor;
     }
 
+    // =====================================================
+    // THEME
+    // =====================================================
+
     private bool IsColorblindThemeActive()
     {
         if (ColorThemeManager.Instance != null)
@@ -464,6 +533,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             0
         ) == 1;
     }
+
+    // =====================================================
+    // SNAP TO DROP ZONE
+    // =====================================================
 
     private void SnapToDropZone(
         HeartPuzzleDropZone dropZone,
@@ -524,6 +597,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             false;
     }
 
+    // =====================================================
+    // START FEEDBACK
+    // =====================================================
+
     private void StartFeedback(
         Color color,
         bool returnAfter,
@@ -545,6 +622,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
                 )
             );
     }
+
+    // =====================================================
+    // FEEDBACK ROUTINE
+    // =====================================================
 
     private IEnumerator FeedbackRoutine(
         Color color,
@@ -595,6 +676,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         }
     }
 
+    // =====================================================
+    // RETURN ANIMATED
+    // =====================================================
+
     private void ReturnToStartAnimated()
     {
         if (rectTransform == null ||
@@ -631,6 +716,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             FinishAnimatedReturn
         );
     }
+
+    // =====================================================
+    // FINISH RETURN
+    // =====================================================
 
     private void FinishAnimatedReturn()
     {
@@ -677,6 +766,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
             0f
         );
     }
+
+    // =====================================================
+    // RETURN IMMEDIATE
+    // =====================================================
 
     private void ReturnToStart()
     {
@@ -730,12 +823,20 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
         );
     }
 
+    // =====================================================
+    // RESET FOR NEXT LABEL
+    // =====================================================
+
     public void ResetForNextLabel()
     {
         ReturnToStart();
 
         gameObject.SetActive(true);
     }
+
+    // =====================================================
+    // SET HOVER GLOW
+    // =====================================================
 
     private void SetHoverGlow(
         Color color,
@@ -758,6 +859,10 @@ public class HeartPuzzleDraggableLabel : MonoBehaviour,
                 finalColor;
         }
     }
+
+    // =====================================================
+    // DISABLE
+    // =====================================================
 
     private void OnDisable()
     {

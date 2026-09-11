@@ -27,34 +27,103 @@ public class OrganVitaminRewardManager : MonoBehaviour
             return 0;
         }
 
-        int difficulty = PlayerPrefs.GetInt("Difficulty", 1);
+        int difficulty = PlayerPrefs.GetInt(
+            "Difficulty",
+            1
+        );
 
-        string rewardKey = GetRewardKey(difficulty);
+        string rewardKey =
+            GetRewardKey(difficulty);
 
-        if (PlayerPrefs.GetInt(rewardKey, 0) == 1)
+        if (PlayerPrefs.GetInt(
+                rewardKey,
+                0
+            ) == 1)
         {
             Debug.Log(
-                "Наградата за този орган и тази трудност вече е получена."
+                "Наградата за този орган и тази трудност " +
+                "вече е получена."
             );
 
             return 0;
         }
 
-        int rewardAmount = GetRewardAmount(difficulty);
+        int rewardAmount =
+            GetRewardAmount(difficulty);
 
-        VitaminManager.Instance.AddVitamins(rewardAmount);
+        VitaminManager.Instance.AddVitamins(
+            rewardAmount
+        );
 
-        PlayerPrefs.SetInt(rewardKey, 1);
+        PlayerPrefs.SetInt(
+            rewardKey,
+            1
+        );
+
         PlayerPrefs.Save();
 
         Debug.Log(
-            "Получени витамини: " + rewardAmount
+            "Получени витамини: " +
+            rewardAmount
         );
 
         return rewardAmount;
     }
 
-    private int GetRewardAmount(int difficulty)
+    // =========================================================
+    // PREVIEW / DISPLAY
+    // =========================================================
+
+    public int GetAvailableReward()
+    {
+        int difficulty =
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
+
+        string rewardKey =
+            GetRewardKey(difficulty);
+
+        bool rewardAlreadyClaimed =
+            PlayerPrefs.GetInt(
+                rewardKey,
+                0
+            ) == 1;
+
+        if (rewardAlreadyClaimed)
+        {
+            return 0;
+        }
+
+        return GetRewardAmount(
+            difficulty
+        );
+    }
+
+    public bool IsRewardAlreadyClaimed()
+    {
+        int difficulty =
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
+
+        string rewardKey =
+            GetRewardKey(difficulty);
+
+        return PlayerPrefs.GetInt(
+            rewardKey,
+            0
+        ) == 1;
+    }
+
+    // =========================================================
+    // REWARD AMOUNT
+    // =========================================================
+
+    private int GetRewardAmount(
+        int difficulty)
     {
         switch (difficulty)
         {
@@ -72,7 +141,12 @@ public class OrganVitaminRewardManager : MonoBehaviour
         }
     }
 
-    private string GetRewardKey(int difficulty)
+    // =========================================================
+    // PLAYER PREFS KEY
+    // =========================================================
+
+    private string GetRewardKey(
+        int difficulty)
     {
         string difficultyName;
 

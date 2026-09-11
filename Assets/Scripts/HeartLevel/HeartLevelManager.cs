@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HeartLevelManager : MonoBehaviour
 {
@@ -177,6 +178,16 @@ public class HeartLevelManager : MonoBehaviour
         {
             finishPanel.SetActive(true);
         }
+    }
+
+    // =========================================================
+    // RESTART LEVEL
+    // =========================================================
+
+    public void RestartLevel()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
 
     // =========================================================
