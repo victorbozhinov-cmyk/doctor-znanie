@@ -9,8 +9,9 @@ public class LiverTheoryVideoController : MonoBehaviour
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private AudioSource videoAudioSource;
 
-    [Header("Next Panel")]
+    [Header("Puzzle")]
     [SerializeField] private GameObject puzzlePanel;
+    [SerializeField] private GameObject welcomeToPuzzlePanel;
 
     [Header("Shared Buttons")]
     [SerializeField] private GameObject backButton;
@@ -76,6 +77,11 @@ public class LiverTheoryVideoController : MonoBehaviour
             puzzlePanel.SetActive(false);
         }
 
+        if (welcomeToPuzzlePanel != null)
+        {
+            welcomeToPuzzlePanel.SetActive(false);
+        }
+
         if (videoPlayer == null)
         {
             return;
@@ -126,8 +132,6 @@ public class LiverTheoryVideoController : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Докато TheoryPanel е активен,
-        // тези два бутона винаги стоят скрити.
         if (theoryIsActive)
         {
             HideSharedButtons();
@@ -162,9 +166,46 @@ public class LiverTheoryVideoController : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // VIDEO MUSIC DUCKING
+    // =========================================================
+
+    private void DuckBackgroundMusic()
+    {
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .DuckMusicForVideo();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "MusicManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    private void RestoreBackgroundMusic()
+    {
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .RestoreMusicAfterVideo();
+        }
+    }
+
+    // =========================================================
+    // VIDEO EVENTS
+    // =========================================================
+
     private void OnVideoPrepared(VideoPlayer player)
     {
-        Debug.Log("Liver Theory: видеото е готово.");
+        Debug.Log(
+            "Liver Theory: видеото е готово."
+        );
+
+        DuckBackgroundMusic();
 
         player.Play();
     }
@@ -181,12 +222,36 @@ public class LiverTheoryVideoController : MonoBehaviour
 
         player.Stop();
 
-        // Първо връщаме бутоните за PuzzlePanel.
+        RestoreBackgroundMusic();
+
         ShowSharedButtons();
 
+        // Първо показваме самия PuzzlePanel.
         if (puzzlePanel != null)
         {
             puzzlePanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError(
+                "Liver Theory: PuzzlePanel не е свързан."
+            );
+        }
+
+        // След това Welcome панела върху него.
+        if (welcomeToPuzzlePanel != null)
+        {
+            welcomeToPuzzlePanel.SetActive(true);
+
+            // Понеже е отделен sibling под Canvas,
+            // го слагаме най-отгоре.
+            welcomeToPuzzlePanel.transform.SetAsLastSibling();
+        }
+        else
+        {
+            Debug.LogError(
+                "Liver Theory: WelcomeToPuzzlePanel не е свързан."
+            );
         }
 
         gameObject.SetActive(false);
@@ -197,6 +262,8 @@ public class LiverTheoryVideoController : MonoBehaviour
         string message
     )
     {
+        RestoreBackgroundMusic();
+
         Debug.LogError(
             "Грешка при пускане на Liver Theory видеото: " +
             message
@@ -212,18 +279,27 @@ public class LiverTheoryVideoController : MonoBehaviour
             videoPlayer.Stop();
         }
 
+        RestoreBackgroundMusic();
+
         ShowSharedButtons();
     }
 
     private void OnDestroy()
     {
+        RestoreBackgroundMusic();
+
         if (videoPlayer == null)
         {
             return;
         }
 
-        videoPlayer.prepareCompleted -= OnVideoPrepared;
-        videoPlayer.loopPointReached -= OnVideoFinished;
-        videoPlayer.errorReceived -= OnVideoError;
+        videoPlayer.prepareCompleted -=
+            OnVideoPrepared;
+
+        videoPlayer.loopPointReached -=
+            OnVideoFinished;
+
+        videoPlayer.errorReceived -=
+            OnVideoError;
     }
 }

@@ -347,7 +347,7 @@ MonoBehaviour:
   ecgSource: {fileID: 391827413}
   sfxSource: {fileID: 2029730386}
   ecgClip: {fileID: 8300000, guid: 6f8a231ca426ed148a67b639b23a9de9, type: 3}
-  ecgVolume: 0.5
+  ecgVolume: 0.85
   eventPopClip: {fileID: 8300000, guid: 9a014b5e0dc42e84e89603b856a38eab, type: 3}
   eventPopVolume: 0.2
 --- !u!1 &6452598
@@ -15713,7 +15713,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 180.6, y: -425.5}
+  m_AnchoredPosition: {x: 180.9, y: -421.9}
   m_SizeDelta: {x: 843.5, y: 196.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1194881579
