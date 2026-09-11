@@ -10735,8 +10735,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054ea08bbb0d088488ce7653ad6a6784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LungsPuzzlePopupController
-  startPanel: {fileID: 0}
-  puzzlePanel: {fileID: 0}
+  startPanel: {fileID: 890854618}
+  puzzlePanel: {fileID: 857504184}
   exitConfirmationPanel: {fileID: 889123406}
   settingsPanel: {fileID: 1203136067}
   gameOverPanel: {fileID: 773456984}
