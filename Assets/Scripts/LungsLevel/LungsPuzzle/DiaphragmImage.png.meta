@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 97dfd762aa8d8e3429fe469a2460e3ae
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8326986508748088573
+    second: DiaphragmImage_0
+  - first:
+      213: -5760011943712099053
+    second: DiaphragmImage_1
+  - first:
+      213: 1413265832267750552
+    second: DiaphragmImage_2
+  - first:
+      213: -4839231865175648899
+    second: DiaphragmImage_3
+  - first:
+      213: -1895958264466174923
+    second: DiaphragmImage_4
+  - first:
+      213: 1585969335804312874
+    second: DiaphragmImage_5
+  - first:
+      213: -2909406561629479067
+    second: DiaphragmImage_6
+  - first:
+      213: 4513551516947852167
+    second: DiaphragmImage_7
+  - first:
+      213: 7081540450968951227
+    second: DiaphragmImage_8
+  - first:
+      213: 6597422139810205511
+    second: DiaphragmImage_9
+  - first:
+      213: -6889959474100684587
+    second: DiaphragmImage_10
+  - first:
+      213: -2589424604972254656
+    second: DiaphragmImage_11
+  - first:
+      213: -7478189736887296795
+    second: DiaphragmImage_12
+  - first:
+      213: 8889760638748463203
+    second: DiaphragmImage_13
+  - first:
+      213: 6100455248387007207
+    second: DiaphragmImage_14
+  - first:
+      213: 1448112764668109552
+    second: DiaphragmImage_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DiaphragmImage_0
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 1026
+        width: 32
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30b999873e9907c80800000000000000
+      internalID: -8326986508748088573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_1
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 943
+        width: 142
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3157801b7a35010b0800000000000000
+      internalID: -5760011943712099053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_2
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 1004
+        width: 345
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c148169cdec9310800000000000000
+      internalID: 1413265832267750552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 24
+        width: 1448
+        height: 924
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d75547a024897dcb0800000000000000
+      internalID: -4839231865175648899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_4
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 925
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53c0781f00430b5e0800000000000000
+      internalID: -1895958264466174923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_5
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 930
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2d374545be720610800000000000000
+      internalID: 1585969335804312874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_6
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 915
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56f52ea9526bf97d0800000000000000
+      internalID: -2909406561629479067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_7
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 899
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78b2a1bd03b53ae30800000000000000
+      internalID: 4513551516947852167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_8
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 882
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb95092458fa64260800000000000000
+      internalID: 7081540450968951227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_9
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 177
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74f4fa44b70ce8b50800000000000000
+      internalID: 6597422139810205511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_10
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 145
+        width: 12
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d83465ec52f160a0800000000000000
+      internalID: -6889959474100684587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_11
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 159
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04af8f78a04801cd0800000000000000
+      internalID: -2589424604972254656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_12
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 171
+        width: 9
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ec5cd13e02283890800000000000000
+      internalID: -7478189736887296795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_13
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 137
+        width: 25
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3601ad27336ce5b70800000000000000
+      internalID: 8889760638748463203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_14
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 135
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e266401abb29a450800000000000000
+      internalID: 6100455248387007207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiaphragmImage_15
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 54
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f260c413eab81410800000000000000
+      internalID: 1448112764668109552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DiaphragmImage_0: -8326986508748088573
+      DiaphragmImage_1: -5760011943712099053
+      DiaphragmImage_10: -6889959474100684587
+      DiaphragmImage_11: -2589424604972254656
+      DiaphragmImage_12: -7478189736887296795
+      DiaphragmImage_13: 8889760638748463203
+      DiaphragmImage_14: 6100455248387007207
+      DiaphragmImage_15: 1448112764668109552
+      DiaphragmImage_2: 1413265832267750552
+      DiaphragmImage_3: -4839231865175648899
+      DiaphragmImage_4: -1895958264466174923
+      DiaphragmImage_5: 1585969335804312874
+      DiaphragmImage_6: -2909406561629479067
+      DiaphragmImage_7: 4513551516947852167
+      DiaphragmImage_8: 7081540450968951227
+      DiaphragmImage_9: 6597422139810205511
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

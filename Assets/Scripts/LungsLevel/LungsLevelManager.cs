@@ -18,6 +18,11 @@ public class LungsLevelManager : MonoBehaviour
         }
     }
 
+    public void BackToBodyMap()
+    {
+        SceneManager.LoadScene("BodyMap");
+    }
+
     public void CloseSettings()
     {
         if (settingsPanel != null)
