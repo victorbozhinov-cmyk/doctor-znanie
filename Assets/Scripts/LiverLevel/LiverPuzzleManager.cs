@@ -116,13 +116,6 @@ public class LiverPuzzleManager : MonoBehaviour
             return;
         }
 
-        /*
-         * Wrong звукът се пуска веднага,
-         * но НЕ и ако това е последният живот.
-         *
-         * При последния живот следва
-         * Game Over feedback звукът.
-         */
         PlayWrongSoundIfNotGameOver();
 
         int heartIndexToRemove =
@@ -180,11 +173,6 @@ public class LiverPuzzleManager : MonoBehaviour
 
     private IEnumerator ShowGameOverPanel()
     {
-        /*
-         * Даваме време на последната
-         * грешна карта да завърши
-         * червеното сияние и разклащането.
-         */
         yield return new WaitForSeconds(
             gameOverDelay
         );
@@ -214,13 +202,6 @@ public class LiverPuzzleManager : MonoBehaviour
             return;
         }
 
-        /*
-         * Correct звукът се пуска
-         * веднага при правилния drop.
-         *
-         * ВАЖНО:
-         * Пуска се и за последната карта.
-         */
         PlayCorrectSound();
 
         correctCards++;
@@ -235,6 +216,8 @@ public class LiverPuzzleManager : MonoBehaviour
         if (correctCards >= totalCards)
         {
             puzzleCompleted = true;
+
+            SubmitPuzzleScore();
 
             StartCoroutine(
                 ShowSuccessPanel()
@@ -260,19 +243,38 @@ public class LiverPuzzleManager : MonoBehaviour
     }
 
     // =========================================================
+    // SCORE
+    // =========================================================
+
+    private void SubmitPuzzleScore()
+    {
+        if (LiverScoreManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "LiverScoreManager.Instance липсва. " +
+                "Резултатът от Liver Puzzle не беше записан."
+            );
+
+            return;
+        }
+
+        LiverScoreManager.Instance.SubmitPuzzleResult(
+            currentLives,
+            maxLives
+        );
+
+        Debug.Log(
+            $"Liver Puzzle Score submitted | " +
+            $"Lives: {currentLives}/{maxLives}"
+        );
+    }
+
+    // =========================================================
     // SUCCESS
     // =========================================================
 
     private IEnumerator ShowSuccessPanel()
     {
-        /*
-         * Correct звукът вече е прозвучал
-         * веднага при drop-а.
-         *
-         * Изчакваме зелената анимация,
-         * след което Success Panel
-         * пуска глобалния Success звук.
-         */
         yield return new WaitForSeconds(
             0.5f
         );

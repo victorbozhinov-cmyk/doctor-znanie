@@ -7,7 +7,8 @@ public class FinishLevelRewardButton : MonoBehaviour
     {
         Heart,
         Stomach,
-        Brain
+        Brain,
+        Liver
     }
 
     // =====================================================
@@ -86,6 +87,10 @@ public class FinishLevelRewardButton : MonoBehaviour
 
             case LevelOrgan.Brain:
                 SaveBrainScore();
+                break;
+
+            case LevelOrgan.Liver:
+                SaveLiverScore();
                 break;
 
             default:
@@ -203,6 +208,43 @@ public class FinishLevelRewardButton : MonoBehaviour
         {
             Debug.Log(
                 "Brain Best Score не е подобрен."
+            );
+        }
+    }
+
+    // =====================================================
+    // LIVER
+    // =====================================================
+
+    private void SaveLiverScore()
+    {
+        if (LiverScoreManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "LiverScoreManager.Instance липсва. " +
+                "Liver антителата не могат да бъдат записани."
+            );
+
+            return;
+        }
+
+        LiverScoreManager.Instance.FinishLiverLevel();
+
+        Debug.Log(
+            "Liver Current Score: "
+            + LiverScoreManager.Instance.CurrentScore
+        );
+
+        if (LiverScoreManager.Instance.IsNewBest)
+        {
+            Debug.Log(
+                "Нов Liver Best Score!"
+            );
+        }
+        else
+        {
+            Debug.Log(
+                "Liver Best Score не е подобрен."
             );
         }
     }

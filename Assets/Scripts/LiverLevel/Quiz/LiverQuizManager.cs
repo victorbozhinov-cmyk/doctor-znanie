@@ -158,7 +158,10 @@ public class LiverQuizManager : MonoBehaviour
     [SerializeField] private float wrongAnswerLockDuration = 0.6f;
 
     private int currentQuestionIndex = 0;
+
     private int currentLives;
+    private int startingLives;
+
     private int remainingHints;
     private int maxHints;
 
@@ -306,7 +309,6 @@ public class LiverQuizManager : MonoBehaviour
 
         switch (difficulty)
         {
-            // EASY = 6
             case 0:
                 AddQuestions(multiple, 3);
                 AddQuestions(questionImages, 1);
@@ -314,7 +316,6 @@ public class LiverQuizManager : MonoBehaviour
                 AddQuestions(written, 1);
                 break;
 
-            // HARD = 10
             case 2:
                 AddQuestions(multiple, 4);
                 AddQuestions(questionImages, 2);
@@ -322,7 +323,6 @@ public class LiverQuizManager : MonoBehaviour
                 AddQuestions(written, 2);
                 break;
 
-            // MEDIUM = 8
             default:
                 AddQuestions(multiple, 3);
                 AddQuestions(questionImages, 2);
@@ -700,10 +700,6 @@ public class LiverQuizManager : MonoBehaviour
 
         bool isCorrect = false;
 
-        // =========================
-        // ОСНОВЕН ВЕРЕН ОТГОВОР
-        // =========================
-
         string mainCorrectAnswer =
             NormalizeWrittenAnswer(
                 currentQuestion.correctWrittenAnswer
@@ -714,10 +710,6 @@ public class LiverQuizManager : MonoBehaviour
         {
             isCorrect = true;
         }
-
-        // =========================
-        // АЛТЕРНАТИВНИ ВЕРНИ ОТГОВОРИ
-        // =========================
 
         if (!isCorrect &&
             currentQuestion.alternativeWrittenAnswers != null)
@@ -744,10 +736,6 @@ public class LiverQuizManager : MonoBehaviour
                 }
             }
         }
-
-        // =========================
-        // РЕЗУЛТАТ
-        // =========================
 
         if (isCorrect)
         {
@@ -802,7 +790,6 @@ public class LiverQuizManager : MonoBehaviour
                 .PlayCorrect();
         }
 
-        // Correct звукът е веднага.
         PlayCorrectSound();
 
         StartCoroutine(
@@ -826,6 +813,9 @@ public class LiverQuizManager : MonoBehaviour
         {
             writtenInputField.interactable =
                 false;
+
+            // Изчистваме грешния писмен отговор.
+            writtenInputField.text = "";
         }
 
         if (writtenCheckButton != null)
@@ -836,11 +826,9 @@ public class LiverQuizManager : MonoBehaviour
 
         if (writtenCheckFeedback != null)
         {
-            writtenCheckFeedback
-                .PlayWrong();
+            writtenCheckFeedback.PlayWrong();
         }
 
-        // Wrong няма при последния живот.
         PlayWrongSoundIfNotGameOver();
 
         LoseLife();
@@ -915,7 +903,6 @@ public class LiverQuizManager : MonoBehaviour
             feedback.PlayCorrect();
         }
 
-        // Correct звукът е веднага.
         PlayCorrectSound();
 
         StartCoroutine(
@@ -941,7 +928,6 @@ public class LiverQuizManager : MonoBehaviour
             feedback.PlayWrong();
         }
 
-        // Wrong няма при последния живот.
         PlayWrongSoundIfNotGameOver();
 
         LoseLife();
@@ -977,13 +963,6 @@ public class LiverQuizManager : MonoBehaviour
 
     private void PlayWrongSoundIfNotGameOver()
     {
-        /*
-         * Проверяваме живота ПРЕДИ LoseLife().
-         *
-         * Ако е останал само 1 живот,
-         * следва Game Over и Wrong звук
-         * не трябва да се застъпва с него.
-         */
         if (currentLives <= 1)
         {
             return;
@@ -1059,6 +1038,9 @@ public class LiverQuizManager : MonoBehaviour
                 currentLives = 2;
                 break;
         }
+
+        // Запомняме началните животи за точковата система.
+        startingLives = currentLives;
 
         for (int i = 0;
              i < lifeHearts.Length;
@@ -1309,18 +1291,14 @@ public class LiverQuizManager : MonoBehaviour
             if (buttonEnabled)
             {
                 if (activeHintSprite != null)
-                {
                     hintButtonImage.sprite =
                         activeHintSprite;
-                }
             }
             else
             {
                 if (disabledHintSprite != null)
-                {
                     hintButtonImage.sprite =
                         disabledHintSprite;
-                }
             }
 
             RectTransform hintRect =
@@ -1473,9 +1451,7 @@ public class LiverQuizManager : MonoBehaviour
     {
         if (settingsOverlay != null)
         {
-            settingsOverlay.SetActive(
-                false
-            );
+            settingsOverlay.SetActive(false);
         }
 
         isSettingsOpen = false;
@@ -1498,8 +1474,7 @@ public class LiverQuizManager : MonoBehaviour
 
         if (exitConfirmationOverlay != null)
         {
-            exitConfirmationOverlay
-                .SetActive(true);
+            exitConfirmationOverlay.SetActive(true);
         }
     }
 
@@ -1507,8 +1482,7 @@ public class LiverQuizManager : MonoBehaviour
     {
         if (exitConfirmationOverlay != null)
         {
-            exitConfirmationOverlay
-                .SetActive(false);
+            exitConfirmationOverlay.SetActive(false);
         }
     }
 
@@ -1521,6 +1495,31 @@ public class LiverQuizManager : MonoBehaviour
         Debug.Log(
             "Куизът приключи успешно!"
         );
+
+        // Записваме резултата от Quiz-а
+        // само при успешно завършване.
+        if (LiverScoreManager.Instance != null)
+        {
+            LiverScoreManager.Instance.SubmitQuizResult(
+                currentLives,
+                startingLives,
+                remainingHints,
+                maxHints
+            );
+
+            Debug.Log(
+                $"Liver Quiz Score submitted | " +
+                $"Lives: {currentLives}/{startingLives} | " +
+                $"Hints: {remainingHints}/{maxHints}"
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "LiverScoreManager.Instance липсва. " +
+                "Резултатът от Liver Quiz не беше записан."
+            );
+        }
 
         isQuizCompleted = true;
         isChangingQuestion = false;

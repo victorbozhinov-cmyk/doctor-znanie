@@ -52,6 +52,19 @@ public class LiverMinigamePenaltyController : MonoBehaviour
     [SerializeField] private float hardTimePenalty = 4f;
     [SerializeField] private float hardStunDuration = 1f;
 
+    // =========================================================
+    // PENALTY TRACKING
+    // =========================================================
+
+    private float totalPenaltyTime = 0f;
+
+    public float TotalPenaltyTime =>
+        totalPenaltyTime;
+
+    // =========================================================
+    // INTERNAL
+    // =========================================================
+
     private bool isStunned = false;
 
     private Coroutine stunCoroutine;
@@ -72,6 +85,8 @@ public class LiverMinigamePenaltyController : MonoBehaviour
 
     private void Awake()
     {
+        totalPenaltyTime = 0f;
+
         if (stunStarsRoot != null)
         {
             stunStarsRoot.SetActive(false);
@@ -106,9 +121,19 @@ public class LiverMinigamePenaltyController : MonoBehaviour
             out float stunDuration
         );
 
-        if (timer != null)
+        if (timer != null &&
+            !timer.IsFinished)
         {
             timer.AddTime(timePenalty);
+
+            // Запомняме общото наказателно време
+            // за точковата система.
+            totalPenaltyTime += timePenalty;
+
+            Debug.Log(
+                $"Liver Minigame Total Penalty Time: " +
+                $"{totalPenaltyTime:0.0} sec."
+            );
         }
 
         ShowTimePenaltyPopup(timePenalty);
@@ -120,6 +145,19 @@ public class LiverMinigamePenaltyController : MonoBehaviour
                     StunDoctor(stunDuration)
                 );
         }
+    }
+
+    // =========================================================
+    // RESET PENALTY TRACKING
+    // =========================================================
+
+    public void ResetPenaltyTracking()
+    {
+        totalPenaltyTime = 0f;
+
+        Debug.Log(
+            "Liver Minigame penalty tracking reset."
+        );
     }
 
     // =========================================================
@@ -166,9 +204,6 @@ public class LiverMinigamePenaltyController : MonoBehaviour
             doctorMovement.enabled = false;
         }
 
-        // ВАЖНО:
-        // Запомняме позицията точно в момента,
-        // в който докторът е stun-нат.
         if (doctorTransform != null)
         {
             doctorStunStartPosition =
@@ -192,7 +227,6 @@ public class LiverMinigamePenaltyController : MonoBehaviour
 
         ShowStunStars();
 
-        // Пада по дупе на ТЕКУЩОТО място.
         yield return StartCoroutine(
             AnimateDoctorFall()
         );
@@ -214,7 +248,6 @@ public class LiverMinigamePenaltyController : MonoBehaviour
 
         HideStunStars();
 
-        // Изправя се пак на същото място.
         yield return StartCoroutine(
             AnimateDoctorRecover()
         );
