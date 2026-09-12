@@ -1509,6 +1509,29 @@ public class BrainMinigameManager : MonoBehaviour
         minigameStarted = false;
         isPaused = false;
 
+        // Записваме представянето от минииграта
+        // според останалото нервно напрежение.
+        if (BrainScoreManager.Instance != null)
+        {
+            BrainScoreManager.Instance.SubmitMinigameResult(
+                nervousTension,
+                100f
+            );
+
+            Debug.Log(
+                $"Brain Minigame Score submitted. " +
+                $"Nervous Tension: {nervousTension:F1}% | " +
+                $"Performance: {(100f - nervousTension):F1}%"
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "BrainScoreManager.Instance липсва. " +
+                "Резултатът от Brain Minigame не беше записан."
+            );
+        }
+
         if (spawnCoroutine != null)
         {
             StopCoroutine(spawnCoroutine);
