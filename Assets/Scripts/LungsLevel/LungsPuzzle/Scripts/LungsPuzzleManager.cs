@@ -545,6 +545,13 @@ public class LungsPuzzleManager : MonoBehaviour
             currentItem
                 .placedVisual
                 .SetActive(true);
+            LungsPuzzleFeedbackFlash correctFlash =
+    currentItem.placedVisual.GetComponent<LungsPuzzleFeedbackFlash>();
+
+            if (correctFlash != null)
+            {
+                correctFlash.FlashCorrect();
+            }
         }
 
         onCorrectPlacement?.Invoke();
@@ -562,6 +569,25 @@ public class LungsPuzzleManager : MonoBehaviour
     {
         if (!PuzzleActive)
             return;
+        LungsPuzzleFeedbackFlash wrongFlash = null;
+
+        if (partImage != null &&
+            partImage.gameObject.activeSelf)
+        {
+            wrongFlash =
+                partImage.GetComponent<LungsPuzzleFeedbackFlash>();
+        }
+        else if (labelImage != null &&
+                 labelImage.gameObject.activeSelf)
+        {
+            wrongFlash =
+                labelImage.GetComponent<LungsPuzzleFeedbackFlash>();
+        }
+
+        if (wrongFlash != null)
+        {
+            wrongFlash.FlashWrong();
+        }
 
         onWrongPlacement?.Invoke();
 

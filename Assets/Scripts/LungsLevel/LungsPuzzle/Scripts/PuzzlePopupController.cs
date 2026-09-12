@@ -11,7 +11,8 @@ public class LungsPuzzlePopupController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private GameObject settingsPanel;
-
+    [Header("Success")]
+    [SerializeField] private GameObject successPanel;
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private LungsPuzzleManager puzzleManager;
@@ -59,7 +60,13 @@ public class LungsPuzzlePopupController : MonoBehaviour
     // =====================================================
     // GAME OVER
     // =====================================================
+    public void OpenSuccess()
+    {
+        if (successPanel == null)
+            return;
 
+        successPanel.SetActive(true);
+    }
     public void OpenGameOver()
     {
         if (gameOverPanel == null)
