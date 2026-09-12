@@ -160,7 +160,10 @@ public class BrainQuizManager : MonoBehaviour
     [SerializeField] private float wrongAnswerLockDuration = 0.6f;
 
     private int currentQuestionIndex = 0;
+
     private int currentLives;
+    private int startingLives;
+
     private int remainingHints;
     private int maxHints;
 
@@ -950,6 +953,8 @@ public class BrainQuizManager : MonoBehaviour
                 break;
         }
 
+        startingLives = currentLives;
+
         for (int i = 0;
              i < lifeHearts.Length;
              i++)
@@ -1578,6 +1583,30 @@ public class BrainQuizManager : MonoBehaviour
 
         isQuizCompleted = true;
         isChangingQuestion = false;
+
+        // Записваме резултата от Quiz-а.
+        if (BrainScoreManager.Instance != null)
+        {
+            BrainScoreManager.Instance.SubmitQuizResult(
+                currentLives,
+                startingLives,
+                remainingHints,
+                maxHints
+            );
+
+            Debug.Log(
+                $"Brain Quiz Score submitted | " +
+                $"Lives: {currentLives}/{startingLives} | " +
+                $"Hints: {remainingHints}/{maxHints}"
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "BrainScoreManager.Instance липсва. " +
+                "Резултатът от Brain Quiz не беше записан."
+            );
+        }
 
         isInfoOpen = false;
         isSettingsOpen = false;

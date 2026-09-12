@@ -6,7 +6,8 @@ public class FinishLevelRewardButton : MonoBehaviour
     public enum LevelOrgan
     {
         Heart,
-        Stomach
+        Stomach,
+        Brain
     }
 
     // =====================================================
@@ -81,6 +82,10 @@ public class FinishLevelRewardButton : MonoBehaviour
 
             case LevelOrgan.Stomach:
                 SaveStomachScore();
+                break;
+
+            case LevelOrgan.Brain:
+                SaveBrainScore();
                 break;
 
             default:
@@ -161,6 +166,43 @@ public class FinishLevelRewardButton : MonoBehaviour
         {
             Debug.Log(
                 "Stomach Best Score не е подобрен."
+            );
+        }
+    }
+
+    // =====================================================
+    // BRAIN
+    // =====================================================
+
+    private void SaveBrainScore()
+    {
+        if (BrainScoreManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "BrainScoreManager.Instance липсва. " +
+                "Brain антителата не могат да бъдат записани."
+            );
+
+            return;
+        }
+
+        BrainScoreManager.Instance.FinishBrainLevel();
+
+        Debug.Log(
+            "Brain Current Score: "
+            + BrainScoreManager.Instance.CurrentScore
+        );
+
+        if (BrainScoreManager.Instance.IsNewBest)
+        {
+            Debug.Log(
+                "Нов Brain Best Score!"
+            );
+        }
+        else
+        {
+            Debug.Log(
+                "Brain Best Score не е подобрен."
             );
         }
     }

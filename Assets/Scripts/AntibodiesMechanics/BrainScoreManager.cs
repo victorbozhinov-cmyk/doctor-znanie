@@ -1,57 +1,17 @@
 using UnityEngine;
 
-public class StomachScoreManager : MonoBehaviour
+public class BrainScoreManager : MonoBehaviour
 {
-    public static StomachScoreManager Instance { get; private set; }
-
-    // =========================================================
-    // SCORE WEIGHTS
-    // =========================================================
+    public static BrainScoreManager Instance { get; private set; }
 
     [Header("Score Weights")]
-    [SerializeField, Range(0f, 1f)]
-    private float puzzleWeight = 0.30f;
-
-    [SerializeField, Range(0f, 1f)]
-    private float minigameWeight = 0.30f;
-
-    [SerializeField, Range(0f, 1f)]
-    private float quizWeight = 0.40f;
-
-    // =========================================================
-    // QUIZ
-    // =========================================================
+    [SerializeField, Range(0f, 1f)] private float puzzleWeight = 0.30f;
+    [SerializeField, Range(0f, 1f)] private float minigameWeight = 0.30f;
+    [SerializeField, Range(0f, 1f)] private float quizWeight = 0.40f;
 
     [Header("Quiz Calculation")]
-    [SerializeField, Range(0f, 1f)]
-    private float quizLivesWeight = 0.80f;
-
-    [SerializeField, Range(0f, 1f)]
-    private float quizHintsWeight = 0.20f;
-
-    // =========================================================
-    // MINIGAME
-    // =========================================================
-
-    [Header("Minigame Time Calculation")]
-
-    [Tooltip(
-        "Минималната част от Minigame точките, " +
-        "която се получава само за успешно завършване."
-    )]
-    [SerializeField, Range(0f, 1f)]
-    private float minigameBasePerformance = 0.50f;
-
-    [Tooltip(
-        "Ако играчът има поне този процент от времето, " +
-        "получава 100% Minigame резултат."
-    )]
-    [SerializeField, Range(0.01f, 1f)]
-    private float perfectTimeThreshold = 0.50f;
-
-    // =========================================================
-    // CURRENT RUN
-    // =========================================================
+    [SerializeField, Range(0f, 1f)] private float quizLivesWeight = 0.80f;
+    [SerializeField, Range(0f, 1f)] private float quizHintsWeight = 0.20f;
 
     private float puzzlePerformance;
     private float minigamePerformance;
@@ -64,33 +24,16 @@ public class StomachScoreManager : MonoBehaviour
     private int currentScore;
     private bool isNewBest;
 
-    // =========================================================
-    // PUBLIC VALUES
-    // =========================================================
+    public float PuzzlePerformance => puzzlePerformance;
+    public float MinigamePerformance => minigamePerformance;
+    public float QuizPerformance => quizPerformance;
 
-    public float PuzzlePerformance =>
-        puzzlePerformance;
-
-    public float MinigamePerformance =>
-        minigamePerformance;
-
-    public float QuizPerformance =>
-        quizPerformance;
-
-    public int CurrentScore =>
-        currentScore;
-
-    public bool IsNewBest =>
-        isNewBest;
-
-    // =========================================================
-    // AWAKE
-    // =========================================================
+    public int CurrentScore => currentScore;
+    public bool IsNewBest => isNewBest;
 
     private void Awake()
     {
-        if (Instance != null &&
-            Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -111,22 +54,14 @@ public class StomachScoreManager : MonoBehaviour
         {
             puzzlePerformance = 0f;
             puzzleCompleted = true;
-
             return;
         }
 
-        puzzlePerformance =
-            Mathf.Clamp01(
-                (float)remainingLives /
-                startingLives
-            );
+        puzzlePerformance = Mathf.Clamp01(
+            (float)remainingLives / startingLives
+        );
 
         puzzleCompleted = true;
-
-        Debug.Log(
-            $"Stomach Puzzle Performance: " +
-            $"{puzzlePerformance:P0}"
-        );
     }
 
     // =========================================================
@@ -134,52 +69,24 @@ public class StomachScoreManager : MonoBehaviour
     // =========================================================
 
     public void SubmitMinigameResult(
-        float remainingTime,
-        float startingTime)
+        float currentNervousTension,
+        float maxNervousTension)
     {
-        if (startingTime <= 0f)
+        if (maxNervousTension <= 0f)
         {
-            minigamePerformance =
-                minigameBasePerformance;
-
+            minigamePerformance = 0f;
             minigameCompleted = true;
-
             return;
         }
 
-        float remainingTimePercent =
+        float tensionPerformance =
             Mathf.Clamp01(
-                remainingTime /
-                startingTime
+                currentNervousTension /
+                maxNervousTension
             );
 
-        // Ако са останали поне 50% от началното време,
-        // играчът получава максимален Minigame резултат.
-        if (remainingTimePercent >=
-            perfectTimeThreshold)
-        {
-            minigamePerformance = 1f;
-        }
-        else
-        {
-            // Преобразуваме оставащото време
-            // от диапазона 0% - 50%
-            // в стойност 0 - 1.
-            float normalizedTime =
-                Mathf.Clamp01(
-                    remainingTimePercent /
-                    perfectTimeThreshold
-                );
-
-            // 50% базов резултат +
-            // до още 50% според времето.
-            minigamePerformance =
-                Mathf.Lerp(
-                    minigameBasePerformance,
-                    1f,
-                    normalizedTime
-                );
-        }
+        minigamePerformance =
+            1f - tensionPerformance;
 
         minigamePerformance =
             Mathf.Clamp01(
@@ -187,14 +94,6 @@ public class StomachScoreManager : MonoBehaviour
             );
 
         minigameCompleted = true;
-
-        Debug.Log(
-            $"Stomach Minigame | " +
-            $"Remaining Time: " +
-            $"{remainingTime:0.0}/{startingTime:0.0} | " +
-            $"Performance: " +
-            $"{minigamePerformance:P0}"
-        );
     }
 
     // =========================================================
@@ -229,11 +128,8 @@ public class StomachScoreManager : MonoBehaviour
         }
 
         quizPerformance =
-            (livesPerformance *
-             quizLivesWeight)
-            +
-            (hintsPerformance *
-             quizHintsWeight);
+            (livesPerformance * quizLivesWeight) +
+            (hintsPerformance * quizHintsWeight);
 
         quizPerformance =
             Mathf.Clamp01(
@@ -241,13 +137,6 @@ public class StomachScoreManager : MonoBehaviour
             );
 
         quizCompleted = true;
-
-        Debug.Log(
-            $"Stomach Quiz | " +
-            $"Lives: {remainingLives}/{startingLives} | " +
-            $"Hints: {remainingHints}/{startingHints} | " +
-            $"Performance: {quizPerformance:P0}"
-        );
     }
 
     // =========================================================
@@ -257,14 +146,9 @@ public class StomachScoreManager : MonoBehaviour
     public int CalculateFinalScore()
     {
         float overallPerformance =
-            (puzzlePerformance *
-             puzzleWeight)
-            +
-            (minigamePerformance *
-             minigameWeight)
-            +
-            (quizPerformance *
-             quizWeight);
+            (puzzlePerformance * puzzleWeight) +
+            (minigamePerformance * minigameWeight) +
+            (quizPerformance * quizWeight);
 
         overallPerformance =
             Mathf.Clamp01(
@@ -318,7 +202,7 @@ public class StomachScoreManager : MonoBehaviour
         return currentScore;
     }
 
-    public void FinishStomachLevel()
+    public void FinishBrainLevel()
     {
         currentScore =
             CalculateFinalScore();
@@ -327,7 +211,7 @@ public class StomachScoreManager : MonoBehaviour
         {
             Debug.LogWarning(
                 "AntibodyManager.Instance липсва. " +
-                "Stomach score не може да бъде записан."
+                "Brain score не може да бъде записан."
             );
 
             return;
@@ -335,14 +219,14 @@ public class StomachScoreManager : MonoBehaviour
 
         isNewBest =
             AntibodyManager.Instance.SubmitScore(
-                AntibodyManager.OrganType.Stomach,
+                AntibodyManager.OrganType.Brain,
                 currentScore
             );
 
         Debug.Log(
-            $"Stomach Current Score: {currentScore} | " +
-            $"Stomach Best Score: " +
-            $"{AntibodyManager.Instance.StomachBestScore} | " +
+            $"Brain Current Score: {currentScore} | " +
+            $"Brain Best Score: " +
+            $"{AntibodyManager.Instance.BrainBestScore} | " +
             $"New Best: {isNewBest}"
         );
     }
@@ -419,9 +303,8 @@ public class StomachScoreManager : MonoBehaviour
 
     public bool AreAllSectionsCompleted()
     {
-        return
-            puzzleCompleted &&
-            minigameCompleted &&
-            quizCompleted;
+        return puzzleCompleted &&
+               minigameCompleted &&
+               quizCompleted;
     }
 }

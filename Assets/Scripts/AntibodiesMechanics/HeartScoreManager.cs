@@ -46,7 +46,9 @@ public class HeartScoreManager : MonoBehaviour
     // PUZZLE
     // =========================================================
 
-    public void SubmitPuzzleResult(int remainingLives, int startingLives)
+    public void SubmitPuzzleResult(
+        int remainingLives,
+        int startingLives)
     {
         if (startingLives <= 0)
         {
@@ -66,7 +68,9 @@ public class HeartScoreManager : MonoBehaviour
     // MINIGAME
     // =========================================================
 
-    public void SubmitMinigameResult(int remainingLives, int startingLives)
+    public void SubmitMinigameResult(
+        int remainingLives,
+        int startingLives)
     {
         if (startingLives <= 0)
         {
@@ -113,7 +117,8 @@ public class HeartScoreManager : MonoBehaviour
             (livesPerformance * quizLivesWeight) +
             (hintsPerformance * quizHintsWeight);
 
-        quizPerformance = Mathf.Clamp01(quizPerformance);
+        quizPerformance =
+            Mathf.Clamp01(quizPerformance);
 
         quizCompleted = true;
     }
@@ -129,20 +134,60 @@ public class HeartScoreManager : MonoBehaviour
             (minigamePerformance * minigameWeight) +
             (quizPerformance * quizWeight);
 
-        overallPerformance = Mathf.Clamp01(overallPerformance);
+        overallPerformance =
+            Mathf.Clamp01(overallPerformance);
 
-        int maxScore = GetMaxScoreForCurrentDifficulty();
+        int difficulty =
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
-        currentScore = Mathf.RoundToInt(
-            maxScore * overallPerformance
-        );
+        int minScore;
+        int maxScore;
+
+        switch (difficulty)
+        {
+            // EASY
+            case 0:
+                minScore = 0;
+                maxScore = 1000;
+                break;
+
+            // MEDIUM
+            case 1:
+                minScore = 1001;
+                maxScore = 1500;
+                break;
+
+            // HARD
+            case 2:
+                minScore = 1501;
+                maxScore = 2000;
+                break;
+
+            default:
+                minScore = 1001;
+                maxScore = 1500;
+                break;
+        }
+
+        currentScore =
+            Mathf.RoundToInt(
+                Mathf.Lerp(
+                    minScore,
+                    maxScore,
+                    overallPerformance
+                )
+            );
 
         return currentScore;
     }
 
     public void FinishHeartLevel()
     {
-        currentScore = CalculateFinalScore();
+        currentScore =
+            CalculateFinalScore();
 
         if (AntibodyManager.Instance == null)
         {
@@ -154,10 +199,11 @@ public class HeartScoreManager : MonoBehaviour
             return;
         }
 
-        isNewBest = AntibodyManager.Instance.SubmitScore(
-            AntibodyManager.OrganType.Heart,
-            currentScore
-        );
+        isNewBest =
+            AntibodyManager.Instance.SubmitScore(
+                AntibodyManager.OrganType.Heart,
+                currentScore
+            );
 
         Debug.Log(
             $"Heart Current Score: {currentScore} | " +
@@ -171,29 +217,13 @@ public class HeartScoreManager : MonoBehaviour
     // DIFFICULTY
     // =========================================================
 
-    private int GetMaxScoreForCurrentDifficulty()
-    {
-        int difficulty = PlayerPrefs.GetInt("Difficulty", 1);
-
-        switch (difficulty)
-        {
-            case 0:
-                return 1000;
-
-            case 1:
-                return 1500;
-
-            case 2:
-                return 2000;
-
-            default:
-                return 1500;
-        }
-    }
-
     public int GetStartingLivesForCurrentDifficulty()
     {
-        int difficulty = PlayerPrefs.GetInt("Difficulty", 1);
+        int difficulty =
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
         switch (difficulty)
         {
@@ -213,7 +243,11 @@ public class HeartScoreManager : MonoBehaviour
 
     public int GetStartingHintsForCurrentDifficulty()
     {
-        int difficulty = PlayerPrefs.GetInt("Difficulty", 1);
+        int difficulty =
+            PlayerPrefs.GetInt(
+                "Difficulty",
+                1
+            );
 
         switch (difficulty)
         {

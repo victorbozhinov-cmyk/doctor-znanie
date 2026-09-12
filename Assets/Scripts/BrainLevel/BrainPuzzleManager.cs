@@ -55,7 +55,9 @@ public class BrainPuzzleManager : MonoBehaviour
         new List<BrainPartType>();
 
     private int currentIndex;
+
     private int currentLives;
+    private int startingLives;
 
     private bool puzzleCompleted;
     private bool gameOver;
@@ -540,6 +542,9 @@ public class BrainPuzzleManager : MonoBehaviour
                 currentLives = 2;
                 break;
         }
+
+        // Запомняме с колко живота е започнал пъзелът.
+        startingLives = currentLives;
 
         // Подреждаме сърцата винаги като:
         // LifeHeart1, LifeHeart2, LifeHeart3.
@@ -1046,6 +1051,27 @@ public class BrainPuzzleManager : MonoBehaviour
     private void CompletePuzzle()
     {
         puzzleCompleted = true;
+
+        // Записваме представянето от пъзела.
+        if (BrainScoreManager.Instance != null)
+        {
+            BrainScoreManager.Instance.SubmitPuzzleResult(
+                currentLives,
+                startingLives
+            );
+
+            Debug.Log(
+                $"Brain Puzzle Score submitted: " +
+                $"{currentLives}/{startingLives} lives remaining."
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "BrainScoreManager.Instance липсва. " +
+                "Резултатът от Brain Puzzle не беше записан."
+            );
+        }
 
         CloseAllMenusImmediately();
 
