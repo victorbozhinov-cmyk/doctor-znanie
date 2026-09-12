@@ -689,14 +689,7 @@ public class LiverQuizManager : MonoBehaviour
                 writtenInputField.text
             );
 
-        string correctAnswer =
-            NormalizeWrittenAnswer(
-                currentQuestion
-                    .correctWrittenAnswer
-            );
-
-        if (string.IsNullOrEmpty(
-                playerAnswer))
+        if (string.IsNullOrEmpty(playerAnswer))
         {
             Debug.Log(
                 "Играчът не е въвел отговор."
@@ -705,7 +698,58 @@ public class LiverQuizManager : MonoBehaviour
             return;
         }
 
-        if (playerAnswer == correctAnswer)
+        bool isCorrect = false;
+
+        // =========================
+        // ОСНОВЕН ВЕРЕН ОТГОВОР
+        // =========================
+
+        string mainCorrectAnswer =
+            NormalizeWrittenAnswer(
+                currentQuestion.correctWrittenAnswer
+            );
+
+        if (!string.IsNullOrEmpty(mainCorrectAnswer) &&
+            playerAnswer == mainCorrectAnswer)
+        {
+            isCorrect = true;
+        }
+
+        // =========================
+        // АЛТЕРНАТИВНИ ВЕРНИ ОТГОВОРИ
+        // =========================
+
+        if (!isCorrect &&
+            currentQuestion.alternativeWrittenAnswers != null)
+        {
+            foreach (string alternativeAnswer in
+                     currentQuestion.alternativeWrittenAnswers)
+            {
+                string normalizedAlternative =
+                    NormalizeWrittenAnswer(
+                        alternativeAnswer
+                    );
+
+                if (string.IsNullOrEmpty(
+                        normalizedAlternative))
+                {
+                    continue;
+                }
+
+                if (playerAnswer ==
+                    normalizedAlternative)
+                {
+                    isCorrect = true;
+                    break;
+                }
+            }
+        }
+
+        // =========================
+        // РЕЗУЛТАТ
+        // =========================
+
+        if (isCorrect)
         {
             HandleWrittenCorrectAnswer();
         }

@@ -516,9 +516,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 576295286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 37.444504, y: -50.028175}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &18139756
@@ -4214,9 +4214,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 576295286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 163.4445, y: -50.028175}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &292925832
@@ -7034,7 +7034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &606980734
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9858,9 +9858,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 576295286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100.4445, y: -50.028175}
   m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &809150944
@@ -10217,6 +10217,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u043A\u043E\u044F \u0442\u0435\u0447\u043D\u043E\u0441\u0442
       \u0441\u0432\u044A\u0440\u0437\u0432\u0430\u043C\u0435 \u0441 \u0440\u0430\u0431\u043E\u0442\u0430\u0442\u0430
       \u043D\u0430 \u0447\u0435\u0440\u043D\u0438\u044F \u0434\u0440\u043E\u0431,
@@ -10238,6 +10239,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u044A\u0442 \u043C\u043E\u0436\u0435
       \u0434\u0430 \u0437\u0430\u043F\u0430\u0437\u0438 \u0447\u0430\u0441\u0442
       \u043E\u0442 \u0433\u043B\u044E\u043A\u043E\u0437\u0430\u0442\u0430 \u043A\u0430\u0442\u043E
@@ -10259,6 +10261,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0427\u0435\u0440\u043D\u0438\u044F\u0442 \u0434\u0440\u043E\u0431 \u0443\u0447\u0430\u0441\u0442\u0432\u0430
       \u0432 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0432\u0430\u043D\u0435\u0442\u043E
       \u043D\u0430 \u0434\u0432\u0430 \u0432\u0430\u0436\u043D\u0438 \u0432\u0438\u0434\u0430
@@ -10279,6 +10282,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0427\u0435\u0440\u043D\u0438\u044F\u0442 \u0434\u0440\u043E\u0431 \u043C\u043E\u0436\u0435
       \u0434\u0430 \u043F\u0430\u0437\u0438 \u0437\u0430\u043F\u0430\u0441 \u043E\u0442
       \u043D\u044F\u043A\u043E\u0438 \u043F\u043E\u043B\u0435\u0437\u043D\u0438 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u0430,
@@ -10300,6 +10304,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u0437\u0430 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u043E,
       \u043A\u043E\u0435\u0442\u043E \u043F\u0440\u0438 \u043F\u0440\u0435\u043A\u043E\u043C\u0435\u0440\u043D\u0430
       \u0443\u043F\u043E\u0442\u0440\u0435\u0431\u0430 \u043D\u0430\u0442\u043E\u0432\u0430\u0440\u0432\u0430
@@ -10320,6 +10325,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0427\u0435\u0440\u043D\u0438\u044F\u0442 \u0434\u0440\u043E\u0431 \u043F\u043E\u043C\u0430\u0433\u0430
       \u043D\u0430 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u0430 \u0434\u0430
       \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0438 \u043D\u044F\u043A\u043E\u0438
@@ -10341,6 +10347,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u0435\u0437\u0438 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u0430
       \u0438\u043C\u0430\u0442 \u0432\u0430\u0436\u043D\u0430 \u0440\u043E\u043B\u044F
       \u0437\u0430 \u0438\u0437\u0433\u0440\u0430\u0436\u0434\u0430\u043D\u0435\u0442\u043E
@@ -10362,6 +10369,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u043E\u0437\u0438 \u043E\u0440\u0433\u0430\u043D \u0441\u0435 \u043D\u0430\u043C\u0438\u0440\u0430
       \u043F\u043E\u0434 \u0440\u0435\u0431\u0440\u0430\u0442\u0430, \u0431\u043B\u0438\u0437\u043E
       \u0434\u043E \u0441\u0442\u043E\u043C\u0430\u0445\u0430."
@@ -10381,6 +10389,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041E\u0442 \u0438\u0437\u0431\u0440\u043E\u0435\u043D\u0438\u0442\u0435
       \u0437\u0430\u0431\u043E\u043B\u044F\u0432\u0430\u043D\u0438\u044F \u0438\u0437\u0431\u0435\u0440\u0438
       \u0442\u043E\u0432\u0430, \u043A\u043E\u0435\u0442\u043E \u0437\u0430\u0441\u044F\u0433\u0430
@@ -10404,6 +10413,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0415\u0434\u043D\u0430 \u043E\u0442 \u0438\u0437\u0431\u0440\u043E\u0435\u043D\u0438\u0442\u0435
       \u0434\u0435\u0439\u043D\u043E\u0441\u0442\u0438 \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0438
       \u043D\u0430 \u0441\u044A\u0440\u0446\u0435\u0442\u043E."
@@ -10421,6 +10431,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u043E\u0432\u0430 \u0435 \u0433\u043E\u043B\u044F\u043C \u043E\u0440\u0433\u0430\u043D
       \u0432 \u0433\u043E\u0440\u043D\u0430\u0442\u0430 \u0447\u0430\u0441\u0442
       \u043D\u0430 \u043A\u043E\u0440\u0435\u043C\u043D\u0430\u0442\u0430 \u043A\u0443\u0445\u0438\u043D\u0430,
@@ -10443,6 +10454,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u0433\u043B\u0435\u0434\u043D\u0438 \u043C\u0430\u043B\u043A\u043E\u0442\u043E
       \u0437\u0435\u043B\u0435\u043D\u043E \u043C\u0435\u0445\u0443\u0440\u0447\u0435
       \u043D\u0435\u043F\u043E\u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0435\u043D\u043E
@@ -10466,6 +10478,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u0434\u0430\u043B\u0438 \u0440\u0435\u0434\u043E\u0432\u043D\u043E\u0442\u043E
       \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435 \u0435 \u043F\u043E\u043B\u0435\u0437\u0435\u043D
       \u0438\u043B\u0438 \u0432\u0440\u0435\u0434\u0435\u043D \u043D\u0430\u0432\u0438\u043A
@@ -10487,6 +10500,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u043E\u0437\u0438 \u043E\u0440\u0433\u0430\u043D \u0438\u043C\u0430
       \u0432\u0430\u0436\u043D\u0430 \u0440\u043E\u043B\u044F \u0432 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0432\u0430\u043D\u0435\u0442\u043E
       \u043D\u0430 \u0445\u0440\u0430\u043D\u0438\u0442\u0435\u043B\u043D\u0438\u0442\u0435
@@ -10506,6 +10520,7 @@ MonoBehaviour:
     answerVImage: {fileID: 21300000, guid: 511196b2b34779f418ccf4a2c83e101f, type: 3}
     answerGImage: {fileID: 21300000, guid: 8d8740ac0b779714ba248dfa4d5fcc8d, type: 3}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u044A\u0440\u0441\u0438 \u0433\u043E\u043B\u044F\u043C \u0447\u0435\u0440\u0432\u0435\u043D\u043E-\u043A\u0430\u0444\u044F\u0432
       \u043E\u0440\u0433\u0430\u043D \u0441 \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u043D\u0430
       \u0448\u0438\u0440\u043E\u043A\u0430 \u0444\u043E\u0440\u043C\u0430."
@@ -10524,6 +10539,7 @@ MonoBehaviour:
     answerVImage: {fileID: 21300000, guid: 7a5343ac14e524741bfe5fd04aeba0f4, type: 3}
     answerGImage: {fileID: 21300000, guid: 8e9953d8c6d02224aa61dd3870794729, type: 3}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0415\u0434\u0438\u043D \u043E\u0442 \u0438\u0437\u0431\u043E\u0440\u0438\u0442\u0435
       \u043C\u043E\u0436\u0435 \u0441\u0438\u043B\u043D\u043E \u0434\u0430 \u043D\u0430\u0442\u043E\u0432\u0430\u0440\u0438
       \u0447\u0435\u0440\u043D\u0438\u044F \u0434\u0440\u043E\u0431 \u043F\u0440\u0438
@@ -10543,6 +10559,7 @@ MonoBehaviour:
     answerVImage: {fileID: 21300000, guid: 587f33a037ee17f48b842917d2a8adba, type: 3}
     answerGImage: {fileID: 21300000, guid: 8376461c5ae09444f8fd8ae8ada3dfed, type: 3}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u043A\u043E\u044F \u043E\u0442
       \u0445\u0440\u0430\u043D\u0438\u0442\u0435 \u043E\u0431\u0438\u043A\u043D\u043E\u0432\u0435\u043D\u043E
       \u0441\u0435 \u043F\u0440\u0438\u0433\u043E\u0442\u0432\u044F \u043E\u0442
@@ -10563,6 +10580,7 @@ MonoBehaviour:
     answerVImage: {fileID: 21300000, guid: 005df4294b4da5240ac0adf3bec8a7c2, type: 3}
     answerGImage: {fileID: 21300000, guid: 4d3397a27a20d8446ac796610c64e08a, type: 3}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u043A\u043E\u0439 \u043E\u0442
       \u0438\u0437\u0431\u043E\u0440\u0438\u0442\u0435 \u043F\u043E\u0434\u043F\u043E\u043C\u0430\u0433\u0430
       \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u0430 \u0432 \u0434\u044A\u043B\u0433\u043E\u0441\u0440\u043E\u0447\u0435\u043D
@@ -10585,6 +10603,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u0433\u043B\u0438\u043A\u043E\u0433\u0435\u043D"
+    alternativeWrittenAnswers: []
     hint: "\u0422\u043E\u0432\u0430 \u0435 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u043E\u0442\u043E,
       \u0432 \u043A\u043E\u0435\u0442\u043E \u0447\u0435\u0440\u043D\u0438\u044F\u0442
       \u0434\u0440\u043E\u0431 \u043F\u0440\u0435\u0432\u0440\u044A\u0449\u0430 \u0447\u0430\u0441\u0442
@@ -10607,6 +10626,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u0445\u0435\u043F\u0430\u0442\u0438\u0442"
+    alternativeWrittenAnswers: []
     hint: "\u0422\u043E \u043D\u0435 \u0435 \u0437\u0430\u0431\u043E\u043B\u044F\u0432\u0430\u043D\u0435
       \u043D\u0430 \u0441\u0442\u043E\u043C\u0430\u0445\u0430, \u0431\u0440\u043E\u043D\u0445\u0438\u0442\u0435
       \u0438\u043B\u0438 \u0437\u044A\u0431\u0438\u0442\u0435 \u2014 \u0441\u0432\u044A\u0440\u0437\u0430\u043D\u043E
@@ -10629,6 +10649,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u0433\u043B\u0438\u043A\u043E\u0433\u0435\u043D"
+    alternativeWrittenAnswers: []
     hint: "\u0422\u043E\u0432\u0430 \u0435 \u0437\u0430\u043F\u0430\u0441\u043D\u0430
       \u0444\u043E\u0440\u043C\u0430 \u043D\u0430 \u0433\u043B\u044E\u043A\u043E\u0437\u0430\u0442\u0430,
       \u043A\u043E\u044F\u0442\u043E \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u044A\u0442
@@ -10652,6 +10673,8 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u0440\u0435\u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u044F"
+    alternativeWrittenAnswers:
+    - "\u0440\u0435\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u0430 \u0441\u0435"
     hint: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438 \u0441\u0438, \u0447\u0435
       \u0447\u0435\u0440\u043D\u0438\u044F\u0442 \u0434\u0440\u043E\u0431 \u043C\u043E\u0436\u0435
       \u0441\u0430\u043C \u0434\u0430 \u201E\u043F\u043E\u043F\u0440\u0430\u0432\u044F\u201C
@@ -10676,6 +10699,12 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u0445\u0440\u0430\u043D\u043E\u0441\u043C\u0438\u043B\u0430\u0442\u0435\u043B\u043D\u0430"
+    alternativeWrittenAnswers:
+    - "\u0445\u0440\u0430\u043D\u043E\u0441\u043C\u0438\u043B\u0430\u0442\u0435\u043B\u043D\u0430\u0442\u0430"
+    - "\u0445\u0440\u0430\u043D\u043E\u0441\u043C\u0438\u043B\u0430\u0442\u0435\u043B\u043D\u0430
+      \u0441\u0438\u0442\u0435\u043C\u0430"
+    - "\u0445\u0440\u0430\u043D\u043E\u0441\u043C\u0438\u043B\u0430\u0442\u0435\u043B\u043D\u0430\u0442\u0430
+      \u0441\u0438\u0442\u0435\u043C\u0430"
     hint: "\u0422\u043E\u0439 \u043E\u0442\u0434\u0435\u043B\u044F \u0441\u043E\u043A,
       \u043A\u043E\u0439\u0442\u043E \u043F\u043E\u043C\u0430\u0433\u0430 \u0437\u0430
       \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430\u0442\u0430 \u043D\u0430
@@ -21845,6 +21874,7 @@ GameObject:
   - component: {fileID: 1774217718}
   - component: {fileID: 1774217717}
   - component: {fileID: 1774217716}
+  - component: {fileID: 1774217720}
   m_Layer: 5
   m_Name: ForwardButton
   m_TagString: Untagged
@@ -21931,22 +21961,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 606980733}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 825984137}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1774217720}
+        m_TargetAssemblyTypeName: LiverGoToQuizButton, Assembly-CSharp
+        m_MethodName: GoToQuiz
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21954,18 +21972,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1583516997}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1774217718
 MonoBehaviour:
@@ -22005,6 +22011,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774217714}
   m_CullTransparentMesh: 1
+--- !u!114 &1774217720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774217714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35626e2ea6db1c94cbabe19e71fb4e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiverGoToQuizButton
+  minigamePanel: {fileID: 831696684}
+  minigameSuccessPanel: {fileID: 825984137}
+  liverQuizPanel: {fileID: 606980733}
+  quizWelcomePanel: {fileID: 1583516997}
 --- !u!1 &1801278028
 GameObject:
   m_ObjectHideFlags: 0
@@ -23885,9 +23907,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 200645189}
-        m_TargetAssemblyTypeName: LiverPuzzleManager, Assembly-CSharp
-        m_MethodName: RetryLevel
+      - m_Target: {fileID: 546575540}
+        m_TargetAssemblyTypeName: LiverLevelRetryController, Assembly-CSharp
+        m_MethodName: RetryFromPuzzleStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24074,7 +24096,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 546575540}
         m_TargetAssemblyTypeName: LiverLevelRetryController, Assembly-CSharp
-        m_MethodName: RetryFromPuzzleStart
+        m_MethodName: RetryFromMinigameStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

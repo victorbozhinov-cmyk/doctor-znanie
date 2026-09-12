@@ -20,37 +20,55 @@ public class LiverLevelRetryController : MonoBehaviour
     [Header("Scenes")]
     [SerializeField] private string bodyMapSceneName = "BodyMap";
 
-    // Запомня се само докато играта работи.
-    private static bool startDirectlyAtPuzzle = false;
+    // Използва се само при Retry.
+    // След презареждането казва на сцената
+    // да отвори директно StartPanel.
+    private static bool returnToStartAfterReload = false;
 
     private void Start()
     {
-        // При нормално влизане в LiverLevel не правим нищо.
-        if (!startDirectlyAtPuzzle)
+        // При нормално влизане в LiverLevel
+        // не променяме нищо.
+        if (!returnToStartAfterReload)
             return;
 
         // Използваме флага само веднъж.
-        startDirectlyAtPuzzle = false;
+        returnToStartAfterReload = false;
 
+        // Ако минииграта е била паузирана,
+        // връщаме нормалното време.
         Time.timeScale = 1f;
 
-        OpenPuzzleOnly();
+        OpenStartOnly();
     }
 
-    private void OpenPuzzleOnly()
-    {
-        if (startPanel != null)
-            startPanel.SetActive(false);
+    // =========================================================
+    // START PANEL
+    // =========================================================
 
+    private void OpenStartOnly()
+    {
+        // Показваме началния панел.
+        if (startPanel != null)
+            startPanel.SetActive(true);
+
+        // Скриваме теорията.
         if (theoryPanel != null)
             theoryPanel.SetActive(false);
+
+        // Скриваме пъзела.
+        if (puzzlePanel != null)
+            puzzlePanel.SetActive(false);
 
         if (puzzleSuccessPanel != null)
             puzzleSuccessPanel.SetActive(false);
 
+        // Спираме цялата миниигра.
         if (liverMinigameRoot != null)
             liverMinigameRoot.SetActive(false);
 
+        // Скриваме всички допълнителни
+        // панели на минииграта.
         if (minigameInfoPanel != null)
             minigameInfoPanel.SetActive(false);
 
@@ -62,22 +80,38 @@ public class LiverLevelRetryController : MonoBehaviour
 
         if (minigameSuccessPanel != null)
             minigameSuccessPanel.SetActive(false);
-
-        // Показваме чисто новия пъзел.
-        if (puzzlePanel != null)
-            puzzlePanel.SetActive(true);
     }
 
     // =========================================================
-    // ОПИТАЙ ОТНОВО
+    // RETRY - PUZZLE
     // =========================================================
 
     public void RetryFromPuzzleStart()
     {
+        RetryToLevelStart();
+    }
+
+    // =========================================================
+    // RETRY - MINIGAME
+    // =========================================================
+
+    public void RetryFromMinigameStart()
+    {
+        RetryToLevelStart();
+    }
+
+    // =========================================================
+    // ОБЩ RETRY
+    // =========================================================
+
+    private void RetryToLevelStart()
+    {
+        // Ако Game Over е спрял времето,
+        // връщаме го преди reload.
         Time.timeScale = 1f;
 
-        // След reload-а сцената трябва да отвори PuzzlePanel.
-        startDirectlyAtPuzzle = true;
+        // След reload-а искаме StartPanel.
+        returnToStartAfterReload = true;
 
         SceneManager.LoadScene(
             SceneManager.GetActiveScene().name
@@ -91,6 +125,9 @@ public class LiverLevelRetryController : MonoBehaviour
     public void ExitToBodyMap()
     {
         Time.timeScale = 1f;
+
+        // За всеки случай изчистваме флага.
+        returnToStartAfterReload = false;
 
         SceneManager.LoadScene(bodyMapSceneName);
     }
