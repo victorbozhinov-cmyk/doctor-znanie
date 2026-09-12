@@ -4,34 +4,45 @@ using UnityEngine.EventSystems;
 public class LiverDropSlot : MonoBehaviour, IDropHandler
 {
     [Header("Slot Settings")]
-    [SerializeField] private LiverFunctionType acceptedFunction;
+    [SerializeField]
+    private LiverFunctionType acceptedFunction;
 
     [Header("Puzzle Manager")]
-    [SerializeField] private LiverPuzzleManager puzzleManager;
+    [SerializeField]
+    private LiverPuzzleManager puzzleManager;
 
     private bool occupied = false;
 
     public void OnDrop(PointerEventData eventData)
     {
-        // Ако мястото вече има правилно поставена карта,
-        // не приемаме друга.
+        // Ако мястото вече има правилно
+        // поставена карта, не приемаме друга.
         if (occupied)
             return;
 
-        // Проверяваме дали реално се влачи нещо.
+        // Проверяваме дали реално
+        // се влачи нещо.
         if (eventData.pointerDrag == null)
             return;
 
         LiverPuzzleCard card =
-            eventData.pointerDrag.GetComponent<LiverPuzzleCard>();
+            eventData.pointerDrag
+                .GetComponent<LiverPuzzleCard>();
 
-        // Ако не е карта или вече е поставена правилно,
-        // не правим нищо.
-        if (card == null || card.IsPlacedCorrectly)
+        // Ако не е карта или вече е
+        // поставена правилно, не правим нищо.
+        if (card == null ||
+            card.IsPlacedCorrectly)
+        {
             return;
+        }
 
+        // =========================
         // ПРАВИЛНА КАТЕГОРИЯ
-        if (card.CorrectFunction == acceptedFunction)
+        // =========================
+
+        if (card.CorrectFunction ==
+            acceptedFunction)
         {
             occupied = true;
 
@@ -39,16 +50,23 @@ public class LiverDropSlot : MonoBehaviour, IDropHandler
 
             if (puzzleManager != null)
             {
-                puzzleManager.RegisterCorrectCard();
+                puzzleManager
+                    .RegisterCorrectCard();
             }
         }
 
+        // =========================
         // ГРЕШНА КАТЕГОРИЯ
+        // =========================
+
         else
         {
-            // Червено сияние + разклащане.
-            // След анимацията картата сама се връща обратно.
-            card.PlayWrongFeedback();
+            // Първо картата влиза
+            // в грешния слот.
+            // Там се пуска червената
+            // анимация и чак след това
+            // се връща обратно.
+            card.PlayWrongFeedback(transform);
 
             // Отнемаме един живот.
             if (puzzleManager != null)
