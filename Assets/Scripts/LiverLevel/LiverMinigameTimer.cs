@@ -8,6 +8,7 @@ public class LiverMinigameTimer : MonoBehaviour
 
     [Header("Game References")]
     [SerializeField] private LiverHealthController liverHealthController;
+    [SerializeField] private LiverMinigamePenaltyController penaltyController;
     [SerializeField] private GameObject minigameSuccessPanel;
 
     [Header("Time By Difficulty")]
@@ -16,12 +17,19 @@ public class LiverMinigameTimer : MonoBehaviour
     [SerializeField] private float hardTime = 90f;
 
     private float remainingTime;
+    private float startingTime;
+
     private bool timerRunning;
     private bool finished = false;
 
     public bool TimerRunning => timerRunning;
     public float RemainingTime => remainingTime;
+    public float StartingTime => startingTime;
     public bool IsFinished => finished;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Start()
     {
@@ -31,6 +39,11 @@ public class LiverMinigameTimer : MonoBehaviour
         }
 
         SetTimeFromDifficulty();
+
+        if (penaltyController != null)
+        {
+            penaltyController.ResetPenaltyTracking();
+        }
 
         timerRunning = true;
         finished = false;
@@ -70,6 +83,10 @@ public class LiverMinigameTimer : MonoBehaviour
         UpdateTimerText();
     }
 
+    // =========================================================
+    // DIFFICULTY / START TIME
+    // =========================================================
+
     private void SetTimeFromDifficulty()
     {
         string difficultyString =
@@ -80,19 +97,22 @@ public class LiverMinigameTimer : MonoBehaviour
 
         if (difficultyString == "easy")
         {
-            remainingTime = easyTime;
+            startingTime = easyTime;
+            remainingTime = startingTime;
             return;
         }
 
         if (difficultyString == "medium")
         {
-            remainingTime = mediumTime;
+            startingTime = mediumTime;
+            remainingTime = startingTime;
             return;
         }
 
         if (difficultyString == "hard")
         {
-            remainingTime = hardTime;
+            startingTime = hardTime;
+            remainingTime = startingTime;
             return;
         }
 
@@ -105,18 +125,24 @@ public class LiverMinigameTimer : MonoBehaviour
         switch (difficultyInt)
         {
             case 0:
-                remainingTime = easyTime;
+                startingTime = easyTime;
                 break;
 
             case 2:
-                remainingTime = hardTime;
+                startingTime = hardTime;
                 break;
 
             default:
-                remainingTime = mediumTime;
+                startingTime = mediumTime;
                 break;
         }
+
+        remainingTime = startingTime;
     }
+
+    // =========================================================
+    // UI
+    // =========================================================
 
     private void UpdateTimerText()
     {
@@ -177,6 +203,8 @@ public class LiverMinigameTimer : MonoBehaviour
         finished = true;
         timerRunning = false;
 
+        SubmitMinigameScore();
+
         Debug.Log("МИСИЯТА Е ИЗПЪЛНЕНА!");
 
         // Спираме ЦЯЛАТА миниигра.
@@ -193,6 +221,62 @@ public class LiverMinigameTimer : MonoBehaviour
                 "MinigameSuccessPanel не е зададен!"
             );
         }
+    }
+
+    // =========================================================
+    // SCORE
+    // =========================================================
+
+    private void SubmitMinigameScore()
+    {
+        if (LiverScoreManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "LiverScoreManager.Instance липсва. " +
+                "Резултатът от Liver Minigame не беше записан."
+            );
+
+            return;
+        }
+
+        if (liverHealthController == null)
+        {
+            Debug.LogWarning(
+                "LiverHealthController не е свързан. " +
+                "Резултатът от Liver Minigame не беше записан."
+            );
+
+            return;
+        }
+
+        float totalPenaltyTime = 0f;
+
+        if (penaltyController != null)
+        {
+            totalPenaltyTime =
+                penaltyController.TotalPenaltyTime;
+        }
+        else
+        {
+            Debug.LogWarning(
+                "LiverMinigamePenaltyController не е свързан. " +
+                "Penalty Time ще бъде отчетено като 0."
+            );
+        }
+
+        LiverScoreManager.Instance.SubmitMinigameResult(
+            liverHealthController.CurrentVisualStateIndex,
+            totalPenaltyTime,
+            startingTime
+        );
+
+        Debug.Log(
+            $"Liver Minigame Score submitted | " +
+            $"Liver State: " +
+            $"{liverHealthController.CurrentVisualStateIndex}/4 | " +
+            $"Penalty Time: {totalPenaltyTime:0.0}s | " +
+            $"Starting Time: {startingTime:0.0}s"
+        );
     }
 
     // =========================================================
