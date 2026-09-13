@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LungsPuzzlePopupController : MonoBehaviour
 {
@@ -11,11 +12,12 @@ public class LungsPuzzlePopupController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private GameObject settingsPanel;
+
     [Header("Success")]
     [SerializeField] private GameObject successPanel;
+
     [Header("Game Over")]
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private LungsPuzzleManager puzzleManager;
 
     // =====================================================
     // EXIT CONFIRMATION
@@ -58,8 +60,9 @@ public class LungsPuzzlePopupController : MonoBehaviour
     }
 
     // =====================================================
-    // GAME OVER
+    // SUCCESS
     // =====================================================
+
     public void OpenSuccess()
     {
         if (successPanel == null)
@@ -67,6 +70,11 @@ public class LungsPuzzlePopupController : MonoBehaviour
 
         successPanel.SetActive(true);
     }
+
+    // =====================================================
+    // GAME OVER
+    // =====================================================
+
     public void OpenGameOver()
     {
         if (gameOverPanel == null)
@@ -76,34 +84,28 @@ public class LungsPuzzlePopupController : MonoBehaviour
     }
 
     // =====================================================
-    // RETRY
+    // RETRY LEVEL
     // =====================================================
 
     public void RetryPuzzle()
     {
-        // Скриваме Game Over панела.
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(false);
-        }
+        // За всеки случай връщаме нормалното време.
+        Time.timeScale = 1f;
 
-        // Нулираме пъзела, за да бъде готов,
-        // когато играчът стигне отново до него.
-        if (puzzleManager != null)
-        {
-            puzzleManager.StartPuzzle();
-        }
-
-        // Скриваме самия Puzzle Panel.
-        if (puzzlePanel != null)
-        {
-            puzzlePanel.SetActive(false);
-        }
-
-        // Връщаме играча в началото на нивото.
-        if (startPanel != null)
-        {
-            startPanel.SetActive(true);
-        }
+        // Презареждаме ЦЯЛАТА текуща сцена.
+        //
+        // Това reset-ва:
+        // - Puzzle
+        // - Minigame
+        // - Quiz
+        // - Welcome Panels
+        // - всички локални manager-и
+        // - всички runtime флагове
+        //
+        // Така след загуба започваме
+        // Lungs Level напълно начисто.
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
     }
 }
