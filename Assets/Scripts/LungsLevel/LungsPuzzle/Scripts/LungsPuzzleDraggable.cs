@@ -104,7 +104,7 @@ public class LungsPuzzleDraggable :
     }
 
     public void OnEndDrag(
-        PointerEventData eventData)
+    PointerEventData eventData)
     {
         if (!dragging)
             return;
@@ -126,6 +126,28 @@ public class LungsPuzzleDraggable :
         Camera eventCamera =
             eventData.pressEventCamera;
 
+        // =====================================================
+        // ALREADY OCCUPIED TARGET
+        // =====================================================
+
+        bool overOccupiedTarget =
+            puzzleManager.IsOverOccupiedTarget(
+                eventData.position,
+                eventCamera
+            );
+
+        if (overOccupiedTarget)
+        {
+            // Слотът вече е решен.
+            // Връщаме текущия елемент без наказание.
+            ResetToStart();
+            return;
+        }
+
+        // =====================================================
+        // CORRECT TARGET
+        // =====================================================
+
         bool correct =
             puzzleManager.IsCorrectTarget(
                 eventData.position,
@@ -135,9 +157,15 @@ public class LungsPuzzleDraggable :
         if (correct)
         {
             ResetToStart();
+
             puzzleManager.CorrectPlacement();
+
             return;
         }
+
+        // =====================================================
+        // WRONG EMPTY TARGET
+        // =====================================================
 
         bool overAnotherTarget =
             puzzleManager.IsOverAnyTarget(
@@ -148,9 +176,15 @@ public class LungsPuzzleDraggable :
         if (overAnotherTarget)
         {
             puzzleManager.WrongPlacement();
+
             ResetToStart();
+
             return;
         }
+
+        // =====================================================
+        // EMPTY SPACE
+        // =====================================================
 
         puzzleManager.DroppedOnEmptySpace();
 
