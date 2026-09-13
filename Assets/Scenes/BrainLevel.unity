@@ -26793,6 +26793,7 @@ GameObject:
   - component: {fileID: 1380192201}
   - component: {fileID: 1380192202}
   - component: {fileID: 1380192203}
+  - component: {fileID: 1380192204}
   m_Layer: 0
   m_Name: ExitButton
   m_TagString: Untagged
@@ -26948,6 +26949,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 12.54, y: 4.73}
   m_EdgeRadius: 0
+--- !u!114 &1380192204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380192197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5031a604272c424ebca6d0dedc3df56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainGameOverExitButton
 --- !u!1 &1380310445
 GameObject:
   m_ObjectHideFlags: 0
@@ -32301,6 +32314,7 @@ GameObject:
   - component: {fileID: 1732336527}
   - component: {fileID: 1732336529}
   - component: {fileID: 1732336530}
+  - component: {fileID: 1732336531}
   m_Layer: 0
   m_Name: RetryButton
   m_TagString: Untagged
@@ -32444,6 +32458,18 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+--- !u!114 &1732336531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732336525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c5d722cc782ea4d8db96bfaa31915a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BrainGameOverRetryButton
 --- !u!1 &1744879555
 GameObject:
   m_ObjectHideFlags: 0
