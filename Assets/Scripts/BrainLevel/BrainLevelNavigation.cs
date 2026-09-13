@@ -26,6 +26,7 @@ public class BrainLevelNavigation : MonoBehaviour
 
     [Header("Scenes")]
     [SerializeField] private string bodyMapSceneName = "BodyMap";
+    [SerializeField] private string settingsSceneName = "SettingsMenu";
 
     private const string BrainRetryFromQuizKey =
         "BrainRetryFromQuiz";
@@ -73,6 +74,19 @@ public class BrainLevelNavigation : MonoBehaviour
         {
             minigameSuccessOverlay.SetActive(false);
         }
+    }
+
+    // =========================================================
+    // SETTINGS MENU
+    // =========================================================
+
+    public void OpenSettingsMenu()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+            settingsSceneName
+        );
     }
 
     // =========================================================
@@ -403,8 +417,6 @@ public class BrainLevelNavigation : MonoBehaviour
 
     public void OpenQuiz()
     {
-        // BrainMinigameManager задава
-        // Time.timeScale = 0 при победа.
         Time.timeScale = 1f;
 
         if (minigameSuccessOverlay != null)

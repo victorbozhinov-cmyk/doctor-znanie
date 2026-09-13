@@ -1497,6 +1497,7 @@ MonoBehaviour:
   puzzleSuccessOverlay: {fileID: 737731898}
   minigameSuccessOverlay: {fileID: 1155540453}
   bodyMapSceneName: BodyMap
+  settingsSceneName: SettingsMenu
 --- !u!1 &73519178
 GameObject:
   m_ObjectHideFlags: 0
@@ -18330,9 +18331,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartLevelNavigation, Assembly-CSharp
-        m_MethodName: BackToBodyMap
+      - m_Target: {fileID: 66230984}
+        m_TargetAssemblyTypeName: BrainLevelNavigation, Assembly-CSharp
+        m_MethodName: ExitToBodyMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -38991,9 +38992,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeartLevelNavigation, Assembly-CSharp
-        m_MethodName: OpenSettings
+      - m_Target: {fileID: 66230984}
+        m_TargetAssemblyTypeName: BrainLevelNavigation, Assembly-CSharp
+        m_MethodName: OpenSettingsMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
