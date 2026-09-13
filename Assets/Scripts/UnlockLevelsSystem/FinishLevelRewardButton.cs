@@ -39,9 +39,31 @@ public class FinishLevelRewardButton : MonoBehaviour
 
     public void ClaimRewardAndExit()
     {
+        // =================================================
+        // 1. ЗАПОМНЯМЕ СТОЙНОСТИТЕ ПРЕДИ НАГРАДИТЕ
+        // =================================================
+
+        BodyMapRewardAnimationData.CaptureBeforeRewards();
+
+        // =================================================
+        // 2. ДАВАМЕ НАГРАДИТЕ
+        // =================================================
+
         GiveVitaminReward();
 
         SaveAntibodyScore();
+
+        GiveSerumReward();
+
+        // =================================================
+        // 3. ЗАПОМНЯМЕ СТОЙНОСТИТЕ СЛЕД НАГРАДИТЕ
+        // =================================================
+
+        BodyMapRewardAnimationData.CaptureAfterRewards();
+
+        // =================================================
+        // 4. ВРЪЩАМЕ СЕ В BODY MAP
+        // =================================================
 
         SceneManager.LoadScene(bodyMapSceneName);
     }
@@ -66,6 +88,87 @@ public class FinishLevelRewardButton : MonoBehaviour
         {
             Debug.LogWarning(
                 "OrganVitaminRewardManager не е свързан."
+            );
+        }
+    }
+
+    // =====================================================
+    // SERUM
+    // =====================================================
+
+    private void GiveSerumReward()
+    {
+        if (SerumManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "SerumManager.Instance липсва. " +
+                "Частта от серума не може да бъде получена."
+            );
+
+            return;
+        }
+
+        SerumOrgan serumOrgan;
+
+        switch (levelOrgan)
+        {
+            case LevelOrgan.Heart:
+                serumOrgan = SerumOrgan.Heart;
+                break;
+
+            case LevelOrgan.Stomach:
+                serumOrgan = SerumOrgan.Stomach;
+                break;
+
+            case LevelOrgan.Brain:
+                serumOrgan = SerumOrgan.Brain;
+                break;
+
+            case LevelOrgan.Liver:
+                serumOrgan = SerumOrgan.Liver;
+                break;
+
+            case LevelOrgan.Lungs:
+                serumOrgan = SerumOrgan.Lungs;
+                break;
+
+            default:
+                Debug.LogWarning(
+                    "Няма зададен орган за Serum Reward."
+                );
+
+                return;
+        }
+
+        bool receivedNewPart =
+            SerumManager.Instance.GiveSerumPart(
+                serumOrgan
+            );
+
+        if (receivedNewPart)
+        {
+            Debug.Log(
+                "Получена е нова част от серума! " +
+                "Общ прогрес: "
+                + SerumManager.Instance.GetSerumPercent()
+                + "%"
+            );
+        }
+        else
+        {
+            Debug.Log(
+                levelOrgan
+                + " вече е давал своята част от серума. " +
+                "Серумът остава на "
+                + SerumManager.Instance.GetSerumPercent()
+                + "%"
+            );
+        }
+
+        if (SerumManager.Instance.IsSerumComplete())
+        {
+            Debug.Log(
+                "СЕРУМЪТ Е ЗАВЪРШЕН НА 100%!"
             );
         }
     }

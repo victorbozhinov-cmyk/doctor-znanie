@@ -11,19 +11,46 @@ public class OrganPurchaseController : MonoBehaviour
         Brain
     }
 
+    // =========================
+    // ORGAN
+    // =========================
+
     [Header("Organ")]
     [SerializeField] private OrganType organType;
 
+    // =========================
+    // PRICE
+    // =========================
+
     [Header("Price")]
     [SerializeField] private int price = 100;
+
+    // =========================
+    // UI
+    // =========================
 
     [Header("UI")]
     [SerializeField] private GameObject purchasePanel;
     [SerializeField] private UIPopupCloseAnimation purchasePanelCloseAnimation;
 
+    // =========================
+    // NOT ENOUGH VITAMINS
+    // =========================
+
+    [Header("Not Enough Vitamins")]
+    [SerializeField] private UIShakeAnimation purchasePanelShake;
+
+    // =========================
+    // VISUAL
+    // =========================
+
     [Header("Visual")]
     [SerializeField] private OrganLockVisual organLockVisual;
     [SerializeField] private OrganUnlockAnimation organUnlockAnimation;
+
+    // =========================
+    // RUNTIME
+    // =========================
 
     private bool isClosingPanel;
     private bool pointerOnOrgan;
@@ -147,15 +174,47 @@ public class OrganPurchaseController : MonoBehaviour
 
         if (VitaminManager.Instance == null)
         {
-            Debug.LogWarning("VitaminManager не е намерен.");
+            Debug.LogWarning(
+                "VitaminManager не е намерен."
+            );
+
             return;
         }
 
-        if (!VitaminManager.Instance.SpendVitamins(price))
+        // =============================================
+        // НЯМА ДОСТАТЪЧНО ВИТАМИНИ
+        // =============================================
+
+        if (!VitaminManager.Instance.CanAfford(price))
         {
-            Debug.Log("Няма достатъчно витамини.");
+            Debug.Log(
+                "Няма достатъчно витамини."
+            );
+
+            if (purchasePanelShake != null)
+            {
+                purchasePanelShake.Shake();
+            }
+
             return;
         }
+
+        // =============================================
+        // ПЛАЩАНЕ
+        // =============================================
+
+        if (!VitaminManager.Instance.SpendVitamins(price))
+        {
+            Debug.LogWarning(
+                "Витамините не могат да бъдат похарчени."
+            );
+
+            return;
+        }
+
+        // =============================================
+        // UNLOCK
+        // =============================================
 
         UnlockOrgan();
 
@@ -177,6 +236,10 @@ public class OrganPurchaseController : MonoBehaviour
             organLockVisual.RefreshVisual();
         }
     }
+
+    // =========================
+    // ENTER LEVEL
+    // =========================
 
     public bool CanEnterLevel()
     {
