@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public enum LungsQuizQuestionType
@@ -39,7 +39,14 @@ public class LungsQuizQuestion
     public Sprite answerGImage;
 
     [Header("Written Answer")]
+    [Tooltip("Основният верен писмен отговор.")]
     public string correctWrittenAnswer;
+
+    [Tooltip(
+        "Допълнителни варианти, които също " +
+        "ще бъдат приемани за верни."
+    )]
+    public string[] alternativeWrittenAnswers;
 
     [Header("Hint")]
     [TextArea(2, 4)]

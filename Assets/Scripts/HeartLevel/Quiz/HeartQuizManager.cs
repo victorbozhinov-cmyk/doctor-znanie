@@ -666,11 +666,6 @@ public class HeartQuizManager : MonoBehaviour
                 writtenInputField.text
             );
 
-        string correctAnswer =
-            NormalizeWrittenAnswer(
-                currentQuestion.correctWrittenAnswer
-            );
-
         if (string.IsNullOrEmpty(playerAnswer))
         {
             Debug.Log(
@@ -680,7 +675,48 @@ public class HeartQuizManager : MonoBehaviour
             return;
         }
 
-        if (playerAnswer == correctAnswer)
+        bool isCorrect = false;
+
+        // Основен правилен отговор
+        string mainCorrectAnswer =
+            NormalizeWrittenAnswer(
+                currentQuestion.correctWrittenAnswer
+            );
+
+        if (!string.IsNullOrEmpty(mainCorrectAnswer) &&
+            playerAnswer == mainCorrectAnswer)
+        {
+            isCorrect = true;
+        }
+
+        // Допълнителни допустими отговори
+        if (!isCorrect &&
+            currentQuestion.alternativeWrittenAnswers != null)
+        {
+            foreach (string alternativeAnswer in
+                     currentQuestion.alternativeWrittenAnswers)
+            {
+                string normalizedAlternative =
+                    NormalizeWrittenAnswer(
+                        alternativeAnswer
+                    );
+
+                if (string.IsNullOrEmpty(
+                        normalizedAlternative))
+                {
+                    continue;
+                }
+
+                if (playerAnswer ==
+                    normalizedAlternative)
+                {
+                    isCorrect = true;
+                    break;
+                }
+            }
+        }
+
+        if (isCorrect)
         {
             HandleWrittenCorrectAnswer();
         }
