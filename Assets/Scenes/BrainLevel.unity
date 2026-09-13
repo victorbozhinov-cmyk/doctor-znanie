@@ -14295,6 +14295,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0414\u0432\u0435 \u043E\u0442 \u0447\u0430\u0441\u0442\u0438\u0442\u0435
       \u0441\u0430 \u0434\u043E\u0431\u0440\u0435 \u0437\u0430\u0449\u0438\u0442\u0435\u043D\u0438
       \u0432 \u0447\u0435\u0440\u0435\u043F\u0430 \u0438 \u0433\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F
@@ -14319,6 +14320,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041D\u0435\u0440\u0432\u0438\u0442\u0435 \u0441\u0432\u044A\u0440\u0437\u0432\u0430\u0442
       \u0442\u0430\u0437\u0438 \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u0441
       \u043E\u0441\u0442\u0430\u043D\u0430\u043B\u0430\u0442\u0430 \u0447\u0430\u0441\u0442
@@ -14338,6 +14340,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u0435\u0437\u0438 \u043A\u043B\u0435\u0442\u043A\u0438 \u043F\u0440\u0438\u0435\u043C\u0430\u0442
       \u0438 \u043F\u0440\u0435\u0434\u0430\u0432\u0430\u0442 \u043D\u0435\u0440\u0432\u043D\u0438
       \u0441\u0438\u0433\u043D\u0430\u043B\u0438"
@@ -14359,6 +14362,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u0435 \u0441\u0430 \u043A\u0430\u0442\u043E \u043A\u043E\u043C\u0443\u043D\u0438\u043A\u0430\u0446\u0438\u043E\u043D\u043D\u0438
       \u043B\u0438\u043D\u0438\u0438 \u043C\u0435\u0436\u0434\u0443 \u043C\u043E\u0437\u044A\u043A\u0430
       \u0438 \u0442\u044F\u043B\u043E\u0442\u043E"
@@ -14377,6 +14381,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u0430\u0437\u0438 \u0447\u0430\u0441\u0442 \u0438\u043C\u0430 \u0434\u0432\u0435
       \u043F\u043E\u043B\u0443\u043A\u044A\u043B\u0431\u0430 \u0438 \u0441\u0438\u043B\u043D\u043E
       \u043D\u0430\u0433\u044A\u043D\u0430\u0442\u0430 \u043A\u043E\u0440\u0430"
@@ -14399,6 +14404,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u0437\u0430 \u043C\u043E\u0437\u044A\u0447\u043D\u0430\u0442\u0430
       \u0447\u0430\u0441\u0442, \u043A\u043E\u044F\u0442\u043E \u043F\u043E\u043C\u0430\u0433\u0430
       \u043F\u0440\u0438 \u0431\u044A\u0440\u0437\u043E \u043E\u0440\u0438\u0435\u043D\u0442\u0438\u0440\u0430\u043D\u0435
@@ -14421,6 +14427,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0421\u044A\u0449\u0430\u0442\u0430 \u043C\u043E\u0437\u044A\u0447\u043D\u0430
       \u0447\u0430\u0441\u0442 \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0438
       \u0432 \u0440\u0435\u0433\u0443\u043B\u0438\u0440\u0430\u043D\u0435\u0442\u043E
@@ -14441,6 +14448,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u0437\u0430 \u0447\u0430\u0441\u0442\u0442\u0430
       \u043D\u0430 \u043C\u043E\u0437\u044A\u043A\u0430, \u043A\u043E\u044F\u0442\u043E
       \u043E\u0442\u0433\u043E\u0432\u0430\u0440\u044F \u0435\u0434\u043D\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E
@@ -14466,6 +14474,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0421\u044A\u0440\u0446\u0435\u0442\u043E \u043D\u0435 \u0441\u0435 \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0432\u0430
       \u043E\u0442 \u043C\u0430\u043B\u043A\u0438\u044F \u043C\u043E\u0437\u044A\u043A"
   - questionType: 0
@@ -14488,6 +14497,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0413\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A
       \u043F\u043E\u043C\u0430\u0433\u0430 \u043D\u0430 \u0442\u044F\u043B\u043E\u0442\u043E
       \u0434\u0430 \u0440\u0435\u0430\u0433\u0438\u0440\u0430 \u0431\u044A\u0440\u0437\u043E,
@@ -14510,6 +14520,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u044F \u0438\u0437\u043F\u0440\u0430\u0449\u0430 \u0441\u0438\u0433\u043D\u0430\u043B\u0438
       \u043C\u0435\u0436\u0434\u0443 \u043C\u043E\u0437\u044A\u043A\u0430 \u0438
       \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438\u0442\u0435 \u0447\u0430\u0441\u0442\u0438
@@ -14531,6 +14542,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u0430\u0437\u0438 \u0447\u0430\u0441\u0442 \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0438\u0440\u0430
       \u0436\u0438\u0437\u043D\u0435\u043D\u043E\u0432\u0430\u0436\u043D\u0438 \u043F\u0440\u043E\u0446\u0435\u0441\u0438,
       \u043A\u043E\u0438\u0442\u043E \u043F\u0440\u043E\u0434\u044A\u043B\u0436\u0430\u0432\u0430\u0442
@@ -14553,6 +14565,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0418\u043C\u0435\u0442\u043E \u043D\u0430 \u0442\u0430\u0437\u0438 \u0447\u0430\u0441\u0442
       \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u0432\u0430, \u0447\u0435 \u0442\u044F
       \u0441\u0432\u044A\u0440\u0437\u0432\u0430 \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438
@@ -14571,6 +14584,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u043E\u0432\u0430 \u0435 \u043D\u0430\u0439-\u0433\u043E\u043B\u044F\u043C\u0430\u0442\u0430
       \u0447\u0430\u0441\u0442 \u043D\u0430 \u0433\u043B\u0430\u0432\u043D\u0438\u044F
       \u043C\u043E\u0437\u044A\u043A \u0438 \u0438\u043C\u0430 \u0434\u0432\u0435
@@ -14592,6 +14606,7 @@ MonoBehaviour:
     answerVImage: {fileID: 21300000, guid: 0220a2061ec22134b96b66bda843d9ce, type: 3}
     answerGImage: {fileID: 21300000, guid: c96c505d0122259478ca7c57e30e9214, type: 3}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u041F\u043E\u0442\u044A\u0440\u0441\u0438 \u043C\u0430\u043B\u043A\u0430\u0442\u0430
       \u0447\u0430\u0441\u0442, \u0440\u0430\u0437\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0430
       \u0432 \u0437\u0430\u0434\u043D\u0430\u0442\u0430 \u0434\u043E\u043B\u043D\u0430
@@ -14612,6 +14627,7 @@ MonoBehaviour:
     answerVImage: {fileID: 21300000, guid: 03ecba96b454ab540af879ec0748166f, type: 3}
     answerGImage: {fileID: 21300000, guid: c2dbf53122bc1b14ca4f4392e39d5d4b, type: 3}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u0430\u0437\u0438 \u0432\u0440\u044A\u0437\u043A\u0430 \u0435 \u0441\u0432\u044A\u0440\u0437\u0430\u043D\u0430
       \u0441 \u0436\u0430\u0436\u0434\u0430\u0442\u0430 \u0438 \u0432\u043E\u0434\u043D\u0438\u044F
       \u0431\u0430\u043B\u0430\u043D\u0441 \u0432 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043C\u0430"
@@ -14632,6 +14648,7 @@ MonoBehaviour:
     answerVImage: {fileID: 21300000, guid: 182727ec9fd255d40a1da3ab22fccd00, type: 3}
     answerGImage: {fileID: 21300000, guid: d6457d221df80994889a91c9135e4d31, type: 3}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0422\u0430\u0437\u0438 \u0447\u0430\u0441\u0442 \u0443\u0447\u0430\u0441\u0442\u0432\u0430
       \u0432 \u0431\u044A\u0440\u0437\u043E\u0442\u043E \u043E\u0440\u0438\u0435\u043D\u0442\u0438\u0440\u0430\u043D\u0435
       \u043A\u044A\u043C \u0432\u043D\u0435\u0437\u0430\u043F\u043D\u0438 \u0437\u0432\u0443\u043A\u043E\u0432\u0438
@@ -14653,6 +14670,7 @@ MonoBehaviour:
     answerVImage: {fileID: 21300000, guid: efc70846c1335a84cb56043cf8ab4b72, type: 3}
     answerGImage: {fileID: 21300000, guid: 16281c74acebf1a418f2f6396d42f8b2, type: 3}
     correctWrittenAnswer: 
+    alternativeWrittenAnswers: []
     hint: "\u0413\u0440\u044A\u0431\u043D\u0430\u0447\u043D\u0438\u044F\u0442 \u043C\u043E\u0437\u044A\u043A
       \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0438\u0440\u0430 \u0440\u0435\u0444\u043B\u0435\u043A\u0441\u0438\u0442\u0435
       \u043D\u0438"
@@ -14673,6 +14691,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u043D\u0435\u0440\u0432\u043D\u0430 \u0441\u0438\u0441\u0442\u0435\u043C\u0430"
+    alternativeWrittenAnswers: []
     hint: "\u0422\u044F \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0432\u0430, \u043A\u043E\u043E\u0440\u0434\u0438\u043D\u0438\u0440\u0430
       \u0438 \u0441\u0432\u044A\u0440\u0437\u0432\u0430 \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438\u0442\u0435
       \u0447\u0430\u0441\u0442\u0438 \u043D\u0430 \u0442\u044F\u043B\u043E\u0442\u043E
@@ -14692,6 +14711,8 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u0440\u0435\u0444\u043B\u0435\u043A\u0441\u0438"
+    alternativeWrittenAnswers:
+    - "\u0440\u0435\u0444\u043B\u0435\u043A\u0441"
     hint: "\u041F\u043E\u043C\u0438\u0441\u043B\u0438 \u043A\u0430\u043A \u0441\u0435
       \u043D\u0430\u0440\u0438\u0447\u0430 \u0440\u0435\u0430\u043A\u0446\u0438\u044F\u0442\u0430,
       \u043F\u0440\u0438 \u043A\u043E\u044F\u0442\u043E \u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440
@@ -14712,6 +14733,8 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u0434\u0432\u0435"
+    alternativeWrittenAnswers:
+    - 2
     hint: "\u0422\u043E\u0439 \u0443\u0447\u0430\u0441\u0442\u0432\u0430 \u0432 \u043C\u0438\u0441\u043B\u0435\u043D\u0435\u0442\u043E,
       \u043F\u0430\u043C\u0435\u0442\u0442\u0430, \u0440\u0435\u0447\u0442\u0430
       \u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0432\u0430\u043D\u0435\u0442\u043E
@@ -14734,6 +14757,9 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u043C\u043E\u0441\u0442"
+    alternativeWrittenAnswers:
+    - "\u043C\u043E\u0441\u0442\u0430"
+    - "\u043C\u043E\u0441\u0442\u044A\u0442"
     hint: "\u0422\u0430\u0437\u0438 \u0447\u0430\u0441\u0442 \u0443\u0447\u0430\u0441\u0442\u0432\u0430
       \u0438 \u0432 \u0441\u0432\u044A\u0440\u0437\u0432\u0430\u043D\u0435\u0442\u043E
       \u043D\u0430 \u0440\u0430\u0437\u043B\u0438\u0447\u043D\u0438 \u043E\u0431\u043B\u0430\u0441\u0442\u0438
@@ -14754,6 +14780,7 @@ MonoBehaviour:
     answerVImage: {fileID: 0}
     answerGImage: {fileID: 0}
     correctWrittenAnswer: "\u043A\u043E\u0440\u0430"
+    alternativeWrittenAnswers: []
     hint: "\u0422\u043E\u0432\u0430 \u0435 \u0432\u044A\u043D\u0448\u043D\u0430\u0442\u0430
       \u043D\u0430\u0433\u044A\u043D\u0430\u0442\u0430 \u0447\u0430\u0441\u0442 \u043D\u0430
       \u043A\u0440\u0430\u0439\u043D\u0438\u044F \u043C\u043E\u0437\u044A\u043A,
