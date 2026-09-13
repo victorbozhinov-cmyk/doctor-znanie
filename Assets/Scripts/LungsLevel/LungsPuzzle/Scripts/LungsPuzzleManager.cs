@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -49,6 +50,28 @@ public class LungsPuzzleManager : MonoBehaviour
 
     [Header("Lives")]
     [SerializeField] private LungsPuzzleLives puzzleLives;
+
+    // =====================================================
+    // END PANEL DELAYS
+    // =====================================================
+
+    [Header("End Panel Delays")]
+
+    [Tooltip(
+        "Кратко изчакване след последния Correct звук " +
+        "преди Success панела."
+    )]
+    [Min(0f)]
+    [SerializeField]
+    private float successDelay = 0.55f;
+
+    [Tooltip(
+        "Кратко изчакване след последния Wrong звук " +
+        "преди Game Over панела."
+    )]
+    [Min(0f)]
+    [SerializeField]
+    private float gameOverDelay = 0.45f;
 
     // =====================================================
     // PART CARDS
@@ -148,8 +171,10 @@ public class LungsPuzzleManager : MonoBehaviour
 
     private readonly List<RectTransform> allTargets =
         new List<RectTransform>();
+
     private readonly HashSet<RectTransform> occupiedTargets =
-    new HashSet<RectTransform>();
+        new HashSet<RectTransform>();
+
     private PuzzleItem currentItem;
 
     private int currentIndex;
@@ -191,9 +216,13 @@ public class LungsPuzzleManager : MonoBehaviour
 
     public void StartPuzzle()
     {
+        StopAllCoroutines();
+
         puzzleActive = false;
         inputLocked = false;
+
         occupiedTargets.Clear();
+
         HideCurrentElement();
         HideAllPlacedVisuals();
 
@@ -214,7 +243,6 @@ public class LungsPuzzleManager : MonoBehaviour
         puzzleActive = true;
 
         ShowCurrentItem();
-      
     }
 
     // =====================================================
@@ -551,9 +579,10 @@ public class LungsPuzzleManager : MonoBehaviour
 
         return false;
     }
+
     public bool IsOverOccupiedTarget(
-    Vector2 screenPosition,
-    Camera eventCamera)
+        Vector2 screenPosition,
+        Camera eventCamera)
     {
         if (!PuzzleActive)
             return false;
@@ -592,12 +621,18 @@ public class LungsPuzzleManager : MonoBehaviour
 
         if (currentItem == null)
             return;
+
+        // Correct се пуска винаги,
+        // включително при последния елемент.
+        PlayCorrectSound();
+
         if (currentItem.correctTarget != null)
         {
             occupiedTargets.Add(
                 currentItem.correctTarget
             );
         }
+
         if (currentItem.placedVisual != null)
         {
             currentItem
@@ -634,6 +669,10 @@ public class LungsPuzzleManager : MonoBehaviour
     {
         if (!PuzzleActive)
             return;
+
+        // Wrong се пуска винаги,
+        // включително при последния живот.
+        PlayWrongSound();
 
         LungsPuzzleFeedbackFlash wrongFlash =
             null;
@@ -690,12 +729,51 @@ public class LungsPuzzleManager : MonoBehaviour
     }
 
     // =====================================================
+    // AUDIO
+    // =====================================================
+
+    private void PlayCorrectSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayCorrect();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    private void PlayWrongSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    // =====================================================
     // EMPTY SPACE
     // =====================================================
 
     public void DroppedOnEmptySpace()
     {
         // Няма наказание.
+        // Няма и Wrong звук.
     }
 
     // =====================================================
@@ -713,6 +791,17 @@ public class LungsPuzzleManager : MonoBehaviour
         currentItem = null;
 
         HideCurrentElement();
+
+        StartCoroutine(
+            ShowGameOverAfterDelay()
+        );
+    }
+
+    private IEnumerator ShowGameOverAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(
+            gameOverDelay
+        );
 
         onGameOver?.Invoke();
     }
@@ -773,6 +862,17 @@ public class LungsPuzzleManager : MonoBehaviour
                 );
             }
         }
+
+        StartCoroutine(
+            ShowSuccessAfterDelay()
+        );
+    }
+
+    private IEnumerator ShowSuccessAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(
+            successDelay
+        );
 
         onPuzzleCompleted?.Invoke();
     }

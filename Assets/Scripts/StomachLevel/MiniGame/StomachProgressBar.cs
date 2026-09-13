@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class StomachProgressBar : MonoBehaviour
 {
     [Header("UI")]
@@ -20,6 +21,27 @@ public class StomachProgressBar : MonoBehaviour
     [SerializeField] private int mediumJuiceTasks = 2;
     [SerializeField] private int hardJuiceTasks = 3;
 
+    // =========================================================
+    // AUDIO
+    // =========================================================
+
+    [Header("Progress Sound")]
+    [SerializeField] private AudioClip pointReceiveSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float pointReceiveVolume = 0.45f;
+
+    [Tooltip(
+        "Минималното време между два pop звука " +
+        "докато процентът се увеличава."
+    )]
+    [Min(0.01f)]
+    [SerializeField] private float pointReceiveInterval = 0.03f;
+
+    // =========================================================
+    // PROGRESS ANIMATION
+    // =========================================================
+
     [Header("Progress Animation")]
     [SerializeField] private float enlargedScale = 1.05f;
     [SerializeField] private float scaleUpDuration = 0.15f;
@@ -34,6 +56,8 @@ public class StomachProgressBar : MonoBehaviour
     private Vector3 normalPanelScale;
 
     private Coroutine progressAnimation;
+
+    private AudioSource sfxAudioSource;
 
     // =========================================================
     // PUBLIC INFO
@@ -58,6 +82,16 @@ public class StomachProgressBar : MonoBehaviour
         {
             normalPanelScale =
                 progressPanel.localScale;
+        }
+
+        sfxAudioSource =
+            GetComponent<AudioSource>();
+
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.playOnAwake = false;
+            sfxAudioSource.loop = false;
+            sfxAudioSource.spatialBlend = 0f;
         }
     }
 
@@ -224,7 +258,10 @@ public class StomachProgressBar : MonoBehaviour
     private IEnumerator AnimateProgressGain(
         float targetProgress)
     {
-        // 1. Леко уголемяване.
+        // =====================================================
+        // 1. ЛЕКО УГОЛЕМЯВАНЕ
+        // =====================================================
+
         if (progressPanel != null)
         {
             yield return ScalePanelTo(
@@ -235,9 +272,20 @@ public class StomachProgressBar : MonoBehaviour
             );
         }
 
-        // 2. Плавно покачване на прогреса.
+        // =====================================================
+        // 2. ПЛАВНО ПОКАЧВАНЕ НА ПРОГРЕСА
+        // =====================================================
+
         float startProgress =
             currentVisualProgress;
+
+        int previousPercentage =
+            Mathf.RoundToInt(
+                startProgress * 100f
+            );
+
+        float soundTimer =
+            pointReceiveInterval;
 
         float elapsed = 0f;
 
@@ -261,6 +309,41 @@ public class StomachProgressBar : MonoBehaviour
                     t
                 );
 
+            int currentPercentage =
+                Mathf.RoundToInt(
+                    currentVisualProgress * 100f
+                );
+
+            // =================================================
+            // POINT RECEIVE SOUND
+            // =================================================
+            //
+            // Почти при всяка реална промяна
+            // на процента пускаме кратък pop.
+            //
+            // Има и минимален интервал,
+            // за да не станат прекалено много
+            // звуци в един и същи момент.
+            // =================================================
+
+            soundTimer +=
+                Time.deltaTime;
+
+            if (
+                currentPercentage >
+                previousPercentage &&
+                soundTimer >=
+                pointReceiveInterval
+            )
+            {
+                PlayPointReceiveSound();
+
+                soundTimer = 0f;
+            }
+
+            previousPercentage =
+                currentPercentage;
+
             SetVisualProgress(
                 currentVisualProgress
             );
@@ -275,7 +358,10 @@ public class StomachProgressBar : MonoBehaviour
             currentVisualProgress
         );
 
-        // 3. Връщане към нормалния размер.
+        // =====================================================
+        // 3. ВРЪЩАНЕ КЪМ НОРМАЛНИЯ РАЗМЕР
+        // =====================================================
+
         if (progressPanel != null)
         {
             yield return ScalePanelTo(
@@ -285,6 +371,24 @@ public class StomachProgressBar : MonoBehaviour
         }
 
         progressAnimation = null;
+    }
+
+    // =========================================================
+    // AUDIO
+    // =========================================================
+
+    private void PlayPointReceiveSound()
+    {
+        if (sfxAudioSource == null ||
+            pointReceiveSfx == null)
+        {
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(
+            pointReceiveSfx,
+            pointReceiveVolume
+        );
     }
 
     // =========================================================

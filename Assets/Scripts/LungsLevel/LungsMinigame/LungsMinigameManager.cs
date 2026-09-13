@@ -31,6 +31,7 @@ public class LungsDifficultySettings
     public float wrongClickLockDuration = 0.3f;
 }
 
+[RequireComponent(typeof(AudioSource))]
 public class LungsMinigameManager : MonoBehaviour
 {
     public static LungsMinigameManager Instance { get; private set; }
@@ -88,6 +89,42 @@ public class LungsMinigameManager : MonoBehaviour
 
     [SerializeField]
     private LungsAirEffect airEffect;
+
+    // =========================================================
+    // AUDIO
+    // =========================================================
+
+    [Header("Sound Effects")]
+
+    [SerializeField]
+    private AudioClip correctPopSfx;
+
+    [SerializeField]
+    private AudioClip wrongPopSfx;
+
+    [SerializeField]
+    private AudioClip breathInSfx;
+
+    [SerializeField]
+    private AudioClip breathOutSfx;
+
+    [Header("Sound Volumes")]
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float correctPopVolume = 0.8f;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float wrongPopVolume = 0.8f;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float breathInVolume = 0.8f;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float breathOutVolume = 0.8f;
 
     // =========================================================
     // PAUSE
@@ -173,6 +210,8 @@ public class LungsMinigameManager : MonoBehaviour
     private bool isTransitioning;
     private bool isPaused;
 
+    private AudioSource sfxAudioSource;
+
     // =========================================================
     // PUBLIC
     // =========================================================
@@ -234,6 +273,13 @@ public class LungsMinigameManager : MonoBehaviour
 
         Instance = this;
 
+        sfxAudioSource =
+            GetComponent<AudioSource>();
+
+        sfxAudioSource.playOnAwake = false;
+        sfxAudioSource.loop = false;
+        sfxAudioSource.spatialBlend = 0f;
+
         LoadDifficultySettings();
 
         if (pauseOverlay != null)
@@ -282,7 +328,6 @@ public class LungsMinigameManager : MonoBehaviour
 
         wrongClickLockRemaining = 0f;
 
-        // Score tracking reset.
         accumulatedTimePerformance = 0f;
         completedTimedPhases = 0;
 
@@ -311,6 +356,84 @@ public class LungsMinigameManager : MonoBehaviour
     }
 
     // =========================================================
+    // AUDIO
+    // =========================================================
+
+    private void PlaySfx(
+        AudioClip clip,
+        float volume)
+    {
+        if (sfxAudioSource == null ||
+            clip == null)
+        {
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(
+            clip,
+            volume
+        );
+    }
+
+    private void PlayCorrectPop()
+    {
+        PlaySfx(
+            correctPopSfx,
+            correctPopVolume
+        );
+    }
+
+    private void PlayWrongPop()
+    {
+        PlaySfx(
+            wrongPopSfx,
+            wrongPopVolume
+        );
+    }
+
+    private void PlayBreathIn()
+    {
+        if (breathInSfx == null)
+        {
+            return;
+        }
+
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .DuckMusicForFeedback(
+                    breathInSfx.length
+                );
+        }
+
+        PlaySfx(
+            breathInSfx,
+            breathInVolume
+        );
+    }
+
+    private void PlayBreathOut()
+    {
+        if (breathOutSfx == null)
+        {
+            return;
+        }
+
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .DuckMusicForFeedback(
+                    breathOutSfx.length
+                );
+        }
+
+        PlaySfx(
+            breathOutSfx,
+            breathOutVolume
+        );
+    }
+
+    // =========================================================
     // START MINIGAME
     // =========================================================
 
@@ -331,7 +454,6 @@ public class LungsMinigameManager : MonoBehaviour
 
         currentRound = 1;
 
-        // Нов опит -> чисто време.
         accumulatedTimePerformance = 0f;
         completedTimedPhases = 0;
 
@@ -636,24 +758,18 @@ public class LungsMinigameManager : MonoBehaviour
         switch (difficulty)
         {
             case 0:
-
                 currentSettings =
                     easySettings;
-
                 break;
 
             case 2:
-
                 currentSettings =
                     hardSettings;
-
                 break;
 
             default:
-
                 currentSettings =
                     mediumSettings;
-
                 break;
         }
     }
@@ -706,15 +822,10 @@ public class LungsMinigameManager : MonoBehaviour
 
         if (!useTimer)
         {
-            // За тестове без timer не наказваме score-а.
             phasePerformance = 1f;
         }
         else if (currentSettings.phaseDuration > 0f)
         {
-            // ВАЖНО:
-            // Това е процент, а не сурови секунди.
-            //
-            // Така различните трудности са сравними.
             phasePerformance =
                 Mathf.Clamp01(
                     phaseTimeRemaining /
@@ -803,6 +914,9 @@ public class LungsMinigameManager : MonoBehaviour
     {
         if (gasType == LungGasType.O2)
         {
+            // O2 е правилният балон при вдишване.
+            PlayCorrectPop();
+
             oxygenPercent +=
                 currentSettings.correctAmount;
 
@@ -822,6 +936,9 @@ public class LungsMinigameManager : MonoBehaviour
         }
         else
         {
+            // CO2 е грешният балон при вдишване.
+            PlayWrongPop();
+
             oxygenPercent -=
                 currentSettings.wrongPenalty;
 
@@ -854,7 +971,6 @@ public class LungsMinigameManager : MonoBehaviour
             return;
         }
 
-        // Записваме колко бързо е завършена фазата.
         RecordCurrentPhaseTime();
 
         StartCoroutine(
@@ -881,6 +997,9 @@ public class LungsMinigameManager : MonoBehaviour
             airEffect.PlayInhale();
         }
 
+        // Фазата Вдишване приключи.
+        PlayBreathIn();
+
         yield return new WaitForSecondsRealtime(
             phaseTransitionDelay
         );
@@ -904,6 +1023,9 @@ public class LungsMinigameManager : MonoBehaviour
     {
         if (gasType == LungGasType.CO2)
         {
+            // CO2 е правилният балон при издишване.
+            PlayCorrectPop();
+
             co2Percent -=
                 currentSettings.correctAmount;
 
@@ -923,6 +1045,9 @@ public class LungsMinigameManager : MonoBehaviour
         }
         else
         {
+            // O2 е грешният балон при издишване.
+            PlayWrongPop();
+
             co2Percent +=
                 currentSettings.wrongPenalty;
 
@@ -954,7 +1079,6 @@ public class LungsMinigameManager : MonoBehaviour
             return;
         }
 
-        // Записваме колко бързо е завършена фазата.
         RecordCurrentPhaseTime();
 
         StartCoroutine(
@@ -980,6 +1104,9 @@ public class LungsMinigameManager : MonoBehaviour
         {
             airEffect.PlayExhale();
         }
+
+        // Фазата Издишване приключи.
+        PlayBreathOut();
 
         yield return new WaitForSecondsRealtime(
             phaseTransitionDelay
@@ -1024,10 +1151,6 @@ public class LungsMinigameManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        // =====================================================
-        // SCORE
-        // =====================================================
-
         if (LungsScoreManager.Instance != null)
         {
             float averageSpeedPerformance =
@@ -1065,10 +1188,6 @@ public class LungsMinigameManager : MonoBehaviour
                 "не беше записан."
             );
         }
-
-        // =====================================================
-        // UI
-        // =====================================================
 
         if (pauseOverlay != null)
         {

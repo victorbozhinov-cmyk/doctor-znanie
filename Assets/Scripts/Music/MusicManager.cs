@@ -111,13 +111,25 @@ public class MusicManager : MonoBehaviour
     private float liverMinigameMusicVolume = 0.30f;
 
     // =========================================================
+    // LUNGS MINIGAME
+    // =========================================================
+
+    [Header("Lungs Minigame Music")]
+    [SerializeField]
+    private AudioClip lungsMinigameMusic;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float lungsMinigameMusicVolume = 0.30f;
+
+    // =========================================================
     // DUCKING
     // =========================================================
 
     [Header("Video Ducking")]
     [Range(0f, 1f)]
     [SerializeField]
-    private float videoDuckedVolumeMultiplier = 0.25f;
+    private float videoDuckedVolumeMultiplier = 0.20f;
 
     [Header("Feedback SFX Ducking")]
     [Range(0f, 1f)]
@@ -327,6 +339,14 @@ public class MusicManager : MonoBehaviour
         );
     }
 
+    public void PlayLungsMinigameMusic()
+    {
+        PlayMusic(
+            lungsMinigameMusic,
+            lungsMinigameMusicVolume
+        );
+    }
+
     // =========================================================
     // PANEL TRANSITION
     // =========================================================
@@ -471,7 +491,7 @@ public class MusicManager : MonoBehaviour
     }
 
     // =========================================================
-    // CORRECT / WRONG DUCKING
+    // CORRECT / WRONG / BREATH DUCKING
     // =========================================================
 
     public void DuckMusicForFeedback(

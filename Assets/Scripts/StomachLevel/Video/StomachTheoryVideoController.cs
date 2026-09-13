@@ -124,11 +124,46 @@ public class StomachTheoryVideoController : MonoBehaviour
         videoPlayer.Prepare();
     }
 
+    // =========================================================
+    // VIDEO MUSIC DUCKING
+    // =========================================================
+
+    private void DuckBackgroundMusic()
+    {
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .DuckMusicForVideo();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "MusicManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    private void RestoreBackgroundMusic()
+    {
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .RestoreMusicAfterVideo();
+        }
+    }
+
+    // =========================================================
+    // VIDEO EVENTS
+    // =========================================================
+
     private void OnVideoPrepared(VideoPlayer player)
     {
         Debug.Log(
             "Stomach Theory: видеото е готово."
         );
+
+        DuckBackgroundMusic();
 
         player.Play();
     }
@@ -143,6 +178,8 @@ public class StomachTheoryVideoController : MonoBehaviour
         isFinishing = true;
 
         player.Stop();
+
+        RestoreBackgroundMusic();
 
         if (puzzlePanel != null)
         {
@@ -162,6 +199,8 @@ public class StomachTheoryVideoController : MonoBehaviour
         string message
     )
     {
+        RestoreBackgroundMusic();
+
         Debug.LogError(
             "Грешка при пускане на Stomach Theory видеото: " +
             message
@@ -174,10 +213,14 @@ public class StomachTheoryVideoController : MonoBehaviour
         {
             videoPlayer.Stop();
         }
+
+        RestoreBackgroundMusic();
     }
 
     private void OnDestroy()
     {
+        RestoreBackgroundMusic();
+
         if (videoPlayer == null)
         {
             return;
