@@ -1,0 +1,1456 @@
+fileFormatVersion: 2
+guid: bb3c839a35e49b643b05fd8e43ab41eb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1069199170170984424
+    second: serumFillLiquid 1_0
+  - first:
+      213: -4421922070412725139
+    second: serumFillLiquid 1_1
+  - first:
+      213: 1980046563033933489
+    second: serumFillLiquid 1_2
+  - first:
+      213: -5158237685308078263
+    second: serumFillLiquid 1_3
+  - first:
+      213: -1473486107222694748
+    second: serumFillLiquid 1_4
+  - first:
+      213: -9007762648305030022
+    second: serumFillLiquid 1_5
+  - first:
+      213: 978556092656654704
+    second: serumFillLiquid 1_6
+  - first:
+      213: -5495369373110706325
+    second: serumFillLiquid 1_7
+  - first:
+      213: -2421531604881166992
+    second: serumFillLiquid 1_8
+  - first:
+      213: -5983734288595202837
+    second: serumFillLiquid 1_9
+  - first:
+      213: 8106531203962009786
+    second: serumFillLiquid 1_10
+  - first:
+      213: -8820801681773287164
+    second: serumFillLiquid 1_11
+  - first:
+      213: -4371216404236561257
+    second: serumFillLiquid 1_12
+  - first:
+      213: 931919842314656418
+    second: serumFillLiquid 1_13
+  - first:
+      213: 7146821353532620124
+    second: serumFillLiquid 1_14
+  - first:
+      213: 9193979100351452195
+    second: serumFillLiquid 1_15
+  - first:
+      213: 8822842265619353392
+    second: serumFillLiquid 1_16
+  - first:
+      213: 1656673960959925725
+    second: serumFillLiquid 1_17
+  - first:
+      213: 1376972509278550061
+    second: serumFillLiquid 1_18
+  - first:
+      213: 515985353139054212
+    second: serumFillLiquid 1_19
+  - first:
+      213: -4308802092710214709
+    second: serumFillLiquid 1_20
+  - first:
+      213: 8248218497540371670
+    second: serumFillLiquid 1_21
+  - first:
+      213: -6831395139073193731
+    second: serumFillLiquid 1_22
+  - first:
+      213: 9142334152480084328
+    second: serumFillLiquid 1_23
+  - first:
+      213: -2020436419167110484
+    second: serumFillLiquid 1_24
+  - first:
+      213: -3473824355098245126
+    second: serumFillLiquid 1_25
+  - first:
+      213: 1900074787562003991
+    second: serumFillLiquid 1_26
+  - first:
+      213: 7803268807371114944
+    second: serumFillLiquid 1_27
+  - first:
+      213: -3159028371736287117
+    second: serumFillLiquid 1_28
+  - first:
+      213: 915004555462491710
+    second: serumFillLiquid 1_29
+  - first:
+      213: 1767791753165519990
+    second: serumFillLiquid 1_30
+  - first:
+      213: -3155445534203418580
+    second: serumFillLiquid 1_31
+  - first:
+      213: -2759983063145923649
+    second: serumFillLiquid 1_32
+  - first:
+      213: -4652999152993104188
+    second: serumFillLiquid 1_33
+  - first:
+      213: 5011480718918823094
+    second: serumFillLiquid 1_34
+  - first:
+      213: 8401034753507788388
+    second: serumFillLiquid 1_35
+  - first:
+      213: 7321849316904652107
+    second: serumFillLiquid 1_36
+  - first:
+      213: -4209980426169527359
+    second: serumFillLiquid 1_37
+  - first:
+      213: -8637239739377218030
+    second: serumFillLiquid 1_38
+  - first:
+      213: 4142181328937537216
+    second: serumFillLiquid 1_39
+  - first:
+      213: -3760944636486922081
+    second: serumFillLiquid 1_40
+  - first:
+      213: 3864183895335618084
+    second: serumFillLiquid 1_41
+  - first:
+      213: -5376325406301967774
+    second: serumFillLiquid 1_42
+  - first:
+      213: -6359682272203326749
+    second: serumFillLiquid 1_43
+  - first:
+      213: 7033721792753437040
+    second: serumFillLiquid 1_44
+  - first:
+      213: -7659773348442895174
+    second: serumFillLiquid 1_45
+  - first:
+      213: -3622513812816889068
+    second: serumFillLiquid 1_46
+  - first:
+      213: 6661707370834908548
+    second: serumFillLiquid 1_47
+  - first:
+      213: 6976163831689162164
+    second: serumFillLiquid 1_48
+  - first:
+      213: -168873386955966751
+    second: serumFillLiquid 1_49
+  - first:
+      213: -3028886620871358713
+    second: serumFillLiquid 1_50
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: serumFillLiquid 1_0
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 681
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e71f2cfafe86de00800000000000000
+      internalID: 1069199170170984424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_1
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 608
+        width: 54
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d64f6982e4d22a2c0800000000000000
+      internalID: -4421922070412725139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_2
+      rect:
+        serializedVersion: 2
+        x: 1971
+        y: 545
+        width: 154
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b6ee5cbbd98a7b10800000000000000
+      internalID: 1980046563033933489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_3
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 610
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 947cd2c97224a68b0800000000000000
+      internalID: -5158237685308078263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_4
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 602
+        width: 22
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a4a48d31302d8be0800000000000000
+      internalID: -1473486107222694748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_5
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 570
+        width: 31
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c2fb6b89ffdf280800000000000000
+      internalID: -9007762648305030022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 592
+        width: 37
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0791897e497849d00800000000000000
+      internalID: 978556092656654704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_7
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 562
+        width: 57
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6fdc2ebba68cb3b0800000000000000
+      internalID: -5495369373110706325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_8
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 568
+        width: 46
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07d2daec5ddf46ed0800000000000000
+      internalID: -2421531604881166992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_9
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 563
+        width: 146
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bec45f12e5185fca0800000000000000
+      internalID: -5983734288595202837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_10
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 614
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab876c40e2f208070800000000000000
+      internalID: 8106531203962009786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_11
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 608
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4092cb3ea97369580800000000000000
+      internalID: -8820801681773287164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_12
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 564
+        width: 60
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7949e1d07d15653c0800000000000000
+      internalID: -4371216404236561257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_13
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 608
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aa9d48b828deec00800000000000000
+      internalID: 931919842314656418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_14
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 599
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5dfc72d72c9e2360800000000000000
+      internalID: 7146821353532620124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_15
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 580
+        width: 82
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32450dca743979f70800000000000000
+      internalID: 9193979100351452195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_16
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 586
+        width: 63
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03f4b8f8b48017a70800000000000000
+      internalID: 8822842265619353392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_17
+      rect:
+        serializedVersion: 2
+        x: 1114
+        y: 590
+        width: 224
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dddd7a7a030bdf610800000000000000
+      internalID: 1656673960959925725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_18
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 578
+        width: 248
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d28b601a33dfb1310800000000000000
+      internalID: 1376972509278550061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_19
+      rect:
+        serializedVersion: 2
+        x: 1677
+        y: 624
+        width: 27
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4866823e1f5292700800000000000000
+      internalID: 515985353139054212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_20
+      rect:
+        serializedVersion: 2
+        x: 1697
+        y: 592
+        width: 18
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc34c80635f0434c0800000000000000
+      internalID: -4308802092710214709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_21
+      rect:
+        serializedVersion: 2
+        x: 1727
+        y: 584
+        width: 22
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d433b7c50f877270800000000000000
+      internalID: 8248218497540371670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_22
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 612
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df84637b0520231a0800000000000000
+      internalID: -6831395139073193731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_23
+      rect:
+        serializedVersion: 2
+        x: 1768
+        y: 629
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8615f78397810ee70800000000000000
+      internalID: 9142334152480084328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_24
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 613
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caa384018c7f5f3e0800000000000000
+      internalID: -2020436419167110484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_25
+      rect:
+        serializedVersion: 2
+        x: 1816
+        y: 612
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af7c446772f7acfc0800000000000000
+      internalID: -3473824355098245126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_26
+      rect:
+        serializedVersion: 2
+        x: 1832
+        y: 578
+        width: 53
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71e1f47c3fb6e5a10800000000000000
+      internalID: 1900074787562003991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_27
+      rect:
+        serializedVersion: 2
+        x: 1872
+        y: 625
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c9cd3603a7ca4c60800000000000000
+      internalID: 7803268807371114944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_28
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 618
+        width: 50
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3782743ee60e824d0800000000000000
+      internalID: -3159028371736287117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_29
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 584
+        width: 17
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3eb4389bcfb2bc00800000000000000
+      internalID: 915004555462491710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_30
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 616
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67cbb4cbb35788810800000000000000
+      internalID: 1767791753165519990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_31
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 608
+        width: 6
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2866b1410b9534d0800000000000000
+      internalID: -3155445534203418580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_32
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 608
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbbb71fe60292b9d0800000000000000
+      internalID: -2759983063145923649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_33
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 612
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ce07a94ce93d6fb0800000000000000
+      internalID: -4652999152993104188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_34
+      rect:
+        serializedVersion: 2
+        x: 1679
+        y: 602
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bc20e1792b5c8540800000000000000
+      internalID: 5011480718918823094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_35
+      rect:
+        serializedVersion: 2
+        x: 1778
+        y: 594
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4660b840998769470800000000000000
+      internalID: 8401034753507788388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_36
+      rect:
+        serializedVersion: 2
+        x: 1826
+        y: 610
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4dc901392f6c9560800000000000000
+      internalID: 7321849316904652107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_37
+      rect:
+        serializedVersion: 2
+        x: 1889
+        y: 610
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c351da9b152395c0800000000000000
+      internalID: -4209980426169527359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_38
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 600
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21e8886183c522880800000000000000
+      internalID: -8637239739377218030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_39
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 594
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cec392f8fbfb7930800000000000000
+      internalID: 4142181328937537216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_40
+      rect:
+        serializedVersion: 2
+        x: 1711
+        y: 594
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f90594a87c07ecbc0800000000000000
+      internalID: -3760944636486922081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_41
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 584
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 426c34c87c650a530800000000000000
+      internalID: 3864183895335618084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_42
+      rect:
+        serializedVersion: 2
+        x: 1665
+        y: 564
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26aa67827847365b0800000000000000
+      internalID: -5376325406301967774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_43
+      rect:
+        serializedVersion: 2
+        x: 1697
+        y: 580
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eab8f02baeddb7a0800000000000000
+      internalID: -6359682272203326749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_44
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 568
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0790ef944bccc9160800000000000000
+      internalID: 7033721792753437040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_45
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 31
+        width: 2045
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abc8e0a09b403b590800000000000000
+      internalID: -7659773348442895174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_46
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 32
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41b7a1151ee3abdc0800000000000000
+      internalID: -3622513812816889068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_47
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 95
+        width: 56
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 485573cfe83237c50800000000000000
+      internalID: 6661707370834908548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_48
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 97
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bda2ca2b0050d060800000000000000
+      internalID: 6976163831689162164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_49
+      rect:
+        serializedVersion: 2
+        x: 1285
+        y: 101
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e6f87e9c8a08adf0800000000000000
+      internalID: -168873386955966751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: serumFillLiquid 1_50
+      rect:
+        serializedVersion: 2
+        x: 1717
+        y: 85
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70787028aab37f5d0800000000000000
+      internalID: -3028886620871358713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      serumFillLiquid 1_0: 1069199170170984424
+      serumFillLiquid 1_1: -4421922070412725139
+      serumFillLiquid 1_10: 8106531203962009786
+      serumFillLiquid 1_11: -8820801681773287164
+      serumFillLiquid 1_12: -4371216404236561257
+      serumFillLiquid 1_13: 931919842314656418
+      serumFillLiquid 1_14: 7146821353532620124
+      serumFillLiquid 1_15: 9193979100351452195
+      serumFillLiquid 1_16: 8822842265619353392
+      serumFillLiquid 1_17: 1656673960959925725
+      serumFillLiquid 1_18: 1376972509278550061
+      serumFillLiquid 1_19: 515985353139054212
+      serumFillLiquid 1_2: 1980046563033933489
+      serumFillLiquid 1_20: -4308802092710214709
+      serumFillLiquid 1_21: 8248218497540371670
+      serumFillLiquid 1_22: -6831395139073193731
+      serumFillLiquid 1_23: 9142334152480084328
+      serumFillLiquid 1_24: -2020436419167110484
+      serumFillLiquid 1_25: -3473824355098245126
+      serumFillLiquid 1_26: 1900074787562003991
+      serumFillLiquid 1_27: 7803268807371114944
+      serumFillLiquid 1_28: -3159028371736287117
+      serumFillLiquid 1_29: 915004555462491710
+      serumFillLiquid 1_3: -5158237685308078263
+      serumFillLiquid 1_30: 1767791753165519990
+      serumFillLiquid 1_31: -3155445534203418580
+      serumFillLiquid 1_32: -2759983063145923649
+      serumFillLiquid 1_33: -4652999152993104188
+      serumFillLiquid 1_34: 5011480718918823094
+      serumFillLiquid 1_35: 8401034753507788388
+      serumFillLiquid 1_36: 7321849316904652107
+      serumFillLiquid 1_37: -4209980426169527359
+      serumFillLiquid 1_38: -8637239739377218030
+      serumFillLiquid 1_39: 4142181328937537216
+      serumFillLiquid 1_4: -1473486107222694748
+      serumFillLiquid 1_40: -3760944636486922081
+      serumFillLiquid 1_41: 3864183895335618084
+      serumFillLiquid 1_42: -5376325406301967774
+      serumFillLiquid 1_43: -6359682272203326749
+      serumFillLiquid 1_44: 7033721792753437040
+      serumFillLiquid 1_45: -7659773348442895174
+      serumFillLiquid 1_46: -3622513812816889068
+      serumFillLiquid 1_47: 6661707370834908548
+      serumFillLiquid 1_48: 6976163831689162164
+      serumFillLiquid 1_49: -168873386955966751
+      serumFillLiquid 1_5: -9007762648305030022
+      serumFillLiquid 1_50: -3028886620871358713
+      serumFillLiquid 1_6: 978556092656654704
+      serumFillLiquid 1_7: -5495369373110706325
+      serumFillLiquid 1_8: -2421531604881166992
+      serumFillLiquid 1_9: -5983734288595202837
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
