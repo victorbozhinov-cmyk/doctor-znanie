@@ -9,6 +9,7 @@ public class LungsScoreManager : MonoBehaviour
     // =========================================================
 
     [Header("Score Weights")]
+
     [SerializeField, Range(0f, 1f)]
     private float puzzleWeight = 0.30f;
 
@@ -19,10 +20,31 @@ public class LungsScoreManager : MonoBehaviour
     private float quizWeight = 0.40f;
 
     // =========================================================
+    // MINIGAME CALCULATION
+    // =========================================================
+
+    [Header("Minigame Calculation")]
+
+    [Tooltip(
+        "Колко от оценката на минииграта идва " +
+        "само от успешното ѝ завършване."
+    )]
+    [SerializeField, Range(0f, 1f)]
+    private float minigameCompletionWeight = 0.50f;
+
+    [Tooltip(
+        "Колко от оценката на минииграта " +
+        "зависи от оставащото време."
+    )]
+    [SerializeField, Range(0f, 1f)]
+    private float minigameSpeedWeight = 0.50f;
+
+    // =========================================================
     // QUIZ CALCULATION
     // =========================================================
 
     [Header("Quiz Calculation")]
+
     [SerializeField, Range(0f, 1f)]
     private float quizLivesWeight = 0.80f;
 
@@ -34,7 +56,10 @@ public class LungsScoreManager : MonoBehaviour
     // =========================================================
 
     private float puzzlePerformance;
+
     private float minigamePerformance;
+    private float minigameSpeedPerformance;
+
     private float quizPerformance;
 
     private bool puzzleCompleted;
@@ -53,6 +78,9 @@ public class LungsScoreManager : MonoBehaviour
 
     public float MinigamePerformance =>
         minigamePerformance;
+
+    public float MinigameSpeedPerformance =>
+        minigameSpeedPerformance;
 
     public float QuizPerformance =>
         quizPerformance;
@@ -91,6 +119,7 @@ public class LungsScoreManager : MonoBehaviour
         {
             puzzlePerformance = 0f;
             puzzleCompleted = true;
+
             return;
         }
 
@@ -112,17 +141,63 @@ public class LungsScoreManager : MonoBehaviour
     // MINIGAME
     // =========================================================
 
-    public void SubmitMinigameCompleted()
+    public void SubmitMinigameResult(
+        float speedPerformance)
     {
-        // Минииграта е pass/fail.
-        // При успешно завършване получава
-        // пълните 100% за своята част.
+        // =====================================================
+        // SPEED
+        // =====================================================
 
-        minigamePerformance = 1f;
+        minigameSpeedPerformance =
+            Mathf.Clamp01(
+                speedPerformance
+            );
+
+        // =====================================================
+        // 50% COMPLETION + 50% SPEED
+        // =====================================================
+
+        float totalWeight =
+            minigameCompletionWeight +
+            minigameSpeedWeight;
+
+        if (totalWeight <= 0f)
+        {
+            minigamePerformance = 0f;
+        }
+        else
+        {
+            // При успешно завършена миниигра:
+            // Completion Performance винаги е 100%.
+            float completionPerformance = 1f;
+
+            minigamePerformance =
+                (
+                    completionPerformance *
+                    minigameCompletionWeight
+                )
+                +
+                (
+                    minigameSpeedPerformance *
+                    minigameSpeedWeight
+                );
+
+            minigamePerformance /=
+                totalWeight;
+        }
+
+        minigamePerformance =
+            Mathf.Clamp01(
+                minigamePerformance
+            );
+
         minigameCompleted = true;
 
         Debug.Log(
-            "Lungs Minigame Performance: 100%"
+            $"Lungs Minigame | " +
+            $"Completion: 100% | " +
+            $"Speed: {minigameSpeedPerformance:P0} | " +
+            $"Performance: {minigamePerformance:P0}"
         );
     }
 
@@ -185,6 +260,10 @@ public class LungsScoreManager : MonoBehaviour
 
     public int CalculateFinalScore()
     {
+        // =====================================================
+        // OVERALL PERFORMANCE
+        // =====================================================
+
         float overallPerformance =
             (puzzlePerformance *
              puzzleWeight)
@@ -200,6 +279,10 @@ public class LungsScoreManager : MonoBehaviour
                 overallPerformance
             );
 
+        // =====================================================
+        // DIFFICULTY
+        // =====================================================
+
         int difficulty =
             PlayerPrefs.GetInt(
                 "Difficulty",
@@ -211,26 +294,41 @@ public class LungsScoreManager : MonoBehaviour
 
         switch (difficulty)
         {
+            // EASY
             case 0:
+
                 minScore = 0;
                 maxScore = 1000;
+
                 break;
 
+            // MEDIUM
             case 1:
+
                 minScore = 1001;
                 maxScore = 1500;
+
                 break;
 
+            // HARD
             case 2:
+
                 minScore = 1501;
                 maxScore = 2000;
+
                 break;
 
             default:
+
                 minScore = 1001;
                 maxScore = 1500;
+
                 break;
         }
+
+        // =====================================================
+        // FINAL SCORE
+        // =====================================================
 
         currentScore =
             Mathf.RoundToInt(
@@ -240,6 +338,13 @@ public class LungsScoreManager : MonoBehaviour
                     overallPerformance
                 )
             );
+
+        Debug.Log(
+            $"Lungs Final Score | " +
+            $"Difficulty: {difficulty} | " +
+            $"Overall Performance: {overallPerformance:P0} | " +
+            $"Score: {currentScore}"
+        );
 
         return currentScore;
     }
@@ -284,7 +389,10 @@ public class LungsScoreManager : MonoBehaviour
     public void ResetRunScore()
     {
         puzzlePerformance = 0f;
+
         minigamePerformance = 0f;
+        minigameSpeedPerformance = 0f;
+
         quizPerformance = 0f;
 
         puzzleCompleted = false;
@@ -294,6 +402,10 @@ public class LungsScoreManager : MonoBehaviour
         currentScore = 0;
         isNewBest = false;
     }
+
+    // =========================================================
+    // CHECK
+    // =========================================================
 
     public bool AreAllSectionsCompleted()
     {

@@ -138,7 +138,8 @@ public class LungsMinigameManager : MonoBehaviour
     [Header("Phase Transition")]
 
     [Tooltip(
-        "Колко време изчакваме цялата визуална анимация преди новата фаза."
+        "Колко време изчакваме цялата визуална " +
+        "анимация преди новата фаза."
     )]
     [Min(0f)]
     [SerializeField]
@@ -159,6 +160,13 @@ public class LungsMinigameManager : MonoBehaviour
 
     private float phaseTimeRemaining;
     private float wrongClickLockRemaining;
+
+    // =========================================================
+    // SCORE TIME TRACKING
+    // =========================================================
+
+    private float accumulatedTimePerformance;
+    private int completedTimedPhases;
 
     private bool gameStarted = false;
     private bool gameEnded;
@@ -274,17 +282,15 @@ public class LungsMinigameManager : MonoBehaviour
 
         wrongClickLockRemaining = 0f;
 
-        Time.timeScale = 1f;
+        // Score tracking reset.
+        accumulatedTimePerformance = 0f;
+        completedTimedPhases = 0;
 
-        // ВАЖНО:
-        // StartInhalePhase() вече НЕ се извиква тук.
-        // Минииграта чака Welcome бутона.
+        Time.timeScale = 1f;
     }
 
     private void Update()
     {
-        // Докато Welcome Panel е отворен,
-        // минииграта не работи.
         if (!gameStarted)
         {
             return;
@@ -324,6 +330,10 @@ public class LungsMinigameManager : MonoBehaviour
         wrongClickLockRemaining = 0f;
 
         currentRound = 1;
+
+        // Нов опит -> чисто време.
+        accumulatedTimePerformance = 0f;
+        completedTimedPhases = 0;
 
         Time.timeScale = 1f;
 
@@ -540,7 +550,7 @@ public class LungsMinigameManager : MonoBehaviour
     }
 
     // =========================================================
-    // EXIT CONFIRMATION FROM PAUSE
+    // EXIT CONFIRMATION
     // =========================================================
 
     public void OpenExitConfirmationFromPause()
@@ -626,18 +636,24 @@ public class LungsMinigameManager : MonoBehaviour
         switch (difficulty)
         {
             case 0:
+
                 currentSettings =
                     easySettings;
+
                 break;
 
             case 2:
+
                 currentSettings =
                     hardSettings;
+
                 break;
 
             default:
+
                 currentSettings =
                     mediumSettings;
+
                 break;
         }
     }
@@ -676,6 +692,56 @@ public class LungsMinigameManager : MonoBehaviour
     }
 
     // =========================================================
+    // TIME PERFORMANCE
+    // =========================================================
+
+    private void RecordCurrentPhaseTime()
+    {
+        if (currentSettings == null)
+        {
+            return;
+        }
+
+        float phasePerformance;
+
+        if (!useTimer)
+        {
+            // За тестове без timer не наказваме score-а.
+            phasePerformance = 1f;
+        }
+        else if (currentSettings.phaseDuration > 0f)
+        {
+            // ВАЖНО:
+            // Това е процент, а не сурови секунди.
+            //
+            // Така различните трудности са сравними.
+            phasePerformance =
+                Mathf.Clamp01(
+                    phaseTimeRemaining /
+                    currentSettings.phaseDuration
+                );
+        }
+        else
+        {
+            phasePerformance = 0f;
+        }
+
+        accumulatedTimePerformance +=
+            phasePerformance;
+
+        completedTimedPhases++;
+
+        Debug.Log(
+            $"Lungs Phase Complete | " +
+            $"Round: {currentRound}/{TotalRounds} | " +
+            $"Phase: {currentPhase} | " +
+            $"Remaining: {phaseTimeRemaining:F1}/" +
+            $"{currentSettings.phaseDuration:F1}s | " +
+            $"Speed Performance: {phasePerformance:P0}"
+        );
+    }
+
+    // =========================================================
     // WRONG CLICK
     // =========================================================
 
@@ -706,8 +772,7 @@ public class LungsMinigameManager : MonoBehaviour
     // =========================================================
 
     public void HandleBubbleClicked(
-        LungGasType gasType
-    )
+        LungGasType gasType)
     {
         if (IsClickLocked)
         {
@@ -734,8 +799,7 @@ public class LungsMinigameManager : MonoBehaviour
     // =========================================================
 
     private void HandleInhaleClick(
-        LungGasType gasType
-    )
+        LungGasType gasType)
     {
         if (gasType == LungGasType.O2)
         {
@@ -790,6 +854,9 @@ public class LungsMinigameManager : MonoBehaviour
             return;
         }
 
+        // Записваме колко бързо е завършена фазата.
+        RecordCurrentPhaseTime();
+
         StartCoroutine(
             TransitionToExhale()
         );
@@ -833,8 +900,7 @@ public class LungsMinigameManager : MonoBehaviour
     // =========================================================
 
     private void HandleExhaleClick(
-        LungGasType gasType
-    )
+        LungGasType gasType)
     {
         if (gasType == LungGasType.CO2)
         {
@@ -887,6 +953,9 @@ public class LungsMinigameManager : MonoBehaviour
         {
             return;
         }
+
+        // Записваме колко бързо е завършена фазата.
+        RecordCurrentPhaseTime();
 
         StartCoroutine(
             FinishRoundTransition()
@@ -961,12 +1030,31 @@ public class LungsMinigameManager : MonoBehaviour
 
         if (LungsScoreManager.Instance != null)
         {
+            float averageSpeedPerformance =
+                1f;
+
+            if (completedTimedPhases > 0)
+            {
+                averageSpeedPerformance =
+                    accumulatedTimePerformance /
+                    completedTimedPhases;
+            }
+
+            averageSpeedPerformance =
+                Mathf.Clamp01(
+                    averageSpeedPerformance
+                );
+
             LungsScoreManager.Instance
-                .SubmitMinigameCompleted();
+                .SubmitMinigameResult(
+                    averageSpeedPerformance
+                );
 
             Debug.Log(
-                "Lungs Minigame Score submitted | " +
-                "Performance: 100%"
+                $"Lungs Minigame Score Submitted | " +
+                $"Completed Phases: {completedTimedPhases} | " +
+                $"Average Speed: " +
+                $"{averageSpeedPerformance:P0}"
             );
         }
         else
@@ -977,6 +1065,10 @@ public class LungsMinigameManager : MonoBehaviour
                 "не беше записан."
             );
         }
+
+        // =====================================================
+        // UI
+        // =====================================================
 
         if (pauseOverlay != null)
         {
