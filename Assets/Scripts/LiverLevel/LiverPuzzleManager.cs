@@ -15,6 +15,9 @@ public class LiverPuzzleManager : MonoBehaviour
     [SerializeField]
     private GameObject successPanel;
 
+    [SerializeField]
+    private GameObject exitConfirmationPanel;
+
     [Header("Puzzle")]
     [SerializeField]
     private int totalCards = 8;
@@ -51,6 +54,11 @@ public class LiverPuzzleManager : MonoBehaviour
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
+        }
+
+        if (exitConfirmationPanel != null)
+        {
+            exitConfirmationPanel.SetActive(false);
         }
     }
 
@@ -290,6 +298,35 @@ public class LiverPuzzleManager : MonoBehaviour
                 "в LiverPuzzleManager!"
             );
         }
+    }
+
+    // =========================================================
+    // EXIT CONFIRMATION
+    // =========================================================
+
+    public void OpenExitConfirmation()
+    {
+        if (exitConfirmationPanel == null)
+        {
+            Debug.LogError(
+                "ExitConfirmationPanel не е зададен " +
+                "в LiverPuzzleManager!"
+            );
+
+            return;
+        }
+
+        exitConfirmationPanel.SetActive(true);
+    }
+
+    public void CloseExitConfirmation()
+    {
+        if (exitConfirmationPanel == null)
+        {
+            return;
+        }
+
+        exitConfirmationPanel.SetActive(false);
     }
 
     // =========================================================
