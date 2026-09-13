@@ -1,11 +1,15 @@
-Shader "DoctorZnanie/AccessibleColorFilter"
+Shader "UI/Accessible Color Theme"
 {
     Properties
     {
-        _Strength ("Effect Strength", Range(0, 1)) = 1
+        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 
-        _RedAmount ("Red Change", Range(0, 1)) = 0.9
-        _GreenAmount ("Green Change", Range(0, 1)) = 0.9
+        _Color ("Tint", Color) = (1,1,1,1)
+
+        _Strength ("Effect Strength", Range(0,1)) = 1
+
+        _RedAmount ("Red Change", Range(0,1)) = 0.9
+        _GreenAmount ("Green Change", Range(0,1)) = 0.9
 
         _RedTargetColor (
             "Red Replacement",
@@ -16,31 +20,90 @@ Shader "DoctorZnanie/AccessibleColorFilter"
             "Green Replacement",
             Color
         ) = (0.0, 0.447, 0.698, 1)
+
+        _StencilComp ("Stencil Comparison", Float) = 8
+        _Stencil ("Stencil ID", Float) = 0
+        _StencilOp ("Stencil Operation", Float) = 0
+        _StencilWriteMask ("Stencil Write Mask", Float) = 255
+        _StencilReadMask ("Stencil Read Mask", Float) = 255
+
+        _ColorMask ("Color Mask", Float) = 15
+
+        [Toggle(UNITY_UI_ALPHACLIP)]
+        _UseUIAlphaClip ("Use Alpha Clip", Float) = 0
     }
 
     SubShader
     {
         Tags
         {
-            "RenderType" = "Opaque"
-            "RenderPipeline" = "UniversalPipeline"
+            "Queue" = "Transparent"
+            "IgnoreProjector" = "True"
+            "RenderType" = "Transparent"
+            "PreviewType" = "Plane"
+            "CanUseSpriteAtlas" = "True"
         }
 
-        ZTest Always
-        ZWrite Off
+        Stencil
+        {
+            Ref [_Stencil]
+            Comp [_StencilComp]
+            Pass [_StencilOp]
+            ReadMask [_StencilReadMask]
+            WriteMask [_StencilWriteMask]
+        }
+
         Cull Off
+        Lighting Off
+        ZWrite Off
+        ZTest [unity_GUIZTestMode]
+
+        Blend SrcAlpha OneMinusSrcAlpha
+
+        ColorMask [_ColorMask]
 
         Pass
         {
-            Name "AccessibleColorFilter"
+            Name "Default"
 
-            HLSLPROGRAM
+            CGPROGRAM
 
-            #pragma vertex Vert
-            #pragma fragment Frag
+            #pragma vertex vert
+            #pragma fragment frag
 
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+            #pragma target 2.0
+
+            #include "UnityCG.cginc"
+            #include "UnityUI.cginc"
+
+            #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
+            #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
+
+            struct appdata_t
+            {
+                float4 vertex : POSITION;
+                float4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
+
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+                fixed4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+                float4 worldPosition : TEXCOORD1;
+
+                UNITY_VERTEX_OUTPUT_STEREO
+            };
+
+            sampler2D _MainTex;
+
+            fixed4 _Color;
+            fixed4 _TextureSampleAdd;
+
+            float4 _ClipRect;
 
             float _Strength;
 
@@ -49,6 +112,35 @@ Shader "DoctorZnanie/AccessibleColorFilter"
 
             float4 _RedTargetColor;
             float4 _GreenTargetColor;
+
+            // =================================================
+            // VERTEX
+            // =================================================
+
+            v2f vert(appdata_t v)
+            {
+                v2f OUT;
+
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
+
+                OUT.worldPosition = v.vertex;
+
+                OUT.vertex =
+                    UnityObjectToClipPos(v.vertex);
+
+                OUT.texcoord =
+                    v.texcoord;
+
+                OUT.color =
+                    v.color * _Color;
+
+                return OUT;
+            }
+
+            // =================================================
+            // RGB -> HSV
+            // =================================================
 
             float3 RGBToHSV(float3 c)
             {
@@ -71,8 +163,11 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                     step(p.x, c.r)
                 );
 
-                float d = q.x - min(q.w, q.y);
-                float e = 1.0e-10;
+                float d =
+                    q.x - min(q.w, q.y);
+
+                float e =
+                    1.0e-10;
 
                 return float3(
                     abs(
@@ -84,6 +179,10 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                     q.x
                 );
             }
+
+            // =================================================
+            // HSV -> RGB
+            // =================================================
 
             float3 HSVToRGB(float3 c)
             {
@@ -109,9 +208,17 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                     );
             }
 
-            float HueDistance(float a, float b)
+            // =================================================
+            // HUE HELPERS
+            // =================================================
+
+            float HueDistance(
+                float a,
+                float b
+            )
             {
-                float d = abs(a - b);
+                float d =
+                    abs(a - b);
 
                 return min(
                     d,
@@ -125,7 +232,8 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                 float t
             )
             {
-                float d = b - a;
+                float d =
+                    b - a;
 
                 if (d > 0.5)
                 {
@@ -142,31 +250,38 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                 );
             }
 
-            half4 Frag(Varyings input)
-                : SV_Target
+            // =================================================
+            // FRAGMENT
+            // =================================================
+
+            fixed4 frag(v2f IN) : SV_Target
             {
-                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(
-                    input
-                );
+                fixed4 source =
+                    (
+                        tex2D(
+                            _MainTex,
+                            IN.texcoord
+                        )
+                        +
+                        _TextureSampleAdd
+                    )
+                    *
+                    IN.color;
 
-                float2 uv =
-                    input.texcoord.xy;
-
-                half4 source =
-                    SAMPLE_TEXTURE2D_X_LOD(
-                        _BlitTexture,
-                        sampler_LinearClamp,
-                        uv,
-                        _BlitMipLevel
-                    );
+                // Запазваме оригиналната прозрачност.
+                fixed originalAlpha =
+                    source.a;
 
                 float3 hsv =
                     RGBToHSV(
                         saturate(source.rgb)
                     );
 
-                // Не засягаме почти безцветните
-                // части на изображението.
+                // =================================================
+                // COLOR MASK
+                // =================================================
+
+                // Почти безцветните части не ги променяме.
                 float colorMask =
                     smoothstep(
                         0.18,
@@ -174,12 +289,11 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                         hsv.y
                     );
 
-                // =========================
-                // ЧЕРВЕНО
-                // =========================
+                // =================================================
+                // RED
+                // =================================================
 
-                // Нарочно тесен диапазон.
-                // Оранжевото не трябва да влиза тук.
+                // Тесен диапазон, за да не хваща оранжевото.
                 float redMask =
                     1.0 -
                     smoothstep(
@@ -191,11 +305,12 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                         )
                     );
 
-                redMask *= colorMask;
+                redMask *=
+                    colorMask;
 
-                // =========================
-                // ЗЕЛЕНО
-                // =========================
+                // =================================================
+                // GREEN
+                // =================================================
 
                 float greenMask =
                     1.0 -
@@ -208,7 +323,8 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                         )
                     );
 
-                greenMask *= colorMask;
+                greenMask *=
+                    colorMask;
 
                 float3 redTargetHSV =
                     RGBToHSV(
@@ -228,9 +344,9 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                     greenMask *
                     _GreenAmount;
 
-                // =========================
-                // ЧЕРВЕНО -> РОЗОВО-ЛИЛАВО
-                // =========================
+                // =================================================
+                // RED -> PINK / PURPLE
+                // =================================================
 
                 hsv.x =
                     LerpHue(
@@ -246,9 +362,9 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                         redStrength * 0.75
                     );
 
-                // =========================
-                // ЗЕЛЕНО -> СИНЬО
-                // =========================
+                // =================================================
+                // GREEN -> BLUE
+                // =================================================
 
                 hsv.x =
                     LerpHue(
@@ -264,9 +380,10 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                         greenStrength * 0.75
                     );
 
-                // Допълнителна разлика по яркост.
-                // Това е важно, защото не разчитаме
-                // единствено на hue.
+                // =================================================
+                // BRIGHTNESS DIFFERENCE
+                // =================================================
+
                 hsv.z *=
                     1.0 +
                     redMask * 0.07 -
@@ -278,22 +395,46 @@ Shader "DoctorZnanie/AccessibleColorFilter"
                 float3 accessibleColor =
                     HSVToRGB(hsv);
 
-                float3 finalColor =
+                source.rgb =
                     lerp(
                         source.rgb,
                         accessibleColor,
                         _Strength
                     );
 
-                return half4(
-                    finalColor,
-                    source.a
+                // =================================================
+                // UI CLIPPING / MASKS
+                // =================================================
+
+                #ifdef UNITY_UI_CLIP_RECT
+
+                source.a *=
+                    UnityGet2DClipping(
+                        IN.worldPosition.xy,
+                        _ClipRect
+                    );
+
+                #endif
+
+                #ifdef UNITY_UI_ALPHACLIP
+
+                clip(
+                    source.a - 0.001
                 );
+
+                #endif
+
+                // Никога не променяме alpha заради color filter-а.
+                source.a =
+                    min(
+                        source.a,
+                        originalAlpha
+                    );
+
+                return source;
             }
 
-            ENDHLSL
+            ENDCG
         }
     }
-
-    Fallback Off
 }

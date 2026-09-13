@@ -784,6 +784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1843493988}
   - component: {fileID: 1843493987}
+  - component: {fileID: 1843493989}
   m_Layer: 0
   m_Name: ColorThemeSystem
   m_TagString: Untagged
@@ -803,9 +804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc64683c82d8d64eb9ce180c068d971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorThemeManager
-  accessibleColorMaterial: {fileID: 2100000, guid: 99d0d7e86819181489c8fcbf697aa201, type: 2}
-  accessibleThemeStrength: 0.6
-  canvasPlaneDistance: 1
 --- !u!4 &1843493988
 Transform:
   m_ObjectHideFlags: 0
@@ -821,6 +819,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1843493989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843493986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1e8e8554c394a40a5dfd2005eda46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AccessibleThemeApplier
+  accessibleMaterial: {fileID: 2100000, guid: e2b4c8ff8fcb39c4a92fcf9ee3e37f9f, type: 2}
 --- !u!1 &1876844117
 GameObject:
   m_ObjectHideFlags: 0
