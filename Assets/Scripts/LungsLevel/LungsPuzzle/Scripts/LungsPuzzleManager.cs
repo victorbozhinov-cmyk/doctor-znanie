@@ -148,7 +148,8 @@ public class LungsPuzzleManager : MonoBehaviour
 
     private readonly List<RectTransform> allTargets =
         new List<RectTransform>();
-
+    private readonly HashSet<RectTransform> occupiedTargets =
+    new HashSet<RectTransform>();
     private PuzzleItem currentItem;
 
     private int currentIndex;
@@ -192,7 +193,7 @@ public class LungsPuzzleManager : MonoBehaviour
     {
         puzzleActive = false;
         inputLocked = false;
-
+        occupiedTargets.Clear();
         HideCurrentElement();
         HideAllPlacedVisuals();
 
@@ -213,6 +214,7 @@ public class LungsPuzzleManager : MonoBehaviour
         puzzleActive = true;
 
         ShowCurrentItem();
+      
     }
 
     // =====================================================
@@ -549,6 +551,35 @@ public class LungsPuzzleManager : MonoBehaviour
 
         return false;
     }
+    public bool IsOverOccupiedTarget(
+    Vector2 screenPosition,
+    Camera eventCamera)
+    {
+        if (!PuzzleActive)
+            return false;
+
+        foreach (RectTransform target
+                 in occupiedTargets)
+        {
+            if (target == null)
+                continue;
+
+            bool inside =
+                RectTransformUtility
+                    .RectangleContainsScreenPoint(
+                        target,
+                        screenPosition,
+                        eventCamera
+                    );
+
+            if (inside)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     // =====================================================
     // CORRECT
@@ -561,7 +592,12 @@ public class LungsPuzzleManager : MonoBehaviour
 
         if (currentItem == null)
             return;
-
+        if (currentItem.correctTarget != null)
+        {
+            occupiedTargets.Add(
+                currentItem.correctTarget
+            );
+        }
         if (currentItem.placedVisual != null)
         {
             currentItem
