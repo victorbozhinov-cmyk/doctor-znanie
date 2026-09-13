@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DefaultExecutionOrder(30000)]
+[RequireComponent(typeof(AudioSource))]
 public class BodyMapRewardUIController : MonoBehaviour
 {
     // =========================================================
@@ -32,6 +33,31 @@ public class BodyMapRewardUIController : MonoBehaviour
     [SerializeField] private Image serumFillImage;
 
     // =========================================================
+    // AUDIO
+    // =========================================================
+
+    [Header("Reward Sounds")]
+    [SerializeField] private AudioClip pointReceiveSfx;
+    [SerializeField] private AudioClip serumChargeSfx;
+
+    [Header("Reward Sound Volumes")]
+
+    [Range(0f, 1f)]
+    [SerializeField] private float pointReceiveVolume = 0.45f;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float serumChargeVolume = 0.95f;
+
+    [Header("Point Receive Repetition")]
+
+    [Tooltip(
+        "Колко често се пуска Point Receive звукът " +
+        "докато числото се увеличава."
+    )]
+    [Min(0.02f)]
+    [SerializeField] private float pointReceiveInterval = 0.055f;
+
+    // =========================================================
     // ANIMATION
     // =========================================================
 
@@ -56,17 +82,26 @@ public class BodyMapRewardUIController : MonoBehaviour
 
     private float displayedSerumFill = -1f;
 
+    private AudioSource sfxAudioSource;
+
     // =========================================================
     // UNITY
     // =========================================================
 
     private void Awake()
     {
+        sfxAudioSource = GetComponent<AudioSource>();
+
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.playOnAwake = false;
+            sfxAudioSource.loop = false;
+            sfxAudioSource.spatialBlend = 0f;
+        }
+
         sequenceRunning =
             BodyMapRewardAnimationData.HasPendingSequence;
 
-        // Ако се връщаме от завършено ниво,
-        // още веднага подготвяме СТАРИТЕ стойности.
         if (BodyMapRewardAnimationData.HasPendingSequence)
         {
             SetVitaminsInstant(
@@ -89,8 +124,6 @@ public class BodyMapRewardUIController : MonoBehaviour
     {
         if (BodyMapRewardAnimationData.HasPendingSequence)
         {
-            // Изчакваме всички останали Start() методи.
-            // След това пак налагаме старите стойности.
             yield return null;
 
             SetVitaminsInstant(
@@ -121,11 +154,6 @@ public class BodyMapRewardUIController : MonoBehaviour
 
     private void Update()
     {
-        // Когато НЯМА reward sequence,
-        // стойностите следват manager-ите нормално.
-        //
-        // Например при купуване на орган:
-        // витамините ще намалеят веднага.
         if (!sequenceRunning)
         {
             RefreshAllInstant();
@@ -134,12 +162,6 @@ public class BodyMapRewardUIController : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Това е много важно.
-        //
-        // Ако стар Vitamin UI / Antibody UI скрипт
-        // се опита да промени текста през Update(),
-        // ние връщаме правилната визуална стойност
-        // непосредствено преди кадърът да се нарисува.
         if (sequenceRunning)
         {
             ForceDisplayedValuesToUI();
@@ -271,8 +293,6 @@ public class BodyMapRewardUIController : MonoBehaviour
         Vector3 enlargedScale =
             normalScale * zoomScale;
 
-        // Старото число трябва да остане,
-        // докато панелът се уголемява.
         SetAnimatedNumber(
             valueText,
             fromValue
@@ -296,6 +316,12 @@ public class BodyMapRewardUIController : MonoBehaviour
         // =====================================================
 
         float timer = 0f;
+
+        float pointSoundTimer =
+            pointReceiveInterval;
+
+        int previousDisplayedValue =
+            fromValue;
 
         while (timer < valueChangeDuration)
         {
@@ -326,6 +352,41 @@ public class BodyMapRewardUIController : MonoBehaviour
                 valueText,
                 currentValue
             );
+
+            // =================================================
+            // POINT RECEIVE SOUND
+            // =================================================
+            //
+            // При увеличение пускаме поредица
+            // от бързи pop звуци.
+            //
+            // Не пускаме такива при намаляване
+            // на стойността.
+            // =================================================
+
+            if (toValue > fromValue)
+            {
+                pointSoundTimer +=
+                    Time.deltaTime;
+
+                bool numberActuallyChanged =
+                    currentValue !=
+                    previousDisplayedValue;
+
+                if (
+                    numberActuallyChanged &&
+                    pointSoundTimer >=
+                    pointReceiveInterval
+                )
+                {
+                    PlayPointReceiveSound();
+
+                    pointSoundTimer = 0f;
+                }
+            }
+
+            previousDisplayedValue =
+                currentValue;
 
             yield return null;
         }
@@ -406,7 +467,6 @@ public class BodyMapRewardUIController : MonoBehaviour
         Vector3 enlargedScale =
             normalScale * zoomScale;
 
-        // Старото състояние.
         SetSerumInstant(
             fromPercent
         );
@@ -427,6 +487,11 @@ public class BodyMapRewardUIController : MonoBehaviour
         // =====================================================
         // 2. ПЪЛНЕНЕ
         // =====================================================
+
+        if (toPercent > fromPercent)
+        {
+            PlaySerumChargeSound();
+        }
 
         float fromFill =
             Mathf.Clamp01(
@@ -534,6 +599,48 @@ public class BodyMapRewardUIController : MonoBehaviour
 
         serumPanel.localScale =
             normalScale;
+    }
+
+    // =========================================================
+    // AUDIO
+    // =========================================================
+
+    private void PlayPointReceiveSound()
+    {
+        if (sfxAudioSource == null ||
+            pointReceiveSfx == null)
+        {
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(
+            pointReceiveSfx,
+            pointReceiveVolume
+        );
+    }
+
+    private void PlaySerumChargeSound()
+    {
+        if (sfxAudioSource == null ||
+            serumChargeSfx == null)
+        {
+            return;
+        }
+
+        // Леко заглушаваме background музиката
+        // за времетраенето на Serum Charge звука.
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance
+                .DuckMusicForFeedback(
+                    serumChargeSfx.length
+                );
+        }
+
+        sfxAudioSource.PlayOneShot(
+            serumChargeSfx,
+            serumChargeVolume
+        );
     }
 
     // =========================================================

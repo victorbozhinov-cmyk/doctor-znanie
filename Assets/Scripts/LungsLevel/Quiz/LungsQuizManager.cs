@@ -777,6 +777,9 @@ public class LungsQuizManager : MonoBehaviour
             writtenCheckFeedback.PlayCorrect();
         }
 
+        // Correct звук веднага.
+        PlayCorrectSound();
+
         StartCoroutine(
             GoToNextQuestionAfterDelay()
         );
@@ -804,6 +807,10 @@ public class LungsQuizManager : MonoBehaviour
         {
             writtenCheckFeedback.PlayWrong();
         }
+
+        // Ако това не е последният живот,
+        // пускаме Wrong.
+        PlayWrongSoundIfNotGameOver();
 
         LoseLife();
 
@@ -864,6 +871,9 @@ public class LungsQuizManager : MonoBehaviour
             feedback.PlayCorrect();
         }
 
+        // Correct звук веднага.
+        PlayCorrectSound();
+
         StartCoroutine(
             GoToNextQuestionAfterDelay()
         );
@@ -881,6 +891,10 @@ public class LungsQuizManager : MonoBehaviour
             feedback.PlayWrong();
         }
 
+        // Ако това не е последният живот,
+        // пускаме Wrong.
+        PlayWrongSoundIfNotGameOver();
+
         LoseLife();
 
         if (!isGameOver)
@@ -890,6 +904,56 @@ public class LungsQuizManager : MonoBehaviour
             );
         }
     }
+
+    // =========================================================
+    // ANSWER SOUNDS
+    // =========================================================
+
+    private void PlayCorrectSound()
+    {
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayCorrect();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    private void PlayWrongSoundIfNotGameOver()
+    {
+        // Проверяваме ПРЕДИ LoseLife().
+        // При 1 оставащ живот следва Game Over,
+        // затова Wrong не се пуска.
+        if (currentLives <= 1)
+        {
+            return;
+        }
+
+        if (GameFeedbackSoundManager.Instance != null)
+        {
+            GameFeedbackSoundManager
+                .Instance
+                .PlayWrong();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameFeedbackSoundManager не е намерен. " +
+                "Стартирай играта през Bootstrap."
+            );
+        }
+    }
+
+    // =========================================================
+    // QUESTION FLOW
+    // =========================================================
 
     private IEnumerator GoToNextQuestionAfterDelay()
     {
@@ -970,9 +1034,8 @@ public class LungsQuizManager : MonoBehaviour
                 break;
         }
 
-        // Запомняме началните животи
-        // за Lungs Score системата.
-        startingLives = currentLives;
+        startingLives =
+            currentLives;
 
         if (lifeHearts == null)
             return;
@@ -1440,10 +1503,6 @@ public class LungsQuizManager : MonoBehaviour
 
     private void QuizCompleted()
     {
-        // =====================================================
-        // SCORE
-        // =====================================================
-
         if (LungsScoreManager.Instance != null)
         {
             LungsScoreManager.Instance

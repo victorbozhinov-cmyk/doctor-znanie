@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class OrganPurchaseController : MonoBehaviour
 {
     public enum OrganType
@@ -49,14 +50,47 @@ public class OrganPurchaseController : MonoBehaviour
     [SerializeField] private OrganUnlockAnimation organUnlockAnimation;
 
     // =========================
+    // AUDIO
+    // =========================
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip unlockOrganSfx;
+    [SerializeField] private AudioClip lockedOrganTrySfx;
+
+    [Header("Audio Volumes")]
+    [Range(0f, 1f)]
+    [SerializeField] private float unlockOrganVolume = 0.85f;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float lockedOrganTryVolume = 0.75f;
+
+    // =========================
     // RUNTIME
     // =========================
 
     private bool isClosingPanel;
     private bool pointerOnOrgan;
 
+    private AudioSource sfxAudioSource;
+
     private static OrganPurchaseController activePurchaseController;
     private static OrganPurchaseController pendingPurchaseController;
+
+    // =========================
+    // UNITY
+    // =========================
+
+    private void Awake()
+    {
+        sfxAudioSource = GetComponent<AudioSource>();
+
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.playOnAwake = false;
+            sfxAudioSource.loop = false;
+            sfxAudioSource.spatialBlend = 0f;
+        }
+    }
 
     // =========================
     // HOVER STATE
@@ -191,6 +225,8 @@ public class OrganPurchaseController : MonoBehaviour
                 "Няма достатъчно витамини."
             );
 
+            PlayLockedOrganTrySound();
+
             if (purchasePanelShake != null)
             {
                 purchasePanelShake.Shake();
@@ -218,6 +254,8 @@ public class OrganPurchaseController : MonoBehaviour
 
         UnlockOrgan();
 
+        PlayUnlockOrganSound();
+
         // Ако този орган е чакал като pending,
         // вече няма нужда да бъде отварян.
         if (pendingPurchaseController == this)
@@ -235,6 +273,38 @@ public class OrganPurchaseController : MonoBehaviour
         {
             organLockVisual.RefreshVisual();
         }
+    }
+
+    // =========================
+    // AUDIO
+    // =========================
+
+    private void PlayUnlockOrganSound()
+    {
+        if (sfxAudioSource == null ||
+            unlockOrganSfx == null)
+        {
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(
+            unlockOrganSfx,
+            unlockOrganVolume
+        );
+    }
+
+    private void PlayLockedOrganTrySound()
+    {
+        if (sfxAudioSource == null ||
+            lockedOrganTrySfx == null)
+        {
+            return;
+        }
+
+        sfxAudioSource.PlayOneShot(
+            lockedOrganTrySfx,
+            lockedOrganTryVolume
+        );
     }
 
     // =========================

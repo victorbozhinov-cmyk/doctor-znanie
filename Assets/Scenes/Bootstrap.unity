@@ -966,6 +966,8 @@ MonoBehaviour:
   brainMinigameMusicVolume: 0.3
   liverMinigameMusic: {fileID: 8300000, guid: 314042822bfb9a740803ee56bcb38d76, type: 3}
   liverMinigameMusicVolume: 0.3
+  lungsMinigameMusic: {fileID: 8300000, guid: a60926e88960b584a88a6577a5ee0367, type: 3}
+  lungsMinigameMusicVolume: 0.5
   videoDuckedVolumeMultiplier: 0.2
   feedbackDuckedVolumeMultiplier: 0.6
   volumeFadeDuration: 0.4
