@@ -177,7 +177,9 @@ public class LungsQuizManager : MonoBehaviour
     [SerializeField] private float wrongAnswerLockDuration = 0.6f;
 
     private int currentQuestionIndex;
+
     private int currentLives;
+    private int startingLives;
 
     private int remainingHints;
     private int maxHints;
@@ -325,34 +327,25 @@ public class LungsQuizManager : MonoBehaviour
 
         switch (difficulty)
         {
-            // ЛЕСНО = 6
             case 0:
-
                 AddQuestions(multiple, 3);
                 AddQuestions(questionImages, 1);
                 AddQuestions(imageAnswers, 1);
                 AddQuestions(written, 1);
-
                 break;
 
-            // ТРУДНО = 10
             case 2:
-
                 AddQuestions(multiple, 4);
                 AddQuestions(questionImages, 2);
                 AddQuestions(imageAnswers, 2);
                 AddQuestions(written, 2);
-
                 break;
 
-            // СРЕДНО = 8
             default:
-
                 AddQuestions(multiple, 3);
                 AddQuestions(questionImages, 2);
                 AddQuestions(imageAnswers, 2);
                 AddQuestions(written, 1);
-
                 break;
         }
 
@@ -464,35 +457,27 @@ public class LungsQuizManager : MonoBehaviour
         switch (currentQuestion.questionType)
         {
             case LungsQuizQuestionType.MultipleChoice:
-
                 ShowMultipleChoiceQuestion(
                     currentQuestion
                 );
-
                 break;
 
             case LungsQuizQuestionType.QuestionImage:
-
                 ShowQuestionImageQuestion(
                     currentQuestion
                 );
-
                 break;
 
             case LungsQuizQuestionType.ImageAnswers:
-
                 ShowImageAnswersQuestion(
                     currentQuestion
                 );
-
                 break;
 
             case LungsQuizQuestionType.Written:
-
                 ShowWrittenQuestion(
                     currentQuestion
                 );
-
                 break;
         }
 
@@ -985,6 +970,10 @@ public class LungsQuizManager : MonoBehaviour
                 break;
         }
 
+        // Запомняме началните животи
+        // за Lungs Score системата.
+        startingLives = currentLives;
+
         if (lifeHearts == null)
             return;
 
@@ -1451,6 +1440,34 @@ public class LungsQuizManager : MonoBehaviour
 
     private void QuizCompleted()
     {
+        // =====================================================
+        // SCORE
+        // =====================================================
+
+        if (LungsScoreManager.Instance != null)
+        {
+            LungsScoreManager.Instance
+                .SubmitQuizResult(
+                    currentLives,
+                    startingLives,
+                    remainingHints,
+                    maxHints
+                );
+
+            Debug.Log(
+                $"Lungs Quiz Score submitted | " +
+                $"Lives: {currentLives}/{startingLives} | " +
+                $"Hints: {remainingHints}/{maxHints}"
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "LungsScoreManager.Instance липсва. " +
+                "Резултатът от Lungs Quiz не беше записан."
+            );
+        }
+
         isQuizCompleted = true;
 
         isChangingQuestion = false;

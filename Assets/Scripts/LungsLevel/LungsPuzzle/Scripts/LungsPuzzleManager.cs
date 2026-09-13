@@ -111,10 +111,16 @@ public class LungsPuzzleManager : MonoBehaviour
     [SerializeField] private RectTransform diaphragmLabelTarget;
 
     // =====================================================
-    // LABEL PLACED VISUALS
+    // PROGRESS
     // =====================================================
+
     [Header("Progress")]
     [SerializeField] private TMP_Text progressText;
+
+    // =====================================================
+    // LABEL PLACED VISUALS
+    // =====================================================
+
     [Header("Label Placed Visuals")]
     [SerializeField] private GameObject noseLabelPlacedVisual;
     [SerializeField] private GameObject tracheaLabelPlacedVisual;
@@ -201,7 +207,9 @@ public class LungsPuzzleManager : MonoBehaviour
 
         currentIndex = 0;
         currentItem = null;
+
         UpdateProgressUI();
+
         puzzleActive = true;
 
         ShowCurrentItem();
@@ -214,8 +222,6 @@ public class LungsPuzzleManager : MonoBehaviour
     private void BuildPuzzleItems()
     {
         puzzleItems.Clear();
-
-        // PARTS
 
         AddPuzzleItem(
             "Nose Part",
@@ -264,8 +270,6 @@ public class LungsPuzzleManager : MonoBehaviour
             diaphragmTarget,
             diaphragmPlacedVisual
         );
-
-        // LABELS
 
         AddPuzzleItem(
             "Nose Label",
@@ -377,7 +381,10 @@ public class LungsPuzzleManager : MonoBehaviour
              i--)
         {
             int randomIndex =
-                Random.Range(0, i + 1);
+                Random.Range(
+                    0,
+                    i + 1
+                );
 
             PuzzleItem temp =
                 puzzleItems[i];
@@ -391,22 +398,31 @@ public class LungsPuzzleManager : MonoBehaviour
     }
 
     // =====================================================
-    // CURRENT ITEM
+    // PROGRESS
     // =====================================================
+
     private void UpdateProgressUI()
     {
         if (progressText == null)
             return;
 
         progressText.text =
-            currentIndex + "/" + puzzleItems.Count;
+            currentIndex +
+            "/" +
+            puzzleItems.Count;
     }
+
+    // =====================================================
+    // CURRENT ITEM
+    // =====================================================
+
     private void ShowCurrentItem()
     {
         if (!puzzleActive)
             return;
 
-        if (currentIndex >= puzzleItems.Count)
+        if (currentIndex >=
+            puzzleItems.Count)
         {
             CompletePuzzle();
             return;
@@ -436,9 +452,12 @@ public class LungsPuzzleManager : MonoBehaviour
         partImage.sprite =
             currentItem.sprite;
 
-        partImage.gameObject.SetActive(true);
+        partImage.gameObject
+            .SetActive(true);
 
-        ResetDraggable(partImage);
+        ResetDraggable(
+            partImage
+        );
     }
 
     private void ShowLabel()
@@ -449,9 +468,12 @@ public class LungsPuzzleManager : MonoBehaviour
         labelImage.sprite =
             currentItem.sprite;
 
-        labelImage.gameObject.SetActive(true);
+        labelImage.gameObject
+            .SetActive(true);
 
-        ResetDraggable(labelImage);
+        ResetDraggable(
+            labelImage
+        );
     }
 
     private void ResetDraggable(
@@ -545,19 +567,26 @@ public class LungsPuzzleManager : MonoBehaviour
             currentItem
                 .placedVisual
                 .SetActive(true);
+
             LungsPuzzleFeedbackFlash correctFlash =
-    currentItem.placedVisual.GetComponent<LungsPuzzleFeedbackFlash>();
+                currentItem
+                    .placedVisual
+                    .GetComponent<
+                        LungsPuzzleFeedbackFlash>();
 
             if (correctFlash != null)
             {
-                correctFlash.FlashCorrect();
+                correctFlash
+                    .FlashCorrect();
             }
         }
 
         onCorrectPlacement?.Invoke();
 
         currentIndex++;
+
         UpdateProgressUI();
+
         ShowCurrentItem();
     }
 
@@ -569,19 +598,23 @@ public class LungsPuzzleManager : MonoBehaviour
     {
         if (!PuzzleActive)
             return;
-        LungsPuzzleFeedbackFlash wrongFlash = null;
+
+        LungsPuzzleFeedbackFlash wrongFlash =
+            null;
 
         if (partImage != null &&
             partImage.gameObject.activeSelf)
         {
             wrongFlash =
-                partImage.GetComponent<LungsPuzzleFeedbackFlash>();
+                partImage.GetComponent<
+                    LungsPuzzleFeedbackFlash>();
         }
         else if (labelImage != null &&
                  labelImage.gameObject.activeSelf)
         {
             wrongFlash =
-                labelImage.GetComponent<LungsPuzzleFeedbackFlash>();
+                labelImage.GetComponent<
+                    LungsPuzzleFeedbackFlash>();
         }
 
         if (wrongFlash != null)
@@ -600,8 +633,6 @@ public class LungsPuzzleManager : MonoBehaviour
             return;
         }
 
-        // Заключваме пъзела,
-        // докато сърцето анимира.
         inputLocked = true;
 
         puzzleLives.LoseLife(
@@ -629,7 +660,6 @@ public class LungsPuzzleManager : MonoBehaviour
     public void DroppedOnEmptySpace()
     {
         // Няма наказание.
-        // Draggable връща елемента обратно.
     }
 
     // =====================================================
@@ -666,6 +696,47 @@ public class LungsPuzzleManager : MonoBehaviour
         currentItem = null;
 
         HideCurrentElement();
+
+        // =================================================
+        // SCORE
+        // =================================================
+
+        if (LungsScoreManager.Instance != null &&
+            puzzleLives != null)
+        {
+            LungsScoreManager.Instance
+                .SubmitPuzzleResult(
+                    puzzleLives.CurrentLives,
+                    puzzleLives.MaxLives
+                );
+
+            Debug.Log(
+                $"Lungs Puzzle Score submitted | " +
+                $"Lives: " +
+                $"{puzzleLives.CurrentLives}/" +
+                $"{puzzleLives.MaxLives}"
+            );
+        }
+        else
+        {
+            if (LungsScoreManager.Instance == null)
+            {
+                Debug.LogWarning(
+                    "LungsScoreManager.Instance липсва. " +
+                    "Резултатът от Lungs Puzzle " +
+                    "не беше записан."
+                );
+            }
+
+            if (puzzleLives == null)
+            {
+                Debug.LogWarning(
+                    "LungsPuzzleLives не е свързан. " +
+                    "Резултатът от Lungs Puzzle " +
+                    "не беше записан."
+                );
+            }
+        }
 
         onPuzzleCompleted?.Invoke();
     }

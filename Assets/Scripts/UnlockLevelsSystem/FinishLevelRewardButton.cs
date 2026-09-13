@@ -8,7 +8,8 @@ public class FinishLevelRewardButton : MonoBehaviour
         Heart,
         Stomach,
         Brain,
-        Liver
+        Liver,
+        Lungs
     }
 
     // =====================================================
@@ -91,6 +92,10 @@ public class FinishLevelRewardButton : MonoBehaviour
 
             case LevelOrgan.Liver:
                 SaveLiverScore();
+                break;
+
+            case LevelOrgan.Lungs:
+                SaveLungsScore();
                 break;
 
             default:
@@ -245,6 +250,43 @@ public class FinishLevelRewardButton : MonoBehaviour
         {
             Debug.Log(
                 "Liver Best Score не е подобрен."
+            );
+        }
+    }
+
+    // =====================================================
+    // LUNGS
+    // =====================================================
+
+    private void SaveLungsScore()
+    {
+        if (LungsScoreManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "LungsScoreManager.Instance липсва. " +
+                "Lungs антителата не могат да бъдат записани."
+            );
+
+            return;
+        }
+
+        LungsScoreManager.Instance.FinishLungsLevel();
+
+        Debug.Log(
+            "Lungs Current Score: "
+            + LungsScoreManager.Instance.CurrentScore
+        );
+
+        if (LungsScoreManager.Instance.IsNewBest)
+        {
+            Debug.Log(
+                "Нов Lungs Best Score!"
+            );
+        }
+        else
+        {
+            Debug.Log(
+                "Lungs Best Score не е подобрен."
             );
         }
     }

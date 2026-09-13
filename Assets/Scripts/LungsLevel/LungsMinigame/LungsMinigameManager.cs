@@ -160,6 +160,7 @@ public class LungsMinigameManager : MonoBehaviour
     private float phaseTimeRemaining;
     private float wrongClickLockRemaining;
 
+    private bool gameStarted = false;
     private bool gameEnded;
     private bool isTransitioning;
     private bool isPaused;
@@ -188,6 +189,9 @@ public class LungsMinigameManager : MonoBehaviour
             ? currentSettings.totalRounds
             : 0;
 
+    public bool GameStarted =>
+        gameStarted;
+
     public bool GameEnded =>
         gameEnded;
 
@@ -198,6 +202,7 @@ public class LungsMinigameManager : MonoBehaviour
         isPaused;
 
     public bool IsClickLocked =>
+        !gameStarted ||
         gameEnded ||
         isPaused ||
         isTransitioning ||
@@ -212,7 +217,8 @@ public class LungsMinigameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance != null &&
+            Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -255,17 +261,35 @@ public class LungsMinigameManager : MonoBehaviour
 
     private void Start()
     {
-        isPaused = false;
+        gameStarted = false;
+        gameEnded = false;
 
-        Time.timeScale = 1f;
+        isPaused = false;
+        isTransitioning = false;
 
         currentRound = 1;
 
-        StartInhalePhase();
+        oxygenPercent = 0f;
+        co2Percent = 100f;
+
+        wrongClickLockRemaining = 0f;
+
+        Time.timeScale = 1f;
+
+        // ВАЖНО:
+        // StartInhalePhase() вече НЕ се извиква тук.
+        // Минииграта чака Welcome бутона.
     }
 
     private void Update()
     {
+        // Докато Welcome Panel е отворен,
+        // минииграта не работи.
+        if (!gameStarted)
+        {
+            return;
+        }
+
         if (gameEnded)
         {
             return;
@@ -281,11 +305,51 @@ public class LungsMinigameManager : MonoBehaviour
     }
 
     // =========================================================
+    // START MINIGAME
+    // =========================================================
+
+    public void StartMinigame()
+    {
+        if (gameStarted)
+        {
+            return;
+        }
+
+        gameStarted = true;
+        gameEnded = false;
+
+        isPaused = false;
+        isTransitioning = false;
+
+        wrongClickLockRemaining = 0f;
+
+        currentRound = 1;
+
+        Time.timeScale = 1f;
+
+        StartInhalePhase();
+
+        if (bubbleSpawner != null)
+        {
+            bubbleSpawner.StartNewPhase();
+        }
+
+        Debug.Log(
+            "LUNGS MINIGAME STARTED!"
+        );
+    }
+
+    // =========================================================
     // PAUSE
     // =========================================================
 
     public void OpenPause()
     {
+        if (!gameStarted)
+        {
+            return;
+        }
+
         if (gameEnded)
         {
             return;
@@ -333,6 +397,12 @@ public class LungsMinigameManager : MonoBehaviour
 
     public void ContinueGame()
     {
+        if (!gameStarted ||
+            gameEnded)
+        {
+            return;
+        }
+
         isPaused = false;
 
         if (pauseOverlay != null)
@@ -536,7 +606,9 @@ public class LungsMinigameManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene("BodyMap");
+        SceneManager.LoadScene(
+            "BodyMap"
+        );
     }
 
     // =========================================================
@@ -642,16 +714,18 @@ public class LungsMinigameManager : MonoBehaviour
             return;
         }
 
-        if (
-            currentPhase ==
-            LungsBreathingPhase.Inhale
-        )
+        if (currentPhase ==
+            LungsBreathingPhase.Inhale)
         {
-            HandleInhaleClick(gasType);
+            HandleInhaleClick(
+                gasType
+            );
         }
         else
         {
-            HandleExhaleClick(gasType);
+            HandleExhaleClick(
+                gasType
+            );
         }
     }
 
@@ -875,10 +949,34 @@ public class LungsMinigameManager : MonoBehaviour
         }
 
         gameEnded = true;
+        gameStarted = false;
 
         isPaused = false;
 
         Time.timeScale = 1f;
+
+        // =====================================================
+        // SCORE
+        // =====================================================
+
+        if (LungsScoreManager.Instance != null)
+        {
+            LungsScoreManager.Instance
+                .SubmitMinigameCompleted();
+
+            Debug.Log(
+                "Lungs Minigame Score submitted | " +
+                "Performance: 100%"
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "LungsScoreManager.Instance липсва. " +
+                "Резултатът от Lungs Minigame " +
+                "не беше записан."
+            );
+        }
 
         if (pauseOverlay != null)
         {
@@ -932,6 +1030,7 @@ public class LungsMinigameManager : MonoBehaviour
         }
 
         gameEnded = true;
+        gameStarted = false;
 
         isPaused = false;
         isTransitioning = false;
