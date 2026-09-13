@@ -2466,6 +2466,7 @@ GameObject:
   - component: {fileID: 111360499}
   - component: {fileID: 111360498}
   - component: {fileID: 111360497}
+  - component: {fileID: 111360501}
   m_Layer: 5
   m_Name: ExitConformationPanel
   m_TagString: Untagged
@@ -2560,6 +2561,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111360495}
   m_CullTransparentMesh: 1
+--- !u!114 &111360501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111360495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &113393923
 GameObject:
   m_ObjectHideFlags: 0
@@ -3170,6 +3186,7 @@ GameObject:
   - component: {fileID: 144871996}
   - component: {fileID: 144871999}
   - component: {fileID: 144871998}
+  - component: {fileID: 144872000}
   m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
@@ -3264,6 +3281,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &144872000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144871994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &149989892
 GameObject:
   m_ObjectHideFlags: 0
@@ -3277,6 +3309,7 @@ GameObject:
   - component: {fileID: 149989896}
   - component: {fileID: 149989895}
   - component: {fileID: 149989894}
+  - component: {fileID: 149989898}
   m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
@@ -3371,6 +3404,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149989892}
   m_CullTransparentMesh: 1
+--- !u!114 &149989898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149989892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &151708895
 GameObject:
   m_ObjectHideFlags: 0
@@ -7863,6 +7911,7 @@ GameObject:
   - component: {fileID: 598380440}
   - component: {fileID: 598380443}
   - component: {fileID: 598380442}
+  - component: {fileID: 598380444}
   m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
@@ -7957,6 +8006,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &598380444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598380438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &601281239
 GameObject:
   m_ObjectHideFlags: 0
@@ -9288,6 +9352,7 @@ GameObject:
   - component: {fileID: 675753082}
   - component: {fileID: 675753081}
   - component: {fileID: 675753080}
+  - component: {fileID: 675753085}
   m_Layer: 5
   m_Name: QuizSuccessPanel
   m_TagString: Untagged
@@ -9381,6 +9446,21 @@ RectTransform:
   m_AnchoredPosition: {x: -20, y: 0}
   m_SizeDelta: {x: 1155.0571, y: 856.1486}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &675753085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675753079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &678565373
 GameObject:
   m_ObjectHideFlags: 0
@@ -9774,6 +9854,7 @@ GameObject:
   - component: {fileID: 693683769}
   - component: {fileID: 693683772}
   - component: {fileID: 693683771}
+  - component: {fileID: 693683773}
   m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
@@ -9868,6 +9949,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &693683773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693683767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &704018602
 GameObject:
   m_ObjectHideFlags: 0
@@ -10637,6 +10733,7 @@ GameObject:
   - component: {fileID: 748414554}
   - component: {fileID: 748414557}
   - component: {fileID: 748414556}
+  - component: {fileID: 748414558}
   m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
@@ -10734,6 +10831,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &748414558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748414552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &751242188
 GameObject:
   m_ObjectHideFlags: 0
@@ -14852,6 +14964,7 @@ GameObject:
   - component: {fileID: 996265239}
   - component: {fileID: 996265238}
   - component: {fileID: 996265237}
+  - component: {fileID: 996265241}
   m_Layer: 5
   m_Name: InfoPanel
   m_TagString: Untagged
@@ -14945,6 +15058,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996265235}
   m_CullTransparentMesh: 1
+--- !u!114 &996265241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996265235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &997555782
 GameObject:
   m_ObjectHideFlags: 0
@@ -21610,6 +21738,7 @@ GameObject:
   - component: {fileID: 1521268157}
   - component: {fileID: 1521268160}
   - component: {fileID: 1521268159}
+  - component: {fileID: 1521268161}
   m_Layer: 5
   m_Name: InfoWindow
   m_TagString: Untagged
@@ -21703,6 +21832,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1521268161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521268155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &1524464129
 GameObject:
   m_ObjectHideFlags: 0
@@ -24559,6 +24703,7 @@ GameObject:
   - component: {fileID: 1801278032}
   - component: {fileID: 1801278031}
   - component: {fileID: 1801278030}
+  - component: {fileID: 1801278034}
   m_Layer: 5
   m_Name: WelcomeWindow
   m_TagString: Untagged
@@ -24653,6 +24798,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801278028}
   m_CullTransparentMesh: 1
+--- !u!114 &1801278034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801278028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &1801305421
 GameObject:
   m_ObjectHideFlags: 0
@@ -25525,6 +25685,7 @@ GameObject:
   - component: {fileID: 1857296221}
   - component: {fileID: 1857296224}
   - component: {fileID: 1857296223}
+  - component: {fileID: 1857296225}
   m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
@@ -25618,6 +25779,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1857296225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857296219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e592b370ac7646f4286acafcecec5e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupCloseAnimation
+  closeDuration: 0.35
+  endScale: 0.75
+  overshootScale: 1.03
 --- !u!1 &1862019218
 GameObject:
   m_ObjectHideFlags: 0
