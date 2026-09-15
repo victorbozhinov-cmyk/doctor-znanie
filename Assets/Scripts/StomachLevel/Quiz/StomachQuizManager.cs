@@ -134,6 +134,10 @@ public class StomachQuizManager : MonoBehaviour
     [SerializeField] private GameObject infoOverlay;
     [SerializeField] private UIPopupAnimation infoPanelAnimation;
 
+    // Callback, използван само когато Info е
+    // отворен от Quiz Welcome панела.
+    private System.Action infoClosedCallback;
+
     // =========================================================
     // SETTINGS
     // =========================================================
@@ -740,7 +744,6 @@ public class StomachQuizManager : MonoBehaviour
 
         bool isCorrect = false;
 
-        // Основен правилен отговор
         string mainCorrectAnswer =
             NormalizeWrittenAnswer(
                 currentQuestion.correctWrittenAnswer
@@ -752,7 +755,6 @@ public class StomachQuizManager : MonoBehaviour
             isCorrect = true;
         }
 
-        // Допълнителни допустими отговори
         if (!isCorrect &&
             currentQuestion.alternativeWrittenAnswers != null)
         {
@@ -1374,43 +1376,97 @@ public class StomachQuizManager : MonoBehaviour
 
     public void OpenInfoPanel()
     {
+        OpenInfoPanelInternal(null);
+    }
+
+    public void OpenInfoPanelFromWelcome(
+        System.Action onInfoClosed)
+    {
+        OpenInfoPanelInternal(
+            onInfoClosed
+        );
+    }
+
+    private void OpenInfoPanelInternal(
+        System.Action onInfoClosed)
+    {
         if (IsInteractionBlocked())
         {
             return;
         }
 
         if (infoOverlay == null)
+        {
+            onInfoClosed?.Invoke();
             return;
+        }
+
+        infoClosedCallback =
+            onInfoClosed;
 
         isInfoOpen = true;
 
+        bool wasAlreadyActive =
+            infoOverlay.activeSelf;
+
         infoOverlay.SetActive(true);
-        infoOverlay.transform.SetAsLastSibling();
+
+        infoOverlay
+            .transform
+            .SetAsLastSibling();
+
+        // Ако Overlay-ят вече е бил активен,
+        // OnEnable няма да се извика отново.
+        if (wasAlreadyActive &&
+            infoPanelAnimation != null &&
+            infoPanelAnimation.isActiveAndEnabled)
+        {
+            infoPanelAnimation.PlayOpen();
+        }
     }
 
     public void CloseInfoPanel()
     {
         if (infoOverlay == null)
         {
-            isInfoOpen = false;
+            FinishClosingInfoPanel();
             return;
         }
 
-        if (infoPanelAnimation != null)
+        if (!infoOverlay.activeSelf)
+        {
+            FinishClosingInfoPanel();
+            return;
+        }
+
+        if (infoPanelAnimation != null &&
+            infoPanelAnimation.isActiveAndEnabled)
         {
             infoPanelAnimation.PlayClose(
-                () =>
-                {
-                    infoOverlay.SetActive(false);
-                    isInfoOpen = false;
-                }
+                FinishClosingInfoPanel
             );
         }
         else
         {
-            infoOverlay.SetActive(false);
-            isInfoOpen = false;
+            FinishClosingInfoPanel();
         }
+    }
+
+    private void FinishClosingInfoPanel()
+    {
+        if (infoOverlay != null)
+        {
+            infoOverlay.SetActive(false);
+        }
+
+        isInfoOpen = false;
+
+        System.Action callback =
+            infoClosedCallback;
+
+        infoClosedCallback = null;
+
+        callback?.Invoke();
     }
 
     // =========================================================
@@ -1528,10 +1584,6 @@ public class StomachQuizManager : MonoBehaviour
 
         SetAnswerButtonsInteractable(false);
 
-        // =====================================================
-        // SCORE
-        // =====================================================
-
         if (StomachScoreManager.Instance == null)
         {
             Debug.LogError(
@@ -1577,6 +1629,8 @@ public class StomachQuizManager : MonoBehaviour
 
         if (exitConfirmationOverlay != null)
             exitConfirmationOverlay.SetActive(false);
+
+        infoClosedCallback = null;
 
         isHintOpen = false;
         isInfoOpen = false;
@@ -1746,6 +1800,8 @@ public class StomachQuizManager : MonoBehaviour
 
         if (hintOverlay != null)
             hintOverlay.SetActive(false);
+
+        infoClosedCallback = null;
 
         isHintOpen = false;
         isInfoOpen = false;

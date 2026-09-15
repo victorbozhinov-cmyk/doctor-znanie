@@ -15883,6 +15883,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1798079401}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VideoSettingsCloseController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8614571784281858805, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
@@ -15910,7 +15922,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8803129991434182994, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1798079401}
   m_SourcePrefab: {fileID: 100100000, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
 --- !u!224 &932689882 stripped
 RectTransform:
@@ -17778,6 +17793,7 @@ MonoBehaviour:
   markerPanel: {fileID: 425776531}
   intestineButton: {fileID: 1759106304}
   welcomePanel: {fileID: 1179697806}
+  welcomeInfoPanel: {fileID: 1288619042}
   juicesButtonShowcase: {fileID: 58110461}
   intestineButtonShowcase: {fileID: 1759106308}
   successPanel: {fileID: 553739637}
@@ -24838,9 +24854,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1082458484}
-        m_TargetAssemblyTypeName: StomachPauseMenuController, Assembly-CSharp
-        m_MethodName: OpenInformationFromWelcome
+      - m_Target: {fileID: 1082458481}
+        m_TargetAssemblyTypeName: StomachMinigameManager, Assembly-CSharp
+        m_MethodName: OpenInfoFromWelcome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27136,9 +27152,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1082458484}
-        m_TargetAssemblyTypeName: StomachPauseMenuController, Assembly-CSharp
-        m_MethodName: CloseInformation
+      - m_Target: {fileID: 1082458481}
+        m_TargetAssemblyTypeName: StomachMinigameManager, Assembly-CSharp
+        m_MethodName: CloseInfoToWelcome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -29523,6 +29539,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StomachQuizAnswerButton
   answerIndex: 1
   quizManager: {fileID: 1222557075}
+--- !u!1 &1798079399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8803129991434182994, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+  m_PrefabInstance: {fileID: 932689881}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1798079401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798079399}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7ea8d4b9c6e9545bb874e6f98bdfcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VideoSettingsCloseController
+  settingsPanel: {fileID: 0}
+  closeDuration: 0.2
+  closeScale: 0.85
 --- !u!1 &1798772381
 GameObject:
   m_ObjectHideFlags: 0

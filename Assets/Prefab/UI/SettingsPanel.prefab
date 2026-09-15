@@ -1244,6 +1244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UISliderIntroAnimation
   duration: 0.55
   delay: 0.15
+  playEveryTimeEnabled: 1
 --- !u!1 &4621342389275991666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,6 +1914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UISliderIntroAnimation
   duration: 0.55
   delay: 0.25
+  playEveryTimeEnabled: 1
 --- !u!1 &5878177111038483309
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,6 +2241,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &6228552093940979666
 GameObject:
   m_ObjectHideFlags: 0
@@ -2549,6 +2552,11 @@ MonoBehaviour:
   - {fileID: 530789034484314652}
   - {fileID: 6707889162062087121}
   - {fileID: 18035921773649893}
+  selectorBackground: {fileID: 0}
+  normalBackground: {fileID: 0}
+  lockedBackground: {fileID: 0}
+  previousArrow: {fileID: 0}
+  nextArrow: {fileID: 0}
   inactiveIndicator: {fileID: -5326119248276487597, guid: c0810cd8b0f286c43a12e26685ede57b, type: 3}
   activeIndicator: {fileID: 1364556360504301938, guid: 4c43188f836d52a4384b657d39a884ab, type: 3}
   inactiveSize: {x: 36, y: 35}
@@ -3012,7 +3020,6 @@ GameObject:
   - component: {fileID: 9196108649469532217}
   - component: {fileID: 6440307212154460092}
   - component: {fileID: 1036783580017631817}
-  - component: {fileID: 2188636874726328932}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -3139,21 +3146,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2188636874726328932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7293982146960055935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 139b4998622a4d94b99ad8117a9f65f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ThemeColorElement
-  targetGraphic: {fileID: 1036783580017631817}
-  themeTwoColor: {r: 0, g: 1, b: 0.2521751, a: 1}
-  themeTwoOutlineColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &7400450550729450245
 GameObject:
   m_ObjectHideFlags: 0
@@ -3625,6 +3617,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &8710833331905470064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3809,6 +3802,7 @@ MonoBehaviour:
   hoverScale: 1.05
   pressedScale: 0.96
   speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &8855803286616214297
 GameObject:
   m_ObjectHideFlags: 0

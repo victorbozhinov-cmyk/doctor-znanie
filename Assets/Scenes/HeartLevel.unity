@@ -11571,6 +11571,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870793177}
   m_CullTransparentMesh: 1
+--- !u!1 &871617641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8803129991434182994, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+  m_PrefabInstance: {fileID: 1003622577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &871617643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871617641}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7ea8d4b9c6e9545bb874e6f98bdfcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VideoSettingsCloseController
+  settingsPanel: {fileID: 0}
+  closeDuration: 0.2
+  closeScale: 0.85
 --- !u!1 &880641257
 GameObject:
   m_ObjectHideFlags: 0
@@ -13667,6 +13687,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 871617643}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VideoSettingsCloseController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8614571784281858805, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
@@ -13706,7 +13738,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8803129991434182994, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 871617643}
   m_SourcePrefab: {fileID: 100100000, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
 --- !u!224 &1003622578 stripped
 RectTransform:

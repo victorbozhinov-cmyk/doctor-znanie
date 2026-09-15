@@ -16,6 +16,7 @@ public class QuizWelcomeController : MonoBehaviour
     [SerializeField] private HintButtonIdlePulse hintButtonIdlePulse;
 
     private bool quizStarted;
+    private bool switchingPanels;
 
     // =========================================================
     // UNITY
@@ -44,11 +45,9 @@ public class QuizWelcomeController : MonoBehaviour
         }
 
         quizStarted = false;
+        switchingPanels = false;
 
-        if (quizWelcomeOverlay != null)
-        {
-            quizWelcomeOverlay.SetActive(true);
-        }
+        OpenWelcomeOverlay();
     }
 
     // =========================================================
@@ -57,18 +56,73 @@ public class QuizWelcomeController : MonoBehaviour
 
     public void OpenHowToPlay()
     {
-        if (quizStarted)
+        if (quizStarted ||
+            switchingPanels)
+        {
             return;
+        }
+
+        switchingPanels = true;
 
         if (infoButtonPulse != null)
         {
             infoButtonPulse.SetPulseEnabled(false);
         }
 
-        if (quizManager != null)
+        CloseWelcomeOverlay(
+            FinishOpeningHowToPlay
+        );
+    }
+
+    private void FinishOpeningHowToPlay()
+    {
+        if (quizManager == null)
         {
-            quizManager.OpenInfoPanel();
+            Debug.LogError(
+                "StomachQuizManager не е зададен " +
+                "в QuizWelcomeController!"
+            );
+
+            switchingPanels = false;
+
+            OpenWelcomeOverlay();
+
+            if (infoButtonPulse != null)
+            {
+                infoButtonPulse.SetPulseEnabled(true);
+            }
+
+            return;
         }
+
+        quizManager.OpenInfoPanelFromWelcome(
+            ReturnFromHowToPlay
+        );
+
+        switchingPanels = false;
+    }
+
+    // =========================================================
+    // RETURN FROM INFO
+    // =========================================================
+
+    private void ReturnFromHowToPlay()
+    {
+        if (quizStarted)
+        {
+            return;
+        }
+
+        switchingPanels = true;
+
+        OpenWelcomeOverlay();
+
+        if (infoButtonPulse != null)
+        {
+            infoButtonPulse.SetPulseEnabled(true);
+        }
+
+        switchingPanels = false;
     }
 
     // =========================================================
@@ -77,26 +131,23 @@ public class QuizWelcomeController : MonoBehaviour
 
     public void StartQuiz()
     {
-        if (quizStarted)
+        if (quizStarted ||
+            switchingPanels)
+        {
             return;
+        }
 
         quizStarted = true;
+        switchingPanels = true;
 
         if (infoButtonPulse != null)
         {
             infoButtonPulse.SetPulseEnabled(false);
         }
 
-        if (welcomePanelAnimation != null)
-        {
-            welcomePanelAnimation.PlayClose(
-                FinishStartingQuiz
-            );
-        }
-        else
-        {
-            FinishStartingQuiz();
-        }
+        CloseWelcomeOverlay(
+            FinishStartingQuiz
+        );
     }
 
     // =========================================================
@@ -105,10 +156,7 @@ public class QuizWelcomeController : MonoBehaviour
 
     private void FinishStartingQuiz()
     {
-        if (quizWelcomeOverlay != null)
-        {
-            quizWelcomeOverlay.SetActive(false);
-        }
+        switchingPanels = false;
 
         // Връщаме idle pulse анимацията
         // на Hint бутона.
@@ -125,8 +173,80 @@ public class QuizWelcomeController : MonoBehaviour
         else
         {
             Debug.LogError(
-                "StomachQuizManager не е зададен в QuizWelcomeController!"
+                "StomachQuizManager не е зададен " +
+                "в QuizWelcomeController!"
             );
+        }
+    }
+
+    // =========================================================
+    // WELCOME HELPERS
+    // =========================================================
+
+    private void OpenWelcomeOverlay()
+    {
+        if (quizWelcomeOverlay == null)
+        {
+            Debug.LogWarning(
+                "Quiz Welcome Overlay не е зададен!"
+            );
+
+            return;
+        }
+
+        bool wasAlreadyActive =
+            quizWelcomeOverlay.activeSelf;
+
+        quizWelcomeOverlay.SetActive(true);
+
+        quizWelcomeOverlay
+            .transform
+            .SetAsLastSibling();
+
+        // Ако Overlay-ят току-що е бил активиран,
+        // UIPopupAnimation.OnEnable() сам пуска
+        // open анимацията.
+        //
+        // Ръчно PlayOpen() е нужен само ако
+        // Overlay-ят вече е бил активен.
+        if (wasAlreadyActive &&
+            welcomePanelAnimation != null &&
+            welcomePanelAnimation.isActiveAndEnabled)
+        {
+            welcomePanelAnimation.PlayOpen();
+        }
+    }
+
+    private void CloseWelcomeOverlay(
+        System.Action onFinished)
+    {
+        if (quizWelcomeOverlay == null ||
+            !quizWelcomeOverlay.activeSelf)
+        {
+            onFinished?.Invoke();
+            return;
+        }
+
+        if (welcomePanelAnimation != null &&
+            welcomePanelAnimation.isActiveAndEnabled)
+        {
+            welcomePanelAnimation.PlayClose(
+                () =>
+                {
+                    if (quizWelcomeOverlay != null)
+                    {
+                        quizWelcomeOverlay.SetActive(false);
+                    }
+
+                    onFinished?.Invoke();
+                }
+            );
+        }
+        else
+        {
+            quizWelcomeOverlay.SetActive(false);
+
+            onFinished?.Invoke();
         }
     }
 }
