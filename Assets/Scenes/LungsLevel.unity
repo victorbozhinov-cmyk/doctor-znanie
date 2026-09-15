@@ -8761,6 +8761,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7430906374906178688, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 202.2132
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430906374906178688, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 115.3913
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430906374906178688, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -357.05823
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430906374906178688, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0018
+      objectReference: {fileID: 0}
     - target: {fileID: 7444781093989092344, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -18213,6 +18229,7 @@ MonoBehaviour:
     correctWrittenAnswer: "\u0433\u0430\u0437\u043E\u043E\u0431\u043C\u0435\u043D"
     alternativeWrittenAnswers:
     - "\u043E\u0431\u043C\u0435\u043D \u043D\u0430 \u0433\u0430\u0437\u043E\u0432\u0435"
+    - "\u043E\u0431\u043C\u044F\u043D\u0430 \u0433\u0430\u0437\u043E\u0432\u0435"
     hint: "\u0422\u043E\u0432\u0430 \u0435 \u043F\u0440\u043E\u0446\u0435\u0441\u044A\u0442,
       \u043F\u0440\u0438 \u043A\u043E\u0439\u0442\u043E \u0434\u0432\u0430\u0442\u0430
       \u0433\u0430\u0437\u0430 \u0441\u0435 \u0440\u0430\u0437\u043C\u0435\u043D\u044F\u0442
@@ -21232,7 +21249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1920792089
 RectTransform:
   m_ObjectHideFlags: 0
