@@ -15883,6 +15883,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8614571784281858805, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614571784281858805, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8634025116668696740, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
       propertyPath: nextPanel
       value: 
