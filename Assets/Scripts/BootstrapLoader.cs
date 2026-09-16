@@ -1,12 +1,15 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BootstrapLoader : MonoBehaviour
 {
-    [SerializeField] private string firstScene = "MainMenu";
-
     private void Start()
     {
-        SceneManager.LoadScene(firstScene);
+        // Вече НЕ зареждаме MainMenu автоматично.
+        //
+        // Bootstrap остава активната начална сцена,
+        // докато потребителят не влезе или не се регистрира.
+        //
+        // След успешен Login/Register:
+        // AuthValidationController отваря MainMenu.
     }
 }

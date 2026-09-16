@@ -1,6 +1,7 @@
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AuthValidationController : MonoBehaviour
 {
@@ -28,6 +29,20 @@ public class AuthValidationController : MonoBehaviour
     [SerializeField] private TMP_Text messageText;
 
     // =========================================================
+    // NAVIGATION
+    // =========================================================
+
+    [Header("Navigation")]
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
+
+    // =========================================================
+    // RUNTIME
+    // =========================================================
+
+    private bool isLoggingIn = false;
+    private bool isRegistering = false;
+
+    // =========================================================
     // UNITY
     // =========================================================
 
@@ -37,11 +52,21 @@ public class AuthValidationController : MonoBehaviour
         ClearMessage();
     }
 
+    private void OnDestroy()
+    {
+        RemoveInputFieldListeners();
+    }
+
+    // =========================================================
+    // INPUT SETUP
+    // =========================================================
+
     private void SetupInputFields()
     {
         if (loginUsernameInput != null)
         {
             loginUsernameInput.characterLimit = 20;
+
             loginUsernameInput.onValueChanged.AddListener(
                 OnLoginUsernameChanged
             );
@@ -50,6 +75,7 @@ public class AuthValidationController : MonoBehaviour
         if (loginPasswordInput != null)
         {
             loginPasswordInput.characterLimit = 16;
+
             loginPasswordInput.onValueChanged.AddListener(
                 OnAnyFieldChanged
             );
@@ -58,6 +84,7 @@ public class AuthValidationController : MonoBehaviour
         if (registerUsernameInput != null)
         {
             registerUsernameInput.characterLimit = 20;
+
             registerUsernameInput.onValueChanged.AddListener(
                 OnRegisterUsernameChanged
             );
@@ -66,7 +93,39 @@ public class AuthValidationController : MonoBehaviour
         if (registerPasswordInput != null)
         {
             registerPasswordInput.characterLimit = 16;
+
             registerPasswordInput.onValueChanged.AddListener(
+                OnAnyFieldChanged
+            );
+        }
+    }
+
+    private void RemoveInputFieldListeners()
+    {
+        if (loginUsernameInput != null)
+        {
+            loginUsernameInput.onValueChanged.RemoveListener(
+                OnLoginUsernameChanged
+            );
+        }
+
+        if (loginPasswordInput != null)
+        {
+            loginPasswordInput.onValueChanged.RemoveListener(
+                OnAnyFieldChanged
+            );
+        }
+
+        if (registerUsernameInput != null)
+        {
+            registerUsernameInput.onValueChanged.RemoveListener(
+                OnRegisterUsernameChanged
+            );
+        }
+
+        if (registerPasswordInput != null)
+        {
+            registerPasswordInput.onValueChanged.RemoveListener(
                 OnAnyFieldChanged
             );
         }
@@ -80,24 +139,36 @@ public class AuthValidationController : MonoBehaviour
     {
         ClearMessage();
 
+        if (isLoggingIn)
+            return;
+
         if (loginUsernameInput == null ||
             loginPasswordInput == null)
         {
             return;
         }
 
-        string username = loginUsernameInput.text.Trim();
-        string password = loginPasswordInput.text;
+        string username =
+            loginUsernameInput.text.Trim();
+
+        string password =
+            loginPasswordInput.text;
 
         if (string.IsNullOrEmpty(username))
         {
-            ShowMessage("Въведи потребителско име.");
+            ShowMessage(
+                "Въведи потребителско име."
+            );
+
             return;
         }
 
         if (string.IsNullOrEmpty(password))
         {
-            ShowMessage("Въведи парола.");
+            ShowMessage(
+                "Въведи парола."
+            );
+
             return;
         }
 
@@ -106,6 +177,7 @@ public class AuthValidationController : MonoBehaviour
             ShowMessage(
                 "Потребителското име трябва да е поне 3 символа."
             );
+
             return;
         }
 
@@ -114,6 +186,7 @@ public class AuthValidationController : MonoBehaviour
             ShowMessage(
                 "Паролата трябва да е поне 6 символа."
             );
+
             return;
         }
 
@@ -122,11 +195,190 @@ public class AuthValidationController : MonoBehaviour
             ShowMessage(
                 "Паролата може да е най-много 16 символа."
             );
+
             return;
         }
 
-        // Тук по-късно ще извикаме реалния Login.
-        Debug.Log("Login validation passed.");
+        if (SupabaseManager.Instance == null)
+        {
+            Debug.LogError(
+                "SupabaseManager.Instance is null."
+            );
+
+            return;
+        }
+
+        isLoggingIn = true;
+
+        SupabaseManager.Instance.LoginUser(
+            username,
+            password,
+            result =>
+            {
+                HandleLoginResult(result);
+            }
+        );
+    }
+
+    // =========================================================
+    // LOGIN RESULT
+    // =========================================================
+
+    private void HandleLoginResult(
+        SupabaseManager.LoginResult result
+    )
+    {
+        if (result == null)
+        {
+            isLoggingIn = false;
+
+            Debug.LogError(
+                "Login result is null."
+            );
+
+            return;
+        }
+
+        if (!result.success)
+        {
+            isLoggingIn = false;
+
+            switch (result.errorType)
+            {
+                case SupabaseManager.LoginErrorType.InvalidCredentials:
+
+                    ShowMessage(
+                        "Грешно потребителско име или парола."
+                    );
+
+                    break;
+
+                case SupabaseManager.LoginErrorType.Configuration:
+
+                    Debug.LogError(
+                        "Supabase configuration error:\n" +
+                        result.debugMessage
+                    );
+
+                    break;
+
+                case SupabaseManager.LoginErrorType.InvalidResponse:
+
+                    Debug.LogError(
+                        "Invalid Supabase login response:\n" +
+                        result.debugMessage
+                    );
+
+                    break;
+
+                case SupabaseManager.LoginErrorType.PlayerDataSetup:
+
+                    Debug.LogError(
+                        "Player data setup failed:\n" +
+                        result.debugMessage
+                    );
+
+                    break;
+
+                case SupabaseManager.LoginErrorType.PlayerDataLoad:
+
+                    Debug.LogError(
+                        "Player data loading failed:\n" +
+                        result.debugMessage
+                    );
+
+                    break;
+
+                default:
+
+                    Debug.LogError(
+                        "Unknown login error:\n" +
+                        result.debugMessage
+                    );
+
+                    break;
+            }
+
+            return;
+        }
+
+        // Login е успешен.
+        // SupabaseManager вече е заредил player_data
+        // и е поставил стойностите в PlayerPrefs.
+        //
+        // Сега зареждаме profiles реда.
+
+        SupabaseManager.Instance.LoadCurrentProfile(
+            profileResult =>
+            {
+                isLoggingIn = false;
+
+                HandleProfileLoadResult(
+                    profileResult
+                );
+            }
+        );
+    }
+
+    // =========================================================
+    // PROFILE LOAD RESULT
+    // =========================================================
+
+    private void HandleProfileLoadResult(
+        SupabaseManager.ProfileLoadResult result
+    )
+    {
+        if (result == null)
+        {
+            Debug.LogError(
+                "Profile load result is null."
+            );
+
+            return;
+        }
+
+        if (!result.success)
+        {
+            Debug.LogError(
+                "Could not load player profile:\n" +
+                result.debugMessage
+            );
+
+            return;
+        }
+
+        ClearMessage();
+
+        Debug.Log(
+            "Login and profile loading completed successfully."
+        );
+
+        Debug.Log(
+            "User ID: " +
+            SupabaseManager.Instance.UserId
+        );
+
+        Debug.Log(
+            "Username: " +
+            SupabaseManager.Instance.Username
+        );
+
+        Debug.Log(
+            "Total Score: " +
+            SupabaseManager.Instance.TotalScore
+        );
+
+        // =====================================================
+        // ACTIVATE ACCOUNT SYSTEMS
+        // =====================================================
+
+        ActivateAccountSystems();
+
+        // =====================================================
+        // OPEN MAIN MENU
+        // =====================================================
+
+        OpenMainMenu();
     }
 
     // =========================================================
@@ -137,24 +389,36 @@ public class AuthValidationController : MonoBehaviour
     {
         ClearMessage();
 
+        if (isRegistering)
+            return;
+
         if (registerUsernameInput == null ||
             registerPasswordInput == null)
         {
             return;
         }
 
-        string username = registerUsernameInput.text.Trim();
-        string password = registerPasswordInput.text;
+        string username =
+            registerUsernameInput.text.Trim();
+
+        string password =
+            registerPasswordInput.text;
 
         if (string.IsNullOrEmpty(username))
         {
-            ShowMessage("Въведи потребителско име.");
+            ShowMessage(
+                "Въведи потребителско име."
+            );
+
             return;
         }
 
         if (string.IsNullOrEmpty(password))
         {
-            ShowMessage("Въведи парола.");
+            ShowMessage(
+                "Въведи парола."
+            );
+
             return;
         }
 
@@ -163,6 +427,7 @@ public class AuthValidationController : MonoBehaviour
             ShowMessage(
                 "Потребителското име трябва да е поне 3 символа."
             );
+
             return;
         }
 
@@ -171,6 +436,7 @@ public class AuthValidationController : MonoBehaviour
             ShowMessage(
                 "Паролата трябва да е поне 6 символа."
             );
+
             return;
         }
 
@@ -179,30 +445,237 @@ public class AuthValidationController : MonoBehaviour
             ShowMessage(
                 "Паролата може да е най-много 16 символа."
             );
+
             return;
         }
 
-        // Тук по-късно ще извикаме реалната регистрация.
-        Debug.Log("Register validation passed.");
+        if (SupabaseManager.Instance == null)
+        {
+            Debug.LogError(
+                "SupabaseManager.Instance is null."
+            );
+
+            return;
+        }
+
+        isRegistering = true;
+
+        SupabaseManager.Instance.RegisterUser(
+            username,
+            password,
+            result =>
+            {
+                isRegistering = false;
+
+                HandleRegisterResult(result);
+            }
+        );
+    }
+
+    // =========================================================
+    // REGISTER RESULT
+    // =========================================================
+
+    private void HandleRegisterResult(
+        SupabaseManager.RegisterResult result
+    )
+    {
+        if (result == null)
+        {
+            Debug.LogError(
+                "Register result is null."
+            );
+
+            return;
+        }
+
+        if (result.success)
+        {
+            ClearMessage();
+
+            Debug.Log(
+                "Registration completed successfully."
+            );
+
+            Debug.Log(
+                "User ID: " +
+                SupabaseManager.Instance.UserId
+            );
+
+            Debug.Log(
+                "Username: " +
+                SupabaseManager.Instance.Username
+            );
+
+            // SupabaseManager вече е създал player_data,
+            // заредил е началните стойности и ги е записал
+            // в PlayerPrefs.
+
+            ActivateAccountSystems();
+
+            OpenMainMenu();
+
+            return;
+        }
+
+        switch (result.errorType)
+        {
+            case SupabaseManager.RegisterErrorType.UsernameTaken:
+
+                ShowMessage(
+                    "Това потребителско име вече е заето."
+                );
+
+                break;
+
+            case SupabaseManager.RegisterErrorType.Configuration:
+
+                Debug.LogError(
+                    "Supabase configuration error:\n" +
+                    result.debugMessage
+                );
+
+                break;
+
+            case SupabaseManager.RegisterErrorType.Server:
+
+                Debug.LogError(
+                    "Supabase server error:\n" +
+                    result.debugMessage
+                );
+
+                break;
+
+            case SupabaseManager.RegisterErrorType.InvalidResponse:
+
+                Debug.LogError(
+                    "Invalid Supabase response:\n" +
+                    result.debugMessage
+                );
+
+                break;
+
+            case SupabaseManager.RegisterErrorType.MissingSession:
+
+                Debug.LogError(
+                    "Supabase session missing:\n" +
+                    result.debugMessage
+                );
+
+                break;
+
+            case SupabaseManager.RegisterErrorType.ProfileCreation:
+
+                Debug.LogError(
+                    "Profile creation failed:\n" +
+                    result.debugMessage
+                );
+
+                break;
+
+            case SupabaseManager.RegisterErrorType.PlayerDataCreation:
+
+                Debug.LogError(
+                    "Player data creation failed:\n" +
+                    result.debugMessage
+                );
+
+                break;
+
+            case SupabaseManager.RegisterErrorType.PlayerDataLoad:
+
+                Debug.LogError(
+                    "Player data loading failed:\n" +
+                    result.debugMessage
+                );
+
+                break;
+
+            default:
+
+                Debug.LogError(
+                    "Unknown registration error:\n" +
+                    result.debugMessage
+                );
+
+                break;
+        }
+    }
+
+    // =========================================================
+    // ACCOUNT SYSTEMS
+    // =========================================================
+
+    private void ActivateAccountSystems()
+    {
+        if (AccountSystemsActivator.Instance == null)
+        {
+            Debug.LogError(
+                "AccountSystemsActivator.Instance is null. " +
+                "Account systems will not be activated."
+            );
+
+            return;
+        }
+
+        AccountSystemsActivator.Instance.ActivateSystems();
+
+        Debug.Log(
+            "Account systems activation requested."
+        );
+    }
+
+    // =========================================================
+    // NAVIGATION
+    // =========================================================
+
+    private void OpenMainMenu()
+    {
+        if (string.IsNullOrEmpty(mainMenuSceneName))
+        {
+            Debug.LogError(
+                "Main Menu scene name is empty."
+            );
+
+            return;
+        }
+
+        SceneManager.LoadScene(
+            mainMenuSceneName
+        );
     }
 
     // =========================================================
     // USERNAME FILTER
     // =========================================================
 
-    private void OnLoginUsernameChanged(string value)
+    private void OnLoginUsernameChanged(
+        string value
+    )
     {
-        SanitizeUsername(loginUsernameInput, value);
+        SanitizeUsername(
+            loginUsernameInput,
+            value
+        );
+
         ClearMessage();
     }
 
-    private void OnRegisterUsernameChanged(string value)
+    private void OnRegisterUsernameChanged(
+        string value
+    )
     {
-        SanitizeUsername(registerUsernameInput, value);
+        SanitizeUsername(
+            registerUsernameInput,
+            value
+        );
+
         ClearMessage();
     }
 
-    private void OnAnyFieldChanged(string value)
+    private void OnAnyFieldChanged(
+        string value
+    )
     {
         ClearMessage();
     }
@@ -215,31 +688,44 @@ public class AuthValidationController : MonoBehaviour
         if (inputField == null)
             return;
 
-        StringBuilder result = new StringBuilder();
+        StringBuilder result =
+            new StringBuilder();
 
         foreach (char character in value)
         {
-            if (IsAllowedUsernameCharacter(character))
+            if (IsAllowedUsernameCharacter(
+                character
+            ))
             {
                 result.Append(character);
             }
         }
 
-        string sanitized = result.ToString();
+        string sanitized =
+            result.ToString();
 
         if (sanitized == value)
             return;
 
-        inputField.SetTextWithoutNotify(sanitized);
-        inputField.caretPosition = sanitized.Length;
+        inputField.SetTextWithoutNotify(
+            sanitized
+        );
+
+        inputField.caretPosition =
+            sanitized.Length;
+
         inputField.ForceLabelUpdate();
     }
 
-    private bool IsAllowedUsernameCharacter(char character)
+    private bool IsAllowedUsernameCharacter(
+        char character
+    )
     {
         bool latin =
-            (character >= 'A' && character <= 'Z') ||
-            (character >= 'a' && character <= 'z');
+            (character >= 'A' &&
+             character <= 'Z') ||
+            (character >= 'a' &&
+             character <= 'z');
 
         bool cyrillic =
             character >= '\u0400' &&
@@ -270,7 +756,9 @@ public class AuthValidationController : MonoBehaviour
         }
     }
 
-    private void ShowMessage(string message)
+    private void ShowMessage(
+        string message
+    )
     {
         if (messageText != null)
         {
