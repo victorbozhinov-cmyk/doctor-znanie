@@ -1,0 +1,1144 @@
+fileFormatVersion: 2
+guid: 15f0f7fec4d4d254eb71564d55bcb99a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5216274526764475003
+    second: ActiveTab_0
+  - first:
+      213: 5387026041464083837
+    second: ActiveTab_1
+  - first:
+      213: 7236143523719793478
+    second: ActiveTab_2
+  - first:
+      213: 6960226213711401647
+    second: ActiveTab_3
+  - first:
+      213: 8618860499796869593
+    second: ActiveTab_4
+  - first:
+      213: -3319862160050361561
+    second: ActiveTab_5
+  - first:
+      213: -6651045983053803968
+    second: ActiveTab_6
+  - first:
+      213: -7457461688200003772
+    second: ActiveTab_7
+  - first:
+      213: 346873550806111456
+    second: ActiveTab_8
+  - first:
+      213: -5416301869711816433
+    second: ActiveTab_9
+  - first:
+      213: 4251430734366332384
+    second: ActiveTab_10
+  - first:
+      213: 2920299927890718850
+    second: ActiveTab_11
+  - first:
+      213: -4617270066098388563
+    second: ActiveTab_12
+  - first:
+      213: -961119741368017370
+    second: ActiveTab_13
+  - first:
+      213: 5678764580481788438
+    second: ActiveTab_14
+  - first:
+      213: -4258171834622580054
+    second: ActiveTab_15
+  - first:
+      213: 2199824114030561353
+    second: ActiveTab_16
+  - first:
+      213: 2210308591969144290
+    second: ActiveTab_17
+  - first:
+      213: -7525371350677215457
+    second: ActiveTab_18
+  - first:
+      213: -7051898676669820158
+    second: ActiveTab_19
+  - first:
+      213: 6276976067918423187
+    second: ActiveTab_20
+  - first:
+      213: -6386747356943882466
+    second: ActiveTab_21
+  - first:
+      213: -4747767899413605462
+    second: ActiveTab_22
+  - first:
+      213: -4508286942715376692
+    second: ActiveTab_23
+  - first:
+      213: 7803516523694474437
+    second: ActiveTab_24
+  - first:
+      213: 6584057068229170762
+    second: ActiveTab_25
+  - first:
+      213: -8311981903360224656
+    second: ActiveTab_26
+  - first:
+      213: 1096324544709608411
+    second: ActiveTab_27
+  - first:
+      213: -2345392104060800139
+    second: ActiveTab_28
+  - first:
+      213: -5282967401638084154
+    second: ActiveTab_29
+  - first:
+      213: -5244151160731663781
+    second: ActiveTab_30
+  - first:
+      213: 6438456254791227502
+    second: ActiveTab_31
+  - first:
+      213: 1659834401013391636
+    second: ActiveTab_32
+  - first:
+      213: -6335173932449020644
+    second: ActiveTab_33
+  - first:
+      213: 546297019754104222
+    second: ActiveTab_34
+  - first:
+      213: -3994274339740176821
+    second: ActiveTab_35
+  - first:
+      213: -7617719899549999919
+    second: ActiveTab_36
+  - first:
+      213: -2741736265256411329
+    second: ActiveTab_37
+  - first:
+      213: -6831740983200901481
+    second: ActiveTab_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ActiveTab_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 38
+        width: 2172
+        height: 678
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58dd84574f11c97b0800000000000000
+      internalID: -5216274526764475003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_1
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 666
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d75de3d94af82ca40800000000000000
+      internalID: 5387026041464083837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_2
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 657
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64bcf033232fb6460800000000000000
+      internalID: 7236143523719793478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_3
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 659
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa251a05dd0b79060800000000000000
+      internalID: 6960226213711401647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_4
+      rect:
+        serializedVersion: 2
+        x: 1042
+        y: 649
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d1c90bb5f75c9770800000000000000
+      internalID: 8618860499796869593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_5
+      rect:
+        serializedVersion: 2
+        x: 1550
+        y: 638
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72befee64fa7de1d0800000000000000
+      internalID: -3319862160050361561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_6
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 615
+        width: 14
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04e0a4bcaecb2b3a0800000000000000
+      internalID: -6651045983053803968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_7
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 642
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44ff0cc1b16c18890800000000000000
+      internalID: -7457461688200003772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_8
+      rect:
+        serializedVersion: 2
+        x: 1776
+        y: 628
+        width: 33
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e4d6c918a750d400800000000000000
+      internalID: 346873550806111456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_9
+      rect:
+        serializedVersion: 2
+        x: 1824
+        y: 638
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f090b83752e65d4b0800000000000000
+      internalID: -5416301869711816433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_10
+      rect:
+        serializedVersion: 2
+        x: 1848
+        y: 633
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e555155abd100b30800000000000000
+      internalID: 4251430734366332384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_11
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 613
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 280768fdf4df68820800000000000000
+      internalID: 2920299927890718850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_12
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 610
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da1492696592cefb0800000000000000
+      internalID: -4617270066098388563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_13
+      rect:
+        serializedVersion: 2
+        x: 982
+        y: 612
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62ed42dffaa69a2f0800000000000000
+      internalID: -961119741368017370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_14
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 626
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61aefae6c460fce40800000000000000
+      internalID: 5678764580481788438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_15
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 619
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaa6fb4f64fe7e4c0800000000000000
+      internalID: -4258171834622580054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_16
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 618
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94841256068578e10800000000000000
+      internalID: 2199824114030561353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_17
+      rect:
+        serializedVersion: 2
+        x: 1697
+        y: 626
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ed805424f79cae10800000000000000
+      internalID: 2210308591969144290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_18
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 612
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f17abffa0a2809790800000000000000
+      internalID: -7525371350677215457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_19
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 606
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2035c01248f922e90800000000000000
+      internalID: -7051898676669820158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_20
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 616
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 394e7e71a7c4c1750800000000000000
+      internalID: 6276976067918423187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_21
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 614
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e17e1370e17bd57a0800000000000000
+      internalID: -6386747356943882466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_22
+      rect:
+        serializedVersion: 2
+        x: 1343
+        y: 612
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa3137f004a8c1eb0800000000000000
+      internalID: -4747767899413605462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_23
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 614
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccb0be959e85f61c0800000000000000
+      internalID: -4508286942715376692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_24
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 611
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c443b9fee8ab4c60800000000000000
+      internalID: 7803516523694474437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_25
+      rect:
+        serializedVersion: 2
+        x: 1579
+        y: 612
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4613bc05054f5b50800000000000000
+      internalID: 6584057068229170762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_26
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 581
+        width: 30
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0721db66f78e5ac80800000000000000
+      internalID: -8311981903360224656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_27
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 594
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd345f56d5de63f00800000000000000
+      internalID: 1096324544709608411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_28
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 580
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 573337ace4e737fd0800000000000000
+      internalID: -2345392104060800139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_29
+      rect:
+        serializedVersion: 2
+        x: 1631
+        y: 103
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c1c46973212fa6b0800000000000000
+      internalID: -5282967401638084154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_30
+      rect:
+        serializedVersion: 2
+        x: 1760
+        y: 95
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b520324dd480937b0800000000000000
+      internalID: -5244151160731663781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_31
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 85
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6819b0f9ddf95950800000000000000
+      internalID: 6438456254791227502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_32
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 81
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4116062f79ae80710800000000000000
+      internalID: 1659834401013391636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_33
+      rect:
+        serializedVersion: 2
+        x: 1759
+        y: 63
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c15cf06afd0f418a0800000000000000
+      internalID: -6335173932449020644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_34
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 63
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e954c4cbe36d49700800000000000000
+      internalID: 546297019754104222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_35
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 65
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4e245c86ac7198c0800000000000000
+      internalID: -3994274339740176821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_36
+      rect:
+        serializedVersion: 2
+        x: 1649
+        y: 57
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dcd5ec9c1c684690800000000000000
+      internalID: -7617719899549999919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_37
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 51
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3fd591a46563f9d0800000000000000
+      internalID: -2741736265256411329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ActiveTab_38
+      rect:
+        serializedVersion: 2
+        x: 1834
+        y: 49
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79615da95c7c031a0800000000000000
+      internalID: -6831740983200901481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ActiveTab_0: -5216274526764475003
+      ActiveTab_1: 5387026041464083837
+      ActiveTab_10: 4251430734366332384
+      ActiveTab_11: 2920299927890718850
+      ActiveTab_12: -4617270066098388563
+      ActiveTab_13: -961119741368017370
+      ActiveTab_14: 5678764580481788438
+      ActiveTab_15: -4258171834622580054
+      ActiveTab_16: 2199824114030561353
+      ActiveTab_17: 2210308591969144290
+      ActiveTab_18: -7525371350677215457
+      ActiveTab_19: -7051898676669820158
+      ActiveTab_2: 7236143523719793478
+      ActiveTab_20: 6276976067918423187
+      ActiveTab_21: -6386747356943882466
+      ActiveTab_22: -4747767899413605462
+      ActiveTab_23: -4508286942715376692
+      ActiveTab_24: 7803516523694474437
+      ActiveTab_25: 6584057068229170762
+      ActiveTab_26: -8311981903360224656
+      ActiveTab_27: 1096324544709608411
+      ActiveTab_28: -2345392104060800139
+      ActiveTab_29: -5282967401638084154
+      ActiveTab_3: 6960226213711401647
+      ActiveTab_30: -5244151160731663781
+      ActiveTab_31: 6438456254791227502
+      ActiveTab_32: 1659834401013391636
+      ActiveTab_33: -6335173932449020644
+      ActiveTab_34: 546297019754104222
+      ActiveTab_35: -3994274339740176821
+      ActiveTab_36: -7617719899549999919
+      ActiveTab_37: -2741736265256411329
+      ActiveTab_38: -6831740983200901481
+      ActiveTab_4: 8618860499796869593
+      ActiveTab_5: -3319862160050361561
+      ActiveTab_6: -6651045983053803968
+      ActiveTab_7: -7457461688200003772
+      ActiveTab_8: 346873550806111456
+      ActiveTab_9: -5416301869711816433
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
