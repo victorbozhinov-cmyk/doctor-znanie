@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LungsMinigameWelcomeController : MonoBehaviour
@@ -23,6 +24,7 @@ public class LungsMinigameWelcomeController : MonoBehaviour
     // =========================================================
 
     private bool hasStarted;
+    private bool isTransitioning;
 
     // =========================================================
     // UNITY
@@ -40,6 +42,7 @@ public class LungsMinigameWelcomeController : MonoBehaviour
     public void ResetWelcomeFlow()
     {
         hasStarted = false;
+        isTransitioning = false;
 
         if (welcomeFlowRoot != null)
         {
@@ -63,27 +66,31 @@ public class LungsMinigameWelcomeController : MonoBehaviour
 
     public void OpenInfo()
     {
-        if (hasStarted)
+        if (hasStarted || isTransitioning)
         {
             return;
         }
 
-        if (welcomePanel != null)
-        {
-            welcomePanel.SetActive(false);
-        }
-
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(true);
-            infoOverlay.transform.SetAsLastSibling();
-        }
-        else
+        if (infoOverlay == null)
         {
             Debug.LogWarning(
                 "Welcome Info Overlay не е свързан."
             );
+
+            return;
         }
+
+        isTransitioning = true;
+
+        CloseWelcomePanel(
+            () =>
+            {
+                infoOverlay.SetActive(true);
+                infoOverlay.transform.SetAsLastSibling();
+
+                isTransitioning = false;
+            }
+        );
     }
 
     // =========================================================
@@ -92,20 +99,30 @@ public class LungsMinigameWelcomeController : MonoBehaviour
 
     public void CloseInfo()
     {
-        if (hasStarted)
+        if (hasStarted || isTransitioning)
         {
             return;
         }
 
-        if (infoOverlay != null)
+        if (infoOverlay == null ||
+            !infoOverlay.activeSelf)
         {
-            infoOverlay.SetActive(false);
+            return;
         }
 
-        if (welcomePanel != null)
-        {
-            welcomePanel.SetActive(true);
-        }
+        isTransitioning = true;
+
+        CloseInfoPanel(
+            () =>
+            {
+                if (welcomePanel != null)
+                {
+                    welcomePanel.SetActive(true);
+                }
+
+                isTransitioning = false;
+            }
+        );
     }
 
     // =========================================================
@@ -114,46 +131,132 @@ public class LungsMinigameWelcomeController : MonoBehaviour
 
     public void StartMinigame()
     {
-        if (hasStarted)
+        if (hasStarted || isTransitioning)
         {
             return;
         }
 
-        hasStarted = true;
+        isTransitioning = true;
 
-        // Първо стартираме играта.
-        if (minigameManager != null)
-        {
-            minigameManager.StartMinigame();
-        }
-        else
-        {
-            Debug.LogWarning(
-                "LungsMinigameManager не е свързан."
-            );
-        }
-
-        // После премахваме ЦЕЛИЯ Welcome flow.
-        // Така няма как Info Overlay да остане активен.
-        if (welcomeFlowRoot != null)
-        {
-            welcomeFlowRoot.SetActive(false);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "Welcome Flow Root не е свързан."
-            );
-
-            if (infoOverlay != null)
+        CloseWelcomePanel(
+            () =>
             {
-                infoOverlay.SetActive(false);
-            }
+                hasStarted = true;
 
-            if (welcomePanel != null)
-            {
-                welcomePanel.SetActive(false);
+                if (minigameManager != null)
+                {
+                    minigameManager.StartMinigame();
+                }
+                else
+                {
+                    Debug.LogWarning(
+                        "LungsMinigameManager не е свързан."
+                    );
+                }
+
+                if (welcomeFlowRoot != null)
+                {
+                    welcomeFlowRoot.SetActive(false);
+                }
+                else
+                {
+                    Debug.LogWarning(
+                        "Welcome Flow Root не е свързан."
+                    );
+
+                    if (infoOverlay != null)
+                    {
+                        infoOverlay.SetActive(false);
+                    }
+
+                    if (welcomePanel != null)
+                    {
+                        welcomePanel.SetActive(false);
+                    }
+                }
+
+                isTransitioning = false;
             }
+        );
+    }
+
+    // =========================================================
+    // CLOSE WELCOME PANEL
+    // =========================================================
+
+    private void CloseWelcomePanel(
+        Action onFinished)
+    {
+        if (welcomePanel == null ||
+            !welcomePanel.activeSelf)
+        {
+            onFinished?.Invoke();
+            return;
         }
+
+        UIPopupAnimation popupAnimation =
+            welcomePanel.GetComponentInChildren
+                <UIPopupAnimation>(true);
+
+        if (popupAnimation == null ||
+            !popupAnimation.isActiveAndEnabled)
+        {
+            welcomePanel.SetActive(false);
+
+            onFinished?.Invoke();
+            return;
+        }
+
+        popupAnimation.PlayClose(
+            () =>
+            {
+                if (welcomePanel != null)
+                {
+                    welcomePanel.SetActive(false);
+                }
+
+                onFinished?.Invoke();
+            }
+        );
+    }
+
+    // =========================================================
+    // CLOSE INFO PANEL
+    // =========================================================
+
+    private void CloseInfoPanel(
+        Action onFinished)
+    {
+        if (infoOverlay == null ||
+            !infoOverlay.activeSelf)
+        {
+            onFinished?.Invoke();
+            return;
+        }
+
+        UIPopupAnimation popupAnimation =
+            infoOverlay.GetComponentInChildren
+                <UIPopupAnimation>(true);
+
+        if (popupAnimation == null ||
+            !popupAnimation.isActiveAndEnabled)
+        {
+            infoOverlay.SetActive(false);
+
+            onFinished?.Invoke();
+            return;
+        }
+
+        popupAnimation.PlayClose(
+            () =>
+            {
+                if (infoOverlay != null)
+                {
+                    infoOverlay.SetActive(false);
+                }
+
+                onFinished?.Invoke();
+            }
+        );
     }
 }

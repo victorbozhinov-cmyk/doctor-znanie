@@ -53,6 +53,14 @@ public class StomachPuzzleManager : MonoBehaviour
 
     private Coroutine feedbackCoroutine;
 
+    // Запомня коя трудност е заредена
+    // в момента в самия пъзел.
+    private int loadedDifficulty = -1;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
+
     private void Start()
     {
         LoadAttemptsFromDifficulty();
@@ -61,6 +69,58 @@ public class StomachPuzzleManager : MonoBehaviour
         ResetHeartsForCurrentDifficulty();
         UpdateAttemptsText();
     }
+
+    private void Update()
+    {
+        RefreshDifficultyIfChanged();
+    }
+
+    // =========================================================
+    // DIFFICULTY REFRESH
+    // =========================================================
+
+    private void RefreshDifficultyIfChanged()
+    {
+        // Не променяме животите по средата
+        // на проверка или след приключен пъзел.
+        if (isChecking || puzzleFinished)
+        {
+            return;
+        }
+
+        int savedDifficulty =
+            DifficultySelector.GetSavedDifficulty();
+
+        savedDifficulty =
+            Mathf.Clamp(
+                savedDifficulty,
+                0,
+                2
+            );
+
+        if (savedDifficulty == loadedDifficulty)
+        {
+            return;
+        }
+
+        LoadAttemptsFromDifficulty();
+
+        ResetHeartsForCurrentDifficulty();
+
+        UpdateAttemptsText();
+
+        Debug.Log(
+            "Stomach Puzzle difficulty refreshed. " +
+            "Difficulty: " +
+            loadedDifficulty +
+            " | Attempts: " +
+            maximumAttempts
+        );
+    }
+
+    // =========================================================
+    // CHECK PUZZLE
+    // =========================================================
 
     public void CheckPuzzle()
     {
@@ -668,6 +728,16 @@ public class StomachPuzzleManager : MonoBehaviour
         int difficulty =
             DifficultySelector
                 .GetSavedDifficulty();
+
+        difficulty =
+            Mathf.Clamp(
+                difficulty,
+                0,
+                2
+            );
+
+        loadedDifficulty =
+            difficulty;
 
         switch (difficulty)
         {

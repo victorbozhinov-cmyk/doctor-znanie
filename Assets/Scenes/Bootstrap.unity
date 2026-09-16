@@ -5853,9 +5853,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
   lobbyMusic: {fileID: 8300000, guid: f353b937dd93b2249b53940ac0b7bc19, type: 3}
-  lobbyMusicVolume: 0.35
+  lobbyMusicVolume: 0.1
   introMusic: {fileID: 8300000, guid: e17d197a8c480f547909713dc6a748a8, type: 3}
-  introMusicVolume: 0.3
+  introMusicVolume: 0.1
   puzzleMusic: {fileID: 8300000, guid: 755f46296afec344cab6f86b4b72340a, type: 3}
   puzzleMusicVolume: 0.3
   quizMusic: {fileID: 8300000, guid: 755f46296afec344cab6f86b4b72340a, type: 3}

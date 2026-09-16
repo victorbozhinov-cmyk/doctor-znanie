@@ -16,7 +16,11 @@ public class StomachPauseMenuController : MonoBehaviour
     [SerializeField] private string bodyMapSceneName = "BodyMap";
 
     private bool isPaused;
-    private bool isClosingPause;
+    private bool isTransitioning;
+
+    // Пази откъде е отворена информацията:
+    // от Pause менюто или от Welcome панела.
+    private bool informationOpenedFromWelcome;
 
     // =========================================================
     // UNITY
@@ -25,7 +29,8 @@ public class StomachPauseMenuController : MonoBehaviour
     private void Start()
     {
         isPaused = false;
-        isClosingPause = false;
+        isTransitioning = false;
+        informationOpenedFromWelcome = false;
 
         HideImmediately(
             pauseMenuPanel
@@ -51,12 +56,16 @@ public class StomachPauseMenuController : MonoBehaviour
     public void OpenPauseMenu()
     {
         if (isPaused ||
-            isClosingPause)
+            isTransitioning)
         {
             return;
         }
 
         isPaused = true;
+        isTransitioning = false;
+
+        informationOpenedFromWelcome =
+            false;
 
         HideImmediately(
             informationOverlay
@@ -78,37 +87,25 @@ public class StomachPauseMenuController : MonoBehaviour
     }
 
     // =========================================================
-    // CONTINUE
+    // CONTINUE GAME
     // =========================================================
 
     public void ContinueGame()
     {
         if (!isPaused ||
-            isClosingPause)
+            isTransitioning)
         {
             return;
         }
 
-        isClosingPause = true;
-
-        HideImmediately(
-            informationOverlay
-        );
-
-        HideImmediately(
-            settingsOverlay
-        );
-
-        HideImmediately(
-            exitOverlay
-        );
+        isTransitioning = true;
 
         ClosePanel(
             pauseMenuPanel,
             () =>
             {
                 isPaused = false;
-                isClosingPause = false;
+                isTransitioning = false;
 
                 Time.timeScale = 1f;
             }
@@ -116,25 +113,37 @@ public class StomachPauseMenuController : MonoBehaviour
     }
 
     // =========================================================
-    // INFORMATION - FROM PAUSE
+    // INFORMATION FROM PAUSE
     // =========================================================
 
     public void OpenInformation()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            isTransitioning)
+        {
             return;
+        }
 
-        OpenPanel(
+        informationOpenedFromWelcome =
+            false;
+
+        ClosePauseThenOpen(
             informationOverlay
         );
     }
 
     // =========================================================
-    // INFORMATION - FROM WELCOME
+    // INFORMATION FROM WELCOME
     // =========================================================
 
     public void OpenInformationFromWelcome()
     {
+        if (isTransitioning)
+            return;
+
+        informationOpenedFromWelcome =
+            true;
+
         OpenPanel(
             informationOverlay
         );
@@ -146,7 +155,35 @@ public class StomachPauseMenuController : MonoBehaviour
 
     public void CloseInformation()
     {
-        ClosePanel(
+        if (isTransitioning)
+            return;
+
+        // Ако Information е отворен от Welcome,
+        // просто го затваряме.
+        // Welcome панелът остава отдолу.
+        if (informationOpenedFromWelcome)
+        {
+            isTransitioning = true;
+
+            ClosePanel(
+                informationOverlay,
+                () =>
+                {
+                    informationOpenedFromWelcome =
+                        false;
+
+                    isTransitioning =
+                        false;
+                }
+            );
+
+            return;
+        }
+
+        // Ако е отворен от Pause:
+        // Information се затваря
+        // и после Pause се връща.
+        CloseOverlayThenReturnToPause(
             informationOverlay
         );
     }
@@ -157,17 +194,23 @@ public class StomachPauseMenuController : MonoBehaviour
 
     public void OpenSettings()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            isTransitioning)
+        {
             return;
+        }
 
-        OpenPanel(
+        ClosePauseThenOpen(
             settingsOverlay
         );
     }
 
     public void CloseSettings()
     {
-        ClosePanel(
+        if (isTransitioning)
+            return;
+
+        CloseOverlayThenReturnToPause(
             settingsOverlay
         );
     }
@@ -178,23 +221,29 @@ public class StomachPauseMenuController : MonoBehaviour
 
     public void OpenExitConfirmation()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            isTransitioning)
+        {
             return;
+        }
 
-        OpenPanel(
+        ClosePauseThenOpen(
             exitOverlay
         );
     }
 
     public void StayInLevel()
     {
-        ClosePanel(
+        if (isTransitioning)
+            return;
+
+        CloseOverlayThenReturnToPause(
             exitOverlay
         );
     }
 
     // =========================================================
-    // EXIT LEVEL
+    // EXIT TO BODY MAP
     // =========================================================
 
     public void ExitToBodyMap()
@@ -203,6 +252,64 @@ public class StomachPauseMenuController : MonoBehaviour
 
         SceneManager.LoadScene(
             bodyMapSceneName
+        );
+    }
+
+    // =========================================================
+    // PAUSE -> OVERLAY
+    // =========================================================
+
+    private void ClosePauseThenOpen(
+        GameObject targetOverlay)
+    {
+        if (targetOverlay == null)
+            return;
+
+        isTransitioning = true;
+
+        // Първо затваряме Pause панела.
+        ClosePanel(
+            pauseMenuPanel,
+            () =>
+            {
+                // Чак след неговата close
+                // анимация отваряме новия panel.
+                OpenPanel(
+                    targetOverlay
+                );
+
+                isTransitioning =
+                    false;
+            }
+        );
+    }
+
+    // =========================================================
+    // OVERLAY -> PAUSE
+    // =========================================================
+
+    private void CloseOverlayThenReturnToPause(
+        GameObject overlay)
+    {
+        if (overlay == null)
+            return;
+
+        isTransitioning = true;
+
+        // Първо overlay-ят се затваря.
+        ClosePanel(
+            overlay,
+            () =>
+            {
+                // После Pause менюто
+                // се появява отново.
+                OpenPanel(
+                    pauseMenuPanel
+                );
+
+                isTransitioning =
+                    false;
+            }
         );
     }
 
@@ -224,10 +331,18 @@ public class StomachPauseMenuController : MonoBehaviour
         panel.transform
             .SetAsLastSibling();
 
+        // При SetActive(true)
+        // UIPopupAnimation.OnEnable()
+        // автоматично пуска PlayOpen().
+        //
+        // Ако обектът вече е бил активен,
+        // стартираме я ръчно.
         if (wasAlreadyActive)
         {
             UIPopupAnimation animation =
-                FindAnimation(panel);
+                FindAnimation(
+                    panel
+                );
 
             if (animation != null)
             {
@@ -257,8 +372,12 @@ public class StomachPauseMenuController : MonoBehaviour
         }
 
         UIPopupAnimation animation =
-            FindAnimation(panel);
+            FindAnimation(
+                panel
+            );
 
+        // Ако няма UIPopupAnimation,
+        // затваряме веднага.
         if (animation == null)
         {
             panel.SetActive(false);
@@ -268,6 +387,7 @@ public class StomachPauseMenuController : MonoBehaviour
             return;
         }
 
+        // Изчакваме close анимацията.
         animation.PlayClose(
             () =>
             {
@@ -279,7 +399,7 @@ public class StomachPauseMenuController : MonoBehaviour
     }
 
     // =========================================================
-    // FIND ANIMATION
+    // FIND POPUP ANIMATION
     // =========================================================
 
     private UIPopupAnimation FindAnimation(

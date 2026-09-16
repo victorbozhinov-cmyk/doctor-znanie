@@ -36,6 +36,7 @@ public class StomachMinigameManager : MonoBehaviour
 
     [Header("Welcome")]
     [SerializeField] private GameObject welcomePanel;
+    [SerializeField] private GameObject welcomeInfoPanel;
 
     [Header("Button Showcase")]
     [SerializeField] private UIButtonShowcaseAnimation juicesButtonShowcase;
@@ -85,6 +86,7 @@ public class StomachMinigameManager : MonoBehaviour
 
     private bool minigameStarted;
     private bool welcomeIsClosing;
+    private bool welcomeInfoOpen;
 
     // =========================================================
     // UNITY
@@ -188,6 +190,7 @@ public class StomachMinigameManager : MonoBehaviour
 
         minigameStarted = false;
         welcomeIsClosing = false;
+        welcomeInfoOpen = false;
 
         if (feedbackPanel != null)
         {
@@ -255,59 +258,191 @@ public class StomachMinigameManager : MonoBehaviour
             totalTimer.PauseTimer();
         }
 
-        if (welcomePanel != null)
+        if (welcomeInfoPanel != null)
         {
-            welcomePanel.SetActive(true);
-
-            welcomePanel.transform
-                .SetAsLastSibling();
+            welcomeInfoPanel.SetActive(false);
         }
+
+        OpenAnimatedPanel(
+            welcomePanel
+        );
     }
 
-    public void StartMinigameFromWelcome()
+    public void OpenInfoFromWelcome()
     {
         if (minigameStarted ||
-            welcomeIsClosing)
+            welcomeIsClosing ||
+            welcomeInfoOpen)
         {
             return;
         }
 
         welcomeIsClosing = true;
 
-        if (welcomePanel == null)
+        CloseAnimatedPanel(
+            welcomePanel,
+            () =>
+            {
+                if (welcomeInfoPanel == null)
+                {
+                    Debug.LogWarning(
+                        "Welcome Info Panel не е свързан " +
+                        "в StomachMinigameManager."
+                    );
+
+                    OpenAnimatedPanel(
+                        welcomePanel
+                    );
+
+                    welcomeIsClosing = false;
+                    return;
+                }
+
+                welcomeInfoOpen = true;
+
+                OpenAnimatedPanel(
+                    welcomeInfoPanel
+                );
+
+                welcomeIsClosing = false;
+            }
+        );
+    }
+
+    public void CloseInfoToWelcome()
+    {
+        if (minigameStarted ||
+            welcomeIsClosing ||
+            !welcomeInfoOpen)
         {
-            BeginMinigameAfterWelcome();
+            return;
+        }
+
+        welcomeIsClosing = true;
+
+        CloseAnimatedPanel(
+            welcomeInfoPanel,
+            () =>
+            {
+                welcomeInfoOpen = false;
+
+                OpenAnimatedPanel(
+                    welcomePanel
+                );
+
+                welcomeIsClosing = false;
+            }
+        );
+    }
+
+    public void StartMinigameFromWelcome()
+    {
+        if (minigameStarted ||
+            welcomeIsClosing ||
+            welcomeInfoOpen)
+        {
+            return;
+        }
+
+        welcomeIsClosing = true;
+
+        CloseAnimatedPanel(
+            welcomePanel,
+            BeginMinigameAfterWelcome
+        );
+    }
+
+    private void OpenAnimatedPanel(
+        GameObject panel)
+    {
+        if (panel == null)
+        {
+            return;
+        }
+
+        bool wasAlreadyActive =
+            panel.activeSelf;
+
+        panel.SetActive(true);
+
+        panel.transform
+            .SetAsLastSibling();
+
+        if (wasAlreadyActive)
+        {
+            UIPopupAnimation animation =
+                FindPopupAnimation(
+                    panel
+                );
+
+            if (animation != null &&
+                animation.isActiveAndEnabled)
+            {
+                animation.PlayOpen();
+            }
+        }
+    }
+
+    private void CloseAnimatedPanel(
+        GameObject panel,
+        Action onFinished)
+    {
+        if (panel == null ||
+            !panel.activeSelf)
+        {
+            onFinished?.Invoke();
             return;
         }
 
         UIPopupAnimation animation =
-            welcomePanel
-                .GetComponentInChildren
-                <UIPopupAnimation>(true);
+            FindPopupAnimation(
+                panel
+            );
 
-        if (animation == null)
+        if (animation == null ||
+            !animation.isActiveAndEnabled)
         {
-            welcomePanel.SetActive(false);
+            panel.SetActive(false);
 
-            BeginMinigameAfterWelcome();
-
+            onFinished?.Invoke();
             return;
         }
 
         animation.PlayClose(
             () =>
             {
-                welcomePanel.SetActive(false);
+                if (panel != null)
+                {
+                    panel.SetActive(false);
+                }
 
-                BeginMinigameAfterWelcome();
+                onFinished?.Invoke();
             }
         );
+    }
+
+    private UIPopupAnimation FindPopupAnimation(
+        GameObject panel)
+    {
+        if (panel == null)
+        {
+            return null;
+        }
+
+        return panel.GetComponentInChildren
+            <UIPopupAnimation>(true);
     }
 
     private void BeginMinigameAfterWelcome()
     {
         minigameStarted = true;
         welcomeIsClosing = false;
+        welcomeInfoOpen = false;
+
+        if (welcomeInfoPanel != null)
+        {
+            welcomeInfoPanel.SetActive(false);
+        }
 
         if (stateCardController != null)
         {

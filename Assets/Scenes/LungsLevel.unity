@@ -1713,6 +1713,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1881596961}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321301110078751248, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VideoSettingsCloseController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614571784281858805, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614571784281858805, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8634025116668696740, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
       propertyPath: nextPanel
       value: 
@@ -1732,7 +1752,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8803129991434182994, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1881596961}
   m_SourcePrefab: {fileID: 100100000, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
 --- !u!224 &132215440 stripped
 RectTransform:
@@ -8738,6 +8761,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7430906374906178688, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 202.2132
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430906374906178688, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 115.3913
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430906374906178688, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -357.05823
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430906374906178688, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0018
+      objectReference: {fileID: 0}
     - target: {fileID: 7444781093989092344, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -10765,7 +10804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1066305948
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12658,6 +12697,8 @@ GameObject:
   - component: {fileID: 1292685120}
   - component: {fileID: 1292685122}
   - component: {fileID: 1292685121}
+  - component: {fileID: 1292685124}
+  - component: {fileID: 1292685123}
   m_Layer: 5
   m_Name: PausePanel
   m_TagString: Untagged
@@ -12726,6 +12767,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292685119}
   m_CullTransparentMesh: 1
+--- !u!114 &1292685123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292685119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7a3ff6bc9e4014cbecfbb140fa6cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIPopupAnimation
+  openDuration: 0.7
+  closeDuration: 0.35
+  startScale: 0.75
+  overshootScale: 1.03
+--- !u!225 &1292685124
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292685119}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1308733487
 GameObject:
   m_ObjectHideFlags: 0
@@ -18160,6 +18229,7 @@ MonoBehaviour:
     correctWrittenAnswer: "\u0433\u0430\u0437\u043E\u043E\u0431\u043C\u0435\u043D"
     alternativeWrittenAnswers:
     - "\u043E\u0431\u043C\u0435\u043D \u043D\u0430 \u0433\u0430\u0437\u043E\u0432\u0435"
+    - "\u043E\u0431\u043C\u044F\u043D\u0430 \u0433\u0430\u0437\u043E\u0432\u0435"
     hint: "\u0422\u043E\u0432\u0430 \u0435 \u043F\u0440\u043E\u0446\u0435\u0441\u044A\u0442,
       \u043F\u0440\u0438 \u043A\u043E\u0439\u0442\u043E \u0434\u0432\u0430\u0442\u0430
       \u0433\u0430\u0437\u0430 \u0441\u0435 \u0440\u0430\u0437\u043C\u0435\u043D\u044F\u0442
@@ -20775,6 +20845,26 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &1881596959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8803129991434182994, guid: 8a3ecdb2f75833e42b7415a8ee7ac91e, type: 3}
+  m_PrefabInstance: {fileID: 132215439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1881596961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881596959}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7ea8d4b9c6e9545bb874e6f98bdfcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VideoSettingsCloseController
+  settingsPanel: {fileID: 0}
+  closeDuration: 0.2
+  closeScale: 0.85
 --- !u!1 &1902579904
 GameObject:
   m_ObjectHideFlags: 0
@@ -21159,7 +21249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1920792089
 RectTransform:
   m_ObjectHideFlags: 0

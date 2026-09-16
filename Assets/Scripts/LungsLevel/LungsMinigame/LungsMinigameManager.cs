@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -164,7 +165,6 @@ public class LungsMinigameManager : MonoBehaviour
     // =========================================================
 
     [Header("Timer")]
-
     [SerializeField]
     private bool useTimer = true;
 
@@ -205,10 +205,12 @@ public class LungsMinigameManager : MonoBehaviour
     private float accumulatedTimePerformance;
     private int completedTimedPhases;
 
-    private bool gameStarted = false;
+    private bool gameStarted;
     private bool gameEnded;
     private bool isTransitioning;
     private bool isPaused;
+
+    private bool isMenuTransitioning;
 
     private AudioSource sfxAudioSource;
 
@@ -282,35 +284,12 @@ public class LungsMinigameManager : MonoBehaviour
 
         LoadDifficultySettings();
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(false);
-        }
-
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
-
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
-
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
-
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(false);
-        }
-
-        if (successPanel != null)
-        {
-            successPanel.SetActive(false);
-        }
+        HideImmediate(pauseOverlay);
+        HideImmediate(settingsOverlay);
+        HideImmediate(infoOverlay);
+        HideImmediate(exitConfirmationOverlay);
+        HideImmediate(gameOverPanel);
+        HideImmediate(successPanel);
     }
 
     private void Start()
@@ -320,6 +299,7 @@ public class LungsMinigameManager : MonoBehaviour
 
         isPaused = false;
         isTransitioning = false;
+        isMenuTransitioning = false;
 
         currentRound = 1;
 
@@ -449,6 +429,7 @@ public class LungsMinigameManager : MonoBehaviour
 
         isPaused = false;
         isTransitioning = false;
+        isMenuTransitioning = false;
 
         wrongClickLockRemaining = 0f;
 
@@ -472,55 +453,31 @@ public class LungsMinigameManager : MonoBehaviour
     }
 
     // =========================================================
-    // PAUSE
+    // OPEN PAUSE
     // =========================================================
 
     public void OpenPause()
     {
-        if (!gameStarted)
-        {
-            return;
-        }
-
-        if (gameEnded)
-        {
-            return;
-        }
-
-        if (isPaused)
-        {
-            return;
-        }
-
-        if (isTransitioning)
+        if (!gameStarted ||
+            gameEnded ||
+            isPaused ||
+            isTransitioning ||
+            isMenuTransitioning)
         {
             return;
         }
 
         isPaused = true;
 
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
-
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
-
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
-
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(true);
-            pauseOverlay.transform.SetAsLastSibling();
-        }
-
         Time.timeScale = 0f;
+
+        HideImmediate(settingsOverlay);
+        HideImmediate(infoOverlay);
+        HideImmediate(exitConfirmationOverlay);
+
+        OpenAnimatedOverlay(
+            pauseOverlay
+        );
     }
 
     // =========================================================
@@ -530,34 +487,29 @@ public class LungsMinigameManager : MonoBehaviour
     public void ContinueGame()
     {
         if (!gameStarted ||
-            gameEnded)
+            gameEnded ||
+            !isPaused ||
+            isMenuTransitioning)
         {
             return;
         }
 
-        isPaused = false;
+        isMenuTransitioning = true;
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(false);
-        }
+        CloseAnimatedOverlay(
+            pauseOverlay,
+            () =>
+            {
+                HideImmediate(settingsOverlay);
+                HideImmediate(infoOverlay);
+                HideImmediate(exitConfirmationOverlay);
 
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
+                isPaused = false;
+                isMenuTransitioning = false;
 
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
-
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
-
-        Time.timeScale = 1f;
+                Time.timeScale = 1f;
+            }
+        );
     }
 
     // =========================================================
@@ -566,56 +518,56 @@ public class LungsMinigameManager : MonoBehaviour
 
     public void OpenSettingsFromPause()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            isMenuTransitioning)
         {
             return;
         }
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(false);
-        }
+        isMenuTransitioning = true;
 
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
+        CloseAnimatedOverlay(
+            pauseOverlay,
+            () =>
+            {
+                HideImmediate(infoOverlay);
+                HideImmediate(exitConfirmationOverlay);
 
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
+                if (difficultySelector != null)
+                {
+                    difficultySelector.SetLocked(true);
+                }
 
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(true);
-            settingsOverlay.transform.SetAsLastSibling();
-        }
+                OpenAnimatedOverlay(
+                    settingsOverlay
+                );
 
-        if (difficultySelector != null)
-        {
-            difficultySelector.SetLocked(true);
-        }
-
-        Time.timeScale = 0f;
+                isMenuTransitioning = false;
+            }
+        );
     }
 
     public void CloseSettingsToPause()
     {
-        if (settingsOverlay != null)
+        if (!isPaused ||
+            isMenuTransitioning)
         {
-            settingsOverlay.SetActive(false);
+            return;
         }
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(true);
-            pauseOverlay.transform.SetAsLastSibling();
-        }
+        isMenuTransitioning = true;
 
-        isPaused = true;
+        CloseAnimatedOverlay(
+            settingsOverlay,
+            () =>
+            {
+                OpenAnimatedOverlay(
+                    pauseOverlay
+                );
 
-        Time.timeScale = 0f;
+                isMenuTransitioning = false;
+            }
+        );
     }
 
     // =========================================================
@@ -624,51 +576,51 @@ public class LungsMinigameManager : MonoBehaviour
 
     public void OpenInfoFromPause()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            isMenuTransitioning)
         {
             return;
         }
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(false);
-        }
+        isMenuTransitioning = true;
 
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
+        CloseAnimatedOverlay(
+            pauseOverlay,
+            () =>
+            {
+                HideImmediate(settingsOverlay);
+                HideImmediate(exitConfirmationOverlay);
 
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
+                OpenAnimatedOverlay(
+                    infoOverlay
+                );
 
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(true);
-            infoOverlay.transform.SetAsLastSibling();
-        }
-
-        Time.timeScale = 0f;
+                isMenuTransitioning = false;
+            }
+        );
     }
 
     public void CloseInfoToPause()
     {
-        if (infoOverlay != null)
+        if (!isPaused ||
+            isMenuTransitioning)
         {
-            infoOverlay.SetActive(false);
+            return;
         }
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(true);
-            pauseOverlay.transform.SetAsLastSibling();
-        }
+        isMenuTransitioning = true;
 
-        isPaused = true;
+        CloseAnimatedOverlay(
+            infoOverlay,
+            () =>
+            {
+                OpenAnimatedOverlay(
+                    pauseOverlay
+                );
 
-        Time.timeScale = 0f;
+                isMenuTransitioning = false;
+            }
+        );
     }
 
     // =========================================================
@@ -677,33 +629,28 @@ public class LungsMinigameManager : MonoBehaviour
 
     public void OpenExitConfirmationFromPause()
     {
-        if (!isPaused)
+        if (!isPaused ||
+            isMenuTransitioning)
         {
             return;
         }
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(false);
-        }
+        isMenuTransitioning = true;
 
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
+        CloseAnimatedOverlay(
+            pauseOverlay,
+            () =>
+            {
+                HideImmediate(settingsOverlay);
+                HideImmediate(infoOverlay);
 
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
+                OpenAnimatedOverlay(
+                    exitConfirmationOverlay
+                );
 
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(true);
-            exitConfirmationOverlay.transform.SetAsLastSibling();
-        }
-
-        Time.timeScale = 0f;
+                isMenuTransitioning = false;
+            }
+        );
     }
 
     // =========================================================
@@ -712,20 +659,25 @@ public class LungsMinigameManager : MonoBehaviour
 
     public void StayInMinigame()
     {
-        if (exitConfirmationOverlay != null)
+        if (!isPaused ||
+            isMenuTransitioning)
         {
-            exitConfirmationOverlay.SetActive(false);
+            return;
         }
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(true);
-            pauseOverlay.transform.SetAsLastSibling();
-        }
+        isMenuTransitioning = true;
 
-        isPaused = true;
+        CloseAnimatedOverlay(
+            exitConfirmationOverlay,
+            () =>
+            {
+                OpenAnimatedOverlay(
+                    pauseOverlay
+                );
 
-        Time.timeScale = 0f;
+                isMenuTransitioning = false;
+            }
+        );
     }
 
     // =========================================================
@@ -734,13 +686,134 @@ public class LungsMinigameManager : MonoBehaviour
 
     public void LeaveToBodyMap()
     {
+        if (isMenuTransitioning)
+        {
+            return;
+        }
+
+        isMenuTransitioning = true;
+
+        if (exitConfirmationOverlay != null &&
+            exitConfirmationOverlay.activeSelf)
+        {
+            CloseAnimatedOverlay(
+                exitConfirmationOverlay,
+                LoadBodyMap
+            );
+        }
+        else
+        {
+            LoadBodyMap();
+        }
+    }
+
+    private void LoadBodyMap()
+    {
         isPaused = false;
+        isMenuTransitioning = false;
 
         Time.timeScale = 1f;
 
         SceneManager.LoadScene(
             "BodyMap"
         );
+    }
+
+    // =========================================================
+    // POPUP HELPERS
+    // =========================================================
+
+    private void OpenAnimatedOverlay(
+        GameObject overlay)
+    {
+        if (overlay == null)
+        {
+            return;
+        }
+
+        bool wasAlreadyActive =
+            overlay.activeSelf;
+
+        overlay.SetActive(true);
+
+        overlay.transform.SetAsLastSibling();
+
+        // Ако е бил изключен, UIPopupAnimation.OnEnable()
+        // сам стартира open animation-а.
+        //
+        // PlayOpen() извикваме само ако вече е бил активен.
+        if (wasAlreadyActive)
+        {
+            UIPopupAnimation animation =
+                FindPopupAnimation(
+                    overlay
+                );
+
+            if (animation != null &&
+                animation.isActiveAndEnabled)
+            {
+                animation.PlayOpen();
+            }
+        }
+    }
+
+    private void CloseAnimatedOverlay(
+        GameObject overlay,
+        Action onFinished)
+    {
+        if (overlay == null ||
+            !overlay.activeSelf)
+        {
+            onFinished?.Invoke();
+            return;
+        }
+
+        UIPopupAnimation animation =
+            FindPopupAnimation(
+                overlay
+            );
+
+        if (animation == null ||
+            !animation.isActiveAndEnabled)
+        {
+            overlay.SetActive(false);
+
+            onFinished?.Invoke();
+            return;
+        }
+
+        animation.PlayClose(
+            () =>
+            {
+                if (overlay != null)
+                {
+                    overlay.SetActive(false);
+                }
+
+                onFinished?.Invoke();
+            }
+        );
+    }
+
+    private UIPopupAnimation FindPopupAnimation(
+        GameObject overlay)
+    {
+        if (overlay == null)
+        {
+            return null;
+        }
+
+        return overlay.GetComponentInChildren
+            <UIPopupAnimation>(true);
+    }
+
+    private void HideImmediate(
+        GameObject overlay)
+    {
+        if (overlay != null)
+        {
+            overlay.SetActive(false);
+        }
     }
 
     // =========================================================
@@ -914,7 +987,6 @@ public class LungsMinigameManager : MonoBehaviour
     {
         if (gasType == LungGasType.O2)
         {
-            // O2 е правилният балон при вдишване.
             PlayCorrectPop();
 
             oxygenPercent +=
@@ -936,7 +1008,6 @@ public class LungsMinigameManager : MonoBehaviour
         }
         else
         {
-            // CO2 е грешният балон при вдишване.
             PlayWrongPop();
 
             oxygenPercent -=
@@ -997,7 +1068,6 @@ public class LungsMinigameManager : MonoBehaviour
             airEffect.PlayInhale();
         }
 
-        // Фазата Вдишване приключи.
         PlayBreathIn();
 
         yield return new WaitForSecondsRealtime(
@@ -1023,7 +1093,6 @@ public class LungsMinigameManager : MonoBehaviour
     {
         if (gasType == LungGasType.CO2)
         {
-            // CO2 е правилният балон при издишване.
             PlayCorrectPop();
 
             co2Percent -=
@@ -1045,7 +1114,6 @@ public class LungsMinigameManager : MonoBehaviour
         }
         else
         {
-            // O2 е грешният балон при издишване.
             PlayWrongPop();
 
             co2Percent +=
@@ -1105,7 +1173,6 @@ public class LungsMinigameManager : MonoBehaviour
             airEffect.PlayExhale();
         }
 
-        // Фазата Издишване приключи.
         PlayBreathOut();
 
         yield return new WaitForSecondsRealtime(
@@ -1148,6 +1215,7 @@ public class LungsMinigameManager : MonoBehaviour
         gameStarted = false;
 
         isPaused = false;
+        isMenuTransitioning = false;
 
         Time.timeScale = 1f;
 
@@ -1189,35 +1257,17 @@ public class LungsMinigameManager : MonoBehaviour
             );
         }
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(false);
-        }
-
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
-
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
-
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
+        HideImmediate(pauseOverlay);
+        HideImmediate(settingsOverlay);
+        HideImmediate(infoOverlay);
+        HideImmediate(exitConfirmationOverlay);
 
         if (bubbleSpawner != null)
         {
             bubbleSpawner.BeginPhaseTransition();
         }
 
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(false);
-        }
+        HideImmediate(gameOverPanel);
 
         if (successPanel != null)
         {
@@ -1245,38 +1295,21 @@ public class LungsMinigameManager : MonoBehaviour
 
         isPaused = false;
         isTransitioning = false;
+        isMenuTransitioning = false;
 
         Time.timeScale = 1f;
 
-        if (pauseOverlay != null)
-        {
-            pauseOverlay.SetActive(false);
-        }
-
-        if (settingsOverlay != null)
-        {
-            settingsOverlay.SetActive(false);
-        }
-
-        if (infoOverlay != null)
-        {
-            infoOverlay.SetActive(false);
-        }
-
-        if (exitConfirmationOverlay != null)
-        {
-            exitConfirmationOverlay.SetActive(false);
-        }
+        HideImmediate(pauseOverlay);
+        HideImmediate(settingsOverlay);
+        HideImmediate(infoOverlay);
+        HideImmediate(exitConfirmationOverlay);
 
         if (bubbleSpawner != null)
         {
             bubbleSpawner.BeginPhaseTransition();
         }
 
-        if (successPanel != null)
-        {
-            successPanel.SetActive(false);
-        }
+        HideImmediate(successPanel);
 
         if (gameOverPanel != null)
         {

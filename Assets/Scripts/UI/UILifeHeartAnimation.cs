@@ -34,17 +34,50 @@ public class UILifeHeartAnimation : MonoBehaviour
 
     private Coroutine animationCoroutine;
 
+    private bool originalScaleSaved;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
+
     private void Awake()
     {
-        rectTransform =
-            GetComponent<RectTransform>();
-
-        canvasGroup =
-            GetComponent<CanvasGroup>();
-
-        originalScale =
-            rectTransform.localScale;
+        EnsureReferences();
     }
+
+    // =========================================================
+    // REFERENCES
+    // =========================================================
+
+    private void EnsureReferences()
+    {
+        if (rectTransform == null)
+        {
+            rectTransform =
+                GetComponent<RectTransform>();
+        }
+
+        if (canvasGroup == null)
+        {
+            canvasGroup =
+                GetComponent<CanvasGroup>();
+        }
+
+        if (
+            rectTransform != null &&
+            !originalScaleSaved
+        )
+        {
+            originalScale =
+                rectTransform.localScale;
+
+            originalScaleSaved = true;
+        }
+    }
+
+    // =========================================================
+    // LOSE LIFE
+    // =========================================================
 
     public void PlayLoseAnimation()
     {
@@ -54,6 +87,22 @@ public class UILifeHeartAnimation : MonoBehaviour
     public void PlayLoseAnimation(
         Action onFinished)
     {
+        EnsureReferences();
+
+        if (
+            rectTransform == null ||
+            canvasGroup == null
+        )
+        {
+            Debug.LogError(
+                $"{gameObject.name}: " +
+                "UILifeHeartAnimation няма нужните UI компоненти."
+            );
+
+            onFinished?.Invoke();
+            return;
+        }
+
         if (animationCoroutine != null)
         {
             StopCoroutine(
@@ -71,6 +120,9 @@ public class UILifeHeartAnimation : MonoBehaviour
         originalScale =
             rectTransform.localScale;
 
+        originalScaleSaved =
+            true;
+
         animationCoroutine =
             StartCoroutine(
                 LoseLifeRoutine(
@@ -79,8 +131,17 @@ public class UILifeHeartAnimation : MonoBehaviour
             );
     }
 
+    // =========================================================
+    // RESET HEART
+    // =========================================================
+
     public void ResetHeart()
     {
+        // Много важно:
+        // методът може да бъде извикан и върху сърце,
+        // което преди това е било inactive.
+        EnsureReferences();
+
         if (animationCoroutine != null)
         {
             StopCoroutine(
@@ -92,15 +153,29 @@ public class UILifeHeartAnimation : MonoBehaviour
 
         gameObject.SetActive(true);
 
-        canvasGroup.alpha = 1f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        // След активиране проверяваме
+        // референциите още веднъж.
+        EnsureReferences();
 
-        rectTransform.localScale =
-            originalScale;
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
+
+        if (rectTransform != null)
+        {
+            rectTransform.localScale =
+                originalScale;
+        }
 
         Canvas.ForceUpdateCanvases();
     }
+
+    // =========================================================
+    // LOSE ROUTINE
+    // =========================================================
 
     private IEnumerator LoseLifeRoutine(
         Action onFinished)
@@ -222,20 +297,18 @@ public class UILifeHeartAnimation : MonoBehaviour
 
         animationCoroutine = null;
 
-        // ВАЖНО:
-        // Първо казваме на HeartPuzzleLives,
-        // че цялата анимация е приключила.
-        //
-        // Ако това е последният живот,
-        // там ще се покаже Game Over.
+        // Първо callback,
+        // после скриваме сърцето.
         onFinished?.Invoke();
 
-        // Чак след callback-а
-        // скриваме самото сърце.
         gameObject.SetActive(false);
 
         Canvas.ForceUpdateCanvases();
     }
+
+    // =========================================================
+    // SCALE
+    // =========================================================
 
     private IEnumerator AnimateScale(
         Vector3 from,
@@ -243,6 +316,14 @@ public class UILifeHeartAnimation : MonoBehaviour
         float duration)
     {
         float timer = 0f;
+
+        if (duration <= 0f)
+        {
+            rectTransform.localScale =
+                to;
+
+            yield break;
+        }
 
         while (timer < duration)
         {
@@ -272,8 +353,13 @@ public class UILifeHeartAnimation : MonoBehaviour
             yield return null;
         }
 
-        rectTransform.localScale = to;
+        rectTransform.localScale =
+            to;
     }
+
+    // =========================================================
+    // DISABLE
+    // =========================================================
 
     private void OnDisable()
     {
