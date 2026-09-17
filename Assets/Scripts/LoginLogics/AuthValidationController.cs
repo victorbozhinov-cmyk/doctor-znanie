@@ -1,6 +1,7 @@
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class AuthValidationController : MonoBehaviour
@@ -55,9 +56,64 @@ public class AuthValidationController : MonoBehaviour
         ClearMessage();
     }
 
+    private void Update()
+    {
+        HandleEnterKey();
+    }
+
     private void OnDestroy()
     {
         RemoveInputFieldListeners();
+    }
+
+    // =========================================================
+    // ENTER KEY
+    // =========================================================
+
+    private void HandleEnterKey()
+    {
+        if (Keyboard.current == null)
+            return;
+
+        bool enterPressed =
+            Keyboard.current.enterKey.wasPressedThisFrame ||
+            Keyboard.current.numpadEnterKey.wasPressedThisFrame;
+
+        if (!enterPressed)
+            return;
+
+        // =====================================================
+        // REGISTER ACTIVE
+        // =====================================================
+
+        bool registerActive =
+            (registerUsernameInput != null &&
+             registerUsernameInput.gameObject.activeInHierarchy)
+            ||
+            (registerPasswordInput != null &&
+             registerPasswordInput.gameObject.activeInHierarchy);
+
+        if (registerActive)
+        {
+            ValidateRegister();
+            return;
+        }
+
+        // =====================================================
+        // LOGIN ACTIVE
+        // =====================================================
+
+        bool loginActive =
+            (loginUsernameInput != null &&
+             loginUsernameInput.gameObject.activeInHierarchy)
+            ||
+            (loginPasswordInput != null &&
+             loginPasswordInput.gameObject.activeInHierarchy);
+
+        if (loginActive)
+        {
+            ValidateLogin();
+        }
     }
 
     // =========================================================
