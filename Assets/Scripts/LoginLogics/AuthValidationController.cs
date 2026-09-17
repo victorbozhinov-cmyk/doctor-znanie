@@ -42,6 +42,9 @@ public class AuthValidationController : MonoBehaviour
     private bool isLoggingIn = false;
     private bool isRegistering = false;
 
+    private const string NoInternetMessage =
+        "Няма връзка с интернет. Проверете връзката си и опитайте отново.";
+
     // =========================================================
     // UNITY
     // =========================================================
@@ -253,6 +256,19 @@ public class AuthValidationController : MonoBehaviour
 
                     break;
 
+                case SupabaseManager.LoginErrorType.Network:
+
+                    ShowMessage(
+                        NoInternetMessage
+                    );
+
+                    Debug.LogWarning(
+                        "Login network error:\n" +
+                        result.debugMessage
+                    );
+
+                    break;
+
                 case SupabaseManager.LoginErrorType.Configuration:
 
                     Debug.LogError(
@@ -302,12 +318,6 @@ public class AuthValidationController : MonoBehaviour
             return;
         }
 
-        // Login е успешен.
-        // SupabaseManager вече е заредил player_data
-        // и е поставил стойностите в PlayerPrefs.
-        //
-        // Сега зареждаме profiles реда.
-
         SupabaseManager.Instance.LoadCurrentProfile(
             profileResult =>
             {
@@ -339,6 +349,20 @@ public class AuthValidationController : MonoBehaviour
 
         if (!result.success)
         {
+            if (result.networkError)
+            {
+                ShowMessage(
+                    NoInternetMessage
+                );
+
+                Debug.LogWarning(
+                    "Profile load network error:\n" +
+                    result.debugMessage
+                );
+
+                return;
+            }
+
             Debug.LogError(
                 "Could not load player profile:\n" +
                 result.debugMessage
@@ -368,15 +392,7 @@ public class AuthValidationController : MonoBehaviour
             SupabaseManager.Instance.TotalScore
         );
 
-        // =====================================================
-        // ACTIVATE ACCOUNT SYSTEMS
-        // =====================================================
-
         ActivateAccountSystems();
-
-        // =====================================================
-        // OPEN MAIN MENU
-        // =====================================================
 
         OpenMainMenu();
     }
@@ -507,10 +523,6 @@ public class AuthValidationController : MonoBehaviour
                 SupabaseManager.Instance.Username
             );
 
-            // SupabaseManager вече е създал player_data,
-            // заредил е началните стойности и ги е записал
-            // в PlayerPrefs.
-
             ActivateAccountSystems();
 
             OpenMainMenu();
@@ -524,6 +536,19 @@ public class AuthValidationController : MonoBehaviour
 
                 ShowMessage(
                     "Това потребителско име вече е заето."
+                );
+
+                break;
+
+            case SupabaseManager.RegisterErrorType.Network:
+
+                ShowMessage(
+                    NoInternetMessage
+                );
+
+                Debug.LogWarning(
+                    "Registration network error:\n" +
+                    result.debugMessage
                 );
 
                 break;

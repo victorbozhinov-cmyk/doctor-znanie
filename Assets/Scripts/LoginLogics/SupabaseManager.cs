@@ -157,7 +157,7 @@ public class SupabaseManager : MonoBehaviour
             UnityWebRequest.Result.Success)
         {
             string response =
-                request.downloadHandler.text;
+                GetRequestErrorMessage(request);
 
             Debug.LogError(
                 "Supabase register error: " +
@@ -166,7 +166,20 @@ public class SupabaseManager : MonoBehaviour
                 response
             );
 
-            if (ContainsUserAlreadyRegistered(response))
+            if (IsConnectionError(request))
+            {
+                onComplete?.Invoke(
+                    new RegisterResult
+                    {
+                        success = false,
+                        errorType =
+                            RegisterErrorType.Network,
+
+                        debugMessage = response
+                    }
+                );
+            }
+            else if (ContainsUserAlreadyRegistered(response))
             {
                 onComplete?.Invoke(
                     new RegisterResult
@@ -267,6 +280,7 @@ public class SupabaseManager : MonoBehaviour
         );
 
         bool profileCreated = false;
+        bool profileNetworkError = false;
         string profileError = "";
 
         yield return StartCoroutine(
@@ -277,6 +291,9 @@ public class SupabaseManager : MonoBehaviour
                 {
                     profileCreated =
                         result.success;
+
+                    profileNetworkError =
+                        result.networkError;
 
                     profileError =
                         result.debugMessage;
@@ -290,8 +307,11 @@ public class SupabaseManager : MonoBehaviour
                 new RegisterResult
                 {
                     success = false,
+
                     errorType =
-                        RegisterErrorType.ProfileCreation,
+                        profileNetworkError
+                            ? RegisterErrorType.Network
+                            : RegisterErrorType.ProfileCreation,
 
                     debugMessage =
                         profileError
@@ -302,6 +322,7 @@ public class SupabaseManager : MonoBehaviour
         }
 
         bool playerDataReady = false;
+        bool playerDataNetworkError = false;
         string playerDataError = "";
 
         yield return StartCoroutine(
@@ -311,6 +332,9 @@ public class SupabaseManager : MonoBehaviour
                 {
                     playerDataReady =
                         result.success;
+
+                    playerDataNetworkError =
+                        result.networkError;
 
                     playerDataError =
                         result.debugMessage;
@@ -324,8 +348,11 @@ public class SupabaseManager : MonoBehaviour
                 new RegisterResult
                 {
                     success = false,
+
                     errorType =
-                        RegisterErrorType.PlayerDataCreation,
+                        playerDataNetworkError
+                            ? RegisterErrorType.Network
+                            : RegisterErrorType.PlayerDataCreation,
 
                     debugMessage =
                         playerDataError
@@ -336,6 +363,7 @@ public class SupabaseManager : MonoBehaviour
         }
 
         bool playerDataLoaded = false;
+        bool playerDataLoadNetworkError = false;
         string playerDataLoadError = "";
 
         yield return StartCoroutine(
@@ -344,6 +372,9 @@ public class SupabaseManager : MonoBehaviour
                 {
                     playerDataLoaded =
                         result.success;
+
+                    playerDataLoadNetworkError =
+                        result.networkError;
 
                     playerDataLoadError =
                         result.debugMessage;
@@ -357,8 +388,11 @@ public class SupabaseManager : MonoBehaviour
                 new RegisterResult
                 {
                     success = false,
+
                     errorType =
-                        RegisterErrorType.PlayerDataLoad,
+                        playerDataLoadNetworkError
+                            ? RegisterErrorType.Network
+                            : RegisterErrorType.PlayerDataLoad,
 
                     debugMessage =
                         playerDataLoadError
@@ -476,7 +510,7 @@ public class SupabaseManager : MonoBehaviour
             UnityWebRequest.Result.Success)
         {
             string response =
-                request.downloadHandler.text;
+                GetRequestErrorMessage(request);
 
             Debug.LogWarning(
                 "Supabase login failed: " +
@@ -485,16 +519,32 @@ public class SupabaseManager : MonoBehaviour
                 response
             );
 
-            onComplete?.Invoke(
-                new LoginResult
-                {
-                    success = false,
-                    errorType =
-                        LoginErrorType.InvalidCredentials,
+            if (IsConnectionError(request))
+            {
+                onComplete?.Invoke(
+                    new LoginResult
+                    {
+                        success = false,
+                        errorType =
+                            LoginErrorType.Network,
 
-                    debugMessage = response
-                }
-            );
+                        debugMessage = response
+                    }
+                );
+            }
+            else
+            {
+                onComplete?.Invoke(
+                    new LoginResult
+                    {
+                        success = false,
+                        errorType =
+                            LoginErrorType.InvalidCredentials,
+
+                        debugMessage = response
+                    }
+                );
+            }
 
             yield break;
         }
@@ -553,6 +603,7 @@ public class SupabaseManager : MonoBehaviour
         );
 
         bool playerDataReady = false;
+        bool playerDataNetworkError = false;
         string playerDataError = "";
 
         yield return StartCoroutine(
@@ -562,6 +613,9 @@ public class SupabaseManager : MonoBehaviour
                 {
                     playerDataReady =
                         result.success;
+
+                    playerDataNetworkError =
+                        result.networkError;
 
                     playerDataError =
                         result.debugMessage;
@@ -575,8 +629,11 @@ public class SupabaseManager : MonoBehaviour
                 new LoginResult
                 {
                     success = false,
+
                     errorType =
-                        LoginErrorType.PlayerDataSetup,
+                        playerDataNetworkError
+                            ? LoginErrorType.Network
+                            : LoginErrorType.PlayerDataSetup,
 
                     debugMessage =
                         playerDataError
@@ -587,6 +644,7 @@ public class SupabaseManager : MonoBehaviour
         }
 
         bool playerDataLoaded = false;
+        bool playerDataLoadNetworkError = false;
         string playerDataLoadError = "";
 
         yield return StartCoroutine(
@@ -595,6 +653,9 @@ public class SupabaseManager : MonoBehaviour
                 {
                     playerDataLoaded =
                         result.success;
+
+                    playerDataLoadNetworkError =
+                        result.networkError;
 
                     playerDataLoadError =
                         result.debugMessage;
@@ -608,8 +669,11 @@ public class SupabaseManager : MonoBehaviour
                 new LoginResult
                 {
                     success = false,
+
                     errorType =
-                        LoginErrorType.PlayerDataLoad,
+                        playerDataLoadNetworkError
+                            ? LoginErrorType.Network
+                            : LoginErrorType.PlayerDataLoad,
 
                     debugMessage =
                         playerDataLoadError
@@ -660,6 +724,8 @@ public class SupabaseManager : MonoBehaviour
                 new ProfileLoadResult
                 {
                     success = false,
+                    networkError = false,
+
                     debugMessage =
                         "No logged in user."
                 }
@@ -686,7 +752,7 @@ public class SupabaseManager : MonoBehaviour
             UnityWebRequest.Result.Success)
         {
             string response =
-                request.downloadHandler.text;
+                GetRequestErrorMessage(request);
 
             Debug.LogError(
                 "Profile load error: " +
@@ -699,6 +765,10 @@ public class SupabaseManager : MonoBehaviour
                 new ProfileLoadResult
                 {
                     success = false,
+
+                    networkError =
+                        IsConnectionError(request),
+
                     debugMessage = response
                 }
             );
@@ -726,6 +796,8 @@ public class SupabaseManager : MonoBehaviour
                 new ProfileLoadResult
                 {
                     success = false,
+                    networkError = false,
+
                     debugMessage =
                         exception.Message
                 }
@@ -742,6 +814,8 @@ public class SupabaseManager : MonoBehaviour
                 new ProfileLoadResult
                 {
                     success = false,
+                    networkError = false,
+
                     debugMessage =
                         "Profile was not found."
                 }
@@ -777,6 +851,7 @@ public class SupabaseManager : MonoBehaviour
             new ProfileLoadResult
             {
                 success = true,
+                networkError = false,
                 debugMessage = ""
             }
         );
@@ -807,6 +882,8 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataSaveResult
                 {
                     success = false,
+                    networkError = false,
+
                     debugMessage =
                         "No logged in user."
                 }
@@ -869,7 +946,7 @@ public class SupabaseManager : MonoBehaviour
             UnityWebRequest.Result.Success)
         {
             string response =
-                request.downloadHandler.text;
+                GetRequestErrorMessage(request);
 
             Debug.LogError(
                 "Player data save error: " +
@@ -882,6 +959,10 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataSaveResult
                 {
                     success = false,
+
+                    networkError =
+                        IsConnectionError(request),
+
                     debugMessage = response
                 }
             );
@@ -897,6 +978,7 @@ public class SupabaseManager : MonoBehaviour
             new PlayerDataSaveResult
             {
                 success = true,
+                networkError = false,
                 debugMessage = ""
             }
         );
@@ -927,6 +1009,8 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataLoadResult
                 {
                     success = false,
+                    networkError = false,
+
                     debugMessage =
                         "No logged in user."
                 }
@@ -955,7 +1039,7 @@ public class SupabaseManager : MonoBehaviour
             UnityWebRequest.Result.Success)
         {
             string response =
-                request.downloadHandler.text;
+                GetRequestErrorMessage(request);
 
             Debug.LogError(
                 "Player data load error: " +
@@ -968,6 +1052,10 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataLoadResult
                 {
                     success = false,
+
+                    networkError =
+                        IsConnectionError(request),
+
                     debugMessage = response
                 }
             );
@@ -995,6 +1083,8 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataLoadResult
                 {
                     success = false,
+                    networkError = false,
+
                     debugMessage =
                         exception.Message
                 }
@@ -1011,6 +1101,8 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataLoadResult
                 {
                     success = false,
+                    networkError = false,
+
                     debugMessage =
                         "Player data row was not found."
                 }
@@ -1037,6 +1129,7 @@ public class SupabaseManager : MonoBehaviour
             );
 
             bool saved = false;
+            bool saveNetworkError = false;
             string saveError = "";
 
             yield return StartCoroutine(
@@ -1045,6 +1138,9 @@ public class SupabaseManager : MonoBehaviour
                     {
                         saved =
                             result.success;
+
+                        saveNetworkError =
+                            result.networkError;
 
                         saveError =
                             result.debugMessage;
@@ -1058,6 +1154,9 @@ public class SupabaseManager : MonoBehaviour
                     new PlayerDataLoadResult
                     {
                         success = false,
+                        networkError =
+                            saveNetworkError,
+
                         debugMessage =
                             saveError
                     }
@@ -1076,6 +1175,7 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataLoadResult
                 {
                     success = true,
+                    networkError = false,
                     debugMessage = ""
                 }
             );
@@ -1107,6 +1207,7 @@ public class SupabaseManager : MonoBehaviour
             );
 
             bool saved = false;
+            bool saveNetworkError = false;
             string saveError = "";
 
             yield return StartCoroutine(
@@ -1115,6 +1216,9 @@ public class SupabaseManager : MonoBehaviour
                     {
                         saved =
                             result.success;
+
+                        saveNetworkError =
+                            result.networkError;
 
                         saveError =
                             result.debugMessage;
@@ -1128,6 +1232,9 @@ public class SupabaseManager : MonoBehaviour
                     new PlayerDataLoadResult
                     {
                         success = false,
+                        networkError =
+                            saveNetworkError,
+
                         debugMessage =
                             saveError
                     }
@@ -1146,6 +1253,7 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataLoadResult
                 {
                     success = true,
+                    networkError = false,
                     debugMessage = ""
                 }
             );
@@ -1171,6 +1279,7 @@ public class SupabaseManager : MonoBehaviour
             new PlayerDataLoadResult
             {
                 success = true,
+                networkError = false,
                 debugMessage = ""
             }
         );
@@ -1186,7 +1295,6 @@ public class SupabaseManager : MonoBehaviour
         {
             version = CURRENT_SAVE_VERSION,
 
-            // SETTINGS
             difficulty =
                 PlayerPrefs.GetInt(
                     "Difficulty",
@@ -1211,14 +1319,12 @@ public class SupabaseManager : MonoBehaviour
                     1f
                 ),
 
-            // VITAMINS
             vitamins =
                 PlayerPrefs.GetInt(
                     "Vitamins",
                     150
                 ),
 
-            // UNLOCKS
             heartUnlocked =
                 GetInt("HeartUnlocked"),
 
@@ -1234,7 +1340,6 @@ public class SupabaseManager : MonoBehaviour
             brainUnlocked =
                 GetInt("BrainUnlocked"),
 
-            // SERUM
             serumHeart =
                 GetInt("Serum_Heart"),
 
@@ -1250,7 +1355,6 @@ public class SupabaseManager : MonoBehaviour
             serumLungs =
                 GetInt("Serum_Lungs"),
 
-            // ANTIBODIES
             heartBestAntibodies =
                 GetInt("HeartBestAntibodies"),
 
@@ -1266,7 +1370,6 @@ public class SupabaseManager : MonoBehaviour
             lungsBestAntibodies =
                 GetInt("LungsBestAntibodies"),
 
-            // HEART REWARDS
             heartEasyReward =
                 GetInt(
                     "Heart_Easy_VitaminRewardClaimed"
@@ -1282,7 +1385,6 @@ public class SupabaseManager : MonoBehaviour
                     "Heart_Hard_VitaminRewardClaimed"
                 ),
 
-            // LIVER REWARDS
             liverEasyReward =
                 GetInt(
                     "Liver_Easy_VitaminRewardClaimed"
@@ -1298,7 +1400,6 @@ public class SupabaseManager : MonoBehaviour
                     "Liver_Hard_VitaminRewardClaimed"
                 ),
 
-            // LUNGS REWARDS
             lungsEasyReward =
                 GetInt(
                     "Lungs_Easy_VitaminRewardClaimed"
@@ -1314,7 +1415,6 @@ public class SupabaseManager : MonoBehaviour
                     "Lungs_Hard_VitaminRewardClaimed"
                 ),
 
-            // STOMACH REWARDS
             stomachEasyReward =
                 GetInt(
                     "Stomach_Easy_VitaminRewardClaimed"
@@ -1330,7 +1430,6 @@ public class SupabaseManager : MonoBehaviour
                     "Stomach_Hard_VitaminRewardClaimed"
                 ),
 
-            // BRAIN REWARDS
             brainEasyReward =
                 GetInt(
                     "Brain_Easy_VitaminRewardClaimed"
@@ -1381,7 +1480,6 @@ public class SupabaseManager : MonoBehaviour
         if (oldData == null)
             return data;
 
-        // VERSION 1
         data.difficulty =
             oldData.difficulty;
 
@@ -1391,14 +1489,12 @@ public class SupabaseManager : MonoBehaviour
         data.masterVolume =
             oldData.masterVolume;
 
-        // VERSION 2
         if (oldData.version >= 2)
         {
             data.brightness =
                 oldData.brightness;
         }
 
-        // VERSION 3
         if (oldData.version >= 3)
         {
             data.vitamins =
@@ -1450,7 +1546,6 @@ public class SupabaseManager : MonoBehaviour
                 oldData.lungsBestAntibodies;
         }
 
-        // VERSION 4
         if (oldData.version >= 4)
         {
             CopyRewardFlags(
@@ -1527,7 +1622,6 @@ public class SupabaseManager : MonoBehaviour
         if (data == null)
             return;
 
-        // SETTINGS
         PlayerPrefs.SetInt(
             "Difficulty",
             data.difficulty
@@ -1548,13 +1642,11 @@ public class SupabaseManager : MonoBehaviour
             data.brightness
         );
 
-        // VITAMINS
         PlayerPrefs.SetInt(
             "Vitamins",
             data.vitamins
         );
 
-        // UNLOCKS
         SetInt(
             "HeartUnlocked",
             data.heartUnlocked
@@ -1580,7 +1672,6 @@ public class SupabaseManager : MonoBehaviour
             data.brainUnlocked
         );
 
-        // SERUM
         SetInt(
             "Serum_Heart",
             data.serumHeart
@@ -1606,7 +1697,6 @@ public class SupabaseManager : MonoBehaviour
             data.serumLungs
         );
 
-        // ANTIBODIES
         SetInt(
             "HeartBestAntibodies",
             data.heartBestAntibodies
@@ -1632,7 +1722,6 @@ public class SupabaseManager : MonoBehaviour
             data.lungsBestAntibodies
         );
 
-        // HEART REWARDS
         SetInt(
             "Heart_Easy_VitaminRewardClaimed",
             data.heartEasyReward
@@ -1648,7 +1737,6 @@ public class SupabaseManager : MonoBehaviour
             data.heartHardReward
         );
 
-        // LIVER REWARDS
         SetInt(
             "Liver_Easy_VitaminRewardClaimed",
             data.liverEasyReward
@@ -1664,7 +1752,6 @@ public class SupabaseManager : MonoBehaviour
             data.liverHardReward
         );
 
-        // LUNGS REWARDS
         SetInt(
             "Lungs_Easy_VitaminRewardClaimed",
             data.lungsEasyReward
@@ -1680,7 +1767,6 @@ public class SupabaseManager : MonoBehaviour
             data.lungsHardReward
         );
 
-        // STOMACH REWARDS
         SetInt(
             "Stomach_Easy_VitaminRewardClaimed",
             data.stomachEasyReward
@@ -1696,7 +1782,6 @@ public class SupabaseManager : MonoBehaviour
             data.stomachHardReward
         );
 
-        // BRAIN REWARDS
         SetInt(
             "Brain_Easy_VitaminRewardClaimed",
             data.brainEasyReward
@@ -1767,7 +1852,7 @@ public class SupabaseManager : MonoBehaviour
             UnityWebRequest.Result.Success)
         {
             string response =
-                request.downloadHandler.text;
+                GetRequestErrorMessage(request);
 
             Debug.LogError(
                 "Player data lookup error: " +
@@ -1780,6 +1865,10 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataResult
                 {
                     success = false,
+
+                    networkError =
+                        IsConnectionError(request),
+
                     debugMessage = response
                 }
             );
@@ -1807,6 +1896,8 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataResult
                 {
                     success = false,
+                    networkError = false,
+
                     debugMessage =
                         exception.Message
                 }
@@ -1823,6 +1914,7 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataResult
                 {
                     success = true,
+                    networkError = false,
                     debugMessage = ""
                 }
             );
@@ -1893,7 +1985,7 @@ public class SupabaseManager : MonoBehaviour
             UnityWebRequest.Result.Success)
         {
             string response =
-                request.downloadHandler.text;
+                GetRequestErrorMessage(request);
 
             Debug.LogError(
                 "Player data creation error: " +
@@ -1906,6 +1998,10 @@ public class SupabaseManager : MonoBehaviour
                 new PlayerDataResult
                 {
                     success = false,
+
+                    networkError =
+                        IsConnectionError(request),
+
                     debugMessage = response
                 }
             );
@@ -1921,6 +2017,7 @@ public class SupabaseManager : MonoBehaviour
             new PlayerDataResult
             {
                 success = true,
+                networkError = false,
                 debugMessage = ""
             }
         );
@@ -1984,7 +2081,7 @@ public class SupabaseManager : MonoBehaviour
             UnityWebRequest.Result.Success)
         {
             string response =
-                request.downloadHandler.text;
+                GetRequestErrorMessage(request);
 
             Debug.LogError(
                 "Profile creation error: " +
@@ -1997,6 +2094,10 @@ public class SupabaseManager : MonoBehaviour
                 new ProfileResult
                 {
                     success = false,
+
+                    networkError =
+                        IsConnectionError(request),
+
                     debugMessage = response
                 }
             );
@@ -2008,9 +2109,51 @@ public class SupabaseManager : MonoBehaviour
             new ProfileResult
             {
                 success = true,
+                networkError = false,
                 debugMessage = ""
             }
         );
+    }
+
+    // =========================================================
+    // NETWORK HELPERS
+    // =========================================================
+
+    private bool IsConnectionError(
+        UnityWebRequest request
+    )
+    {
+        return
+            request != null &&
+            request.result ==
+            UnityWebRequest.Result.ConnectionError;
+    }
+
+    private string GetRequestErrorMessage(
+        UnityWebRequest request
+    )
+    {
+        if (request == null)
+        {
+            return "Unknown request error.";
+        }
+
+        if (request.downloadHandler != null &&
+            !string.IsNullOrWhiteSpace(
+                request.downloadHandler.text
+            ))
+        {
+            return request.downloadHandler.text;
+        }
+
+        if (!string.IsNullOrWhiteSpace(
+            request.error
+        ))
+        {
+            return request.error;
+        }
+
+        return "Request failed.";
     }
 
     // =========================================================
@@ -2195,57 +2338,47 @@ public class SupabaseManager : MonoBehaviour
     {
         public int version;
 
-        // SETTINGS
         public int difficulty;
         public int colorTheme;
         public float masterVolume;
         public float brightness;
 
-        // VITAMINS
         public int vitamins;
 
-        // UNLOCKS
         public int heartUnlocked;
         public int liverUnlocked;
         public int lungsUnlocked;
         public int stomachUnlocked;
         public int brainUnlocked;
 
-        // SERUM
         public int serumHeart;
         public int serumStomach;
         public int serumLiver;
         public int serumBrain;
         public int serumLungs;
 
-        // ANTIBODIES
         public int heartBestAntibodies;
         public int stomachBestAntibodies;
         public int liverBestAntibodies;
         public int brainBestAntibodies;
         public int lungsBestAntibodies;
 
-        // HEART REWARDS
         public int heartEasyReward;
         public int heartMediumReward;
         public int heartHardReward;
 
-        // LIVER REWARDS
         public int liverEasyReward;
         public int liverMediumReward;
         public int liverHardReward;
 
-        // LUNGS REWARDS
         public int lungsEasyReward;
         public int lungsMediumReward;
         public int lungsHardReward;
 
-        // STOMACH REWARDS
         public int stomachEasyReward;
         public int stomachMediumReward;
         public int stomachHardReward;
 
-        // BRAIN REWARDS
         public int brainEasyReward;
         public int brainMediumReward;
         public int brainHardReward;
@@ -2298,6 +2431,7 @@ public class SupabaseManager : MonoBehaviour
     {
         None,
         UsernameTaken,
+        Network,
         Configuration,
         Server,
         InvalidResponse,
@@ -2318,6 +2452,7 @@ public class SupabaseManager : MonoBehaviour
     {
         None,
         InvalidCredentials,
+        Network,
         Configuration,
         InvalidResponse,
         PlayerDataSetup,
@@ -2334,30 +2469,35 @@ public class SupabaseManager : MonoBehaviour
     public class ProfileLoadResult
     {
         public bool success;
+        public bool networkError;
         public string debugMessage;
     }
 
     public class PlayerDataSaveResult
     {
         public bool success;
+        public bool networkError;
         public string debugMessage;
     }
 
     public class PlayerDataLoadResult
     {
         public bool success;
+        public bool networkError;
         public string debugMessage;
     }
 
     private class ProfileResult
     {
         public bool success;
+        public bool networkError;
         public string debugMessage;
     }
 
     private class PlayerDataResult
     {
         public bool success;
+        public bool networkError;
         public string debugMessage;
     }
 }
