@@ -233,6 +233,15 @@ public class AccountCloudSaveWatcher : MonoBehaviour
         );
 
         // =====================================================
+        // PATIENT CURED PANEL
+        // =====================================================
+
+        AppendInt(
+            builder,
+            "PatientCuredPanelShown"
+        );
+
+        // =====================================================
         // ANTIBODIES
         // =====================================================
 

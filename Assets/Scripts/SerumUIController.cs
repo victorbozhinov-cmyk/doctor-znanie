@@ -9,12 +9,21 @@ public class SerumUIController : MonoBehaviour
     // UI
     // =========================================================
 
-    [Header("UI")]
+    [Header("Serum UI")]
     [SerializeField] private Image serumFillImage;
 
     [SerializeField] private TMP_Text percentText;
 
     [SerializeField] private RectTransform syringeRoot;
+
+    // =========================================================
+    // PATIENT CURED PANEL
+    // =========================================================
+
+    [Header("Patient Cured")]
+    [SerializeField] private GameObject patientCuredOverlay;
+
+    [SerializeField] private Button continueButton;
 
     // =========================================================
     // ANIMATION
@@ -32,9 +41,36 @@ public class SerumUIController : MonoBehaviour
     // UNITY
     // =========================================================
 
+    private void Awake()
+    {
+        // Финалният панел винаги започва затворен.
+        if (patientCuredOverlay != null)
+        {
+            patientCuredOverlay.SetActive(false);
+        }
+
+        // Свързваме бутона автоматично.
+        if (continueButton != null)
+        {
+            continueButton.onClick.AddListener(
+                ClosePatientCuredPanel
+            );
+        }
+    }
+
     private void Start()
     {
         RefreshSerum();
+    }
+
+    private void OnDestroy()
+    {
+        if (continueButton != null)
+        {
+            continueButton.onClick.RemoveListener(
+                ClosePatientCuredPanel
+            );
+        }
     }
 
     // =========================================================
@@ -74,6 +110,9 @@ public class SerumUIController : MonoBehaviour
         }
         else
         {
+            // Само показваме текущия процент.
+            // Тук НЕ отваряме Patient Cured панела,
+            // дори серумът вече да е 100%.
             SetSerumInstant(currentPercent);
         }
     }
@@ -173,9 +212,67 @@ public class SerumUIController : MonoBehaviour
 
         UpdatePercentText(toPercent);
 
+        // Първо изиграваме сегашния pulse.
         yield return StartCoroutine(
             PulseSyringe()
         );
+
+        // След приключването му проверяваме дали
+        // това е била последната част от серума.
+        if (fromPercent < 100 && toPercent >= 100)
+        {
+            TryShowPatientCuredPanel();
+        }
+    }
+
+    // =========================================================
+    // PATIENT CURED PANEL
+    // =========================================================
+
+    private void TryShowPatientCuredPanel()
+    {
+        if (SerumManager.Instance == null)
+        {
+            return;
+        }
+
+        // Панелът вече е показван някога.
+        if (
+            SerumManager.Instance
+                .HasPatientCuredPanelBeenShown()
+        )
+        {
+            return;
+        }
+
+        if (patientCuredOverlay == null)
+        {
+            Debug.LogWarning(
+                "[SerumUIController] Patient Cured Overlay липсва."
+            );
+
+            return;
+        }
+
+        // Показваме го.
+        patientCuredOverlay.SetActive(true);
+
+        // ВЕДНАГА записваме, че вече е бил показан.
+        // Така повече няма да може да излезе повторно.
+        SerumManager.Instance
+            .MarkPatientCuredPanelAsShown();
+
+        Debug.Log(
+            "[SerumUIController] Patient Cured panel shown."
+        );
+    }
+
+    public void ClosePatientCuredPanel()
+    {
+        if (patientCuredOverlay != null)
+        {
+            patientCuredOverlay.SetActive(false);
+        }
     }
 
     // =========================================================
@@ -202,7 +299,9 @@ public class SerumUIController : MonoBehaviour
             timer += Time.deltaTime;
 
             float t =
-                timer / pulseDuration;
+                Mathf.Clamp01(
+                    timer / pulseDuration
+                );
 
             syringeRoot.localScale =
                 Vector3.Lerp(
@@ -214,6 +313,9 @@ public class SerumUIController : MonoBehaviour
             yield return null;
         }
 
+        syringeRoot.localScale =
+            targetScale;
+
         timer = 0f;
 
         while (timer < pulseDuration)
@@ -221,7 +323,9 @@ public class SerumUIController : MonoBehaviour
             timer += Time.deltaTime;
 
             float t =
-                timer / pulseDuration;
+                Mathf.Clamp01(
+                    timer / pulseDuration
+                );
 
             syringeRoot.localScale =
                 Vector3.Lerp(

@@ -3219,6 +3219,7 @@ GameObject:
   - component: {fileID: 843061745}
   - component: {fileID: 843061744}
   - component: {fileID: 843061743}
+  - component: {fileID: 843061746}
   m_Layer: 5
   m_Name: LoginButton
   m_TagString: Untagged
@@ -3340,6 +3341,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843061741}
   m_CullTransparentMesh: 1
+--- !u!114 &843061746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843061741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448a3fffe2cd59947a0054fd9f38770f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonHoverEffect
+  hoverScale: 1.05
+  pressedScale: 0.96
+  speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &878951523
 GameObject:
   m_ObjectHideFlags: 0
@@ -3738,6 +3755,7 @@ GameObject:
   - component: {fileID: 1006924080}
   - component: {fileID: 1006924079}
   - component: {fileID: 1006924078}
+  - component: {fileID: 1006924081}
   m_Layer: 5
   m_Name: RegisterButton
   m_TagString: Untagged
@@ -3859,6 +3877,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006924076}
   m_CullTransparentMesh: 1
+--- !u!114 &1006924081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006924076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448a3fffe2cd59947a0054fd9f38770f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonHoverEffect
+  hoverScale: 1.05
+  pressedScale: 0.96
+  speed: 12
+  disableWhenNotInteractable: 0
 --- !u!1 &1077293937
 GameObject:
   m_ObjectHideFlags: 0
@@ -5625,6 +5659,9 @@ MonoBehaviour:
   loginPasswordInput: {fileID: 592010785}
   registerUsernameInput: {fileID: 1376364060}
   registerPasswordInput: {fileID: 791646279}
+  loginButton: {fileID: 843061743}
+  registerButton: {fileID: 1006924078}
+  enterHoverDuration: 0.12
   activeTab: {fileID: 2145086607}
   loginTabPosition: {fileID: 703855035}
   registerTabPosition: {fileID: 466486368}

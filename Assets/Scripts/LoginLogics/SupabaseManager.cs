@@ -8,7 +8,7 @@ public class SupabaseManager : MonoBehaviour
 {
     public static SupabaseManager Instance { get; private set; }
 
-    private const int CURRENT_SAVE_VERSION = 4;
+    private const int CURRENT_SAVE_VERSION = 5;
 
     // =========================================================
     // SUPABASE CONFIG
@@ -1355,6 +1355,11 @@ public class SupabaseManager : MonoBehaviour
             serumLungs =
                 GetInt("Serum_Lungs"),
 
+            patientCuredPanelShown =
+                GetInt(
+                    "PatientCuredPanelShown"
+                ),
+
             heartBestAntibodies =
                 GetInt("HeartBestAntibodies"),
 
@@ -1462,7 +1467,9 @@ public class SupabaseManager : MonoBehaviour
             masterVolume = 1f,
             brightness = 1f,
 
-            vitamins = 150
+            vitamins = 150,
+
+            patientCuredPanelShown = 0
         };
     }
 
@@ -1552,6 +1559,17 @@ public class SupabaseManager : MonoBehaviour
                 oldData,
                 data
             );
+        }
+
+        // Version 5:
+        // Patient Cured panel one-time flag.
+        //
+        // Стар save version 4 няма тази стойност,
+        // затова остава default 0.
+        if (oldData.version >= 5)
+        {
+            data.patientCuredPanelShown =
+                oldData.patientCuredPanelShown;
         }
 
         data.version =
@@ -1695,6 +1713,11 @@ public class SupabaseManager : MonoBehaviour
         SetInt(
             "Serum_Lungs",
             data.serumLungs
+        );
+
+        SetInt(
+            "PatientCuredPanelShown",
+            data.patientCuredPanelShown
         );
 
         SetInt(
@@ -2356,6 +2379,8 @@ public class SupabaseManager : MonoBehaviour
         public int serumLiver;
         public int serumBrain;
         public int serumLungs;
+
+        public int patientCuredPanelShown;
 
         public int heartBestAntibodies;
         public int stomachBestAntibodies;

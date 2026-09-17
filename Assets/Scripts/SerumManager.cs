@@ -25,6 +25,13 @@ public class SerumManager : MonoBehaviour
     private const string LUNGS_KEY = "Serum_Lungs";
 
     // =========================================================
+    // PATIENT CURED PANEL
+    // =========================================================
+
+    private const string PATIENT_CURED_PANEL_SHOWN_KEY =
+        "PatientCuredPanelShown";
+
+    // =========================================================
     // PENDING FILL ANIMATION
     // =========================================================
 
@@ -120,6 +127,37 @@ public class SerumManager : MonoBehaviour
     }
 
     // =========================================================
+    // PATIENT CURED PANEL
+    // =========================================================
+
+    public bool HasPatientCuredPanelBeenShown()
+    {
+        return PlayerPrefs.GetInt(
+            PATIENT_CURED_PANEL_SHOWN_KEY,
+            0
+        ) == 1;
+    }
+
+    public void MarkPatientCuredPanelAsShown()
+    {
+        if (HasPatientCuredPanelBeenShown())
+        {
+            return;
+        }
+
+        PlayerPrefs.SetInt(
+            PATIENT_CURED_PANEL_SHOWN_KEY,
+            1
+        );
+
+        PlayerPrefs.Save();
+
+        Debug.Log(
+            "[SerumManager] Patient Cured panel marked as shown."
+        );
+    }
+
+    // =========================================================
     // CHECK ORGAN
     // =========================================================
 
@@ -206,6 +244,10 @@ public class SerumManager : MonoBehaviour
         PlayerPrefs.DeleteKey(LIVER_KEY);
         PlayerPrefs.DeleteKey(BRAIN_KEY);
         PlayerPrefs.DeleteKey(LUNGS_KEY);
+
+        PlayerPrefs.DeleteKey(
+            PATIENT_CURED_PANEL_SHOWN_KEY
+        );
 
         PlayerPrefs.Save();
 
