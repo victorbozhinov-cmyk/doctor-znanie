@@ -1,0 +1,650 @@
+fileFormatVersion: 2
+guid: 37641c5aa01575147880b2b5733c5f81
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3402592234672339618
+    second: leaderboardCurrentPlayerRow_0
+  - first:
+      213: 3776536632005754593
+    second: leaderboardCurrentPlayerRow_1
+  - first:
+      213: 6368924296168447573
+    second: leaderboardCurrentPlayerRow_2
+  - first:
+      213: 7527379912936401154
+    second: leaderboardCurrentPlayerRow_3
+  - first:
+      213: -8659289056829724953
+    second: leaderboardCurrentPlayerRow_4
+  - first:
+      213: 4088565830822405541
+    second: leaderboardCurrentPlayerRow_5
+  - first:
+      213: 5382359425043290534
+    second: leaderboardCurrentPlayerRow_6
+  - first:
+      213: -7195313110890902483
+    second: leaderboardCurrentPlayerRow_7
+  - first:
+      213: 4528900115409153104
+    second: leaderboardCurrentPlayerRow_8
+  - first:
+      213: 8620501548096904998
+    second: leaderboardCurrentPlayerRow_9
+  - first:
+      213: -7687315807431046906
+    second: leaderboardCurrentPlayerRow_10
+  - first:
+      213: 8865455686094249132
+    second: leaderboardCurrentPlayerRow_11
+  - first:
+      213: -1760506437978154148
+    second: leaderboardCurrentPlayerRow_12
+  - first:
+      213: 2041161319928085799
+    second: leaderboardCurrentPlayerRow_13
+  - first:
+      213: 5999633122499387905
+    second: leaderboardCurrentPlayerRow_14
+  - first:
+      213: 377069230122898388
+    second: leaderboardCurrentPlayerRow_15
+  - first:
+      213: -8803223187858366625
+    second: leaderboardCurrentPlayerRow_16
+  - first:
+      213: -643804184416249267
+    second: leaderboardCurrentPlayerRow_17
+  - first:
+      213: 1259691930733559927
+    second: leaderboardCurrentPlayerRow_18
+  - first:
+      213: -5773870038095839564
+    second: leaderboardCurrentPlayerRow_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 38
+        width: 1971
+        height: 703
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e554ad8e36097c0d0800000000000000
+      internalID: -3402592234672339618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_1
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 691
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eef3ffce04f86430800000000000000
+      internalID: 3776536632005754593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_2
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 647
+        width: 33
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55e997247e6f26850800000000000000
+      internalID: 6368924296168447573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_3
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 658
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2092cf72620a67860800000000000000
+      internalID: 7527379912936401154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_4
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 657
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e6ac305b7604d780800000000000000
+      internalID: -8659289056829724953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_5
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 665
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a528f206f08db830800000000000000
+      internalID: 4088565830822405541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_6
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 666
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a95e2f416bf1ba40800000000000000
+      internalID: 5382359425043290534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_7
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 653
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2c03a919dc152c90800000000000000
+      internalID: -7195313110890902483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_8
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 659
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05c203ae8a2e9de30800000000000000
+      internalID: 4528900115409153104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_9
+      rect:
+        serializedVersion: 2
+        x: 1650
+        y: 667
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f55001c7c22a770800000000000000
+      internalID: 8620501548096904998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_10
+      rect:
+        serializedVersion: 2
+        x: 1594
+        y: 194
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 609c3d5900b215590800000000000000
+      internalID: -7687315807431046906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_11
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 202
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cac5d9da9fc680b70800000000000000
+      internalID: 8865455686094249132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_12
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 180
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5b1683e8bc6197e0800000000000000
+      internalID: -1760506437978154148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_13
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 162
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72db49be769a35c10800000000000000
+      internalID: 2041161319928085799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_14
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 157
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1026e39998af24350800000000000000
+      internalID: 5999633122499387905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_15
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 156
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d3943d877e9b3500800000000000000
+      internalID: 377069230122898388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_16
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 148
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5f5831f62ba4d580800000000000000
+      internalID: -8803223187858366625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_17
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 147
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4a95fa518fb017f0800000000000000
+      internalID: -643804184416249267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_18
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 103
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 770ccc903235b7110800000000000000
+      internalID: 1259691930733559927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: leaderboardCurrentPlayerRow_19
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 80
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4beb608aac71fdfa0800000000000000
+      internalID: -5773870038095839564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      leaderboardCurrentPlayerRow_0: -3402592234672339618
+      leaderboardCurrentPlayerRow_1: 3776536632005754593
+      leaderboardCurrentPlayerRow_10: -7687315807431046906
+      leaderboardCurrentPlayerRow_11: 8865455686094249132
+      leaderboardCurrentPlayerRow_12: -1760506437978154148
+      leaderboardCurrentPlayerRow_13: 2041161319928085799
+      leaderboardCurrentPlayerRow_14: 5999633122499387905
+      leaderboardCurrentPlayerRow_15: 377069230122898388
+      leaderboardCurrentPlayerRow_16: -8803223187858366625
+      leaderboardCurrentPlayerRow_17: -643804184416249267
+      leaderboardCurrentPlayerRow_18: 1259691930733559927
+      leaderboardCurrentPlayerRow_19: -5773870038095839564
+      leaderboardCurrentPlayerRow_2: 6368924296168447573
+      leaderboardCurrentPlayerRow_3: 7527379912936401154
+      leaderboardCurrentPlayerRow_4: -8659289056829724953
+      leaderboardCurrentPlayerRow_5: 4088565830822405541
+      leaderboardCurrentPlayerRow_6: 5382359425043290534
+      leaderboardCurrentPlayerRow_7: -7195313110890902483
+      leaderboardCurrentPlayerRow_8: 4528900115409153104
+      leaderboardCurrentPlayerRow_9: 8620501548096904998
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
