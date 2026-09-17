@@ -1,6 +1,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class AuthPanelController : MonoBehaviour
 {
@@ -15,6 +17,24 @@ public class AuthPanelController : MonoBehaviour
     [Header("Register Inputs")]
     [SerializeField] private TMP_InputField registerUsernameInput;
     [SerializeField] private TMP_InputField registerPasswordInput;
+
+    // =========================================================
+    // ENTER BUTTON ACTIONS
+    // =========================================================
+
+    [Header("Enter Buttons")]
+    [SerializeField] private Button loginButton;
+    [SerializeField] private Button registerButton;
+
+    [Tooltip(
+        "Колко време да се вижда hover ефектът " +
+        "преди бутонът да бъде активиран."
+    )]
+    [SerializeField] private float enterHoverDuration = 0.12f;
+
+    // =========================================================
+    // ACTIVE TAB
+    // =========================================================
 
     [Header("Active Tab")]
     [SerializeField] private RectTransform activeTab;
@@ -36,9 +56,20 @@ public class AuthPanelController : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private float moveDuration = 0.18f;
 
+    // =========================================================
+    // RUNTIME
+    // =========================================================
+
     private Coroutine moveCoroutine;
+    private Coroutine enterCoroutine;
 
     private float activeTabHeight;
+
+    private bool enterActionRunning;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Awake()
     {
@@ -51,6 +82,154 @@ public class AuthPanelController : MonoBehaviour
     private void Start()
     {
         ShowLoginImmediate();
+    }
+
+    private void Update()
+    {
+        HandleEnter();
+    }
+
+    // =========================================================
+    // ENTER
+    // =========================================================
+
+    private void HandleEnter()
+    {
+        if (enterActionRunning)
+        {
+            return;
+        }
+
+        bool enterPressed =
+            Input.GetKeyDown(KeyCode.Return) ||
+            Input.GetKeyDown(KeyCode.KeypadEnter);
+
+        if (!enterPressed)
+        {
+            return;
+        }
+
+        // =====================================================
+        // LOGIN
+        // =====================================================
+
+        if (
+            loginPanel != null &&
+            loginPanel.activeInHierarchy
+        )
+        {
+            TryActivateButtonFromEnter(
+                loginButton
+            );
+
+            return;
+        }
+
+        // =====================================================
+        // REGISTER
+        // =====================================================
+
+        if (
+            registerPanel != null &&
+            registerPanel.activeInHierarchy
+        )
+        {
+            TryActivateButtonFromEnter(
+                registerButton
+            );
+        }
+    }
+
+    private void TryActivateButtonFromEnter(
+        Button targetButton
+    )
+    {
+        if (targetButton == null)
+        {
+            return;
+        }
+
+        if (!targetButton.interactable)
+        {
+            return;
+        }
+
+        if (!targetButton.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        enterCoroutine =
+            StartCoroutine(
+                PlayButtonFromEnter(
+                    targetButton
+                )
+            );
+    }
+
+    private IEnumerator PlayButtonFromEnter(
+        Button targetButton
+    )
+    {
+        enterActionRunning = true;
+
+        PointerEventData pointerData = null;
+
+        // =====================================================
+        // POINTER ENTER / HOVER
+        // =====================================================
+
+        if (EventSystem.current != null)
+        {
+            pointerData =
+                new PointerEventData(
+                    EventSystem.current
+                );
+
+            ExecuteEvents.Execute(
+                targetButton.gameObject,
+                pointerData,
+                ExecuteEvents.pointerEnterHandler
+            );
+        }
+
+        // Оставяме hover ефекта да се види.
+        yield return new WaitForSecondsRealtime(
+            enterHoverDuration
+        );
+
+        // =====================================================
+        // BUTTON CLICK
+        // =====================================================
+
+        if (
+            targetButton != null &&
+            targetButton.interactable &&
+            targetButton.gameObject.activeInHierarchy
+        )
+        {
+            targetButton.onClick.Invoke();
+        }
+
+        // =====================================================
+        // POINTER EXIT
+        // =====================================================
+
+        if (
+            EventSystem.current != null &&
+            pointerData != null &&
+            targetButton != null
+        )
+        {
+            ExecuteEvents.Execute(
+                targetButton.gameObject,
+                pointerData,
+                ExecuteEvents.pointerExitHandler
+            );
+        }
+
+        enterActionRunning = false;
+        enterCoroutine = null;
     }
 
     // =========================================================
@@ -107,20 +286,28 @@ public class AuthPanelController : MonoBehaviour
 
         SetTextColors(true);
 
-        if (activeTab == null || loginTabPosition == null)
+        if (
+            activeTab == null ||
+            loginTabPosition == null
+        )
+        {
             return;
+        }
 
-        Vector2 position = activeTab.anchoredPosition;
+        Vector2 position =
+            activeTab.anchoredPosition;
 
         position.x =
             loginTabPosition.anchoredPosition.x;
 
-        activeTab.anchoredPosition = position;
+        activeTab.anchoredPosition =
+            position;
 
-        activeTab.sizeDelta = new Vector2(
-            loginTabPosition.sizeDelta.x,
-            activeTabHeight
-        );
+        activeTab.sizeDelta =
+            new Vector2(
+                loginTabPosition.sizeDelta.x,
+                activeTabHeight
+            );
     }
 
     // =========================================================
@@ -136,13 +323,19 @@ public class AuthPanelController : MonoBehaviour
         ClearInput(registerPasswordInput);
     }
 
-    private void ClearInput(TMP_InputField inputField)
+    private void ClearInput(
+        TMP_InputField inputField
+    )
     {
         if (inputField == null)
+        {
             return;
+        }
 
         inputField.SetTextWithoutNotify("");
+
         inputField.DeactivateInputField();
+
         inputField.ForceLabelUpdate();
     }
 
@@ -150,7 +343,9 @@ public class AuthPanelController : MonoBehaviour
     // TEXT COLORS
     // =========================================================
 
-    private void SetTextColors(bool loginActive)
+    private void SetTextColors(
+        bool loginActive
+    )
     {
         if (loginTabText != null)
         {
@@ -173,14 +368,23 @@ public class AuthPanelController : MonoBehaviour
     // ACTIVE TAB
     // =========================================================
 
-    private void MoveActiveTab(RectTransform target)
+    private void MoveActiveTab(
+        RectTransform target
+    )
     {
-        if (activeTab == null || target == null)
+        if (
+            activeTab == null ||
+            target == null
+        )
+        {
             return;
+        }
 
         if (moveCoroutine != null)
         {
-            StopCoroutine(moveCoroutine);
+            StopCoroutine(
+                moveCoroutine
+            );
         }
 
         moveCoroutine =
@@ -189,7 +393,9 @@ public class AuthPanelController : MonoBehaviour
             );
     }
 
-    private IEnumerator MoveRoutine(RectTransform target)
+    private IEnumerator MoveRoutine(
+        RectTransform target
+    )
     {
         Vector2 startPosition =
             activeTab.anchoredPosition;
@@ -210,14 +416,17 @@ public class AuthPanelController : MonoBehaviour
 
         while (elapsed < moveDuration)
         {
-            elapsed += Time.unscaledDeltaTime;
+            elapsed +=
+                Time.unscaledDeltaTime;
 
             float t =
                 Mathf.Clamp01(
                     elapsed / moveDuration
                 );
 
-            t = t * t * (3f - 2f * t);
+            t =
+                t * t *
+                (3f - 2f * t);
 
             activeTab.anchoredPosition =
                 Vector2.Lerp(

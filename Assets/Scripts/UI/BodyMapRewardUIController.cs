@@ -33,6 +33,27 @@ public class BodyMapRewardUIController : MonoBehaviour
     [SerializeField] private Image serumFillImage;
 
     // =========================================================
+    // PATIENT CURED
+    // =========================================================
+
+    [Header("Patient Cured")]
+    [SerializeField] private GameObject patientCuredOverlay;
+    [SerializeField] private RectTransform patientCuredPanel;
+    [SerializeField] private CanvasGroup patientCuredCanvasGroup;
+    [SerializeField] private Button continueButton;
+
+    // =========================================================
+    // PATIENT CURED CLOSE ANIMATION
+    // =========================================================
+
+    [Header("Patient Cured Close Animation")]
+    [SerializeField] private float patientCloseDuration = 0.35f;
+
+    [SerializeField] private float patientCloseEndScale = 0.75f;
+
+    [SerializeField] private float patientCloseOvershootScale = 1.03f;
+
+    // =========================================================
     // AUDIO
     // =========================================================
 
@@ -75,6 +96,7 @@ public class BodyMapRewardUIController : MonoBehaviour
     // =========================================================
 
     private bool sequenceRunning;
+    private bool patientPanelClosing;
 
     private int displayedVitamins = int.MinValue;
     private int displayedAntibodies = int.MinValue;
@@ -90,7 +112,39 @@ public class BodyMapRewardUIController : MonoBehaviour
 
     private void Awake()
     {
-        sfxAudioSource = GetComponent<AudioSource>();
+        // =====================================================
+        // PATIENT CURED
+        // =====================================================
+
+        if (
+            patientCuredCanvasGroup == null &&
+            patientCuredPanel != null
+        )
+        {
+            patientCuredCanvasGroup =
+                patientCuredPanel.GetComponent<CanvasGroup>();
+        }
+
+        ResetPatientCuredVisuals();
+
+        if (patientCuredOverlay != null)
+        {
+            patientCuredOverlay.SetActive(false);
+        }
+
+        if (continueButton != null)
+        {
+            continueButton.onClick.AddListener(
+                ClosePatientCuredPanel
+            );
+        }
+
+        // =====================================================
+        // AUDIO
+        // =====================================================
+
+        sfxAudioSource =
+            GetComponent<AudioSource>();
 
         if (sfxAudioSource != null)
         {
@@ -98,6 +152,10 @@ public class BodyMapRewardUIController : MonoBehaviour
             sfxAudioSource.loop = false;
             sfxAudioSource.spatialBlend = 0f;
         }
+
+        // =====================================================
+        // REWARD SEQUENCE
+        // =====================================================
 
         sequenceRunning =
             BodyMapRewardAnimationData.HasPendingSequence;
@@ -168,6 +226,16 @@ public class BodyMapRewardUIController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (continueButton != null)
+        {
+            continueButton.onClick.RemoveListener(
+                ClosePatientCuredPanel
+            );
+        }
+    }
+
     // =========================================================
     // REWARD SEQUENCE
     // =========================================================
@@ -194,8 +262,12 @@ public class BodyMapRewardUIController : MonoBehaviour
         int serumAfter =
             BodyMapRewardAnimationData.SerumAfter;
 
+        bool completedSerumNow =
+            serumBefore < 100 &&
+            serumAfter >= 100;
+
         // =====================================================
-        // СТАРТОВО СЪСТОЯНИЕ
+        // START
         // =====================================================
 
         SetVitaminsInstant(vitaminsBefore);
@@ -269,6 +341,241 @@ public class BodyMapRewardUIController : MonoBehaviour
         sequenceRunning = false;
 
         RefreshAllInstant();
+
+        if (completedSerumNow)
+        {
+            TryShowPatientCuredPanel();
+        }
+    }
+
+    // =========================================================
+    // PATIENT CURED
+    // =========================================================
+
+    private void TryShowPatientCuredPanel()
+    {
+        if (SerumManager.Instance == null)
+        {
+            return;
+        }
+
+        if (
+            SerumManager.Instance
+                .HasPatientCuredPanelBeenShown()
+        )
+        {
+            return;
+        }
+
+        if (patientCuredOverlay == null)
+        {
+            Debug.LogWarning(
+                "[BodyMapRewardUIController] " +
+                "Patient Cured Overlay липсва."
+            );
+
+            return;
+        }
+
+        ResetPatientCuredVisuals();
+
+        patientCuredOverlay.SetActive(true);
+
+        SerumManager.Instance
+            .MarkPatientCuredPanelAsShown();
+
+        Debug.Log(
+            "[BodyMapRewardUIController] " +
+            "Patient Cured panel shown."
+        );
+    }
+
+    // =========================================================
+    // CLOSE PATIENT CURED
+    // =========================================================
+
+    public void ClosePatientCuredPanel()
+    {
+        if (patientPanelClosing)
+        {
+            return;
+        }
+
+        if (
+            patientCuredOverlay == null ||
+            !patientCuredOverlay.activeSelf
+        )
+        {
+            return;
+        }
+
+        StartCoroutine(
+            AnimatePatientCuredClose()
+        );
+    }
+
+    private IEnumerator AnimatePatientCuredClose()
+    {
+        patientPanelClosing = true;
+
+        if (continueButton != null)
+        {
+            continueButton.interactable = false;
+        }
+
+        if (patientCuredCanvasGroup != null)
+        {
+            patientCuredCanvasGroup.interactable = false;
+            patientCuredCanvasGroup.blocksRaycasts = false;
+            patientCuredCanvasGroup.alpha = 1f;
+        }
+
+        if (patientCuredPanel == null)
+        {
+            if (patientCuredOverlay != null)
+            {
+                patientCuredOverlay.SetActive(false);
+            }
+
+            patientPanelClosing = false;
+
+            yield break;
+        }
+
+        Vector3 startScale =
+            Vector3.one;
+
+        Vector3 overshootScale =
+            Vector3.one *
+            patientCloseOvershootScale;
+
+        Vector3 endScale =
+            Vector3.one *
+            patientCloseEndScale;
+
+        patientCuredPanel.localScale =
+            startScale;
+
+        // Защитаваме се от 0 duration.
+        if (patientCloseDuration <= 0f)
+        {
+            if (patientCuredCanvasGroup != null)
+            {
+                patientCuredCanvasGroup.alpha = 0f;
+            }
+
+            patientCuredPanel.localScale =
+                endScale;
+
+            FinishPatientCuredClose();
+
+            yield break;
+        }
+
+        float timer = 0f;
+
+        while (timer < patientCloseDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+
+            float progress =
+                Mathf.Clamp01(
+                    timer / patientCloseDuration
+                );
+
+            // =================================================
+            // FADE
+            // =================================================
+
+            if (patientCuredCanvasGroup != null)
+            {
+                patientCuredCanvasGroup.alpha =
+                    1f - progress;
+            }
+
+            // =================================================
+            // SCALE
+            //
+            // 1.00 -> 1.03 -> 0.75
+            // =================================================
+
+            if (progress < 0.2f)
+            {
+                float firstPart =
+                    progress / 0.2f;
+
+                patientCuredPanel.localScale =
+                    Vector3.Lerp(
+                        startScale,
+                        overshootScale,
+                        firstPart
+                    );
+            }
+            else
+            {
+                float secondPart =
+                    (progress - 0.2f) / 0.8f;
+
+                patientCuredPanel.localScale =
+                    Vector3.Lerp(
+                        overshootScale,
+                        endScale,
+                        secondPart
+                    );
+            }
+
+            yield return null;
+        }
+
+        if (patientCuredCanvasGroup != null)
+        {
+            patientCuredCanvasGroup.alpha = 0f;
+        }
+
+        patientCuredPanel.localScale =
+            endScale;
+
+        FinishPatientCuredClose();
+    }
+
+    private void FinishPatientCuredClose()
+    {
+        if (patientCuredOverlay != null)
+        {
+            patientCuredOverlay.SetActive(false);
+        }
+
+        // Връщаме визуалните стойности,
+        // за да няма проблем при тестове в Editor.
+        ResetPatientCuredVisuals();
+
+        patientPanelClosing = false;
+    }
+
+    private void ResetPatientCuredVisuals()
+    {
+        if (patientCuredPanel != null)
+        {
+            patientCuredPanel.localScale =
+                Vector3.one;
+        }
+
+        if (patientCuredCanvasGroup != null)
+        {
+            patientCuredCanvasGroup.alpha = 1f;
+
+            patientCuredCanvasGroup.interactable =
+                true;
+
+            patientCuredCanvasGroup.blocksRaycasts =
+                true;
+        }
+
+        if (continueButton != null)
+        {
+            continueButton.interactable =
+                true;
+        }
     }
 
     // =========================================================
@@ -299,7 +606,7 @@ public class BodyMapRewardUIController : MonoBehaviour
         );
 
         // =====================================================
-        // 1. УГОЛЕМЯВАНЕ
+        // 1. SCALE UP
         // =====================================================
 
         yield return StartCoroutine(
@@ -312,7 +619,7 @@ public class BodyMapRewardUIController : MonoBehaviour
         );
 
         // =====================================================
-        // 2. ПРОМЯНА НА ЧИСЛОТО
+        // 2. VALUE
         // =====================================================
 
         float timer = 0f;
@@ -353,17 +660,6 @@ public class BodyMapRewardUIController : MonoBehaviour
                 currentValue
             );
 
-            // =================================================
-            // POINT RECEIVE SOUND
-            // =================================================
-            //
-            // При увеличение пускаме поредица
-            // от бързи pop звуци.
-            //
-            // Не пускаме такива при намаляване
-            // на стойността.
-            // =================================================
-
             if (toValue > fromValue)
             {
                 pointSoundTimer +=
@@ -397,7 +693,7 @@ public class BodyMapRewardUIController : MonoBehaviour
         );
 
         // =====================================================
-        // 3. ЗАДЪРЖАНЕ
+        // 3. HOLD
         // =====================================================
 
         yield return new WaitForSeconds(
@@ -405,7 +701,7 @@ public class BodyMapRewardUIController : MonoBehaviour
         );
 
         // =====================================================
-        // 4. ВРЪЩАНЕ
+        // 4. RETURN
         // =====================================================
 
         yield return StartCoroutine(
@@ -472,7 +768,7 @@ public class BodyMapRewardUIController : MonoBehaviour
         );
 
         // =====================================================
-        // 1. УГОЛЕМЯВАНЕ
+        // 1. SCALE UP
         // =====================================================
 
         yield return StartCoroutine(
@@ -485,7 +781,7 @@ public class BodyMapRewardUIController : MonoBehaviour
         );
 
         // =====================================================
-        // 2. ПЪЛНЕНЕ
+        // 2. FILL
         // =====================================================
 
         if (toPercent > fromPercent)
@@ -577,7 +873,7 @@ public class BodyMapRewardUIController : MonoBehaviour
         }
 
         // =====================================================
-        // 3. ЗАДЪРЖАНЕ
+        // 3. HOLD
         // =====================================================
 
         yield return new WaitForSeconds(
@@ -585,7 +881,7 @@ public class BodyMapRewardUIController : MonoBehaviour
         );
 
         // =====================================================
-        // 4. ВРЪЩАНЕ
+        // 4. RETURN
         // =====================================================
 
         yield return StartCoroutine(
@@ -607,8 +903,10 @@ public class BodyMapRewardUIController : MonoBehaviour
 
     private void PlayPointReceiveSound()
     {
-        if (sfxAudioSource == null ||
-            pointReceiveSfx == null)
+        if (
+            sfxAudioSource == null ||
+            pointReceiveSfx == null
+        )
         {
             return;
         }
@@ -621,14 +919,14 @@ public class BodyMapRewardUIController : MonoBehaviour
 
     private void PlaySerumChargeSound()
     {
-        if (sfxAudioSource == null ||
-            serumChargeSfx == null)
+        if (
+            sfxAudioSource == null ||
+            serumChargeSfx == null
+        )
         {
             return;
         }
 
-        // Леко заглушаваме background музиката
-        // за времетраенето на Serum Charge звука.
         if (MusicManager.Instance != null)
         {
             MusicManager.Instance
