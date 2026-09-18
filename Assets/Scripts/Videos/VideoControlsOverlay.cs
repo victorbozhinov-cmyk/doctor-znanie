@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Video;
 
 #if ENABLE_INPUT_SYSTEM
@@ -37,8 +39,48 @@ public class VideoControlsOverlay : MonoBehaviour
     private bool controlsVisible;
     private bool isPaused;
 
+    // =====================================================
+    // WEB / SEEK
+    // =====================================================
+
+    private bool isSeeking;
+    private bool seekCompletedReceived;
+
+    private double lastKnownVideoTime;
+    private double pendingSeekTime;
+    private double queuedSeekSeconds;
+
+    private Coroutine seekCoroutine;
+
+    private const double SeekStepSeconds = 5.0;
+    private const float SeekTimeoutSeconds = 2.0f;
+
+    // =====================================================
+    // UNITY
+    // =====================================================
+
     private void OnEnable()
     {
+        if (videoPlayer != null)
+        {
+            videoPlayer.seekCompleted -= OnSeekCompleted;
+            videoPlayer.seekCompleted += OnSeekCompleted;
+
+            if (videoPlayer.isPrepared)
+            {
+                double currentTime = videoPlayer.time;
+
+                if (IsValidTime(currentTime))
+                {
+                    lastKnownVideoTime = currentTime;
+                }
+            }
+        }
+
+        isSeeking = false;
+        seekCompletedReceived = false;
+        queuedSeekSeconds = 0.0;
+
         if (controlsCanvasGroup != null)
         {
             controlsCanvasGroup.gameObject.SetActive(true);
@@ -59,13 +101,95 @@ public class VideoControlsOverlay : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        if (videoPlayer != null)
+        {
+            videoPlayer.seekCompleted -= OnSeekCompleted;
+        }
+
+        if (seekCoroutine != null)
+        {
+            StopCoroutine(seekCoroutine);
+            seekCoroutine = null;
+        }
+
+        isSeeking = false;
+        seekCompletedReceived = false;
+        queuedSeekSeconds = 0.0;
+    }
+
     private void Update()
     {
+        UpdateLastKnownVideoTime();
+
         if (!isPaused)
         {
             DetectMouseMovement();
             UpdateControlsVisibility();
         }
+    }
+
+    // =====================================================
+    // VIDEO TIME TRACKING
+    // =====================================================
+
+    private void UpdateLastKnownVideoTime()
+    {
+        if (videoPlayer == null)
+        {
+            return;
+        }
+
+        if (!videoPlayer.isPrepared)
+        {
+            return;
+        }
+
+        if (isSeeking)
+        {
+            return;
+        }
+
+        double currentTime = videoPlayer.time;
+
+        if (IsValidTime(currentTime))
+        {
+            lastKnownVideoTime = currentTime;
+        }
+    }
+
+    private bool IsValidTime(double value)
+    {
+        return !double.IsNaN(value) &&
+               !double.IsInfinity(value) &&
+               value >= 0.0;
+    }
+
+    private double ClampVideoTime(double targetTime)
+    {
+        if (targetTime < 0.0)
+        {
+            targetTime = 0.0;
+        }
+
+        if (videoPlayer != null)
+        {
+            double videoLength = videoPlayer.length;
+
+            if (IsValidTime(videoLength) &&
+                videoLength > 0.1)
+            {
+                double maximumTime = videoLength - 0.1;
+
+                if (targetTime > maximumTime)
+                {
+                    targetTime = maximumTime;
+                }
+            }
+        }
+
+        return targetTime;
     }
 
     // =====================================================
@@ -182,21 +306,7 @@ public class VideoControlsOverlay : MonoBehaviour
 
     public void BackFiveSeconds()
     {
-        if (videoPlayer == null)
-        {
-            return;
-        }
-
-        double newTime = videoPlayer.time - 5.0;
-
-        if (newTime < 0.0)
-        {
-            newTime = 0.0;
-        }
-
-        videoPlayer.time = newTime;
-
-        ShowControls();
+        SeekBySeconds(-SeekStepSeconds);
     }
 
     // =====================================================
@@ -205,22 +315,161 @@ public class VideoControlsOverlay : MonoBehaviour
 
     public void ForwardFiveSeconds()
     {
+        SeekBySeconds(SeekStepSeconds);
+    }
+
+    // =====================================================
+    // SEEK
+    // =====================================================
+
+    private void SeekBySeconds(double seconds)
+    {
         if (videoPlayer == null)
         {
             return;
         }
 
-        double newTime = videoPlayer.time + 5.0;
+        ShowControls();
 
-        if (videoPlayer.length > 0 &&
-            newTime >= videoPlayer.length)
+        // В Web версията не се опитваме да местим времето,
+        // преди видеото да е напълно подготвено.
+        if (!videoPlayer.isPrepared)
         {
-            newTime = videoPlayer.length - 0.1;
+            return;
         }
 
-        videoPlayer.time = newTime;
+        // Проверяваме дали текущата платформа / видео
+        // позволява промяна на времето.
+        if (!videoPlayer.canSetTime)
+        {
+            return;
+        }
+
+        // Ако вече тече seek операция,
+        // запазваме следващото +5 / -5 и го изпълняваме след нея.
+        if (isSeeking)
+        {
+            queuedSeekSeconds += seconds;
+            return;
+        }
+
+        double currentTime = videoPlayer.time;
+
+        if (!IsValidTime(currentTime))
+        {
+            currentTime = lastKnownVideoTime;
+        }
+
+        if (!IsValidTime(currentTime))
+        {
+            currentTime = 0.0;
+        }
+
+        double targetTime =
+            ClampVideoTime(currentTime + seconds);
+
+        StartSeek(targetTime);
+    }
+
+    private void StartSeek(double targetTime)
+    {
+        if (seekCoroutine != null)
+        {
+            StopCoroutine(seekCoroutine);
+        }
+
+        seekCoroutine =
+            StartCoroutine(SeekRoutine(targetTime));
+    }
+
+    private IEnumerator SeekRoutine(double targetTime)
+    {
+        if (videoPlayer == null)
+        {
+            yield break;
+        }
+
+        if (!videoPlayer.isPrepared ||
+            !videoPlayer.canSetTime)
+        {
+            yield break;
+        }
+
+        isSeeking = true;
+
+        bool shouldResumeAfterSeek =
+            videoPlayer.isPlaying && !isPaused;
+
+        // Паузираме само временно, докато браузърът
+        // завърши seek операцията.
+        if (videoPlayer.isPlaying)
+        {
+            videoPlayer.Pause();
+        }
+
+        double currentTarget =
+            ClampVideoTime(targetTime);
+
+        while (true)
+        {
+            pendingSeekTime = currentTarget;
+            seekCompletedReceived = false;
+
+            videoPlayer.time = pendingSeekTime;
+
+            float timer = 0f;
+
+            while (!seekCompletedReceived &&
+                   timer < SeekTimeoutSeconds)
+            {
+                timer += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            // Пазим целевото време, вместо да разчитаме
+            // веднага на videoPlayer.time при Web.
+            lastKnownVideoTime = pendingSeekTime;
+
+            // Ако потребителят е натиснал +5 / -5 още веднъж,
+            // докато браузърът е местил видеото,
+            // изпълняваме и натрупаното преместване.
+            if (Math.Abs(queuedSeekSeconds) > 0.001)
+            {
+                currentTarget =
+                    ClampVideoTime(
+                        pendingSeekTime +
+                        queuedSeekSeconds
+                    );
+
+                queuedSeekSeconds = 0.0;
+
+                continue;
+            }
+
+            break;
+        }
+
+        isSeeking = false;
+        seekCoroutine = null;
+
+        if (shouldResumeAfterSeek &&
+            !isPaused &&
+            videoPlayer != null)
+        {
+            videoPlayer.Play();
+        }
 
         ShowControls();
+    }
+
+    private void OnSeekCompleted(VideoPlayer source)
+    {
+        if (source != videoPlayer)
+        {
+            return;
+        }
+
+        seekCompletedReceived = true;
     }
 
     // =====================================================
@@ -298,7 +547,8 @@ public class VideoControlsOverlay : MonoBehaviour
 
         isPaused = true;
 
-        if (videoPlayer != null && videoPlayer.isPlaying)
+        if (videoPlayer != null &&
+            videoPlayer.isPlaying)
         {
             videoPlayer.Pause();
         }
@@ -328,6 +578,9 @@ public class VideoControlsOverlay : MonoBehaviour
         }
 
         isPaused = false;
+
+        queuedSeekSeconds = 0.0;
+        lastKnownVideoTime = 0.0;
 
         videoPlayer.time = 0.0;
         videoPlayer.Play();
