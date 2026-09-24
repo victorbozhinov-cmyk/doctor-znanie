@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Video;
 
 public class StomachTheoryVideoController : MonoBehaviour
@@ -15,8 +13,11 @@ public class StomachTheoryVideoController : MonoBehaviour
     [Header("Puzzle Welcome")]
     [SerializeField] private GameObject puzzleWelcomePanel;
 
-    [Header("StreamingAssets Video")]
+    [Header("Online Video")]
     [SerializeField] private string videoFileName = "StomachTheory.mp4";
+
+    private const string VideoBaseUrl =
+        "https://motivate-bg.online/interngames/doktorznanie/StreamingAssets/Videos/Stomach/";
 
     private bool isFinishing;
 
@@ -76,45 +77,11 @@ public class StomachTheoryVideoController : MonoBehaviour
             return;
         }
 
-        string relativePath =
-            "Videos/Stomach/" + videoFileName;
-
-        string finalUrl;
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-
-        finalUrl =
-            Application.streamingAssetsPath +
-            "/" +
-            relativePath;
-
-#else
-
-        string localPath = Path.Combine(
-            Application.streamingAssetsPath,
-            "Videos",
-            "Stomach",
-            videoFileName
-        );
-
-        localPath = localPath.Replace("\\", "/");
-
-        if (!File.Exists(localPath))
-        {
-            Debug.LogError(
-                "Stomach Theory: видеото НЕ е намерено тук:\n" +
-                localPath
-            );
-
-            return;
-        }
-
-        finalUrl = new Uri(localPath).AbsoluteUri;
-
-#endif
+        string finalUrl =
+            VideoBaseUrl + videoFileName;
 
         Debug.Log(
-            "Stomach Theory Video URL: " +
+            "Stomach Theory Online Video URL: " +
             finalUrl
         );
 
@@ -160,7 +127,7 @@ public class StomachTheoryVideoController : MonoBehaviour
     private void OnVideoPrepared(VideoPlayer player)
     {
         Debug.Log(
-            "Stomach Theory: видеото е готово."
+            "Stomach Theory: онлайн видеото е готово."
         );
 
         DuckBackgroundMusic();
@@ -202,7 +169,7 @@ public class StomachTheoryVideoController : MonoBehaviour
         RestoreBackgroundMusic();
 
         Debug.LogError(
-            "Грешка при пускане на Stomach Theory видеото: " +
+            "Грешка при зареждане на Stomach Theory видеото от сървъра: " +
             message
         );
     }
