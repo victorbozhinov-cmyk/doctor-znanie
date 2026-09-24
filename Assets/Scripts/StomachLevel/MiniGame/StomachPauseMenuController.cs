@@ -267,13 +267,10 @@ public class StomachPauseMenuController : MonoBehaviour
 
         isTransitioning = true;
 
-        // Първо затваряме Pause панела.
         ClosePanel(
             pauseMenuPanel,
             () =>
             {
-                // Чак след неговата close
-                // анимация отваряме новия panel.
                 OpenPanel(
                     targetOverlay
                 );
@@ -296,13 +293,10 @@ public class StomachPauseMenuController : MonoBehaviour
 
         isTransitioning = true;
 
-        // Първо overlay-ят се затваря.
         ClosePanel(
             overlay,
             () =>
             {
-                // После Pause менюто
-                // се появява отново.
                 OpenPanel(
                     pauseMenuPanel
                 );
@@ -331,12 +325,6 @@ public class StomachPauseMenuController : MonoBehaviour
         panel.transform
             .SetAsLastSibling();
 
-        // При SetActive(true)
-        // UIPopupAnimation.OnEnable()
-        // автоматично пуска PlayOpen().
-        //
-        // Ако обектът вече е бил активен,
-        // стартираме я ръчно.
         if (wasAlreadyActive)
         {
             UIPopupAnimation animation =
@@ -376,8 +364,6 @@ public class StomachPauseMenuController : MonoBehaviour
                 panel
             );
 
-        // Ако няма UIPopupAnimation,
-        // затваряме веднага.
         if (animation == null)
         {
             panel.SetActive(false);
@@ -387,7 +373,6 @@ public class StomachPauseMenuController : MonoBehaviour
             return;
         }
 
-        // Изчакваме close анимацията.
         animation.PlayClose(
             () =>
             {

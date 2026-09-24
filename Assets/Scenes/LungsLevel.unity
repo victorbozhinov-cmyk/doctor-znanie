@@ -8725,6 +8725,14 @@ PrefabInstance:
       propertyPath: onCorrectPlacement.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3403171545563465577, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 16909f09b41687a4084f8a0ac38a75eb, type: 3}
+    - target: {fileID: 3403171545563465577, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3501530210431815351, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.000024438
@@ -8817,6 +8825,10 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 36
       objectReference: {fileID: 0}
+    - target: {fileID: 8425803848706254928, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8723561965582243565, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -8832,6 +8844,22 @@ PrefabInstance:
     - target: {fileID: 8723561965582243565, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -125.82001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027823017443898870, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 245.7935
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027823017443898870, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 190.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027823017443898870, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027823017443898870, guid: bdff63832a165bb4bbbdae1f670c5ed5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -22.045496
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

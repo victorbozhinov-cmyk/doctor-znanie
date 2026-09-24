@@ -20,6 +20,47 @@ public class LungsPuzzlePopupController : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
 
     // =====================================================
+    // RETRY FLAG
+    // =====================================================
+
+    // Остава true през презареждането на сцената.
+    private static bool openStartPanelAfterReload = false;
+
+    // =====================================================
+    // UNITY
+    // =====================================================
+
+    private void Awake()
+    {
+        // Ако сцената е заредена от бутона "Опитай пак",
+        // насила връщаме играча в началния екран.
+        if (openStartPanelAfterReload)
+        {
+            openStartPanelAfterReload = false;
+
+            Time.timeScale = 1f;
+
+            if (startPanel != null)
+                startPanel.SetActive(true);
+
+            if (puzzlePanel != null)
+                puzzlePanel.SetActive(false);
+
+            if (gameOverPanel != null)
+                gameOverPanel.SetActive(false);
+
+            if (successPanel != null)
+                successPanel.SetActive(false);
+
+            if (exitConfirmationPanel != null)
+                exitConfirmationPanel.SetActive(false);
+
+            if (settingsPanel != null)
+                settingsPanel.SetActive(false);
+        }
+    }
+
+    // =====================================================
     // EXIT CONFIRMATION
     // =====================================================
 
@@ -89,23 +130,15 @@ public class LungsPuzzlePopupController : MonoBehaviour
 
     public void RetryPuzzle()
     {
-        // За всеки случай връщаме нормалното време.
         Time.timeScale = 1f;
 
-        // Презареждаме ЦЯЛАТА текуща сцена.
-        //
-        // Това reset-ва:
-        // - Puzzle
-        // - Minigame
-        // - Quiz
-        // - Welcome Panels
-        // - всички локални manager-и
-        // - всички runtime флагове
-        //
-        // Така след загуба започваме
-        // Lungs Level напълно начисто.
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().name
-        );
+        // Казваме на новозаредената сцена,
+        // че трябва да започне от StartPanel.
+        openStartPanelAfterReload = true;
+
+        // Reload на целия LungsLevel:
+        // reset-ва Puzzle, Minigame, Quiz,
+        // животи, позиции и runtime флагове.
+        SceneManager.LoadScene("LungsLevel");
     }
 }

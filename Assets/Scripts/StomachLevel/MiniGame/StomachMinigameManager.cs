@@ -311,28 +311,31 @@ public class StomachMinigameManager : MonoBehaviour
 
     public void CloseInfoToWelcome()
     {
-        if (minigameStarted ||
-            welcomeIsClosing ||
-            !welcomeInfoOpen)
+        // Този бутон трябва винаги да може да върне играча
+        // от Info панела към Welcome панела.
+        // Не използваме close animation callback тук, защото
+        // ако callback-ът не се изпълни, бутонът изглежда сякаш не работи.
+
+        Debug.Log("[Stomach] CloseInfoToWelcome called.");
+
+        if (minigameStarted)
         {
             return;
         }
 
-        welcomeIsClosing = true;
+        welcomeIsClosing = false;
+        welcomeInfoOpen = false;
 
-        CloseAnimatedPanel(
-            welcomeInfoPanel,
-            () =>
-            {
-                welcomeInfoOpen = false;
+        if (welcomeInfoPanel != null)
+        {
+            welcomeInfoPanel.SetActive(false);
+        }
 
-                OpenAnimatedPanel(
-                    welcomePanel
-                );
-
-                welcomeIsClosing = false;
-            }
-        );
+        if (welcomePanel != null)
+        {
+            welcomePanel.SetActive(true);
+            welcomePanel.transform.SetAsLastSibling();
+        }
     }
 
     public void StartMinigameFromWelcome()
