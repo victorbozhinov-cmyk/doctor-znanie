@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Video;
 
 public class LiverTheoryVideoController : MonoBehaviour
@@ -17,8 +15,11 @@ public class LiverTheoryVideoController : MonoBehaviour
     [SerializeField] private GameObject backButton;
     [SerializeField] private GameObject settingsButton;
 
-    [Header("StreamingAssets Video")]
+    [Header("Online Video")]
     [SerializeField] private string videoFileName = "LiverTheory.mp4";
+
+    private const string VideoBaseUrl =
+        "https://motivate-bg.online/interngames/doktorznanie/StreamingAssets/Videos/Liver/";
 
     private bool isFinishing;
     private bool theoryIsActive;
@@ -87,42 +88,13 @@ public class LiverTheoryVideoController : MonoBehaviour
             return;
         }
 
-        string relativePath =
-            "Videos/Liver/" + videoFileName;
+        string finalUrl =
+            VideoBaseUrl + videoFileName;
 
-        string finalUrl;
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-
-        finalUrl =
-            Application.streamingAssetsPath +
-            "/" +
-            relativePath;
-
-#else
-
-        string localPath = Path.Combine(
-            Application.streamingAssetsPath,
-            "Videos",
-            "Liver",
-            videoFileName
+        Debug.Log(
+            "Liver Theory Online Video URL: " +
+            finalUrl
         );
-
-        localPath = localPath.Replace("\\", "/");
-
-        if (!File.Exists(localPath))
-        {
-            Debug.LogError(
-                "Liver Theory: видеото НЕ е намерено тук:\n" +
-                localPath
-            );
-
-            return;
-        }
-
-        finalUrl = new Uri(localPath).AbsoluteUri;
-
-#endif
 
         videoPlayer.source = VideoSource.Url;
         videoPlayer.url = finalUrl;
@@ -202,7 +174,7 @@ public class LiverTheoryVideoController : MonoBehaviour
     private void OnVideoPrepared(VideoPlayer player)
     {
         Debug.Log(
-            "Liver Theory: видеото е готово."
+            "Liver Theory: онлайн видеото е готово."
         );
 
         DuckBackgroundMusic();
@@ -226,7 +198,6 @@ public class LiverTheoryVideoController : MonoBehaviour
 
         ShowSharedButtons();
 
-        // Първо показваме самия PuzzlePanel.
         if (puzzlePanel != null)
         {
             puzzlePanel.SetActive(true);
@@ -238,13 +209,10 @@ public class LiverTheoryVideoController : MonoBehaviour
             );
         }
 
-        // След това Welcome панела върху него.
         if (welcomeToPuzzlePanel != null)
         {
             welcomeToPuzzlePanel.SetActive(true);
 
-            // Понеже е отделен sibling под Canvas,
-            // го слагаме най-отгоре.
             welcomeToPuzzlePanel.transform.SetAsLastSibling();
         }
         else
@@ -265,7 +233,7 @@ public class LiverTheoryVideoController : MonoBehaviour
         RestoreBackgroundMusic();
 
         Debug.LogError(
-            "Грешка при пускане на Liver Theory видеото: " +
+            "Грешка при зареждане на Liver Theory видеото от сървъра: " +
             message
         );
     }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Video;
 
 public class HeartTheoryVideoController : MonoBehaviour
@@ -15,8 +13,11 @@ public class HeartTheoryVideoController : MonoBehaviour
     [Header("Puzzle Welcome")]
     [SerializeField] private GameObject puzzleWelcomePanel;
 
-    [Header("StreamingAssets Video")]
+    [Header("Online Video")]
     [SerializeField] private string videoFileName = "HeartTheory.mp4";
+
+    private const string VideoBaseUrl =
+        "https://motivate-bg.online/interngames/doktorznanie/StreamingAssets/Videos/Heart/";
 
     private bool isFinishing;
 
@@ -76,45 +77,11 @@ public class HeartTheoryVideoController : MonoBehaviour
             return;
         }
 
-        string relativePath =
-            "Videos/Heart/" + videoFileName;
-
-        string finalUrl;
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-
-        finalUrl =
-            Application.streamingAssetsPath +
-            "/" +
-            relativePath;
-
-#else
-
-        string localPath = Path.Combine(
-            Application.streamingAssetsPath,
-            "Videos",
-            "Heart",
-            videoFileName
-        );
-
-        localPath = localPath.Replace("\\", "/");
-
-        if (!File.Exists(localPath))
-        {
-            Debug.LogError(
-                "Heart Theory: видеото НЕ е намерено тук:\n" +
-                localPath
-            );
-
-            return;
-        }
-
-        finalUrl = new Uri(localPath).AbsoluteUri;
-
-#endif
+        string finalUrl =
+            VideoBaseUrl + videoFileName;
 
         Debug.Log(
-            "Heart Theory Video URL: " +
+            "Heart Theory Online Video URL: " +
             finalUrl
         );
 
@@ -160,7 +127,7 @@ public class HeartTheoryVideoController : MonoBehaviour
     private void OnVideoPrepared(VideoPlayer player)
     {
         Debug.Log(
-            "Heart Theory: видеото е готово."
+            "Heart Theory: онлайн видеото е готово."
         );
 
         DuckBackgroundMusic();
@@ -181,19 +148,16 @@ public class HeartTheoryVideoController : MonoBehaviour
 
         RestoreBackgroundMusic();
 
-        // Първо включваме PuzzlePanel.
         if (puzzlePanel != null)
         {
             puzzlePanel.SetActive(true);
         }
 
-        // После показваме Welcome панела.
         if (puzzleWelcomePanel != null)
         {
             puzzleWelcomePanel.SetActive(true);
         }
 
-        // Накрая затваряме VideoPanel.
         gameObject.SetActive(false);
     }
 
@@ -205,7 +169,7 @@ public class HeartTheoryVideoController : MonoBehaviour
         RestoreBackgroundMusic();
 
         Debug.LogError(
-            "Грешка при пускане на Heart Theory видеото: " +
+            "Грешка при зареждане на Heart Theory видеото от сървъра: " +
             message
         );
     }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Video;
 
 public class BrainTheoryVideoController : MonoBehaviour
@@ -15,8 +13,11 @@ public class BrainTheoryVideoController : MonoBehaviour
     [Header("Puzzle Welcome")]
     [SerializeField] private GameObject puzzleWelcomePanel;
 
-    [Header("StreamingAssets Video")]
+    [Header("Online Video")]
     [SerializeField] private string videoFileName = "BrainTheory.mp4";
+
+    private const string VideoBaseUrl =
+        "https://motivate-bg.online/interngames/doktorznanie/StreamingAssets/Videos/Brain/";
 
     private bool isFinishing;
 
@@ -76,45 +77,11 @@ public class BrainTheoryVideoController : MonoBehaviour
             return;
         }
 
-        string relativePath =
-            "Videos/Brain/" + videoFileName;
-
-        string finalUrl;
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-
-        finalUrl =
-            Application.streamingAssetsPath +
-            "/" +
-            relativePath;
-
-#else
-
-        string localPath = Path.Combine(
-            Application.streamingAssetsPath,
-            "Videos",
-            "Brain",
-            videoFileName
-        );
-
-        localPath = localPath.Replace("\\", "/");
-
-        if (!File.Exists(localPath))
-        {
-            Debug.LogError(
-                "Brain Theory: видеото НЕ е намерено тук:\n" +
-                localPath
-            );
-
-            return;
-        }
-
-        finalUrl = new Uri(localPath).AbsoluteUri;
-
-#endif
+        string finalUrl =
+            VideoBaseUrl + videoFileName;
 
         Debug.Log(
-            "Brain Theory Video URL: " +
+            "Brain Theory Online Video URL: " +
             finalUrl
         );
 
@@ -160,7 +127,7 @@ public class BrainTheoryVideoController : MonoBehaviour
     private void OnVideoPrepared(VideoPlayer player)
     {
         Debug.Log(
-            "Brain Theory: видеото е готово."
+            "Brain Theory: онлайн видеото е готово."
         );
 
         DuckBackgroundMusic();
@@ -202,7 +169,7 @@ public class BrainTheoryVideoController : MonoBehaviour
         RestoreBackgroundMusic();
 
         Debug.LogError(
-            "Грешка при пускане на Brain Theory видеото: " +
+            "Грешка при зареждане на Brain Theory видеото от сървъра: " +
             message
         );
     }

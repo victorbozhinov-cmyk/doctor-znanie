@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Video;
 
 public class LungsTheoryVideoController : MonoBehaviour
@@ -15,8 +13,11 @@ public class LungsTheoryVideoController : MonoBehaviour
     [Header("Puzzle Welcome")]
     [SerializeField] private GameObject puzzleWelcomePanel;
 
-    [Header("StreamingAssets Video")]
+    [Header("Online Video")]
     [SerializeField] private string videoFileName = "LungsTheory.mp4";
+
+    private const string VideoBaseUrl =
+        "https://motivate-bg.online/interngames/doktorznanie/StreamingAssets/Videos/Lungs/";
 
     private bool isFinishing;
 
@@ -76,45 +77,11 @@ public class LungsTheoryVideoController : MonoBehaviour
             return;
         }
 
-        string relativePath =
-            "Videos/Lungs/" + videoFileName;
-
-        string finalUrl;
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-
-        finalUrl =
-            Application.streamingAssetsPath +
-            "/" +
-            relativePath;
-
-#else
-
-        string localPath = Path.Combine(
-            Application.streamingAssetsPath,
-            "Videos",
-            "Lungs",
-            videoFileName
-        );
-
-        localPath = localPath.Replace("\\", "/");
-
-        if (!File.Exists(localPath))
-        {
-            Debug.LogError(
-                "Lungs Theory: видеото НЕ е намерено тук:\n" +
-                localPath
-            );
-
-            return;
-        }
-
-        finalUrl = new Uri(localPath).AbsoluteUri;
-
-#endif
+        string finalUrl =
+            VideoBaseUrl + videoFileName;
 
         Debug.Log(
-            "Lungs Theory Video URL: " +
+            "Lungs Theory Online Video URL: " +
             finalUrl
         );
 
@@ -160,7 +127,7 @@ public class LungsTheoryVideoController : MonoBehaviour
     private void OnVideoPrepared(VideoPlayer player)
     {
         Debug.Log(
-            "Lungs Theory: видеото е готово."
+            "Lungs Theory: онлайн видеото е готово."
         );
 
         DuckBackgroundMusic();
@@ -202,7 +169,7 @@ public class LungsTheoryVideoController : MonoBehaviour
         RestoreBackgroundMusic();
 
         Debug.LogError(
-            "Грешка при пускане на Lungs Theory видеото: " +
+            "Грешка при зареждане на Lungs Theory видеото от сървъра: " +
             message
         );
     }
