@@ -67,7 +67,7 @@ Developed as part of the programme “От висше образование к�
 
 ## Copyright
 
-Copyright (c) 2026 Viktor Bozhinov, Dimitar Velchev, and Emil Tinkov.
+Copyright (c) 2026 Victor Bozhinov, Dimitar Velchev, and Emil Tinkov.
 All rights reserved.
 
 This repository is provided for portfolio review and recruitment evaluation.
