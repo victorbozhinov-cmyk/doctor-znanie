@@ -53,6 +53,7 @@ public class LungsLevelManager : MonoBehaviour
 
     public void OpenPuzzle()
     {
+        Debug.Log("OPEN PUZZLE CALLED!");
         Time.timeScale = 1f;
 
         if (puzzleSuccessPanel != null)
@@ -83,6 +84,12 @@ public class LungsLevelManager : MonoBehaviour
         if (puzzlePanel != null)
         {
             puzzlePanel.SetActive(true);
+            Debug.Log(
+    "PuzzlePanel activeSelf: " +
+    puzzlePanel.activeSelf +
+    " | activeInHierarchy: " +
+    puzzlePanel.activeInHierarchy
+);
         }
         else
         {
