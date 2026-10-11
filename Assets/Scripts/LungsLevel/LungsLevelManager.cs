@@ -83,6 +83,20 @@ public class LungsLevelManager : MonoBehaviour
 
         if (puzzlePanel != null)
         {
+            Debug.Log(
+    "PuzzlePanel reference: " +
+    puzzlePanel.name +
+    " | Entity ID: " +
+    puzzlePanel.GetEntityId()
+);
+            Debug.Log(
+    "PuzzlePanel belongs to scene: " +
+    puzzlePanel.scene.IsValid()
+);
+            Debug.Log(
+    "Puzzle Scene Valid: " +
+    puzzlePanel.scene.IsValid()
+);
             puzzlePanel.SetActive(true);
             Debug.Log(
     "PuzzlePanel activeSelf: " +

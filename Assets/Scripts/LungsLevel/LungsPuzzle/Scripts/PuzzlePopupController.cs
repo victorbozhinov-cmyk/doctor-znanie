@@ -118,6 +118,12 @@ public class LungsPuzzlePopupController : MonoBehaviour
 
     public void OpenGameOver()
     {
+        Debug.Log(
+     "Popup PuzzlePanel reference: " +
+     puzzlePanel.name +
+     " | Entity ID: " +
+     puzzlePanel.GetEntityId()
+ );
         if (gameOverPanel == null)
             return;
 
