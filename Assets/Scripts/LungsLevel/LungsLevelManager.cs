@@ -53,6 +53,7 @@ public class LungsLevelManager : MonoBehaviour
 
     public void OpenPuzzle()
     {
+        Debug.Log("OPEN PUZZLE CALLED!");
         Time.timeScale = 1f;
 
         if (puzzleSuccessPanel != null)
@@ -82,7 +83,27 @@ public class LungsLevelManager : MonoBehaviour
 
         if (puzzlePanel != null)
         {
+            Debug.Log(
+    "PuzzlePanel reference: " +
+    puzzlePanel.name +
+    " | Entity ID: " +
+    puzzlePanel.GetEntityId()
+);
+            Debug.Log(
+    "PuzzlePanel belongs to scene: " +
+    puzzlePanel.scene.IsValid()
+);
+            Debug.Log(
+    "Puzzle Scene Valid: " +
+    puzzlePanel.scene.IsValid()
+);
             puzzlePanel.SetActive(true);
+            Debug.Log(
+    "PuzzlePanel activeSelf: " +
+    puzzlePanel.activeSelf +
+    " | activeInHierarchy: " +
+    puzzlePanel.activeInHierarchy
+);
         }
         else
         {

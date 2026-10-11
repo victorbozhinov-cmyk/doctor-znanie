@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -56,22 +57,11 @@ public class LungsPuzzleManager : MonoBehaviour
     // =====================================================
 
     [Header("End Panel Delays")]
-
-    [Tooltip(
-        "Кратко изчакване след последния Correct звук " +
-        "преди Success панела."
-    )]
     [Min(0f)]
-    [SerializeField]
-    private float successDelay = 0.55f;
+    [SerializeField] private float successDelay = 0.55f;
 
-    [Tooltip(
-        "Кратко изчакване след последния Wrong звук " +
-        "преди Game Over панела."
-    )]
     [Min(0f)]
-    [SerializeField]
-    private float gameOverDelay = 0.45f;
+    [SerializeField] private float gameOverDelay = 0.45f;
 
     // =====================================================
     // PART CARDS
@@ -141,6 +131,14 @@ public class LungsPuzzleManager : MonoBehaviour
     [SerializeField] private TMP_Text progressText;
 
     // =====================================================
+    // LABEL LOCK OVERLAY - NEW
+    // =====================================================
+
+    [Header("Labels Lock Overlay")]
+    [Tooltip("Overlay with blur and lock over labels")]
+    [SerializeField] private GameObject labelsLockOverlay;
+
+    // =====================================================
     // LABEL PLACED VISUALS
     // =====================================================
 
@@ -178,6 +176,7 @@ public class LungsPuzzleManager : MonoBehaviour
     private PuzzleItem currentItem;
 
     private int currentIndex;
+    private int partItemCount;
 
     private bool puzzleActive;
     private bool inputLocked;
@@ -187,8 +186,7 @@ public class LungsPuzzleManager : MonoBehaviour
     // =====================================================
 
     public bool PuzzleActive =>
-        puzzleActive &&
-        !inputLocked;
+        puzzleActive && !inputLocked;
 
     public RectTransform CurrentTarget
     {
@@ -226,13 +224,19 @@ public class LungsPuzzleManager : MonoBehaviour
         HideCurrentElement();
         HideAllPlacedVisuals();
 
+        // Lock labels at the beginning.
+        SetLabelsLocked(true);
+
         if (puzzleLives != null)
         {
             puzzleLives.ResetLives();
         }
 
         BuildPuzzleItems();
-        BuildTargetList();
+
+        // Only part targets are enabled initially.
+        BuildTargetList(false);
+
         ShufflePuzzleItems();
 
         currentIndex = 0;
@@ -246,12 +250,14 @@ public class LungsPuzzleManager : MonoBehaviour
     }
 
     // =====================================================
-    // BUILD ITEMS
+    // BUILD PUZZLE ITEMS
     // =====================================================
 
     private void BuildPuzzleItems()
     {
         puzzleItems.Clear();
+
+        // PHASE 1 - PARTS
 
         AddPuzzleItem(
             "Nose Part",
@@ -300,6 +306,11 @@ public class LungsPuzzleManager : MonoBehaviour
             diaphragmTarget,
             diaphragmPlacedVisual
         );
+
+        // Number of items in the first phase.
+        partItemCount = puzzleItems.Count;
+
+        // PHASE 2 - LABELS
 
         AddPuzzleItem(
             "Nose Label",
@@ -372,7 +383,7 @@ public class LungsPuzzleManager : MonoBehaviour
     // TARGETS
     // =====================================================
 
-    private void BuildTargetList()
+    private void BuildTargetList(bool includeLabelTargets)
     {
         allTargets.Clear();
 
@@ -383,6 +394,12 @@ public class LungsPuzzleManager : MonoBehaviour
         AddTarget(mainBronchiTarget);
         AddTarget(diaphragmTarget);
 
+        // Label targets stay unavailable
+        // until all six parts are placed.
+
+        if (!includeLabelTargets)
+            return;
+
         AddTarget(noseLabelTarget);
         AddTarget(tracheaLabelTarget);
         AddTarget(leftLungLabelTarget);
@@ -391,8 +408,7 @@ public class LungsPuzzleManager : MonoBehaviour
         AddTarget(diaphragmLabelTarget);
     }
 
-    private void AddTarget(
-        RectTransform target)
+    private void AddTarget(RectTransform target)
     {
         if (target != null)
         {
@@ -401,31 +417,70 @@ public class LungsPuzzleManager : MonoBehaviour
     }
 
     // =====================================================
-    // RANDOM
+    // RANDOM - TWO SEPARATE GROUPS
     // =====================================================
 
     private void ShufflePuzzleItems()
     {
-        for (int i = puzzleItems.Count - 1;
-             i > 0;
+        // Shuffle parts separately.
+        ShufflePuzzleRange(0, partItemCount);
+
+        // Shuffle labels separately.
+        ShufflePuzzleRange(
+            partItemCount,
+            puzzleItems.Count
+        );
+    }
+
+    private void ShufflePuzzleRange(
+        int startInclusive,
+        int endExclusive)
+    {
+        for (int i = endExclusive - 1;
+             i > startInclusive;
              i--)
         {
             int randomIndex =
-                Random.Range(
-                    0,
-                    i + 1
-                );
+                Random.Range(startInclusive, i + 1);
 
-            PuzzleItem temp =
-                puzzleItems[i];
+            PuzzleItem temp = puzzleItems[i];
 
-            puzzleItems[i] =
-                puzzleItems[randomIndex];
+            puzzleItems[i] = puzzleItems[randomIndex];
 
-            puzzleItems[randomIndex] =
-                temp;
+            puzzleItems[randomIndex] = temp;
         }
     }
+
+    // =====================================================
+    // LABEL LOCK
+    // =====================================================
+
+
+    private void SetLabelsLocked(bool locked)
+    {
+        if (labelsLockOverlay == null)
+            return;
+
+        LungsLabelsLockAnimator animator =
+            labelsLockOverlay.GetComponent<LungsLabelsLockAnimator>();
+
+        if (animator != null)
+        {
+            if (locked)
+            {
+                animator.ShowLocked();
+            }
+            else
+            {
+                animator.PlayUnlock();
+            }
+
+            return;
+        }
+
+        labelsLockOverlay.SetActive(locked);
+    }
+
 
     // =====================================================
     // PROGRESS
@@ -437,9 +492,7 @@ public class LungsPuzzleManager : MonoBehaviour
             return;
 
         progressText.text =
-            currentIndex +
-            "/" +
-            puzzleItems.Count;
+            currentIndex + "/" + puzzleItems.Count;
     }
 
     // =====================================================
@@ -451,20 +504,17 @@ public class LungsPuzzleManager : MonoBehaviour
         if (!puzzleActive)
             return;
 
-        if (currentIndex >=
-            puzzleItems.Count)
+        if (currentIndex >= puzzleItems.Count)
         {
             CompletePuzzle();
             return;
         }
 
-        currentItem =
-            puzzleItems[currentIndex];
+        currentItem = puzzleItems[currentIndex];
 
         HideCurrentElement();
 
-        if (currentItem.itemType ==
-            ItemType.Part)
+        if (currentItem.itemType == ItemType.Part)
         {
             ShowPart();
         }
@@ -479,15 +529,11 @@ public class LungsPuzzleManager : MonoBehaviour
         if (partImage == null)
             return;
 
-        partImage.sprite =
-            currentItem.sprite;
+        partImage.sprite = currentItem.sprite;
 
-        partImage.gameObject
-            .SetActive(true);
+        partImage.gameObject.SetActive(true);
 
-        ResetDraggable(
-            partImage
-        );
+        ResetDraggable(partImage);
     }
 
     private void ShowLabel()
@@ -495,19 +541,14 @@ public class LungsPuzzleManager : MonoBehaviour
         if (labelImage == null)
             return;
 
-        labelImage.sprite =
-            currentItem.sprite;
+        labelImage.sprite = currentItem.sprite;
 
-        labelImage.gameObject
-            .SetActive(true);
+        labelImage.gameObject.SetActive(true);
 
-        ResetDraggable(
-            labelImage
-        );
+        ResetDraggable(labelImage);
     }
 
-    private void ResetDraggable(
-        Image image)
+    private void ResetDraggable(Image image)
     {
         if (image == null)
             return;
@@ -553,12 +594,9 @@ public class LungsPuzzleManager : MonoBehaviour
         if (!PuzzleActive)
             return false;
 
-        for (int i = 0;
-             i < allTargets.Count;
-             i++)
+        for (int i = 0; i < allTargets.Count; i++)
         {
-            RectTransform target =
-                allTargets[i];
+            RectTransform target = allTargets[i];
 
             if (target == null)
                 continue;
@@ -587,8 +625,7 @@ public class LungsPuzzleManager : MonoBehaviour
         if (!PuzzleActive)
             return false;
 
-        foreach (RectTransform target
-                 in occupiedTargets)
+        foreach (RectTransform target in occupiedTargets)
         {
             if (target == null)
                 continue;
@@ -611,7 +648,7 @@ public class LungsPuzzleManager : MonoBehaviour
     }
 
     // =====================================================
-    // CORRECT
+    // CORRECT PLACEMENT
     // =====================================================
 
     public void CorrectPlacement()
@@ -622,8 +659,6 @@ public class LungsPuzzleManager : MonoBehaviour
         if (currentItem == null)
             return;
 
-        // Correct се пуска винаги,
-        // включително при последния елемент.
         PlayCorrectSound();
 
         if (currentItem.correctTarget != null)
@@ -635,20 +670,15 @@ public class LungsPuzzleManager : MonoBehaviour
 
         if (currentItem.placedVisual != null)
         {
-            currentItem
-                .placedVisual
-                .SetActive(true);
+            currentItem.placedVisual.SetActive(true);
 
             LungsPuzzleFeedbackFlash correctFlash =
-                currentItem
-                    .placedVisual
-                    .GetComponent<
-                        LungsPuzzleFeedbackFlash>();
+                currentItem.placedVisual
+                    .GetComponent<LungsPuzzleFeedbackFlash>();
 
             if (correctFlash != null)
             {
-                correctFlash
-                    .FlashCorrect();
+                correctFlash.FlashCorrect();
             }
         }
 
@@ -656,13 +686,28 @@ public class LungsPuzzleManager : MonoBehaviour
 
         currentIndex++;
 
+        // =================================================
+        // PHASE TRANSITION - PARTS TO LABELS
+        // =================================================
+
+        if (currentIndex == partItemCount)
+        {
+            // All six parts are now completed.
+            // Unlock the labels.
+
+            SetLabelsLocked(false);
+
+            // Include label targets.
+            BuildTargetList(true);
+        }
+
         UpdateProgressUI();
 
         ShowCurrentItem();
     }
 
     // =====================================================
-    // WRONG
+    // WRONG PLACEMENT
     // =====================================================
 
     public void WrongPlacement()
@@ -670,26 +715,21 @@ public class LungsPuzzleManager : MonoBehaviour
         if (!PuzzleActive)
             return;
 
-        // Wrong се пуска винаги,
-        // включително при последния живот.
         PlayWrongSound();
 
-        LungsPuzzleFeedbackFlash wrongFlash =
-            null;
+        LungsPuzzleFeedbackFlash wrongFlash = null;
 
         if (partImage != null &&
             partImage.gameObject.activeSelf)
         {
             wrongFlash =
-                partImage.GetComponent<
-                    LungsPuzzleFeedbackFlash>();
+                partImage.GetComponent<LungsPuzzleFeedbackFlash>();
         }
         else if (labelImage != null &&
                  labelImage.gameObject.activeSelf)
         {
             wrongFlash =
-                labelImage.GetComponent<
-                    LungsPuzzleFeedbackFlash>();
+                labelImage.GetComponent<LungsPuzzleFeedbackFlash>();
         }
 
         if (wrongFlash != null)
@@ -736,9 +776,7 @@ public class LungsPuzzleManager : MonoBehaviour
     {
         if (GameFeedbackSoundManager.Instance != null)
         {
-            GameFeedbackSoundManager
-                .Instance
-                .PlayCorrect();
+            GameFeedbackSoundManager.Instance.PlayCorrect();
         }
         else
         {
@@ -753,9 +791,7 @@ public class LungsPuzzleManager : MonoBehaviour
     {
         if (GameFeedbackSoundManager.Instance != null)
         {
-            GameFeedbackSoundManager
-                .Instance
-                .PlayWrong();
+            GameFeedbackSoundManager.Instance.PlayWrong();
         }
         else
         {
@@ -772,8 +808,8 @@ public class LungsPuzzleManager : MonoBehaviour
 
     public void DroppedOnEmptySpace()
     {
-        // Няма наказание.
-        // Няма и Wrong звук.
+        // No penalty.
+        // No wrong sound.
     }
 
     // =====================================================
@@ -807,7 +843,7 @@ public class LungsPuzzleManager : MonoBehaviour
     }
 
     // =====================================================
-    // COMPLETE
+    // COMPLETE PUZZLE
     // =====================================================
 
     private void CompletePuzzle()
@@ -822,23 +858,19 @@ public class LungsPuzzleManager : MonoBehaviour
 
         HideCurrentElement();
 
-        // =================================================
-        // SCORE
-        // =================================================
+        // SCORE - UNCHANGED
 
         if (LungsScoreManager.Instance != null &&
             puzzleLives != null)
         {
-            LungsScoreManager.Instance
-                .SubmitPuzzleResult(
-                    puzzleLives.CurrentLives,
-                    puzzleLives.MaxLives
-                );
+            LungsScoreManager.Instance.SubmitPuzzleResult(
+                puzzleLives.CurrentLives,
+                puzzleLives.MaxLives
+            );
 
             Debug.Log(
                 $"Lungs Puzzle Score submitted | " +
-                $"Lives: " +
-                $"{puzzleLives.CurrentLives}/" +
+                $"Lives: {puzzleLives.CurrentLives}/" +
                 $"{puzzleLives.MaxLives}"
             );
         }
@@ -848,8 +880,7 @@ public class LungsPuzzleManager : MonoBehaviour
             {
                 Debug.LogWarning(
                     "LungsScoreManager.Instance липсва. " +
-                    "Резултатът от Lungs Puzzle " +
-                    "не беше записан."
+                    "Резултатът от Lungs Puzzle не беше записан."
                 );
             }
 
@@ -857,8 +888,7 @@ public class LungsPuzzleManager : MonoBehaviour
             {
                 Debug.LogWarning(
                     "LungsPuzzleLives не е свързан. " +
-                    "Резултатът от Lungs Puzzle " +
-                    "не беше записан."
+                    "Резултатът от Lungs Puzzle не беше записан."
                 );
             }
         }
@@ -885,21 +915,17 @@ public class LungsPuzzleManager : MonoBehaviour
     {
         if (partImage != null)
         {
-            partImage
-                .gameObject
-                .SetActive(false);
+            partImage.gameObject.SetActive(false);
         }
 
         if (labelImage != null)
         {
-            labelImage
-                .gameObject
-                .SetActive(false);
+            labelImage.gameObject.SetActive(false);
         }
     }
 
     // =====================================================
-    // RESET VISUALS
+    // RESET PLACED VISUALS
     // =====================================================
 
     private void HideAllPlacedVisuals()
@@ -919,8 +945,7 @@ public class LungsPuzzleManager : MonoBehaviour
         SetInactive(diaphragmLabelPlacedVisual);
     }
 
-    private void SetInactive(
-        GameObject target)
+    private void SetInactive(GameObject target)
     {
         if (target != null)
         {

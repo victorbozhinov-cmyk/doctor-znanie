@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LungsPuzzlePopupController : MonoBehaviour
@@ -20,64 +21,19 @@ public class LungsPuzzlePopupController : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
 
     // =====================================================
-    // RETRY FLAG
-    // =====================================================
-
-    // Остава true през презареждането на сцената.
-    private static bool openStartPanelAfterReload = false;
-
-    // =====================================================
-    // UNITY
-    // =====================================================
-
-    private void Awake()
-    {
-        // Ако сцената е заредена от бутона "Опитай пак",
-        // насила връщаме играча в началния екран.
-        if (openStartPanelAfterReload)
-        {
-            openStartPanelAfterReload = false;
-
-            Time.timeScale = 1f;
-
-            if (startPanel != null)
-                startPanel.SetActive(true);
-
-            if (puzzlePanel != null)
-                puzzlePanel.SetActive(false);
-
-            if (gameOverPanel != null)
-                gameOverPanel.SetActive(false);
-
-            if (successPanel != null)
-                successPanel.SetActive(false);
-
-            if (exitConfirmationPanel != null)
-                exitConfirmationPanel.SetActive(false);
-
-            if (settingsPanel != null)
-                settingsPanel.SetActive(false);
-        }
-    }
-
-    // =====================================================
     // EXIT CONFIRMATION
     // =====================================================
 
     public void OpenExitConfirmation()
     {
-        if (exitConfirmationPanel == null)
-            return;
-
-        exitConfirmationPanel.SetActive(true);
+        if (exitConfirmationPanel != null)
+            exitConfirmationPanel.SetActive(true);
     }
 
     public void CloseExitConfirmation()
     {
-        if (exitConfirmationPanel == null)
-            return;
-
-        exitConfirmationPanel.SetActive(false);
+        if (exitConfirmationPanel != null)
+            exitConfirmationPanel.SetActive(false);
     }
 
     // =====================================================
@@ -86,18 +42,14 @@ public class LungsPuzzlePopupController : MonoBehaviour
 
     public void OpenSettings()
     {
-        if (settingsPanel == null)
-            return;
-
-        settingsPanel.SetActive(true);
+        if (settingsPanel != null)
+            settingsPanel.SetActive(true);
     }
 
     public void CloseSettings()
     {
-        if (settingsPanel == null)
-            return;
-
-        settingsPanel.SetActive(false);
+        if (settingsPanel != null)
+            settingsPanel.SetActive(false);
     }
 
     // =====================================================
@@ -106,10 +58,8 @@ public class LungsPuzzlePopupController : MonoBehaviour
 
     public void OpenSuccess()
     {
-        if (successPanel == null)
-            return;
-
-        successPanel.SetActive(true);
+        if (successPanel != null)
+            successPanel.SetActive(true);
     }
 
     // =====================================================
@@ -118,27 +68,18 @@ public class LungsPuzzlePopupController : MonoBehaviour
 
     public void OpenGameOver()
     {
-        if (gameOverPanel == null)
-            return;
-
-        gameOverPanel.SetActive(true);
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
     }
 
     // =====================================================
-    // RETRY LEVEL
+    // RETRY WHOLE LEVEL
     // =====================================================
 
     public void RetryPuzzle()
     {
         Time.timeScale = 1f;
 
-        // Казваме на новозаредената сцена,
-        // че трябва да започне от StartPanel.
-        openStartPanelAfterReload = true;
-
-        // Reload на целия LungsLevel:
-        // reset-ва Puzzle, Minigame, Quiz,
-        // животи, позиции и runtime флагове.
         SceneManager.LoadScene("LungsLevel");
     }
 }
