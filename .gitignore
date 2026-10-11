@@ -79,3 +79,7 @@ crashlytics-build.properties
 /WebGL_Build_Final/
 /WebGL_Build_Final.zip
 /Data/
+
+# Ignore generated WebGL builds
+/WebGL_Build_OptimizedV2/
+/WebGL_Build_OptimizedV2.zip
