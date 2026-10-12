@@ -19,9 +19,17 @@ public class BrainMinigameDropZone : MonoBehaviour
         public Sprite commandTokenSprite;
     }
 
+    // =========================================================
+    // ACCEPTED PROBLEMS
+    // =========================================================
+
     [Header("Accepted Problems")]
     [SerializeField]
     private TokenResponse[] tokenResponses;
+
+    // =========================================================
+    // COMMAND TOKEN
+    // =========================================================
 
     [Header("Command Token Visual")]
     [SerializeField]
@@ -30,6 +38,10 @@ public class BrainMinigameDropZone : MonoBehaviour
     [SerializeField]
     private BrainCommandReadyAnimation
         commandReadyAnimation;
+
+    // =========================================================
+    // BRAIN PROCESSING
+    // =========================================================
 
     [Header("Brain Processing")]
     [SerializeField]
@@ -42,6 +54,10 @@ public class BrainMinigameDropZone : MonoBehaviour
     [SerializeField]
     private Transform processingFill;
 
+    // =========================================================
+    // FEEDBACK
+    // =========================================================
+
     [Header("Failure Feedback")]
     [SerializeField]
     private ScreenFlash screenFlash;
@@ -49,6 +65,10 @@ public class BrainMinigameDropZone : MonoBehaviour
     [Header("Audio")]
     [SerializeField]
     private BrainMinigameAudio minigameAudio;
+
+    // =========================================================
+    // INTERNAL
+    // =========================================================
 
     private BrainTokenCarrier playerCarrier;
 
@@ -68,12 +88,37 @@ public class BrainMinigameDropZone : MonoBehaviour
     private Vector3 processingFillFullPosition =
         Vector3.zero;
 
+    // =========================================================
+    // EVENTS
+    // =========================================================
+
+    // Existing event
     public event Action WrongProblemDelivered;
+
+    // NEW: Correct problem delivered to brain
+    public event Action<BrainMinigameDropZone>
+        ProblemDeliveredToBrain;
+
+    // NEW: Brain finished processing
+    public event Action<BrainMinigameDropZone>
+        ProcessingCompleted;
+
+    // NEW: Player picked up the command
+    public event Action<BrainMinigameDropZone>
+        CommandPickedUp;
+
+    // =========================================================
+    // PROPERTIES
+    // =========================================================
 
     public bool IsBusy =>
         processing ||
         activeCommandTokenType !=
             BrainTokenType.None;
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Awake()
     {
@@ -127,6 +172,10 @@ public class BrainMinigameDropZone : MonoBehaviour
         TryInteract();
     }
 
+    // =========================================================
+    // PROCESSING DURATION
+    // =========================================================
+
     public void SetProcessingDuration(
         float duration)
     {
@@ -136,6 +185,10 @@ public class BrainMinigameDropZone : MonoBehaviour
                 duration
             );
     }
+
+    // =========================================================
+    // INTERACTION
+    // =========================================================
 
     private void TryInteract()
     {
@@ -194,7 +247,7 @@ public class BrainMinigameDropZone : MonoBehaviour
         // CORRECT BRAIN ZONE
         // =====================================================
 
-        // DropToken() автоматично пуска POP.
+        // DropToken() automatically plays POP.
         playerCarrier.DropToken();
 
         activeCommandTokenType =
@@ -202,6 +255,18 @@ public class BrainMinigameDropZone : MonoBehaviour
 
         activeCommandTokenSprite =
             response.commandTokenSprite;
+
+        // =====================================================
+        // NEW: NOTIFY TUTORIAL MANAGER
+        // =====================================================
+
+        // Notify that the problem was delivered
+        // to the correct brain zone.
+        ProblemDeliveredToBrain?.Invoke(this);
+
+        // =====================================================
+        // START PROCESSING
+        // =====================================================
 
         processingCoroutine =
             StartCoroutine(
@@ -270,6 +335,10 @@ public class BrainMinigameDropZone : MonoBehaviour
             yield break;
         }
 
+        // =====================================================
+        // SHOW COMMAND TOKEN
+        // =====================================================
+
         if (commandTokenVisual != null)
         {
             SpriteRenderer spriteRenderer =
@@ -289,8 +358,19 @@ public class BrainMinigameDropZone : MonoBehaviour
             {
                 commandReadyAnimation.Play();
             }
+
+            // =================================================
+            // NEW: PROCESSING COMPLETED EVENT
+            // =================================================
+
+            // Command is now ready for pickup.
+            ProcessingCompleted?.Invoke(this);
         }
     }
+
+    // =========================================================
+    // PROCESSING FILL
+    // =========================================================
 
     private void SetProcessingFill(
         float progress)
@@ -364,7 +444,11 @@ public class BrainMinigameDropZone : MonoBehaviour
             return;
         }
 
-        // PickUpToken() автоматично пуска POP.
+        // =====================================================
+        // PICK UP COMMAND
+        // =====================================================
+
+        // PickUpToken() automatically plays POP.
         playerCarrier.PickUpToken(
             activeCommandTokenSprite,
             activeCommandTokenType
@@ -377,6 +461,14 @@ public class BrainMinigameDropZone : MonoBehaviour
 
         activeCommandTokenSprite =
             null;
+
+        // =====================================================
+        // NEW: COMMAND PICKED UP EVENT
+        // =====================================================
+
+        // Notify that the player has picked up
+        // the processed command.
+        CommandPickedUp?.Invoke(this);
     }
 
     // =========================================================

@@ -63,12 +63,29 @@ public class BrainOrganStation : MonoBehaviour
     [SerializeField]
     private BrainMinigameAudio minigameAudio;
 
+    // =========================================================
+    // INTERNAL
+    // =========================================================
+
     private BrainTokenCarrier playerCarrier;
 
     private bool playerInside = false;
     private bool orderActive = false;
     private bool orderCompleted = false;
     private bool orderFailed = false;
+
+    // =========================================================
+    // TUTORIAL
+    // =========================================================
+
+    private bool isTutorialOrder = false;
+
+    public bool IsTutorialOrder =>
+        isTutorialOrder;
+
+    // =========================================================
+    // SELECTED VARIANT
+    // =========================================================
 
     private BrainTokenType
         selectedProblemTokenType =
@@ -85,6 +102,10 @@ public class BrainOrganStation : MonoBehaviour
 
     private bool variantPrepared = false;
 
+    // =========================================================
+    // EVENTS
+    // =========================================================
+
     public event Action<BrainOrganStation>
         OrderCompleted;
 
@@ -93,6 +114,14 @@ public class BrainOrganStation : MonoBehaviour
 
     public event Action
         WrongCommandDelivered;
+
+    // NEW: Notifies manager when problem is picked up.
+    public event Action<BrainOrganStation>
+        ProblemPickedUp;
+
+    // =========================================================
+    // PROPERTIES
+    // =========================================================
 
     public bool CanStartOrder =>
         !orderActive;
@@ -110,6 +139,10 @@ public class BrainOrganStation : MonoBehaviour
             return brainDropZone;
         }
     }
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Awake()
     {
@@ -178,6 +211,9 @@ public class BrainOrganStation : MonoBehaviour
         orderActive = false;
         orderCompleted = false;
         orderFailed = false;
+
+        // Reset tutorial state.
+        isTutorialOrder = false;
 
         variantPrepared = false;
 
@@ -285,7 +321,8 @@ public class BrainOrganStation : MonoBehaviour
     // =========================================================
 
     public void StartManagedOrder(
-        float orderDuration)
+        float orderDuration,
+        bool tutorial = false)
     {
         if (orderActive)
             return;
@@ -294,6 +331,9 @@ public class BrainOrganStation : MonoBehaviour
         {
             PrepareNextVariant();
         }
+
+        // NEW: Store whether this order is a tutorial.
+        isTutorialOrder = tutorial;
 
         orderActive = true;
         orderCompleted = false;
@@ -311,16 +351,21 @@ public class BrainOrganStation : MonoBehaviour
 
         if (orderUI != null)
         {
+            // Tutorial orders do not have a timer.
+            // Normal orders keep their original timer.
             orderUI.StartOrder(
                 selectedProblemTokenType,
-                orderDuration
+                orderDuration,
+                !isTutorialOrder
             );
         }
 
         Debug.Log(
             gameObject.name +
             " started managed order: " +
-            selectedProblemTokenType
+            selectedProblemTokenType +
+            " | Tutorial: " +
+            isTutorialOrder
         );
     }
 
@@ -364,8 +409,7 @@ public class BrainOrganStation : MonoBehaviour
             return;
         }
 
-        // PickUpToken() автоматично
-        // пуска POP.
+        // PickUpToken() automatically plays POP.
         playerCarrier.PickUpToken(
             selectedProblemTokenSprite,
             selectedProblemTokenType
@@ -377,6 +421,18 @@ public class BrainOrganStation : MonoBehaviour
         {
             orderUI.NotifyProblemPickedUp();
         }
+
+        // =====================================================
+        // NEW: PROBLEM PICKED UP EVENT
+        // =====================================================
+
+        ProblemPickedUp?.Invoke(this);
+
+        Debug.Log(
+            gameObject.name +
+            " problem picked up. Tutorial: " +
+            isTutorialOrder
+        );
     }
 
     // =========================================================
@@ -417,7 +473,7 @@ public class BrainOrganStation : MonoBehaviour
         // CORRECT ORGAN STATION
         // =====================================================
 
-        // DropToken() автоматично пуска POP.
+        // DropToken() automatically plays POP.
         playerCarrier.DropToken();
 
         orderCompleted = true;
@@ -432,7 +488,7 @@ public class BrainOrganStation : MonoBehaviour
         {
             screenFlash.PlayGreenFlash();
 
-            // Глобалният Correct звук.
+            // Global Correct sound.
             if (minigameAudio != null)
             {
                 minigameAudio
@@ -442,7 +498,11 @@ public class BrainOrganStation : MonoBehaviour
 
         variantPrepared = false;
 
+        // Notify manager before resetting tutorial state.
         OrderCompleted?.Invoke(this);
+
+        // NEW: Reset tutorial state.
+        isTutorialOrder = false;
     }
 
     // =========================================================
@@ -466,10 +526,16 @@ public class BrainOrganStation : MonoBehaviour
         variantPrepared = false;
 
         OrderFailed?.Invoke(this);
+
+        // Reset tutorial state.
+        isTutorialOrder = false;
     }
 
     public void CancelOrder()
     {
+        // Always reset tutorial state.
+        isTutorialOrder = false;
+
         if (!orderActive &&
             !orderCompleted &&
             !orderFailed)
@@ -525,8 +591,8 @@ public class BrainOrganStation : MonoBehaviour
             )
             {
                 /*
-                 * Автоматично изчистване,
-                 * затова НЯМА token pop.
+                 * Automatic cleanup.
+                 * No token POP sound.
                  */
                 carrier.DropToken(false);
             }

@@ -40,7 +40,14 @@ public class BrainOrderUI : MonoBehaviour
     [SerializeField]
     private ScreenFlash screenFlash;
 
+    // =========================================================
+    // INTERNAL
+    // =========================================================
+
     private float remainingTime;
+
+    // NEW: Tutorial timer support
+    private bool timerEnabled = true;
 
     private bool orderActive = false;
     private bool problemPickedUp = false;
@@ -60,6 +67,10 @@ public class BrainOrderUI : MonoBehaviour
     public float RemainingTime =>
         remainingTime;
 
+    // =========================================================
+    // UNITY
+    // =========================================================
+
     private void Awake()
     {
         HideAllOrderUI();
@@ -78,13 +89,23 @@ public class BrainOrderUI : MonoBehaviour
             return;
         }
 
-        UpdateTimer();
+        // NEW: Timer runs only when enabled
+        if (timerEnabled)
+        {
+            UpdateTimer();
+        }
+
         UpdateVisualState();
     }
 
+    // =========================================================
+    // START ORDER
+    // =========================================================
+
     public void StartOrder(
         BrainTokenType problemTokenType,
-        float duration)
+        float duration,
+        bool enableTimer = true)
     {
         activeProblemTokenType =
             problemTokenType;
@@ -101,6 +122,10 @@ public class BrainOrderUI : MonoBehaviour
         remainingTime =
             orderDuration;
 
+        // NEW: Enable or disable order timer
+        timerEnabled =
+            enableTimer;
+
         orderActive = true;
         problemPickedUp = false;
         orderCompleted = false;
@@ -113,6 +138,10 @@ public class BrainOrderUI : MonoBehaviour
         UpdateTimeDisplay();
         UpdateVisualState();
     }
+
+    // =========================================================
+    // PROBLEM PICKED UP
+    // =========================================================
 
     public void NotifyProblemPickedUp()
     {
@@ -127,6 +156,10 @@ public class BrainOrderUI : MonoBehaviour
         UpdateVisualState();
     }
 
+    // =========================================================
+    // COMPLETE ORDER
+    // =========================================================
+
     public void CompleteOrder()
     {
         if (!orderActive)
@@ -138,15 +171,27 @@ public class BrainOrderUI : MonoBehaviour
         HideAllOrderUI();
     }
 
+    // =========================================================
+    // CANCEL ORDER
+    // =========================================================
+
     public void CancelOrder()
     {
         orderActive = false;
         orderCompleted = false;
         problemPickedUp = false;
+
         remainingTime = 0f;
+
+        // Reset timer mode
+        timerEnabled = true;
 
         HideAllOrderUI();
     }
+
+    // =========================================================
+    // FAIL ORDER
+    // =========================================================
 
     private void FailOrder()
     {
@@ -170,6 +215,10 @@ public class BrainOrderUI : MonoBehaviour
         OrderFailed?.Invoke();
     }
 
+    // =========================================================
+    // PLAYER NEARBY
+    // =========================================================
+
     public void SetPlayerNearby(
         bool nearby)
     {
@@ -177,6 +226,10 @@ public class BrainOrderUI : MonoBehaviour
 
         UpdateVisualState();
     }
+
+    // =========================================================
+    // TIMER
+    // =========================================================
 
     private void UpdateTimer()
     {
@@ -196,8 +249,41 @@ public class BrainOrderUI : MonoBehaviour
         UpdateTimeDisplay();
     }
 
+    // =========================================================
+    // TIME DISPLAY
+    // =========================================================
+
     private void UpdateTimeDisplay()
     {
+        // =====================================================
+        // TUTORIAL ORDER - NO TIMER
+        // =====================================================
+
+        if (!timerEnabled)
+        {
+            if (timeFill != null)
+            {
+                timeFill.fillAmount = 1f;
+            }
+
+            if (timeText != null)
+            {
+                timeText.text = "∞";
+            }
+
+            if (activeProblemUI != null &&
+                activeProblemUI.infoTimeText != null)
+            {
+                activeProblemUI.infoTimeText.text = "∞";
+            }
+
+            return;
+        }
+
+        // =====================================================
+        // NORMAL ORDER - TIMER ENABLED
+        // =====================================================
+
         if (timeFill != null)
         {
             timeFill.fillAmount =
@@ -232,6 +318,10 @@ public class BrainOrderUI : MonoBehaviour
                 formattedTime;
         }
     }
+
+    // =========================================================
+    // VISUAL STATE
+    // =========================================================
 
     private void UpdateVisualState()
     {
@@ -282,6 +372,10 @@ public class BrainOrderUI : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // FIND PROBLEM UI
+    // =========================================================
+
     private ProblemUIEntry FindProblemUI(
         BrainTokenType problemTokenType)
     {
@@ -309,6 +403,10 @@ public class BrainOrderUI : MonoBehaviour
         return null;
     }
 
+    // =========================================================
+    // HIDE ORDER UI
+    // =========================================================
+
     private void HideAllOrderUI()
     {
         if (orderAlert != null)
@@ -318,6 +416,10 @@ public class BrainOrderUI : MonoBehaviour
 
         HideAllInfoPanels();
     }
+
+    // =========================================================
+    // HIDE INFO PANELS
+    // =========================================================
 
     private void HideAllInfoPanels()
     {
