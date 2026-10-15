@@ -42,10 +42,12 @@ The game was developed collaboratively by three team members. Each member was re
 - Developed the main menu and navigation between the game's main sections.
 - Created the “About the Game” section, presenting the story, gameplay mechanics, project information, and team.
 - Implemented educational video playback within the game.
+- Integrated educational content and visual assets into the scenes he developed.
 - Designed and implemented the liver level, including gameplay logic, user interface, and transitions between activities.
 - Integrated educational content and visual assets into the scenes he developed.
 - Contributed to the shared development of the lungs level.
 - Connected his components with the rest of the project and collaborated with the team on their integration.
+- Fixed gameplay and interface bugs
 
 ### Emil Tinkov
 - Developed the settings menu and its user interface.
