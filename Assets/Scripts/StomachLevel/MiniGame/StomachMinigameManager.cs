@@ -87,6 +87,7 @@ public class StomachMinigameManager : MonoBehaviour
     private bool minigameStarted;
     private bool welcomeIsClosing;
     private bool welcomeInfoOpen;
+    private bool waitingForPeristalsisTimerStart;
 
     // =========================================================
     // UNITY
@@ -127,6 +128,9 @@ public class StomachMinigameManager : MonoBehaviour
         {
             peristalsisController.WaveFailedEarlyRelease +=
                 OnWaveFailedEarlyRelease;
+
+            peristalsisController.MarkerGrabbed +=
+                OnPeristalsisMarkerGrabbed;
         }
 
         if (taskTimer != null)
@@ -160,6 +164,9 @@ public class StomachMinigameManager : MonoBehaviour
         {
             peristalsisController.WaveFailedEarlyRelease -=
                 OnWaveFailedEarlyRelease;
+
+            peristalsisController.MarkerGrabbed -=
+                OnPeristalsisMarkerGrabbed;
         }
 
         if (taskTimer != null)
@@ -191,6 +198,7 @@ public class StomachMinigameManager : MonoBehaviour
         minigameStarted = false;
         welcomeIsClosing = false;
         welcomeInfoOpen = false;
+        waitingForPeristalsisTimerStart = false;
 
         if (feedbackPanel != null)
         {
@@ -544,6 +552,8 @@ public class StomachMinigameManager : MonoBehaviour
         CurrentState =
             GameState.JuiceReady;
 
+        waitingForPeristalsisTimerStart = false;
+
         if (markerPanel != null)
         {
             markerPanel.SetActive(false);
@@ -715,10 +725,16 @@ public class StomachMinigameManager : MonoBehaviour
 
         if (taskTimer != null)
         {
+            // Показваме пълен таймер, но не го пускаме още.
+            // Той ще тръгне при първото хващане на маркера.
             taskTimer.StartTimer(
                 GetPeristalsisDuration()
             );
+
+            taskTimer.PauseTimer();
         }
+
+        waitingForPeristalsisTimerStart = true;
 
         if (totalTimer != null)
         {
@@ -738,6 +754,31 @@ public class StomachMinigameManager : MonoBehaviour
 
             default:
                 return mediumPeristalsisDuration;
+        }
+    }
+
+    // =========================================================
+    // MARKER GRABBED
+    // =========================================================
+
+    private void OnPeristalsisMarkerGrabbed()
+    {
+        if (CurrentState !=
+            GameState.Peristalsis)
+        {
+            return;
+        }
+
+        if (!waitingForPeristalsisTimerStart)
+        {
+            return;
+        }
+
+        waitingForPeristalsisTimerStart = false;
+
+        if (taskTimer != null)
+        {
+            taskTimer.ResumeTimer();
         }
     }
 
@@ -765,6 +806,8 @@ public class StomachMinigameManager : MonoBehaviour
 
         CurrentState =
             GameState.WaveFeedback;
+
+        waitingForPeristalsisTimerStart = false;
 
         if (markerPanel != null)
         {
@@ -831,6 +874,8 @@ public class StomachMinigameManager : MonoBehaviour
 
         if (currentWaves >= requiredWaves)
         {
+            waitingForPeristalsisTimerStart = false;
+
             if (taskTimer != null)
             {
                 taskTimer.StopTimer();
@@ -1100,10 +1145,16 @@ public class StomachMinigameManager : MonoBehaviour
 
         if (taskTimer != null)
         {
+            // След timeout даваме нов пълен опит,
+            // но таймерът пак чака играчът да хване маркера.
             taskTimer.StartTimer(
                 GetPeristalsisDuration()
             );
+
+            taskTimer.PauseTimer();
         }
+
+        waitingForPeristalsisTimerStart = true;
 
         if (totalTimer != null)
         {
@@ -1244,6 +1295,8 @@ public class StomachMinigameManager : MonoBehaviour
         CurrentState =
             GameState.ReadyForIntestine;
 
+        waitingForPeristalsisTimerStart = false;
+
         if (juiceGame != null)
         {
             juiceGame.StopAndHide();
@@ -1314,6 +1367,8 @@ public class StomachMinigameManager : MonoBehaviour
         CurrentState =
             GameState.TransferringToIntestine;
 
+        waitingForPeristalsisTimerStart = false;
+
         if (intestineButtonShowcase != null)
         {
             intestineButtonShowcase
@@ -1376,6 +1431,8 @@ public class StomachMinigameManager : MonoBehaviour
 
         CurrentState =
             GameState.Finished;
+
+        waitingForPeristalsisTimerStart = false;
 
         if (juicesButtonShowcase != null)
         {

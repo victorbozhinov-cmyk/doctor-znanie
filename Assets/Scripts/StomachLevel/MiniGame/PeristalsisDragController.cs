@@ -20,26 +20,69 @@ public class PeristalsisDragController :
     // =========================================================
 
     public event Action WaveFailedEarlyRelease;
+    public event Action MarkerGrabbed;
+
+    // =========================================================
+    // MARKER
+    // =========================================================
 
     [Header("Marker")]
-    [SerializeField] private RectTransform draggableMarker;
+    [SerializeField]
+    private RectTransform draggableMarker;
+
+    [SerializeField]
+    private MarkerAttentionAnimation markerAttentionAnimation;
+
+    // =========================================================
+    // MOVEMENT
+    // =========================================================
 
     [Header("Movement Area")]
-    [SerializeField] private RectTransform gameplayArea;
-    [SerializeField] private Canvas canvas;
+    [SerializeField]
+    private RectTransform gameplayArea;
+
+    [SerializeField]
+    private Canvas canvas;
+
+    // =========================================================
+    // CHECKPOINTS
+    // =========================================================
 
     [Header("Checkpoints")]
-    [SerializeField] private RectTransform topCheckpoint;
-    [SerializeField] private RectTransform middleCheckpoint;
-    [SerializeField] private RectTransform bottomCheckpoint;
+    [SerializeField]
+    private RectTransform topCheckpoint;
+
+    [SerializeField]
+    private RectTransform middleCheckpoint;
+
+    [SerializeField]
+    private RectTransform bottomCheckpoint;
+
+    // =========================================================
+    // SYSTEMS
+    // =========================================================
 
     [Header("Systems")]
-    [SerializeField] private StomachPeristalsisEffect peristalsisEffect;
-    [SerializeField] private StomachFoodStageController foodStageController;
-    [SerializeField] private PeristalsisCheckpointLayout checkpointLayout;
+    [SerializeField]
+    private StomachPeristalsisEffect peristalsisEffect;
+
+    [SerializeField]
+    private StomachFoodStageController foodStageController;
+
+    [SerializeField]
+    private PeristalsisCheckpointLayout checkpointLayout;
+
+    // =========================================================
+    // AUDIO
+    // =========================================================
 
     [Header("Audio")]
-    [SerializeField] private StomachMinigameAudio minigameAudio;
+    [SerializeField]
+    private StomachMinigameAudio minigameAudio;
+
+    // =========================================================
+    // INTERNAL
+    // =========================================================
 
     private WaveStep currentStep =
         WaveStep.NeedTop;
@@ -60,6 +103,15 @@ public class PeristalsisDragController :
         {
             draggableMarker =
                 transform as RectTransform;
+        }
+
+        if (markerAttentionAnimation == null &&
+            draggableMarker != null)
+        {
+            markerAttentionAnimation =
+                draggableMarker.GetComponent<
+                    MarkerAttentionAnimation
+                >();
         }
 
         if (canvas != null)
@@ -101,12 +153,26 @@ public class PeristalsisDragController :
 
         isDragging = true;
 
-        if (RectTransformUtility
-            .ScreenPointToWorldPointInRectangle(
-                gameplayArea,
-                eventData.position,
-                uiCamera,
-                out Vector3 pointerWorldPosition))
+        // Играчът е открил маркера.
+        if (markerAttentionAnimation != null)
+        {
+            markerAttentionAnimation
+                .StopAttention();
+        }
+
+        // Current Task Timer започва
+        // при първото хващане.
+        MarkerGrabbed?.Invoke();
+
+        if (
+            RectTransformUtility
+                .ScreenPointToWorldPointInRectangle(
+                    gameplayArea,
+                    eventData.position,
+                    uiCamera,
+                    out Vector3 pointerWorldPosition
+                )
+        )
         {
             dragOffset =
                 draggableMarker.position -
@@ -144,12 +210,15 @@ public class PeristalsisDragController :
             return;
         }
 
-        if (RectTransformUtility
-            .ScreenPointToWorldPointInRectangle(
-                gameplayArea,
-                eventData.position,
-                uiCamera,
-                out Vector3 pointerWorldPosition))
+        if (
+            RectTransformUtility
+                .ScreenPointToWorldPointInRectangle(
+                    gameplayArea,
+                    eventData.position,
+                    uiCamera,
+                    out Vector3 pointerWorldPosition
+                )
+        )
         {
             draggableMarker.position =
                 pointerWorldPosition +
@@ -198,9 +267,12 @@ public class PeristalsisDragController :
         {
             case WaveStep.NeedTop:
 
-                if (IsPointInsideCheckpoint(
-                    markerWorldPosition,
-                    topCheckpoint))
+                if (
+                    IsPointInsideCheckpoint(
+                        markerWorldPosition,
+                        topCheckpoint
+                    )
+                )
                 {
                     ReachTop();
                 }
@@ -209,9 +281,12 @@ public class PeristalsisDragController :
 
             case WaveStep.NeedMiddle:
 
-                if (IsPointInsideCheckpoint(
-                    markerWorldPosition,
-                    middleCheckpoint))
+                if (
+                    IsPointInsideCheckpoint(
+                        markerWorldPosition,
+                        middleCheckpoint
+                    )
+                )
                 {
                     ReachMiddle();
                 }
@@ -220,9 +295,12 @@ public class PeristalsisDragController :
 
             case WaveStep.NeedBottom:
 
-                if (IsPointInsideCheckpoint(
-                    markerWorldPosition,
-                    bottomCheckpoint))
+                if (
+                    IsPointInsideCheckpoint(
+                        markerWorldPosition,
+                        bottomCheckpoint
+                    )
+                )
                 {
                     ReachBottom();
                 }
@@ -243,10 +321,9 @@ public class PeristalsisDragController :
         }
 
         Vector3 localPoint =
-            checkpoint
-                .InverseTransformPoint(
-                    worldPoint
-                );
+            checkpoint.InverseTransformPoint(
+                worldPoint
+            );
 
         return checkpoint.rect.Contains(
             new Vector2(
@@ -265,11 +342,22 @@ public class PeristalsisDragController :
         currentStep =
             WaveStep.NeedMiddle;
 
+        // -------------------------
+        // AUDIO
+        // -------------------------
+
         if (minigameAudio != null)
         {
             minigameAudio
                 .PlayCheckpointPop();
+
+            minigameAudio
+                .PlaySplat1();
         }
+
+        // -------------------------
+        // VISUAL
+        // -------------------------
 
         PlayCheckpointSuccess(
             topCheckpoint
@@ -281,12 +369,6 @@ public class PeristalsisDragController :
 
         if (peristalsisEffect != null)
         {
-            if (minigameAudio != null)
-            {
-                minigameAudio
-                    .PlaySplat1();
-            }
-
             peristalsisEffect
                 .PlayTop();
         }
@@ -301,11 +383,22 @@ public class PeristalsisDragController :
         currentStep =
             WaveStep.NeedBottom;
 
+        // -------------------------
+        // AUDIO
+        // -------------------------
+
         if (minigameAudio != null)
         {
             minigameAudio
                 .PlayCheckpointPop();
+
+            minigameAudio
+                .PlaySplat2();
         }
+
+        // -------------------------
+        // VISUAL
+        // -------------------------
 
         PlayCheckpointSuccess(
             middleCheckpoint
@@ -317,12 +410,6 @@ public class PeristalsisDragController :
 
         if (peristalsisEffect != null)
         {
-            if (minigameAudio != null)
-            {
-                minigameAudio
-                    .PlaySplat2();
-            }
-
             peristalsisEffect
                 .PlayMiddle();
         }
@@ -336,20 +423,25 @@ public class PeristalsisDragController :
     {
         waveCompleted = true;
 
+        // -------------------------
+        // AUDIO
+        // -------------------------
+
         if (minigameAudio != null)
         {
             minigameAudio
                 .PlayCheckpointPop();
+
+            minigameAudio
+                .PlaySplat1();
         }
+
+        // -------------------------
+        // VISUAL
+        // -------------------------
 
         if (peristalsisEffect != null)
         {
-            if (minigameAudio != null)
-            {
-                minigameAudio
-                    .PlaySplat1();
-            }
-
             peristalsisEffect
                 .PlayBottom();
         }
@@ -407,7 +499,8 @@ public class PeristalsisDragController :
                 .ResetMarker();
         }
 
-        WaveFailedEarlyRelease?.Invoke();
+        WaveFailedEarlyRelease
+            ?.Invoke();
     }
 
     // =========================================================

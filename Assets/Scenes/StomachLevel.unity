@@ -1099,6 +1099,8 @@ MonoBehaviour:
   returnDuration: 0.12
   pauseBetweenPulses: 0.06
   pulseCount: 2
+  repeatUntilStopped: 1
+  repeatDelay: 0.75
 --- !u!1 &58944446
 GameObject:
   m_ObjectHideFlags: 0
@@ -4360,6 +4362,7 @@ GameObject:
   - component: {fileID: 255129307}
   - component: {fileID: 255129306}
   - component: {fileID: 255129308}
+  - component: {fileID: 255129309}
   m_Layer: 5
   m_Name: DraggableMarker
   m_TagString: Untagged
@@ -4437,6 +4440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PeristalsisDragController
   draggableMarker: {fileID: 255129305}
+  markerAttentionAnimation: {fileID: 255129309}
   gameplayArea: {fileID: 461125755}
   canvas: {fileID: 128806329}
   topCheckpoint: {fileID: 497397160}
@@ -4446,6 +4450,25 @@ MonoBehaviour:
   foodStageController: {fileID: 1118095233}
   checkpointLayout: {fileID: 461125756}
   minigameAudio: {fileID: 1863947497}
+--- !u!114 &255129309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255129304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f544f98c2da3ad4f8349472bff8775a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarkerAttentionAnimation
+  popScale: 1.28
+  wiggleAngle: 8
+  wiggleCount: 2
+  popDuration: 0.1
+  wiggleStepDuration: 0.07
+  settleDuration: 0.12
+  repeatDelay: 0.75
 --- !u!1 &265524701
 GameObject:
   m_ObjectHideFlags: 0
@@ -29375,6 +29398,8 @@ MonoBehaviour:
   returnDuration: 0.12
   pauseBetweenPulses: 0.06
   pulseCount: 2
+  repeatUntilStopped: 1
+  repeatDelay: 0.75
 --- !u!1 &1764181134
 GameObject:
   m_ObjectHideFlags: 0
