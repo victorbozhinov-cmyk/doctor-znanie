@@ -173,7 +173,7 @@ public class BrainMinigameManager : MonoBehaviour
     [SerializeField]
     private BrainOrganStation tutorialStation;
 
-    [Tooltip("Панел с инструкции. Не трябва да спира движението на героя.")]
+    [Tooltip("TutorialWorldRoot: включва панела, надписа и SkipTutorialButton.")]
     [SerializeField]
     private GameObject tutorialOverlay;
 
@@ -183,6 +183,24 @@ public class BrainMinigameManager : MonoBehaviour
     [Min(0f)]
     [SerializeField]
     private float tutorialCompletionDelay = 2f;
+
+    [Header("Tutorial Transition - Fade Out")]
+    [SerializeField, Min(0f)]
+    private float tutorialFadeDuration = 0.5f;
+
+    [Header("Tutorial Transition - Player Reset")]
+    [Tooltip("PlayerRoot, който съдържа BrainMinigamePlayer.")]
+    [SerializeField] private BrainMinigamePlayer tutorialPlayer;
+
+    [Tooltip("По избор. Ако не е свързан, използва началната позиция на героя при зареждане на сцената.")]
+    [SerializeField] private Transform playerStartPoint;
+
+    [Header("Tutorial Transition - Screen Shake")]
+    [Tooltip("При успешно завършване и при натискане на Пропусни.")]
+    [SerializeField] private Camera tutorialShakeCamera;
+
+    [SerializeField, Min(0f)] private float tutorialShakeDuration = 0.3f;
+    [SerializeField, Min(0f)] private float tutorialShakeIntensity = 0.12f;
 
     // All tutorial messages are editable from the Unity Inspector.
     // Existing scene references and difficulty settings are unchanged.
@@ -353,6 +371,18 @@ public class BrainMinigameManager : MonoBehaviour
     private BrainMinigameDropZone activeTutorialDropZone;
     private Coroutine tutorialCompletionCoroutine;
 
+    // Original UI colors are preserved so the tutorial can run again.
+    private SpriteRenderer[] tutorialSpriteRenderers;
+    private Color[] tutorialOriginalSpriteColors;
+    private TMP_Text[] tutorialTextRenderers;
+    private Color[] tutorialOriginalTextColors;
+
+    private Vector3 originalPlayerPosition;
+    private bool hasOriginalPlayerPosition;
+
+    private Transform activeShakeTransform;
+    private Vector3 originalShakePosition;
+
     public float NervousTension => nervousTension;
     public float RemainingRoundTime => remainingRoundTime;
     public bool IsPaused => isPaused;
@@ -361,6 +391,12 @@ public class BrainMinigameManager : MonoBehaviour
     // =========================================================
     // UNITY
     // =========================================================
+
+    private void Awake()
+    {
+        CacheTutorialVisuals();
+        CachePlayerStartPosition();
+    }
 
     private void Start()
     {
@@ -554,6 +590,7 @@ public class BrainMinigameManager : MonoBehaviour
 
         tutorialActive = true;
         tutorialFinishing = false;
+        RestoreTutorialVisuals();
         tutorialStep = TutorialStep.None;
         activeTutorialStation = null;
         activeTutorialDropZone = null;
@@ -713,45 +750,221 @@ public class BrainMinigameManager : MonoBehaviour
 
         StopTutorialCompletionCoroutine();
         tutorialCompletionCoroutine =
-            StartCoroutine(TutorialCompletionRoutine());
+            StartCoroutine(TutorialExitRoutine(successfullyCompleted: true));
     }
 
-    private IEnumerator TutorialCompletionRoutine()
-    {
-        if (tutorialCompletionDelay > 0f)
-            yield return new WaitForSeconds(tutorialCompletionDelay);
-
-        tutorialCompletionCoroutine = null;
-
-        if (tutorialActive)
-            BeginNormalRoundAfterTutorial();
-    }
-
-    // Link a UI Button to this public method (On Click).
+    // Called by BrainTutorialSkipButton.cs when the player clicks Skip.
     public void SkipTutorial()
     {
-        if (!tutorialActive)
+        if (!tutorialActive || tutorialFinishing || isPaused)
             return;
 
+        tutorialFinishing = true;
         StopTutorialCompletionCoroutine();
-        BeginNormalRoundAfterTutorial();
+        tutorialCompletionCoroutine =
+            StartCoroutine(TutorialExitRoutine(successfullyCompleted: false));
+    }
+
+    private IEnumerator TutorialExitRoutine(bool successfullyCompleted)
+    {
+        // Success message stays readable before the transition starts.
+        if (successfullyCompleted && tutorialCompletionDelay > 0f)
+            yield return new WaitForSeconds(tutorialCompletionDelay);
+
+        float fadeDuration = Mathf.Max(0f, tutorialFadeDuration);
+        float shakeDuration = Mathf.Max(0f, tutorialShakeDuration);
+
+        // Run Fade Out and screen shake simultaneously for both completion and Skip.
+        float transitionDuration = Mathf.Max(fadeDuration, shakeDuration);
+
+        Camera cameraToShake = tutorialShakeCamera != null
+            ? tutorialShakeCamera
+            : Camera.main;
+
+        if (shakeDuration > 0f && tutorialShakeIntensity > 0f &&
+            cameraToShake != null)
+        {
+            activeShakeTransform = cameraToShake.transform;
+            originalShakePosition = activeShakeTransform.localPosition;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < transitionDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            // Fade includes SpriteRenderers AND TextMeshPro; the skip button
+            // is part of the same hierarchy (TutorialWorldRoot).
+            float fadeProgress = fadeDuration <= 0f
+                ? 1f
+                : Mathf.Clamp01(elapsed / fadeDuration);
+            float easedFade = Mathf.SmoothStep(0f, 1f, fadeProgress);
+            SetTutorialVisualAlpha(1f - easedFade);
+
+            if (activeShakeTransform != null)
+            {
+                if (elapsed < shakeDuration)
+                {
+                    float damping = 1f - elapsed / shakeDuration;
+                    float strength = tutorialShakeIntensity * damping;
+                    float phase = elapsed * 35f;
+
+                    Vector3 offset = new Vector3(
+                        Mathf.Sin(phase * 1.29f),
+                        Mathf.Cos(phase * 1.71f),
+                        0f) * strength;
+
+                    activeShakeTransform.localPosition =
+                        originalShakePosition + offset;
+                }
+                else
+                {
+                    RestoreCameraPosition();
+                }
+            }
+
+            yield return null;
+        }
+
+        RestoreCameraPosition();
+        SetTutorialVisualAlpha(0f);
+
+        // Important: Do not start the clock until the animation has ended.
+        tutorialCompletionCoroutine = null;
+        if (tutorialActive)
+            BeginNormalRoundAfterTutorial();
     }
 
     private void BeginNormalRoundAfterTutorial()
     {
         StopTutorialCompletionCoroutine();
-        ResetTutorialState();
+
+        // Stop tutorial order and clear its tokens BEFORE the real round.
         StopAllOrders();
+        ResetPlayerForNormalRound();
+        ResetTutorialState();
         StartRound();
     }
 
     private void StopTutorialCompletionCoroutine()
     {
-        if (tutorialCompletionCoroutine == null)
+        if (tutorialCompletionCoroutine != null)
+        {
+            StopCoroutine(tutorialCompletionCoroutine);
+            tutorialCompletionCoroutine = null;
+        }
+
+        RestoreCameraPosition();
+    }
+
+    private void RestoreCameraPosition()
+    {
+        if (activeShakeTransform == null)
             return;
 
-        StopCoroutine(tutorialCompletionCoroutine);
-        tutorialCompletionCoroutine = null;
+        activeShakeTransform.localPosition = originalShakePosition;
+        activeShakeTransform = null;
+    }
+
+    private void CacheTutorialVisuals()
+    {
+        if (tutorialOverlay == null)
+            return;
+
+        tutorialSpriteRenderers =
+            tutorialOverlay.GetComponentsInChildren<SpriteRenderer>(true);
+        tutorialOriginalSpriteColors =
+            new Color[tutorialSpriteRenderers.Length];
+
+        for (int i = 0; i < tutorialSpriteRenderers.Length; i++)
+            tutorialOriginalSpriteColors[i] = tutorialSpriteRenderers[i].color;
+
+        tutorialTextRenderers =
+            tutorialOverlay.GetComponentsInChildren<TMP_Text>(true);
+        tutorialOriginalTextColors =
+            new Color[tutorialTextRenderers.Length];
+
+        for (int i = 0; i < tutorialTextRenderers.Length; i++)
+            tutorialOriginalTextColors[i] = tutorialTextRenderers[i].color;
+    }
+
+    private void SetTutorialVisualAlpha(float alpha)
+    {
+        alpha = Mathf.Clamp01(alpha);
+
+        if (tutorialSpriteRenderers != null)
+        {
+            for (int i = 0; i < tutorialSpriteRenderers.Length; i++)
+            {
+                if (tutorialSpriteRenderers[i] == null) continue;
+                Color color = tutorialOriginalSpriteColors[i];
+                color.a *= alpha;
+                tutorialSpriteRenderers[i].color = color;
+            }
+        }
+
+        if (tutorialTextRenderers != null)
+        {
+            for (int i = 0; i < tutorialTextRenderers.Length; i++)
+            {
+                if (tutorialTextRenderers[i] == null) continue;
+                Color color = tutorialOriginalTextColors[i];
+                color.a *= alpha;
+                tutorialTextRenderers[i].color = color;
+            }
+        }
+    }
+
+    private void RestoreTutorialVisuals()
+    {
+        // Colors are cached on Awake; restore them after every fade.
+        SetTutorialVisualAlpha(1f);
+    }
+
+    private void CachePlayerStartPosition()
+    {
+        if (tutorialPlayer == null)
+            tutorialPlayer = FindFirstObjectByType<BrainMinigamePlayer>();
+
+        if (tutorialPlayer == null)
+            return;
+
+        originalPlayerPosition = tutorialPlayer.transform.position;
+        hasOriginalPlayerPosition = true;
+    }
+
+    private void ResetPlayerForNormalRound()
+    {
+        if (tutorialPlayer == null)
+            CachePlayerStartPosition();
+
+        if (tutorialPlayer == null)
+        {
+            Debug.LogWarning("Brain Tutorial: Player не е открит за връщане в стартовата позиция.");
+            return;
+        }
+
+        // DropToken(false) clears the carried signal without playing a POP.
+        BrainTokenCarrier carrier = tutorialPlayer.GetComponent<BrainTokenCarrier>();
+        if (carrier != null && carrier.IsCarryingToken)
+            carrier.DropToken(false);
+
+        if (!hasOriginalPlayerPosition && playerStartPoint == null)
+            return;
+
+        Vector3 newPosition = playerStartPoint != null
+            ? playerStartPoint.position
+            : originalPlayerPosition;
+
+        Rigidbody2D rb = tutorialPlayer.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.position = new Vector2(newPosition.x, newPosition.y);
+        }
+
+        tutorialPlayer.transform.position = newPosition;
     }
 
     private void ResetTutorialState()
@@ -761,7 +974,9 @@ public class BrainMinigameManager : MonoBehaviour
         tutorialStep = TutorialStep.None;
         activeTutorialStation = null;
         activeTutorialDropZone = null;
+
         HideTutorialUI();
+        RestoreTutorialVisuals();
     }
 
     // =========================================================
@@ -819,7 +1034,7 @@ public class BrainMinigameManager : MonoBehaviour
     {
         if (!minigameStarted ||
             (!roundRunning && !tutorialActive) ||
-            isPaused || menuTransitionInProgress)
+            isPaused || menuTransitionInProgress || tutorialFinishing)
             return;
 
         isPaused = true;
@@ -1496,6 +1711,13 @@ public class BrainMinigameManager : MonoBehaviour
         if (roundTimeText == null)
             return;
 
+        // The tutorial has no time limit, just like the tutorial order.
+        if (tutorialActive)
+        {
+            roundTimeText.text = "∞";
+            return;
+        }
+
         int totalSeconds = Mathf.CeilToInt(remainingRoundTime);
         int minutes = totalSeconds / 60;
         int seconds = totalSeconds % 60;
@@ -1633,3 +1855,4 @@ public class BrainMinigameManager : MonoBehaviour
         }
     }
 }
+
