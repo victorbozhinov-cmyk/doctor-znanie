@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: 9735ebeeccd5fa649b906e911724c947
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5577617364490641940
+    second: mouthProblemPanelEasy_0
+  - first:
+      213: -4840867744180414953
+    second: mouthProblemPanelEasy_1
+  - first:
+      213: 8004079534166212554
+    second: mouthProblemPanelEasy_2
+  - first:
+      213: -6903353143793436200
+    second: mouthProblemPanelEasy_3
+  - first:
+      213: -8026322214594514799
+    second: mouthProblemPanelEasy_4
+  - first:
+      213: -7393637140158039092
+    second: mouthProblemPanelEasy_5
+  - first:
+      213: -5130798618054450347
+    second: mouthProblemPanelEasy_6
+  - first:
+      213: -3865655305980000397
+    second: mouthProblemPanelEasy_7
+  - first:
+      213: -196128783565348150
+    second: mouthProblemPanelEasy_8
+  - first:
+      213: -4164857961242315863
+    second: mouthProblemPanelEasy_9
+  - first:
+      213: -4086843954463697885
+    second: mouthProblemPanelEasy_10
+  - first:
+      213: -3785870883492419880
+    second: mouthProblemPanelEasy_11
+  - first:
+      213: -2403932660529903713
+    second: mouthProblemPanelEasy_12
+  - first:
+      213: -2997763106758520915
+    second: mouthProblemPanelEasy_13
+  - first:
+      213: 5644372438609812723
+    second: mouthProblemPanelEasy_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_0
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 877
+        width: 75
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ced1c78fe825892b0800000000000000
+      internalID: -5577617364490641940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_1
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 926
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 716da774f68c1dcb0800000000000000
+      internalID: -4840867744180414953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 7
+        width: 1649
+        height: 894
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acf73fbcde3341f60800000000000000
+      internalID: 8004079534166212554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_3
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 879
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d9bd1924ec5230a0800000000000000
+      internalID: -6903353143793436200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_4
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 889
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190744a9876cc9090800000000000000
+      internalID: -8026322214594514799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_5
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 881
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccbbeb6b136846990800000000000000
+      internalID: -7393637140158039092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_6
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 891
+        width: 86
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 553accc47ddbbc8b0800000000000000
+      internalID: -5130798618054450347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_7
+      rect:
+        serializedVersion: 2
+        x: 1322
+        y: 897
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37745f6fafe6a5ac0800000000000000
+      internalID: -3865655305980000397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_8
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 899
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac2ab5519e5374df0800000000000000
+      internalID: -196128783565348150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_9
+      rect:
+        serializedVersion: 2
+        x: 1367
+        y: 897
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a3b13820c37336c0800000000000000
+      internalID: -4164857961242315863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_10
+      rect:
+        serializedVersion: 2
+        x: 1322
+        y: 872
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3241db1931d9847c0800000000000000
+      internalID: -4086843954463697885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_11
+      rect:
+        serializedVersion: 2
+        x: 1395
+        y: 867
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d6a0f76d72e57bc0800000000000000
+      internalID: -3785870883492419880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_12
+      rect:
+        serializedVersion: 2
+        x: 1623
+        y: 851
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f97c7295bf383aed0800000000000000
+      internalID: -2403932660529903713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 66
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daf03e4565ec566d0800000000000000
+      internalID: -2997763106758520915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mouthProblemPanelEasy_14
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 7
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fcd757e3d6d45e40800000000000000
+      internalID: 5644372438609812723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      mouthProblemPanelEasy_0: -5577617364490641940
+      mouthProblemPanelEasy_1: -4840867744180414953
+      mouthProblemPanelEasy_10: -4086843954463697885
+      mouthProblemPanelEasy_11: -3785870883492419880
+      mouthProblemPanelEasy_12: -2403932660529903713
+      mouthProblemPanelEasy_13: -2997763106758520915
+      mouthProblemPanelEasy_14: 5644372438609812723
+      mouthProblemPanelEasy_2: 8004079534166212554
+      mouthProblemPanelEasy_3: -6903353143793436200
+      mouthProblemPanelEasy_4: -8026322214594514799
+      mouthProblemPanelEasy_5: -7393637140158039092
+      mouthProblemPanelEasy_6: -5130798618054450347
+      mouthProblemPanelEasy_7: -3865655305980000397
+      mouthProblemPanelEasy_8: -196128783565348150
+      mouthProblemPanelEasy_9: -4164857961242315863
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

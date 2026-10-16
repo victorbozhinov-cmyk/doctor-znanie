@@ -16,6 +16,93 @@ public class BrainOrderUI : MonoBehaviour
         public GameObject infoPanelRoot;
 
         public TMP_Text infoTimeText;
+
+        [Header("Colored Panel (Easy / Medium)")]
+        [Tooltip("Drag the UI Image component on InfoPanelImage. Do not drag the signal image.")]
+        public Image infoPanelImage;
+
+        [Tooltip("A pre-generated panel sprite with the border color of the correct brain zone.")]
+        public Sprite coloredPanelSprite;
+
+        [Header("Timer Position Offsets")]
+        [Tooltip("Easy and Medium. Offset from the original InfoTimeText position. (0, 0) keeps the existing position.")]
+        public Vector2 easyTimerOffset = Vector2.zero;
+
+        [Tooltip("Hard only. Offset from the original InfoTimeText position. (0, 0) keeps the existing position.")]
+        public Vector2 hardTimerOffset = Vector2.zero;
+
+        // Remember the existing Source Image before swapping sprites.
+        [NonSerialized] private Sprite originalPanelSprite;
+        [NonSerialized] private bool originalPanelSpriteCached;
+        [NonSerialized] private RectTransform timerRect;
+        [NonSerialized] private Vector2 originalTimerPosition;
+        [NonSerialized] private bool originalTimerPositionCached;
+
+        public void CacheOriginalTimerPosition()
+        {
+            if (originalTimerPositionCached || infoTimeText == null)
+                return;
+
+            timerRect = infoTimeText.GetComponent<RectTransform>();
+
+            if (timerRect == null)
+                return;
+
+            originalTimerPosition = timerRect.anchoredPosition;
+            originalTimerPositionCached = true;
+        }
+
+        public void ApplyTimerPositionForDifficulty(int difficulty)
+        {
+            CacheOriginalTimerPosition();
+
+            if (!originalTimerPositionCached || timerRect == null)
+                return;
+
+            Vector2 offset = Vector2.zero;
+
+            if (difficulty == 0 || difficulty == 1) // Easy and Medium
+                offset = easyTimerOffset;
+            else if (difficulty == 2) // Hard
+                offset = hardTimerOffset;
+
+            timerRect.anchoredPosition = originalTimerPosition + offset;
+        }
+
+        public void RestoreOriginalTimerPosition()
+        {
+            if (originalTimerPositionCached && timerRect != null)
+                timerRect.anchoredPosition = originalTimerPosition;
+        }
+
+        public void CacheOriginalPanelSprite()
+        {
+            if (originalPanelSpriteCached || infoPanelImage == null)
+                return;
+
+            originalPanelSprite = infoPanelImage.sprite;
+            originalPanelSpriteCached = true;
+        }
+
+        public void RestoreOriginalPanelSprite()
+        {
+            if (originalPanelSpriteCached && infoPanelImage != null)
+                infoPanelImage.sprite = originalPanelSprite;
+        }
+
+        public void ApplyPanelSpriteForDifficulty(int difficulty)
+        {
+            CacheOriginalPanelSprite();
+
+            if (!originalPanelSpriteCached)
+                return;
+
+            bool showColorHint = difficulty == 0 || difficulty == 1;
+
+            infoPanelImage.sprite = showColorHint && coloredPanelSprite != null
+                ? coloredPanelSprite
+                : originalPanelSprite;
+        }
     }
 
     [Header("Default Order Time")]
@@ -73,6 +160,19 @@ public class BrainOrderUI : MonoBehaviour
 
     private void Awake()
     {
+        // Cache the original red-outline sprites before the first order.
+        if (problemUIEntries != null)
+        {
+            foreach (ProblemUIEntry entry in problemUIEntries)
+            {
+                if (entry != null)
+                {
+                    entry.CacheOriginalPanelSprite();
+                    entry.CacheOriginalTimerPosition();
+                }
+            }
+        }
+
         HideAllOrderUI();
 
         if (timeFill != null)
@@ -113,6 +213,16 @@ public class BrainOrderUI : MonoBehaviour
         activeProblemUI =
             FindProblemUI(
                 problemTokenType);
+
+        // Only the nearby information-panel artwork is swapped.
+        // The carried token, zone matching, timers, and tutorial remain unchanged.
+        // PlayerPrefs Difficulty: 0 = Easy, 1 = Medium, 2 = Hard.
+        if (activeProblemUI != null)
+        {
+            int difficulty = PlayerPrefs.GetInt("Difficulty", 1);
+            activeProblemUI.ApplyPanelSpriteForDifficulty(difficulty);
+            activeProblemUI.ApplyTimerPositionForDifficulty(difficulty);
+        }
 
         orderDuration =
             Mathf.Max(
@@ -169,6 +279,7 @@ public class BrainOrderUI : MonoBehaviour
         orderActive = false;
 
         HideAllOrderUI();
+        RestorePanelAndTimer();
     }
 
     // =========================================================
@@ -187,6 +298,7 @@ public class BrainOrderUI : MonoBehaviour
         timerEnabled = true;
 
         HideAllOrderUI();
+        RestorePanelAndTimer();
     }
 
     // =========================================================
@@ -206,6 +318,7 @@ public class BrainOrderUI : MonoBehaviour
 
         UpdateTimeDisplay();
         HideAllOrderUI();
+        RestorePanelAndTimer();
 
         if (screenFlash != null)
         {
@@ -213,6 +326,25 @@ public class BrainOrderUI : MonoBehaviour
         }
 
         OrderFailed?.Invoke();
+    }
+
+    // =========================================================
+    // RESTORE ORIGINAL PANEL AND TIMER POSITION
+    // =========================================================
+
+    private void RestorePanelAndTimer()
+    {
+        if (problemUIEntries == null)
+            return;
+
+        foreach (ProblemUIEntry entry in problemUIEntries)
+        {
+            if (entry == null)
+                continue;
+
+            entry.RestoreOriginalPanelSprite();
+            entry.RestoreOriginalTimerPosition();
+        }
     }
 
     // =========================================================

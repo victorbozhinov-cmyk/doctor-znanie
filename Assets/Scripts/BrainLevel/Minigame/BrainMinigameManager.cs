@@ -100,6 +100,23 @@ public class BrainMinigameManager : MonoBehaviour
         };
 
     // =========================================================
+    // GRADUAL GAMEPLAY INTENSITY (Difficulty never changes)
+    // =========================================================
+
+    [Header("Gradual Gameplay Intensity")]
+    [Tooltip("Medium: number of seconds using Easy gameplay values at the start of the real round.")]
+    [SerializeField, Min(0f)]
+    private float mediumEasyPhaseSeconds = 20f;
+
+    [Tooltip("Hard: number of seconds using Easy gameplay values at the start of the real round.")]
+    [SerializeField, Min(0f)]
+    private float hardEasyPhaseSeconds = 10f;
+
+    [Tooltip("Hard: number of additional seconds using Medium gameplay values after the Easy phase.")]
+    [SerializeField, Min(0f)]
+    private float hardMediumPhaseSeconds = 20f;
+
+    // =========================================================
     // STATIONS
     // =========================================================
 
@@ -321,7 +338,14 @@ public class BrainMinigameManager : MonoBehaviour
     // INTERNAL
     // =========================================================
 
+    // Selected difficulty settings determine total round duration (unchanged).
     private DifficultySettings currentSettings;
+
+    // Only gameplay parameters use the currently active warm-up phase.
+    // Never changes PlayerPrefs, score difficulty, tutorial mode, or panel hints.
+    private DifficultySettings gameplaySettings;
+    private int selectedRoundDifficulty = 1;
+    private int gameplayPhase = -1; // 0=Easy-like, 1=Medium-like, 2=Hard-like
 
     private readonly List<BrainOrganStation> activeStations =
         new List<BrainOrganStation>();
@@ -444,6 +468,8 @@ public class BrainMinigameManager : MonoBehaviour
         StopAllOrders();
 
         currentSettings = GetCurrentDifficultySettings();
+        gameplaySettings = currentSettings;
+        gameplayPhase = -1;
         remainingRoundTime = currentSettings.roundDuration;
         nervousTension = 0f;
 
@@ -579,6 +605,8 @@ public class BrainMinigameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         currentSettings = GetCurrentDifficultySettings();
+        gameplaySettings = currentSettings;
+        gameplayPhase = -1;
         remainingRoundTime = currentSettings.roundDuration;
         nervousTension = 0f;
         currentTensionBrainState = 0;
@@ -990,8 +1018,15 @@ public class BrainMinigameManager : MonoBehaviour
         ResetTutorialState();
         StopAllOrders();
 
+        selectedRoundDifficulty = Mathf.Clamp(
+            PlayerPrefs.GetInt("Difficulty", 1), 0, 2);
         currentSettings = GetCurrentDifficultySettings();
         remainingRoundTime = currentSettings.roundDuration;
+
+        // Gameplay starts at the initial warm-up phase; selected difficulty
+        // and the full round duration remain unchanged for the entire round.
+        gameplayPhase = GetGameplayPhase(0f);
+        gameplaySettings = GetGameplaySettingsForPhase(gameplayPhase);
 
         nervousTension = 0f;
         currentTensionBrainState = 0;
@@ -1359,7 +1394,7 @@ public class BrainMinigameManager : MonoBehaviour
                 continue;
 
             dropZone.SetProcessingDuration(
-                currentSettings.brainProcessingTime);
+                gameplaySettings.brainProcessingTime);
 
             dropZone.WrongProblemDelivered += HandleWrongBrainZone;
             dropZone.ProblemDeliveredToBrain += HandleTutorialProblemDelivered;
@@ -1392,29 +1427,45 @@ public class BrainMinigameManager : MonoBehaviour
 
     private IEnumerator SpawnOrdersRoutine()
     {
+        // On a phase change, resample the next spawn delay from the new
+        // phase settings instead of waiting for an old longer interval.
+        int scheduledPhase = gameplayPhase;
+        float delayRemaining = GetRandomSpawnDelay();
+
         while (roundRunning)
         {
-            float delay = Random.Range(
-                currentSettings.minSpawnDelay,
-                currentSettings.maxSpawnDelay);
+            if (scheduledPhase != gameplayPhase)
+            {
+                scheduledPhase = gameplayPhase;
+                delayRemaining = GetRandomSpawnDelay();
+            }
 
-            yield return new WaitForSeconds(delay);
+            if (!isPaused)
+            {
+                delayRemaining -= Time.deltaTime;
 
-            if (!roundRunning)
-                yield break;
+                if (delayRemaining <= 0f)
+                {
+                    TryStartRandomOrder();
+                    delayRemaining = GetRandomSpawnDelay();
+                }
+            }
 
-            if (isPaused)
-                continue;
-
-            if (activeStations.Count < currentSettings.maxActiveOrders)
-                TryStartRandomOrder();
+            yield return null;
         }
+    }
+
+    private float GetRandomSpawnDelay()
+    {
+        return Mathf.Max(0f, Random.Range(
+            gameplaySettings.minSpawnDelay,
+            gameplaySettings.maxSpawnDelay));
     }
 
     private void TryStartRandomOrder()
     {
         if (!roundRunning || isPaused ||
-            activeStations.Count >= currentSettings.maxActiveOrders)
+            activeStations.Count >= gameplaySettings.maxActiveOrders)
             return;
 
         List<BrainOrganStation> available = new List<BrainOrganStation>();
@@ -1458,7 +1509,7 @@ public class BrainMinigameManager : MonoBehaviour
         BrainOrganStation selected =
             available[Random.Range(0, available.Count)];
 
-        selected.StartManagedOrder(currentSettings.orderDuration);
+        selected.StartManagedOrder(gameplaySettings.orderDuration);
         activeStations.Add(selected);
         RegisterRecentStation(selected);
 
@@ -1501,7 +1552,7 @@ public class BrainMinigameManager : MonoBehaviour
         if (station == null)
             return;
 
-        int maxRecent = Mathf.Max(0, currentSettings.recentOrderBlockCount);
+        int maxRecent = Mathf.Max(0, gameplaySettings.recentOrderBlockCount);
 
         if (maxRecent == 0)
         {
@@ -1545,7 +1596,7 @@ public class BrainMinigameManager : MonoBehaviour
         }
 
         activeStations.Remove(station);
-        AddTension(currentSettings.failedOrderTension);
+        AddTension(gameplaySettings.failedOrderTension);
 
         Debug.Log(station.gameObject.name + " failed.");
         TryFillAvailableOrderSlots();
@@ -1563,7 +1614,7 @@ public class BrainMinigameManager : MonoBehaviour
             return;
         }
 
-        AddTension(currentSettings.wrongBrainZoneTension);
+        AddTension(gameplaySettings.wrongBrainZoneTension);
     }
 
     private void HandleWrongCommandDelivered()
@@ -1578,7 +1629,7 @@ public class BrainMinigameManager : MonoBehaviour
             return;
         }
 
-        AddTension(currentSettings.wrongBrainZoneTension);
+        AddTension(gameplaySettings.wrongBrainZoneTension);
     }
 
     private void TryFillAvailableOrderSlots()
@@ -1596,10 +1647,10 @@ public class BrainMinigameManager : MonoBehaviour
 
     private void UpdatePassiveTension()
     {
-        if (currentSettings == null || activeStations.Count <= 0)
+        if (gameplaySettings == null || activeStations.Count <= 0)
             return;
 
-        float rate = currentSettings.passiveTensionPerActiveOrderPerSecond;
+        float rate = gameplaySettings.passiveTensionPerActiveOrderPerSecond;
 
         if (rate <= 0f)
             return;
@@ -1677,6 +1728,9 @@ public class BrainMinigameManager : MonoBehaviour
     private void UpdateRoundTimer()
     {
         remainingRoundTime -= Time.deltaTime;
+
+        if (remainingRoundTime > 0f)
+            UpdateGameplayPhase();
 
         if (remainingRoundTime <= 0f)
         {
@@ -1809,6 +1863,64 @@ public class BrainMinigameManager : MonoBehaviour
         }
 
         activeStations.Clear();
+    }
+
+    // =========================================================
+    // GRADUAL GAMEPLAY INTENSITY
+    // =========================================================
+
+    private int GetGameplayPhase(float elapsedRoundSeconds)
+    {
+        // This is NOT the actual difficulty: it only selects the gameplay
+        // values used at this point in the round.
+        if (selectedRoundDifficulty == 0)
+            return 0;
+
+        if (selectedRoundDifficulty == 1)
+            return elapsedRoundSeconds < mediumEasyPhaseSeconds ? 0 : 1;
+
+        if (elapsedRoundSeconds < hardEasyPhaseSeconds)
+            return 0;
+
+        if (elapsedRoundSeconds < hardEasyPhaseSeconds + hardMediumPhaseSeconds)
+            return 1;
+
+        return 2;
+    }
+
+    private DifficultySettings GetGameplaySettingsForPhase(int phase)
+    {
+        switch (phase)
+        {
+            case 0: return easySettings;
+            case 1: return mediumSettings;
+            default: return hardSettings;
+        }
+    }
+
+    private void UpdateGameplayPhase()
+    {
+        // Calculating from the round clock means pausing and the tutorial
+        // do not advance the warm-up stages.
+        float elapsed = currentSettings.roundDuration - remainingRoundTime;
+        int newPhase = GetGameplayPhase(elapsed);
+
+        if (newPhase == gameplayPhase)
+            return;
+
+        gameplayPhase = newPhase;
+        gameplaySettings = GetGameplaySettingsForPhase(gameplayPhase);
+
+        // Applies processing duration to subsequent signals handled by zones.
+        // All remaining controls read gameplaySettings at the time of use.
+        foreach (BrainMinigameDropZone zone in subscribedDropZones)
+        {
+            if (zone != null)
+                zone.SetProcessingDuration(gameplaySettings.brainProcessingTime);
+        }
+
+        Debug.Log($"Brain minigame gameplay phase: {gameplayPhase} " +
+                  $"(selected difficulty remains {selectedRoundDifficulty}).");
     }
 
     // =========================================================

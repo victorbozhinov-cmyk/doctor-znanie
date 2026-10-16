@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &18637718
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1762,7 +1762,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.016391292, y: 0.257953, z: -0.04543841, w: 0.084577695}
+  m_margin: {x: -0.016391292, y: 0.2996675, z: -0.04543841, w: 0.12629284}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5481,9 +5481,17 @@ MonoBehaviour:
   - problemTokenType: 3
     infoPanelRoot: {fileID: 1817071064}
     infoTimeText: {fileID: 1069068771}
+    infoPanelImage: {fileID: 0}
+    coloredPanelSprite: {fileID: 0}
+    easyTimerOffset: {x: 0, y: 0}
+    hardTimerOffset: {x: 0, y: 0}
   - problemTokenType: 23
     infoPanelRoot: {fileID: 1848030585}
     infoTimeText: {fileID: 606692186}
+    infoPanelImage: {fileID: 0}
+    coloredPanelSprite: {fileID: 0}
+    easyTimerOffset: {x: 0, y: 0}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &334965526
 GameObject:
@@ -7976,7 +7984,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &436483111
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9268,6 +9276,10 @@ MonoBehaviour:
   - problemTokenType: 10
     infoPanelRoot: {fileID: 1986081948}
     infoTimeText: {fileID: 222471736}
+    infoPanelImage: {fileID: 75856605}
+    coloredPanelSprite: {fileID: 21300000, guid: 9735ebeeccd5fa649b906e911724c947, type: 3}
+    easyTimerOffset: {x: 0, y: 0}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &484324348
 GameObject:
@@ -9327,6 +9339,10 @@ MonoBehaviour:
   - problemTokenType: 14
     infoPanelRoot: {fileID: 18637717}
     infoTimeText: {fileID: 1039437392}
+    infoPanelImage: {fileID: 1781297335}
+    coloredPanelSprite: {fileID: 21300000, guid: 8229233449c336e4c87d4e63e6375640, type: 3}
+    easyTimerOffset: {x: 0, y: -0.03}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &485498392
 GameObject:
@@ -9344,7 +9360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &485498393
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14029,7 +14045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &779811926
 Transform:
   m_ObjectHideFlags: 0
@@ -14527,6 +14543,9 @@ MonoBehaviour:
     failedOrderTension: 34
     wrongBrainZoneTension: 20
     passiveTensionPerActiveOrderPerSecond: 0.15
+  mediumEasyPhaseSeconds: 20
+  hardEasyPhaseSeconds: 10
+  hardMediumPhaseSeconds: 20
   stations:
   - {fileID: 1052249972}
   - {fileID: 317849855}
@@ -15402,6 +15421,10 @@ MonoBehaviour:
   - problemTokenType: 18
     infoPanelRoot: {fileID: 2144468960}
     infoTimeText: {fileID: 1864514050}
+    infoPanelImage: {fileID: 2101172576}
+    coloredPanelSprite: {fileID: 21300000, guid: 5e781c25841beb249ba328aa6d9397fd, type: 3}
+    easyTimerOffset: {x: 0, y: -0.04}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &804790409
 GameObject:
@@ -16952,9 +16975,17 @@ MonoBehaviour:
   - problemTokenType: 1
     infoPanelRoot: {fileID: 323947311}
     infoTimeText: {fileID: 172653051}
+    infoPanelImage: {fileID: 0}
+    coloredPanelSprite: {fileID: 0}
+    easyTimerOffset: {x: 0, y: 0}
+    hardTimerOffset: {x: 0, y: 0}
   - problemTokenType: 22
     infoPanelRoot: {fileID: 1439872831}
     infoTimeText: {fileID: 1957261968}
+    infoPanelImage: {fileID: 0}
+    coloredPanelSprite: {fileID: 0}
+    easyTimerOffset: {x: 0, y: 0}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &866086773
 GameObject:
@@ -17534,7 +17565,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.016391292, y: 0.257953, z: -0.04543841, w: 0.084577695}
+  m_margin: {x: 0.037684307, y: 0.3255469, z: -0.04543841, w: 0.12513453}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -18712,6 +18743,10 @@ MonoBehaviour:
   - problemTokenType: 8
     infoPanelRoot: {fileID: 758897027}
     infoTimeText: {fileID: 1268764687}
+    infoPanelImage: {fileID: 1094019659}
+    coloredPanelSprite: {fileID: 21300000, guid: 43b0927d460b3ef49863d9e37b5a4649, type: 3}
+    easyTimerOffset: {x: 0, y: -0.04}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &917731949
 GameObject:
@@ -20652,7 +20687,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.016391292, y: 0.257953, z: -0.04543841, w: 0.084577695}
+  m_margin: {x: 0.0032367853, y: 0.3168376, z: 0.0036331713, w: 0.17290588}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -20724,6 +20759,10 @@ MonoBehaviour:
   - problemTokenType: 16
     infoPanelRoot: {fileID: 2045143899}
     infoTimeText: {fileID: 1172315150}
+    infoPanelImage: {fileID: 1152219986}
+    coloredPanelSprite: {fileID: 21300000, guid: eda56f330b076884b86c5a9dfd30554a, type: 3}
+    easyTimerOffset: {x: 0, y: -0.05}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &1052249969
 GameObject:
@@ -22792,7 +22831,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.016391292, y: 0.257953, z: -0.04543841, w: 0.084577695}
+  m_margin: {x: -0.016391292, y: 0.24692793, z: -0.04543841, w: 0.057014994}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -23524,7 +23563,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.016391292, y: 0.08741935, z: -0.14205563, w: 0}
+  m_margin: {x: -0.016391292, y: 0.14142221, z: -0.14205563, w: 0.03085889}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -23777,6 +23816,10 @@ MonoBehaviour:
   - problemTokenType: 5
     infoPanelRoot: {fileID: 2080164988}
     infoTimeText: {fileID: 1204092318}
+    infoPanelImage: {fileID: 1472677057}
+    coloredPanelSprite: {fileID: 21300000, guid: 778b181c552746e4cb1b0d3d298e8b03, type: 3}
+    easyTimerOffset: {x: 0, y: 0}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &1226721140
 GameObject:
@@ -23943,7 +23986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1235894794
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29844,6 +29887,10 @@ MonoBehaviour:
   - problemTokenType: 12
     infoPanelRoot: {fileID: 1971090079}
     infoTimeText: {fileID: 73519180}
+    infoPanelImage: {fileID: 889199511}
+    coloredPanelSprite: {fileID: 21300000, guid: 972113a1d26deff40ba3a3fff44adee9, type: 3}
+    easyTimerOffset: {x: 0, y: -0.03}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &1519449893
 GameObject:
@@ -30565,6 +30612,10 @@ MonoBehaviour:
   - problemTokenType: 20
     infoPanelRoot: {fileID: 436483110}
     infoTimeText: {fileID: 873422575}
+    infoPanelImage: {fileID: 548653499}
+    coloredPanelSprite: {fileID: 21300000, guid: 93feddf0ae4fffa41a6ceccba7c33a24, type: 3}
+    easyTimerOffset: {x: 0, y: -0.03}
+    hardTimerOffset: {x: 0, y: 0}
   screenFlash: {fileID: 2107514473}
 --- !u!1 &1589381474
 GameObject:
@@ -35315,7 +35366,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.22869374, y: 1.196002}
+  m_AnchoredPosition: {x: 0.22869374, y: 1.2070272}
   m_SizeDelta: {x: 0.842, y: 0.6549}
   m_Pivot: {x: 0.5, y: 0.50000006}
 --- !u!114 &1864514050
@@ -35404,7 +35455,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.016391292, y: 0.257953, z: -0.04543841, w: 0.084577695}
+  m_margin: {x: -0.016391292, y: 0.36820433, z: -0.04543841, w: 0.17277864}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -38387,7 +38438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1971090080
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41027,7 +41078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2045143900
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42003,7 +42054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2080164989
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43145,7 +43196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2144468961
 RectTransform:
   m_ObjectHideFlags: 0
