@@ -14,6 +14,10 @@ public class UIButtonShowcaseAnimation : MonoBehaviour
     [SerializeField] private float pauseBetweenPulses = 0.06f;
     [SerializeField] private int pulseCount = 2;
 
+    [Header("Repeat Reminder")]
+    [SerializeField] private bool repeatUntilStopped = true;
+    [SerializeField] private float repeatDelay = 0.75f;
+
     private RectTransform rectTransform;
 
     private Vector2 originalPosition;
@@ -58,7 +62,7 @@ public class UIButtonShowcaseAnimation : MonoBehaviour
 
         showcaseCoroutine =
             StartCoroutine(
-                ShowcaseRoutine()
+                ShowcaseLoop()
             );
     }
 
@@ -77,19 +81,38 @@ public class UIButtonShowcaseAnimation : MonoBehaviour
     }
 
     // =========================================================
-    // SHOWCASE
+    // LOOP
     // =========================================================
 
-    private IEnumerator ShowcaseRoutine()
+    private IEnumerator ShowcaseLoop()
+    {
+        do
+        {
+            yield return ShowcaseOnce();
+
+            if (!repeatUntilStopped)
+                break;
+
+            yield return new WaitForSeconds(
+                repeatDelay
+            );
+        }
+        while (true);
+
+        ResetTransform();
+        showcaseCoroutine = null;
+    }
+
+    // =========================================================
+    // ONE SHOWCASE
+    // =========================================================
+
+    private IEnumerator ShowcaseOnce()
     {
         for (int i = 0;
              i < pulseCount;
              i++)
         {
-            // ---------------------------------------------
-            // UP + SLIGHT RIGHT
-            // ---------------------------------------------
-
             Vector2 firstPosition =
                 originalPosition +
                 Vector2.up *
@@ -110,10 +133,6 @@ public class UIButtonShowcaseAnimation : MonoBehaviour
                 firstRotation,
                 moveDuration
             );
-
-            // ---------------------------------------------
-            // UP + SLIGHT LEFT
-            // ---------------------------------------------
 
             Vector2 secondPosition =
                 originalPosition +
@@ -136,10 +155,6 @@ public class UIButtonShowcaseAnimation : MonoBehaviour
                 moveDuration
             );
 
-            // ---------------------------------------------
-            // RETURN
-            // ---------------------------------------------
-
             yield return AnimateTo(
                 originalPosition,
                 originalRotation,
@@ -149,15 +164,13 @@ public class UIButtonShowcaseAnimation : MonoBehaviour
             if (i <
                 pulseCount - 1)
             {
-                yield return new WaitForSecondsRealtime(
+                yield return new WaitForSeconds(
                     pauseBetweenPulses
                 );
             }
         }
 
         ResetTransform();
-
-        showcaseCoroutine = null;
     }
 
     // =========================================================
@@ -179,15 +192,13 @@ public class UIButtonShowcaseAnimation : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed +=
-                Time.unscaledDeltaTime;
+            elapsed += Time.deltaTime;
 
             float t =
                 Mathf.Clamp01(
                     elapsed / duration
                 );
 
-            // SmoothStep
             t =
                 t * t *
                 (3f - 2f * t);
